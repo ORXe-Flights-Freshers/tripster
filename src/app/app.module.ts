@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule} from './common/common.module';
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './modules/home-page/home-page.component';
+import {HeaderComponent} from './common/components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -10,7 +12,8 @@ import { HomePageComponent } from './modules/home-page/home-page.component';
     HomePageComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
