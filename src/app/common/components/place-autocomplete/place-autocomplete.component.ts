@@ -39,7 +39,7 @@ export class PlaceAutocompleteComponent implements OnInit {
     //set google maps defaults
 
     //create search FormControl
-    this.searchControl = new FormControl();
+    //this.searchControl = new FormControl();
 
     // //set current position
     // this.setCurrentPosition();
