@@ -5,6 +5,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatCardModule } from "@angular/material/card";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+
 @NgModule({
   declarations: [],
   imports: [
@@ -13,7 +15,8 @@ import { MatCardModule } from "@angular/material/card";
     MatFormFieldModule,
     MatInputModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    MatDatepickerModule
   ],
   exports: [
     CommonModule,
@@ -21,7 +24,8 @@ import { MatCardModule } from "@angular/material/card";
     MatFormFieldModule,
     MatInputModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    MatDatepickerModule
   ]
 })
 export class AppMaterialModule {}
