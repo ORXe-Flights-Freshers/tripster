@@ -3,21 +3,11 @@ import { HeaderComponent } from "./components/header/header.component";
 import { PlaceAutocompleteComponent } from "./components/place-autocomplete/place-autocomplete.component";
 import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
-import { BrowserModule } from "@angular/platform-browser";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AppMaterialModule } from "../modules/app-material/app-material.module";
 
 @NgModule({
   declarations: [HeaderComponent, PlaceAutocompleteComponent],
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserModule,
-    MatFormFieldModule,
-    MatInputModule,
-    BrowserAnimationsModule
-  ],
+  imports: [FormsModule, ReactiveFormsModule, AppMaterialModule],
   exports: [HeaderComponent, PlaceAutocompleteComponent]
 })
 export class CommonModule {}
