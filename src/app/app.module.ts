@@ -5,6 +5,7 @@ import { AppComponent } from "./app.component";
 import { HomePageModule } from "./modules/home-page/home-page.module";
 import { AgmDirectionModule } from "agm-direction";
 import { CommonModule } from "./common/common.module";
+import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +16,8 @@ import { CommonModule } from "./common/common.module";
     HomePageModule,
     HttpClientModule,
     AgmDirectionModule,
-    CommonModule
+    CommonModule,
+    BrowserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
