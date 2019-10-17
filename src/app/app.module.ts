@@ -11,6 +11,7 @@ import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { PlaceAutocompleteComponent } from "./common/components/place-autocomplete/place-autocomplete.component";
 import { AgmDirectionModule } from "agm-direction";
+import { CommonModule } from "./common/common.module";
 
 @NgModule({
   declarations: [AppComponent, PlaceAutocompleteComponent],
@@ -26,7 +27,8 @@ import { AgmDirectionModule } from "agm-direction";
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AgmDirectionModule
+    AgmDirectionModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

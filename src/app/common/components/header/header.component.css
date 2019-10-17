@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  text-decoration: none;
+}
+
+.nav-bar {
+  height: 70px;
+  background-color: #0B1240;
+  color: white;
+}
+
+.nav-bar-content {
+  width: 60%;
+  height: 100%;
+}
+
+.content * {
+  display: grid;
+  height: fit-content;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.margin-auto {
+  margin: auto;
+}
+
+.content-data {
+  width: fit-content;
+}
+
+.home {
+
+}
+
+.show-border {
+  border: 1px solid black;
+}
