@@ -21,7 +21,10 @@ export class PlaceAutocompleteComponent implements OnInit {
   public longitude: Number;
   public searchControl: FormControl;
 
-  @Input() autoCompleteOptions: google.maps.places.AutocompleteOptions;
+  @Input() autoCompleteOptions: google.maps.places.AutocompleteOptions = {
+    types: ["(cities)"],
+    componentRestrictions: { country: "IN" }
+  };
 
   @Input() placeholder: string;
 

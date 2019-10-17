@@ -11,7 +11,8 @@ import { BrowserModule } from "@angular/platform-browser";
   declarations: [AppComponent],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyC2LnC7a1z5MDzBjx4Us9qo9Z4Yupum03A"
+      apiKey: "AIzaSyC2LnC7a1z5MDzBjx4Us9qo9Z4Yupum03A",
+      libraries: ["places"]
     }),
     HomePageModule,
     HttpClientModule,
