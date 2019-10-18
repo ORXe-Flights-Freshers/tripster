@@ -6,6 +6,7 @@ import { HomePageModule } from "./modules/home-page/home-page.module";
 import { AgmDirectionModule } from "agm-direction";
 import { CommonModule } from "./common/common.module";
 import { BrowserModule } from "@angular/platform-browser";
+import { AppRoutingModule } from "./app-routing.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,8 @@ import { BrowserModule } from "@angular/platform-browser";
     HttpClientModule,
     AgmDirectionModule,
     CommonModule,
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 .search-card {
-  margin: 20px;
+  margin: 20px auto;
+  max-width: 800px;
 }
 .input-field {
-  margin-left: 1%;
+  margin-left: 2%;
 }
