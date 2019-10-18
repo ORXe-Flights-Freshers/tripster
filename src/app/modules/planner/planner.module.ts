@@ -1,9 +1,18 @@
 import { NgModule } from "@angular/core";
+import { SharedModule } from "../../shared/shared.module";
+import { PlannerComponent } from "./planner/planner.component";
 import { CommonModule } from "@angular/common";
-import { CommonModule as TripCommonModule } from "../../common/common.module";
+import { Routes, RouterModule } from "@angular/router";
+
+const routes: Routes = [
+  {
+    path: "",
+    component: PlannerComponent
+  }
+];
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule, TripCommonModule]
+  declarations: [PlannerComponent],
+  imports: [SharedModule, CommonModule, RouterModule.forChild(routes)]
 })
 export class PlannerModule {}
