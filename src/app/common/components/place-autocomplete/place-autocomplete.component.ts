@@ -21,7 +21,10 @@ export class PlaceAutocompleteComponent implements OnInit {
   public longitude: Number;
   public searchControl: FormControl;
 
-  @Input() autoCompleteOptions: google.maps.places.AutocompleteOptions;
+  @Input() autoCompleteOptions: google.maps.places.AutocompleteOptions = {
+    types: ["(cities)"],
+    componentRestrictions: { country: "IN" }
+  };
 
   @Input() placeholder: string;
 
@@ -36,7 +39,7 @@ export class PlaceAutocompleteComponent implements OnInit {
     //set google maps defaults
 
     //create search FormControl
-    this.searchControl = new FormControl();
+    //this.searchControl = new FormControl();
 
     // //set current position
     // this.setCurrentPosition();

@@ -1,0 +1,19 @@
+<mat-card class="search-card">
+  <app-place-autocomplete
+    class="input-field"
+    placeholder="Enter Source"
+  ></app-place-autocomplete>
+  <app-place-autocomplete
+    class="input-field"
+    placeholder="Enter Destination"
+  ></app-place-autocomplete>
+  <mat-form-field class="input-field">
+    <input placeholder="Trip Date" matInput [matDatepicker]="myDatepicker" />
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="myDatepicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #myDatepicker></mat-datepicker>
+  </mat-form-field>
+  <ngx-timepicker-field [defaultTime]="'11:11 am'"></ngx-timepicker-field>
+</mat-card>
