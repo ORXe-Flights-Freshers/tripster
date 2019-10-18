@@ -10,4 +10,4 @@ import { AppMaterialModule } from "../modules/app-material/app-material.module";
   imports: [FormsModule, ReactiveFormsModule, AppMaterialModule],
   exports: [HeaderComponent, PlaceAutocompleteComponent]
 })
-export class CommonModule {}
+export class SharedModule {}
