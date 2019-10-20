@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { DateTime } from "luxon";
+import { Time } from "../../../models/Time";
 
 @Component({
   selector: "app-search",
@@ -38,6 +38,10 @@ export class SearchComponent implements OnInit {
     return new Date(Date.now());
   }
   onSubmit() {
-    console.log(this.searchForm.value);
+    let time = Time.parseTimeStringToTime(this.tripTime);
+    this.tripDate.setHours(time.hours);
+    this.tripDate.setMinutes(time.minutes);
+
+    console.log(this.tripDate);
   }
 }
