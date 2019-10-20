@@ -5,6 +5,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
+import { MatButtonModule } from "@angular/material/button";
 
 @NgModule({
   declarations: [],
@@ -14,7 +15,8 @@ import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    MatButtonModule
   ]
 })
 export class AppMaterialModule {}
