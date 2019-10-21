@@ -1,1 +1,70 @@
-<p>add-stop works!</p>
+
+  <mat-card class="add-stop-card">
+      <mat-toolbar>
+        <div id="add-stop-header">
+            <h3 id="header-text">Add Stop</h3>
+            <button id="header-button" mat-button>Close</button>
+        </div>
+    
+      </mat-toolbar>
+
+ 
+    <br>
+    
+    <app-place-autocomplete
+      class="input-field"
+      placeholder="Enter Stop City"
+    ></app-place-autocomplete>
+    <br>
+    <p>Arrival</p>
+
+    <div id="arrival-block">
+
+      <div class="date-field">
+        <mat-form-field >
+          <input placeholder="Date" matInput [matDatepicker]="arrivalDatepicker" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="arrivalDatepicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #arrivalDatepicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="time-field">
+        <ngx-timepicker-field  [defaultTime]="'11:11 am'"></ngx-timepicker-field> 
+      </div> 
+
+    </div>
+   <br><br>
+    <p>Departure</p>
+
+    <div id="departure-block">
+
+        <div class="date-field">
+            <mat-form-field >
+              <input placeholder="Date" matInput [matDatepicker]="departureDatepicker" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="departureDatepicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #departureDatepicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="time-field">
+              <ngx-timepicker-field  [defaultTime]="'11:11 am'"></ngx-timepicker-field> 
+            </div> 
+    </div>
+    <br><br>
+
+    <div id="buttons-block">
+        <button mat-button>CANCEL</button>
+        <button mat-raised-button color="primary">ADD</button>
+    </div>
+    
+
+
+   
+
+  </mat-card>
