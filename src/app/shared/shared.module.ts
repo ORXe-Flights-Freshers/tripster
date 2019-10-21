@@ -3,11 +3,12 @@ import { HeaderComponent } from "./components/header/header.component";
 import { PlaceAutocompleteComponent } from "./components/place-autocomplete/place-autocomplete.component";
 import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
-import { AppMaterialModule } from "../modules/app-material/app-material.module";
+import { AppMaterialModule } from '../modules/app-material/app-material.module';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [HeaderComponent, PlaceAutocompleteComponent],
-  imports: [FormsModule, ReactiveFormsModule, AppMaterialModule],
+  imports: [FormsModule, ReactiveFormsModule, AppMaterialModule, CommonModule],
   exports: [HeaderComponent, PlaceAutocompleteComponent]
 })
 export class SharedModule {}

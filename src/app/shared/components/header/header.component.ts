@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +9,24 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class HeaderComponent implements OnInit {
+  optionsOverlay = false;
+  extraOptions: string[];
 
-  constructor() { }
+  @ViewChild('logo', { static: false })
+  logo: ElementRef;
+
+  constructor() {
+    this.extraOptions = ['Explore', 'Login'];
+  }
 
   ngOnInit() {
   }
 
+  showOptions() {
+    this.optionsOverlay = !this.optionsOverlay;
+  }
+
+  iconOnFocus() {
+    console.log('Focused');
+  }
 }
