@@ -5,7 +5,7 @@ export interface Stop {
   stopId: string;
   name: string;
   location: Location;
-  arrival: number;
-  departure: number;
+  arrival: string;
+  departure: string;
   places: Place[];
 }

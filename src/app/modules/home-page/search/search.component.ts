@@ -53,14 +53,13 @@ export class SearchComponent implements OnInit {
       this.tripService.trip = data as Trip;
       //this.router.navigate(["/", "planner"]);
       console.log(data);
-      console.log(
-        new Date(this.tripService.trip.destination.arrival).toLocaleString()
-      );
+      console.log(new Date(this.tripService.trip.destination.arrival));
     });
 
     //console.log(this.tripDate);
     // console.log(trip);
   }
+
   generateTrip(): Trip {
     let trip: Trip;
     trip = {
@@ -71,8 +70,8 @@ export class SearchComponent implements OnInit {
         },
         stopId: this.origin.id,
         name: this.origin.name,
-        arrival: this.tripDate.getTime(),
-        departure: this.tripDate.getTime(),
+        arrival: this.tripDate.toString(),
+        departure: this.tripDate.toString(),
         places: []
       },
       destination: {
@@ -82,8 +81,8 @@ export class SearchComponent implements OnInit {
         },
         stopId: this.destination.id,
         name: this.destination.name,
-        arrival: this.tripDate.getTime(),
-        departure: this.tripDate.getTime(),
+        arrival: this.tripDate.toString(),
+        departure: this.tripDate.toString(),
         places: []
       },
       stops: [],

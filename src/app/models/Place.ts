@@ -6,6 +6,6 @@ export interface Place {
   description: string;
   location: Location;
   placeType: string;
-  arrival: Date;
-  departure: Date;
+  arrival: string;
+  departure: string;
 }
