@@ -1,12 +1,11 @@
 import { Location } from "./Location";
-import { PlaceAutocompleteComponent } from "../shared/components/place-autocomplete/place-autocomplete.component";
 import { Place } from "./Place";
 
-export class Stop {
-  stopId: Number;
-  name: String;
+export interface Stop {
+  stopId: string;
+  name: string;
   location: Location;
-  arrival: Date;
-  departure: Date;
+  arrival: number;
+  departure: number;
   places: Place[];
 }

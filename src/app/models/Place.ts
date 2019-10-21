@@ -1,7 +1,7 @@
 import { Location } from "./Location";
 
-export class Place {
-  placeId: number;
+export interface Place {
+  placeId: string;
   name: string;
   description: string;
   location: Location;

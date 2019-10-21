@@ -4,10 +4,10 @@ import { PlaceAutocompleteComponent } from "./components/place-autocomplete/plac
 import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AppMaterialModule } from "../modules/app-material/app-material.module";
-
+import { HttpClientModule } from "@angular/common/http";
 @NgModule({
   declarations: [HeaderComponent, PlaceAutocompleteComponent],
   imports: [FormsModule, ReactiveFormsModule, AppMaterialModule],
-  exports: [HeaderComponent, PlaceAutocompleteComponent]
+  exports: [HeaderComponent, PlaceAutocompleteComponent, HttpClientModule]
 })
 export class SharedModule {}

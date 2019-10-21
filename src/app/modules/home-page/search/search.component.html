@@ -1,4 +1,4 @@
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()">
   <mat-card class="search-card">
     <app-place-autocomplete
       class="input-field"
@@ -41,9 +41,26 @@
       (timeSet)="handleTimeSet($event)"
       #endTime
     ></ngx-material-timepicker>
+    <!-- <mat-form-field class="input-field" appearance="outline">
+      <mat-label>Time</mat-label>
+      <input
+        matInput
+        name="tripTime"
+        value="13:30"
+        placeholder="Enter Mileage(Km/l)"
+        type="time"
+        required
+      /> -->
+    <!-- </mat-form-field> -->
+
     <mat-form-field class="input-field" appearance="outline">
       <mat-label>Enter Mileage(Km/l)</mat-label>
-      <input matInput placeholder="Enter Mileage(Km/l)" />
+      <input
+        matInput
+        [(ngModel)]="vehicleMileage"
+        name="vehicleMileage"
+        placeholder="Enter Mileage(Km/l)"
+      />
     </mat-form-field>
 
     <button

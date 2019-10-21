@@ -14,12 +14,13 @@ export class SearchComponent implements OnInit {
   origin: google.maps.places.PlaceResult;
   destination: google.maps.places.PlaceResult;
   tripDate: Date = new Date(Date.now());
-  tripTime: String = "11:00 am";
-  vehicleMileage: Number;
+  tripTime: string = "11:00 am";
+  vehicleMileage: number;
 
   searchForm = new FormGroup({
     mileage: new FormControl()
   });
+
   constructor(private tripService: TripService, private router: Router) {}
 
   ngOnInit() {}
@@ -45,19 +46,49 @@ export class SearchComponent implements OnInit {
     this.tripDate.setHours(time.hours);
     this.tripDate.setMinutes(time.minutes);
 
-    let trip = new Trip();
-    trip.source.location.latitude = this.origin.geometry.location.lat();
-    trip.source.location.latitude = this.origin.geometry.location.lng();
+    let trip = this.generateTrip();
 
-    trip.destination.location.latitude = this.destination.geometry.location.lat();
-    trip.destination.location.latitude = this.destination.geometry.location.lng();
+    console.log(trip);
+    this.tripService.createTrip(trip).subscribe(data => {
+      this.tripService.trip = data as Trip;
+      //this.router.navigate(["/", "planner"]);
+      console.log(data);
+      console.log(
+        new Date(this.tripService.trip.destination.arrival).toLocaleString()
+      );
+    });
 
-    trip.mileage = this.vehicleMileage;
-
-    this.tripService.createTrip(trip);
-
-    this.router.navigate(["/", "planner"]);
     //console.log(this.tripDate);
     // console.log(trip);
+  }
+  generateTrip(): Trip {
+    let trip: Trip;
+    trip = {
+      source: {
+        location: {
+          latitude: this.origin.geometry.location.lat(),
+          longitude: this.origin.geometry.location.lng()
+        },
+        stopId: this.origin.id,
+        name: this.origin.name,
+        arrival: this.tripDate.getTime(),
+        departure: this.tripDate.getTime(),
+        places: []
+      },
+      destination: {
+        location: {
+          latitude: this.destination.geometry.location.lat(),
+          longitude: this.destination.geometry.location.lng()
+        },
+        stopId: this.destination.id,
+        name: this.destination.name,
+        arrival: this.tripDate.getTime(),
+        departure: this.tripDate.getTime(),
+        places: []
+      },
+      stops: [],
+      mileage: this.vehicleMileage
+    };
+    return trip;
   }
 }

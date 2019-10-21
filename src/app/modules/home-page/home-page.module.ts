@@ -5,7 +5,7 @@ import { SearchComponent } from "./search/search.component";
 import { AppMaterialModule } from "../app-material/app-material.module";
 import { Routes, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 const routes: Routes = [
   {
@@ -20,7 +20,8 @@ const routes: Routes = [
     AppMaterialModule,
     RouterModule.forChild(routes),
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [HomePageComponent]
 })
