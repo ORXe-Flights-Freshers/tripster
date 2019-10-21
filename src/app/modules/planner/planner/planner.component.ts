@@ -17,8 +17,8 @@ export class PlannerComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddStopComponent, {
-      width: '360px',
-      height:'450px'
+      width: '33%',
+      height:'78%'
     });
 
   
