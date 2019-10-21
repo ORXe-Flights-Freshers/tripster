@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { DateTime } from "luxon";
+import { Time } from "../../../models/Time";
+import { TripService } from "src/app/services/trip.service";
+import { Router } from "@angular/router";
+import { Trip } from "src/app/models/Trip";
 
 @Component({
   selector: "app-search",
@@ -17,15 +20,15 @@ export class SearchComponent implements OnInit {
   searchForm = new FormGroup({
     mileage: new FormControl()
   });
-  constructor() {}
+  constructor(private tripService: TripService, private router: Router) {}
 
   ngOnInit() {}
 
-  handleSourcePlaceChange(place: google.maps.places.PlaceResult) {
+  handleSourceChange(place: google.maps.places.PlaceResult) {
     this.origin = place;
     console.log(place);
   }
-  handleDestinationPlaceChange(place: google.maps.places.PlaceResult) {
+  handleDestinationChange(place: google.maps.places.PlaceResult) {
     this.destination = place;
   }
   handleTimeSet(time: string) {
@@ -38,6 +41,23 @@ export class SearchComponent implements OnInit {
     return new Date(Date.now());
   }
   onSubmit() {
-    console.log(this.searchForm.value);
+    let time = Time.parseTimeStringToTime(this.tripTime);
+    this.tripDate.setHours(time.hours);
+    this.tripDate.setMinutes(time.minutes);
+
+    let trip = new Trip();
+    trip.source.location.latitude = this.origin.geometry.location.lat();
+    trip.source.location.latitude = this.origin.geometry.location.lng();
+
+    trip.destination.location.latitude = this.destination.geometry.location.lat();
+    trip.destination.location.latitude = this.destination.geometry.location.lng();
+
+    trip.mileage = this.vehicleMileage;
+
+    this.tripService.createTrip(trip);
+
+    this.router.navigate(["/", "planner"]);
+    //console.log(this.tripDate);
+    // console.log(trip);
   }
 }
