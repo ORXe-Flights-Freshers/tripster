@@ -1,15 +1,15 @@
-import { NgModule } from "@angular/core";
-import { SharedModule } from "../../shared/shared.module";
-import { HomePageComponent } from "./home-page.component";
-import { SearchComponent } from "./search/search.component";
-import { AppMaterialModule } from "../app-material/app-material.module";
-import { Routes, RouterModule } from "@angular/router";
-import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import { SharedModule } from '../../shared/shared.module';
+import { HomePageComponent } from './home-page.component';
+import { SearchComponent } from './search/search.component';
+import { AppMaterialModule } from '../app-material/app-material.module';
+import { Routes, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: HomePageComponent
   }
 ];
@@ -22,6 +22,7 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule
   ],
-  exports: [HomePageComponent]
+  exports: [HomePageComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePageModule {}
