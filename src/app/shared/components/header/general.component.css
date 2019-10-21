@@ -1,0 +1,19 @@
+.align-items-center {
+  align-items: center;
+}
+
+.margin-auto {
+  margin: auto;
+}
+
+.show-border {
+  border: 1px solid black;
+}
+
+.white {
+  color: white;
+}
+
+.bg-white {
+  background-color: white;
+}

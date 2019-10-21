@@ -5,6 +5,8 @@ import { CommonModule } from "@angular/common";
 import { Routes, RouterModule } from "@angular/router";
 import { AppMaterialModule } from "../app-material/app-material.module";
 import { AddStopComponent } from './add-stop/add-stop.component';
+import { MapComponent } from './map/map.component';
+import { TimelineComponent } from './timeline/timeline.component';
 
 const routes: Routes = [
   {
@@ -19,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [PlannerComponent, AddStopComponent],
+  declarations: [PlannerComponent, AddStopComponent ,MapComponent, TimelineComponent],
   imports: [SharedModule,
             CommonModule,
             AppMaterialModule,
@@ -28,5 +30,6 @@ const routes: Routes = [
    exports:[
             AddStopComponent
           ]       
+
 })
 export class PlannerModule {}
