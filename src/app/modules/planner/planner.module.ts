@@ -3,12 +3,12 @@ import { SharedModule } from "../../shared/shared.module";
 import { PlannerComponent } from "./planner/planner.component";
 import { CommonModule } from "@angular/common";
 import { Routes, RouterModule } from "@angular/router";
-import { MapComponent } from './map/map.component';
-import { TimelineComponent } from './timeline/timeline.component';
+import { MapComponent } from "./map/map.component";
+import { TimelineComponent } from "./timeline/timeline.component";
 
 const routes: Routes = [
   {
-    path: "",
+    path: ":id",
     component: PlannerComponent
   }
 ];

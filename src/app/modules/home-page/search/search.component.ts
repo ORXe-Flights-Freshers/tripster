@@ -51,7 +51,7 @@ export class SearchComponent implements OnInit {
     console.log(trip);
     this.tripService.createTrip(trip).subscribe(data => {
       this.tripService.trip = data as Trip;
-      //this.router.navigate(["/", "planner"]);
+      //this.router.navigate(["/", "planner",this.tripService.trip.id]);
       console.log(data);
       console.log(new Date(this.tripService.trip.destination.arrival));
     });
