@@ -5,10 +5,11 @@ import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AppMaterialModule } from '../modules/app-material/app-material.module';
 import {CommonModule} from '@angular/common';
+import {MatIconModule} from '@angular/material';
 
 @NgModule({
   declarations: [HeaderComponent, PlaceAutocompleteComponent],
-  imports: [FormsModule, ReactiveFormsModule, AppMaterialModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, AppMaterialModule, CommonModule, MatIconModule],
   exports: [HeaderComponent, PlaceAutocompleteComponent]
 })
 export class SharedModule {}
