@@ -7,16 +7,27 @@ import { MapComponent } from "./map/map.component";
 import { TimelineComponent } from "./timeline/timeline.component";
 import { AgmDirectionModule } from "agm-direction";
 import { AgmCoreModule } from "@agm/core";
+import { AppMaterialModule } from "../app-material/app-material.module";
+import { AddStopComponent } from "./add-stop/add-stop.component";
 
 const routes: Routes = [
   {
     path: ":id",
     component: PlannerComponent
+  },
+  {
+    path: "add",
+    component: AddStopComponent
   }
 ];
 
 @NgModule({
-  declarations: [PlannerComponent, MapComponent, TimelineComponent],
+  declarations: [
+    PlannerComponent,
+    MapComponent,
+    TimelineComponent,
+    AddStopComponent
+  ],
   imports: [
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyC2LnC7a1z5MDzBjx4Us9qo9Z4Yupum03A",
@@ -27,7 +38,9 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     AgmDirectionModule,
+    AppMaterialModule,
     AgmCoreModule
-  ]
+  ],
+  exports: [AddStopComponent]
 })
 export class PlannerModule {}

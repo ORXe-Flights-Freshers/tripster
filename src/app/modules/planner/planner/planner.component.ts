@@ -3,6 +3,13 @@ import { ActivatedRoute } from "@angular/router";
 import { TripService } from "src/app/services/trip.service";
 import { HttpClient } from "@angular/common/http";
 import { Trip } from "src/app/models/Trip";
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialogConfig
+} from "@angular/material/dialog";
+import { AddStopComponent } from "../add-stop/add-stop.component";
 
 @Component({
   selector: "app-planner",
@@ -13,7 +20,8 @@ export class PlannerComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private tripService: TripService,
-    private http: HttpClient
+    private http: HttpClient,
+    public dialog: MatDialog
   ) {}
   ngOnInit() {
     let id = this.route.params["value"].id;
@@ -23,5 +31,19 @@ export class PlannerComponent implements OnInit {
         this.tripService.trip = data as Trip;
       });
     //console.log(this.route.params["value"]);
+  }
+  openDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "400px";
+    dialogConfig.height = "510px";
+    // dialogConfig.direction='ltr';
+
+    this.dialog.open(AddStopComponent, dialogConfig);
+  }
+  closeDialog() {
+    this.dialog.closeAll();
   }
 }

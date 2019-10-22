@@ -1,0 +1,8 @@
+mat-icon {
+  color: gray;
+}
+
+mat-form-field,
+mat-form-field input {
+  width: 100%;
+}

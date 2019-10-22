@@ -1,10 +1,15 @@
 <div class="nav-bar">
   <div class="nav-bar-content margin-auto align-items-center white">
 
-    <div class="icon bg-white">
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
+    <div class="navbar-icon"
+         (click)="showOptions()"
+         (focus)="iconOnFocus()"
+         (blur)="optionsOverlay = false"
+         #logo
+    >
+      <div class="icon-line"></div>
+      <div class="icon-line"></div>
+      <div class="icon-line"></div>
     </div>
 
     <div class="project-title">
@@ -14,13 +19,33 @@
       </ul>
     </div>
 
-    <div class="extras">
+    <div class="extras"
+         [ngClass]="{
+            'display-none': optionsOverlay
+         }"
+    >
       <ul>
-        <li>Explore</li>
-        <li>Login</li>
+        <li
+          *ngFor="let option of extraOptions"
+        >
+          {{ option }}
+        </li>
       </ul>
     </div>
 
+  </div>
+  <div class="extras-overlay"
+       [ngClass]="{
+          'display-none': !optionsOverlay
+       }"
+  >
+    <ul>
+      <li
+        *ngFor="let option of extraOptions"
+      >
+        {{ option }}
+      </li>
+    </ul>
   </div>
 </div>
 

@@ -42,7 +42,7 @@ export class SearchComponent implements OnInit {
     return new Date(Date.now());
   }
   onSubmit() {
-    let time = Time.parseTimeStringToTime(this.tripTime);
+    const time = Time.parseTimeStringToTime(this.tripTime);
     this.tripDate.setHours(time.hours);
     this.tripDate.setMinutes(time.minutes);
 
@@ -58,7 +58,6 @@ export class SearchComponent implements OnInit {
     // this.tripService.trip = trip;
     // this.router.navigate(["/", "planner", 123]);
     //console.log(this.tripDate);
-    // console.log(trip);
   }
 
   generateTrip(): Trip {
