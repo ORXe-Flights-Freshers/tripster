@@ -1,9 +1,8 @@
 
-  <mat-card class="add-stop-card">
-    
+
         <div id="add-stop-header" class="flex-container-header">
             <h4 id="header-text">Add Stop</h4>
-            <button id="header-button" mat-button>Close</button>
+            <button id="header-button" (click)="closeDialog()" mat-button>Close</button>
         </div>
      <hr>
   
@@ -27,7 +26,7 @@
                   readonly
                 />
                 <mat-datepicker-toggle
-                  matPrefix
+                  matSuffix
                   [for]="arrivalDatepicker"
                 ></mat-datepicker-toggle>
                 <mat-datepicker #arrivalDatepicker></mat-datepicker>
@@ -71,7 +70,7 @@
                     readonly
                   />
                   <mat-datepicker-toggle
-                    matPrefix
+                    matSuffix
                     [for]="departureDatepicker"
                   ></mat-datepicker-toggle>
                   <mat-datepicker #departureDatepicker></mat-datepicker>
@@ -97,12 +96,12 @@
               </div> 
       </div>
       <br>
-  
+
       <div id="buttons-block">
-          <button mat-button>CANCEL</button>
+          <button mat-button (click)="closeDialog()">CANCEL</button>
           <button mat-raised-button color="primary">ADD</button>
       </div>
       
    
-
-  </mat-card>
+   
+  
