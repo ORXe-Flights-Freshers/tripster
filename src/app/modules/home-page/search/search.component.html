@@ -1,33 +1,40 @@
 <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
   <mat-card class="search-card">
-    <app-place-autocomplete
-      class="input-field"
-      placeholder="Starting Location"
-      (onPlaceChange)="handleSourceChange($event)"
-    ></app-place-autocomplete>
-    <app-place-autocomplete
-      class="input-field"
-      placeholder="Destination Location"
-      (onPlaceChange)="handleDestinationChange($event)"
-    ></app-place-autocomplete>
-    <mat-form-field class="input-field" appearance="outline">
-      <mat-label>Date</mat-label>
-      <input
-        placeholder="Trip Date"
-        matInput
-        [matDatepicker]="myDatepicker"
-        (dateChange)="handleDateSet($event)"
-        [value]="tripDate"
-        [min]="getMinDate()"
-        readonly
-      />
-      <mat-datepicker-toggle
-        matPrefix
-        [for]="myDatepicker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #myDatepicker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field class="input-field" appearance="outline">
+    <div class="source">
+      <app-place-autocomplete
+        class="input-field"
+        placeholder="Source"
+        (onPlaceChange)="handleSourceChange($event)"
+      ></app-place-autocomplete>
+    </div>
+    <div class="destination">
+      <app-place-autocomplete
+        class="input-field"
+        placeholder="Destination"
+        (onPlaceChange)="handleDestinationChange($event)"
+      ></app-place-autocomplete>
+    </div>
+    <span class="date-time">
+      <span class="date input-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="myDatepicker"
+            (dateChange)="handleDateSet($event)"
+            [value]="tripDate"
+            [min]="getMinDate()"
+            readonly
+          />
+          <mat-datepicker-toggle
+            matPrefix
+            [for]="myDatepicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker></mat-datepicker>
+        </mat-form-field>
+      </span>
+      <span class="time">
+      <mat-form-field class="input-field" appearance="outline">
       <mat-label>Time</mat-label>
       <input
         matInput
@@ -36,11 +43,16 @@
         [value]="tripTime"
         readonly
       />
+      <mat-icon matSuffix style="color: gray">access_time</mat-icon>
     </mat-form-field>
-    <ngx-material-timepicker
-      (timeSet)="handleTimeSet($event)"
-      #endTime
-    ></ngx-material-timepicker>
+      <ngx-material-timepicker
+        (timeSet)="handleTimeSet($event)"
+        class="timepicker-theme"
+        appTimePickerTheme
+        #endTime
+      ></ngx-material-timepicker>
+    </span>
+    </span>
     <mat-form-field class="input-field" appearance="outline">
       <mat-label>Enter Mileage(Km/l)</mat-label>
       <input matInput placeholder="Enter Mileage(Km/l)" />
