@@ -1,19 +1,22 @@
 <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
   <mat-card class="search-card">
-    <app-place-autocomplete
-      class="input-field"
-      placeholder="Starting Location"
-      (onPlaceChange)="handleSourceChange($event)"
-    ></app-place-autocomplete>
-    <app-place-autocomplete
-      class="input-field"
-      placeholder="Destination Location"
-      (onPlaceChange)="handleDestinationChange($event)"
-    ></app-place-autocomplete>
+    <div class="source">
+      <app-place-autocomplete
+        class="input-field"
+        placeholder="Starting Location"
+        (onPlaceChange)="handleSourceChange($event)"
+      ></app-place-autocomplete>
+    </div>
+    <div class="destination">
+      <app-place-autocomplete
+        class="input-field"
+        placeholder="Destination Location"
+        (onPlaceChange)="handleDestinationChange($event)"
+      ></app-place-autocomplete>
+    </div>
     <mat-form-field class="input-field" appearance="outline">
       <mat-label>Date</mat-label>
       <input
-        placeholder="Trip Date"
         matInput
         [matDatepicker]="myDatepicker"
         (dateChange)="handleDateSet($event)"
@@ -36,6 +39,7 @@
         [value]="tripTime"
         readonly
       />
+      <mat-icon matSuffix style="color: gray">access_time</mat-icon>
     </mat-form-field>
     <ngx-material-timepicker
       (timeSet)="handleTimeSet($event)"

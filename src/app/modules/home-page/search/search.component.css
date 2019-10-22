@@ -1,6 +1,8 @@
 .search-card {
   margin: 20px auto;
-  max-width: 70%;
+  width: 80%;
+  padding-left: 0;
+  padding-right: 0;
 }
 .input-field {
   margin-left: 2%;
@@ -11,4 +13,16 @@
 .button {
   margin-left: 2%;
   height: 50px;
+}
+
+.source,
+.destination {
+  display: inline-flex;
+  width: 25%;
+  margin-left: 1%;
+}
+
+.source *,
+.destination * {
+  width: 100%;
 }
