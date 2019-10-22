@@ -6,6 +6,7 @@ import { AppMaterialModule } from '../app-material/app-material.module';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material';
 
 const routes: Routes = [
   {
@@ -20,7 +21,8 @@ const routes: Routes = [
     AppMaterialModule,
     RouterModule.forChild(routes),
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule
   ],
   exports: [HomePageComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
