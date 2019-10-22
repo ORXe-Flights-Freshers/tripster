@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Trip } from "../models/Trip";
+import { Injectable } from '@angular/core';
+import { Trip } from '../models/Trip';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class TripService {
   trip: Trip;

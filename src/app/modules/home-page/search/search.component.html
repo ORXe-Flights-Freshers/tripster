@@ -15,11 +15,15 @@
       ></app-place-autocomplete>
     </div>
     <span class="date-time">
-      <span class="date input-field">
-        <mat-form-field appearance="outline">
+      <span>
+        <mat-form-field
+          class="date input-field"
+          appearance="outline"
+        >
           <mat-label>Date</mat-label>
           <input
             matInput
+            style="width: 100%"
             [matDatepicker]="myDatepicker"
             (dateChange)="handleDateSet($event)"
             [value]="tripDate"
@@ -27,45 +31,47 @@
             readonly
           />
           <mat-datepicker-toggle
-            matPrefix
+            matSuffix
             [for]="myDatepicker"
           ></mat-datepicker-toggle>
           <mat-datepicker #myDatepicker></mat-datepicker>
         </mat-form-field>
       </span>
-      <span class="time">
-      <mat-form-field class="input-field" appearance="outline">
-      <mat-label>Time</mat-label>
-      <input
-        matInput
-        [ngxTimepicker]="endTime"
-        [format]="12"
-        [value]="tripTime"
-        readonly
-      />
-      <mat-icon matSuffix style="color: gray">access_time</mat-icon>
-    </mat-form-field>
-      <ngx-material-timepicker
-        (timeSet)="handleTimeSet($event)"
-        class="timepicker-theme"
-        appTimePickerTheme
-        #endTime
-      ></ngx-material-timepicker>
+      <span>
+        <mat-form-field
+          class="time input-field"
+          appearance="outline"
+        >
+          <mat-label>Time</mat-label>
+          <input
+            matInput
+            style="width: 100%"
+            [ngxTimepicker]="endTime"
+            [format]="12"
+            [value]="tripTime"
+            readonly
+          />
+          <mat-icon matSuffix style="color: gray">access_time</mat-icon>
+        </mat-form-field>
+        <ngx-material-timepicker
+          (timeSet)="handleTimeSet($event)"
+          #endTime
+        ></ngx-material-timepicker>
+      </span>
+      <button
+        class="button"
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="!searchForm.valid"
+      >
+        Go
+    </button>
     </span>
-    </span>
-    <mat-form-field class="input-field" appearance="outline">
-      <mat-label>Enter Mileage(Km/l)</mat-label>
+    <hr>
+    <mat-form-field class="mileage input-field" appearance="outline">
+      <mat-label>Mileage (in kms per litre)</mat-label>
       <input matInput placeholder="Enter Mileage(Km/l)" />
     </mat-form-field>
-
-    <button
-      class="button"
-      type="submit"
-      mat-raised-button
-      color="primary"
-      [disabled]="!searchForm.valid"
-    >
-      Go
-    </button>
   </mat-card>
 </form>
