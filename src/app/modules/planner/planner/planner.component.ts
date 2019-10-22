@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AddStopComponent } from '../add-stop/add-stop.component';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 
 
 
@@ -12,15 +12,23 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 export class PlannerComponent implements OnInit {
 
   constructor(public dialog: MatDialog) { }
-  ngOnInit() {
-  }
+
+  ngOnInit() {}
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(AddStopComponent, {
-      width: '33%',
-      height:'78%'
-    });
+    const dialogConfig = new MatDialogConfig();
 
-  
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width='400px';
+    dialogConfig.height='510px';
+   // dialogConfig.direction='ltr';
+
+    this.dialog.open(AddStopComponent, dialogConfig);
   }
+closeDialog(){
+  this.dialog.closeAll();
+}
+
+
 }
