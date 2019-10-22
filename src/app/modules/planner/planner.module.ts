@@ -5,6 +5,8 @@ import { CommonModule } from "@angular/common";
 import { Routes, RouterModule } from "@angular/router";
 import { MapComponent } from "./map/map.component";
 import { TimelineComponent } from "./timeline/timeline.component";
+import { AgmDirectionModule } from "agm-direction";
+import { AgmCoreModule } from "@agm/core";
 
 const routes: Routes = [
   {
@@ -15,6 +17,17 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [PlannerComponent, MapComponent, TimelineComponent],
-  imports: [SharedModule, CommonModule, RouterModule.forChild(routes)]
+  imports: [
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyC2LnC7a1z5MDzBjx4Us9qo9Z4Yupum03A",
+      libraries: ["places"]
+    }),
+    AgmDirectionModule,
+    SharedModule,
+    CommonModule,
+    RouterModule.forChild(routes),
+    AgmDirectionModule,
+    AgmCoreModule
+  ]
 })
 export class PlannerModule {}

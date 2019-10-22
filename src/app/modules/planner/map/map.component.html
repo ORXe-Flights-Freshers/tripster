@@ -1,1 +1,33 @@
-<p>map works!</p>
+<p>Map Works</p>
+<agm-map [fitBounds]="true">
+  <agm-marker
+    *ngIf="tripService?.trip?.source"
+    [agmFitBounds]="true"
+    [latitude]="tripService?.trip?.source.location.latitude"
+    [longitude]="tripService?.trip?.source.location.longitude"
+  ></agm-marker>
+  <agm-marker
+    *ngIf="tripService?.trip?.destination"
+    [agmFitBounds]="true"
+    [latitude]="tripService?.trip?.destination.location.latitude"
+    [longitude]="tripService?.trip?.destination.location.longitude"
+  ></agm-marker>
+  <agm-direction
+    *ngIf="tripService?.trip?.source && tripService?.trip?.destination"
+    [origin]="{
+      lat: tripService?.trip?.source.location.latitude,
+      lng: tripService?.trip?.source.location.longitude
+    }"
+    [destination]="{
+      lat: tripService?.trip?.destination.location.latitude,
+      lng: tripService?.trip?.destination.location.longitude
+    }"
+    [renderOptions]="{
+      draggable: false,
+      suppressMarkers: true,
+      suppressInfoWindows: false
+    }"
+    (onResponse)="handleDirectionResponse($event)"
+  >
+  </agm-direction>
+</agm-map>
