@@ -3,15 +3,27 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-header.timepicker__header {
+.timepicker .timepicker__header {
+    background-color: #0B1240 !important;
+}
+
+.timepicker .clock-face__clock-hand {
   background-color: #0B1240 !important;
 }
 
-.clock-face div .active {
+.timepicker .clock-face__clock-hand::after {
+ background-color: #0B1240 !important;
+}
+
+.timepicker .clock-face__clock-hand::before {
+ border-color: #0B1240 !important;
+}
+
+.timepicker  .clock-face__number > span.active {
   background-color: #0B1240 !important;
 }
 
-.clock-face div span {
-  /*background-color: #0B1240 !important;*/
-  border-color: #0B1240 !important;
+.timepicker button:not(.timepicker-dial__item) {
+  color: #0B1240 !important;
 }
+

@@ -7,8 +7,6 @@ import { Routes, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material";
-import { TimePickerThemeDirective } from "./time-picker-theme/time-picker-theme.directive";
-
 const routes: Routes = [
   {
     path: "",
@@ -16,7 +14,7 @@ const routes: Routes = [
   }
 ];
 @NgModule({
-  declarations: [HomePageComponent, SearchComponent, TimePickerThemeDirective],
+  declarations: [HomePageComponent, SearchComponent],
   imports: [
     SharedModule,
     AppMaterialModule,
