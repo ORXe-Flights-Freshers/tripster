@@ -1,8 +1,3 @@
-.date,
-.time mat-form-field {
-  margin-left: 1.5%;
-}
-
 .search-card {
   margin: 20px auto;
   width: 80%;
@@ -16,8 +11,11 @@
   width: 30px;
 }
 .button {
+  position: absolute;
+  margin-top: 0.3%;
   margin-left: 2%;
-  height: 50px;
+  height: 60px;
+  width: 10%;
 }
 
 .source,
@@ -30,4 +28,57 @@
 .source *,
 .destination * {
   width: 100%;
+}
+
+.time,
+.date {
+  width: 15%;
+}
+
+hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@media screen and (max-width: 1300px) and (min-width: 600px) {
+  .date-time {
+    display: block;
+  }
+
+  .source,
+  .destination {
+    width: 40%;
+  }
+
+  .date,
+  .time {
+    width: 39.5%;
+  }
+
+  .button {
+    margin-top: 0.8%;
+  }
+}
+
+@media screen and (max-width: 1000px) and (min-width: 600px) {
+  .button {
+    margin-top: 0.5%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .source,
+  .destination {
+    width: 97%;
+  }
+
+  .date,
+  .time,
+  .button,
+  .mileage {
+    margin-left: 2%;
+    width: 96%;
+  }
 }
