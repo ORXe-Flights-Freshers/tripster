@@ -13,6 +13,6 @@ export class TripService {
   createTrip(trip: Trip) {
     this.trip = trip;
     //console.log("trip.service", trip);
-    return this.http.post("https://172.16.5.149:5001/api/trip", trip);
+    return this.http.post("http://172.16.5.149:5000/api/trip", trip);
   }
 }
