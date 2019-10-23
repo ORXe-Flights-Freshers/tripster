@@ -1,16 +1,14 @@
-<div class="nav-bar">
-  <div class="nav-bar-content margin-auto align-items-center white">
+<div class="navbar-icon"
+     (click)="showOptions()"
+     *ngIf="displayIcon"
+>
+  <div class="icon-line"></div>
+  <div class="icon-line"></div>
+  <div class="icon-line"></div>
+</div>
 
-    <div class="navbar-icon"
-         (click)="showOptions()"
-         (focus)="iconOnFocus()"
-         (blur)="optionsOverlay = false"
-         #logo
-    >
-      <div class="icon-line"></div>
-      <div class="icon-line"></div>
-      <div class="icon-line"></div>
-    </div>
+<div class="nav-bar" (window:resize)="onResize($event)">
+  <div class="nav-bar-content margin-auto align-items-center white">
 
     <div class="project-title">
       <ul>
@@ -19,10 +17,9 @@
       </ul>
     </div>
 
-    <div class="extras"
-         [ngClass]="{
-            'display-none': optionsOverlay
-         }"
+    <div
+      class="extras"
+      *ngIf="!displayIcon"
     >
       <ul>
         <li
