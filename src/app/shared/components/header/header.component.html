@@ -1,25 +1,41 @@
-<div class="navbar-icon"
-     (click)="showOptions()"
-     *ngIf="displayIcon"
->
+<span class="container-header">
+  <div class="navbar-icon"
+       (click)="showOptions()"
+       *ngIf="displayIcon"
+  >
   <div class="icon-line"></div>
   <div class="icon-line"></div>
   <div class="icon-line"></div>
-</div>
+  </div>
 
-<div class="nav-bar" (window:resize)="onResize($event)">
-  <div class="nav-bar-content margin-auto align-items-center white">
+  <div class="nav-bar" (window:resize)="onResize($event)">
+    <div class="nav-bar-content margin-auto align-items-center white">
 
-    <div class="project-title">
-      <ul>
-        <li><h2>Tripster</h2></li>
-        <li class="project-sub-title">Roadtrip Planner</li>
-      </ul>
+      <div class="project-title">
+        <ul>
+          <li><h2>Tripster</h2></li>
+          <li class="project-sub-title">Roadtrip Planner</li>
+        </ul>
+      </div>
+
+      <div
+        class="extras"
+        *ngIf="!displayIcon"
+      >
+        <ul>
+          <li
+            *ngFor="let option of extraOptions"
+          >
+            {{ option }}
+          </li>
+        </ul>
+      </div>
+
     </div>
-
-    <div
-      class="extras"
-      *ngIf="!displayIcon"
+    <div class="extras-overlay"
+         [ngClass]="{
+            'display-none': !optionsOverlay
+         }"
     >
       <ul>
         <li
@@ -29,20 +45,5 @@
         </li>
       </ul>
     </div>
-
   </div>
-  <div class="extras-overlay"
-       [ngClass]="{
-          'display-none': !optionsOverlay
-       }"
-  >
-    <ul>
-      <li
-        *ngFor="let option of extraOptions"
-      >
-        {{ option }}
-      </li>
-    </ul>
-  </div>
-</div>
-
+</span>
