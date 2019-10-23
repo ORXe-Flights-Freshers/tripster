@@ -81,4 +81,16 @@ hr {
     margin-left: 2%;
     width: 96%;
   }
+
+  .time {
+    /*margin-bottom: 10%;*/
+  }
+
+  .button {
+    display: block;
+  }
+
+  hr {
+    margin-top: 80px;
+  }
 }
