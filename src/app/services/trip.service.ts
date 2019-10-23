@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { Trip } from "../models/Trip";
-import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { Trip } from '../models/Trip';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class TripService {
   trip: Trip;
@@ -12,7 +12,7 @@ export class TripService {
   constructor(private http: HttpClient) {}
   createTrip(trip: Trip) {
     this.trip = trip;
-    //console.log("trip.service", trip);
-    return this.http.post("http://172.16.5.149:5000/api/trip", trip);
+    // console.log("trip.service", trip);
+    return this.http.post('http://172.16.5.149:5000/api/trip', trip);
   }
 }
