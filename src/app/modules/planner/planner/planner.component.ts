@@ -24,7 +24,8 @@ export class PlannerComponent implements OnInit {
     public dialog: MatDialog
   ) {}
   ngOnInit() {
-    const id = this.route.params.value.id;
+    // const id = this.route.params.value.id;
+    const id = 123;
     this.http.get('http://172.16.5.149:5000/api/trip/' + id).subscribe(data => {
       this.tripService.trip = data as Trip;
     });
