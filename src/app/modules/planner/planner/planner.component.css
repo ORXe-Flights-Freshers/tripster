@@ -1,0 +1,13 @@
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+app-timeline {
+  width: 40%;
+}
+
+app-map {
+  width: 60%;
+}

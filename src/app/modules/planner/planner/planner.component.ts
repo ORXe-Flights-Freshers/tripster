@@ -1,8 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { AddStopComponent } from '../add-stop/add-stop.component';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
-
-
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { TripService } from "src/app/services/trip.service";
+import { HttpClient } from "@angular/common/http";
+import { Trip } from "src/app/models/Trip";
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialogConfig
+} from "@angular/material/dialog";
+import { AddStopComponent } from "../add-stop/add-stop.component";
 
 @Component({
   selector: "app-planner",
@@ -10,25 +17,33 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular
   styleUrls: ["./planner.component.css"]
 })
 export class PlannerComponent implements OnInit {
-
-  constructor(public dialog: MatDialog) { }
-
-  ngOnInit() {}
-
+  constructor(
+    private route: ActivatedRoute,
+    private tripService: TripService,
+    private http: HttpClient,
+    public dialog: MatDialog
+  ) {}
+  ngOnInit() {
+    let id = this.route.params["value"].id;
+    this.http
+      .get("https://172.16.5.149:5001/api/trip/" + id)
+      .subscribe(data => {
+        this.tripService.trip = data as Trip;
+      });
+    //console.log(this.route.params["value"]);
+  }
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width='400px';
-    dialogConfig.height='510px';
-   // dialogConfig.direction='ltr';
+    dialogConfig.width = "400px";
+    dialogConfig.height = "510px";
+    // dialogConfig.direction='ltr';
 
     this.dialog.open(AddStopComponent, dialogConfig);
   }
-closeDialog(){
-  this.dialog.closeAll();
-}
-
-
+  closeDialog() {
+    this.dialog.closeAll();
+  }
 }

@@ -1,9 +1,9 @@
 import { Stop } from "./Stop";
 
-export class Trip {
-  tripId: Number;
+export interface Trip {
+  id?: string;
   source: Stop;
   stops: Stop[];
   destination: Stop;
-  mileage: Number;
+  mileage: number;
 }

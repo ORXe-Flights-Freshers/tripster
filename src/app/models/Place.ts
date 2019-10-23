@@ -1,11 +1,11 @@
 import { Location } from "./Location";
 
-export class Place {
-  placeId: number;
+export interface Place {
+  placeId: string;
   name: string;
   description: string;
   location: Location;
   placeType: string;
-  arrival: Date;
-  departure: Date;
+  arrival: string;
+  departure: string;
 }

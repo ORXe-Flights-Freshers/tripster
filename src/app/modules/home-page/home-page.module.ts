@@ -1,16 +1,15 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
-import { HomePageComponent } from './home-page.component';
-import { SearchComponent } from './search/search.component';
-import { AppMaterialModule } from '../app-material/app-material.module';
-import { Routes, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import {MatIconModule} from '@angular/material';
-
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
+import { SharedModule } from "../../shared/shared.module";
+import { HomePageComponent } from "./home-page.component";
+import { SearchComponent } from "./search/search.component";
+import { AppMaterialModule } from "../app-material/app-material.module";
+import { Routes, RouterModule } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { MatIconModule } from "@angular/material";
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: HomePageComponent
   }
 ];
@@ -22,6 +21,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     MatIconModule
   ],
   exports: [HomePageComponent],
