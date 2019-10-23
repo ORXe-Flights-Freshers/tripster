@@ -11,6 +11,8 @@
   width: 30px;
 }
 .button {
+  position: absolute;
+  margin-top: 0.3%;
   margin-left: 2%;
   height: 60px;
   width: 10%;
@@ -53,6 +55,16 @@ hr {
   .date,
   .time {
     width: 39.5%;
+  }
+
+  .button {
+    margin-top: 0.8%;
+  }
+}
+
+@media screen and (max-width: 1000px) and (min-width: 600px) {
+  .button {
+    margin-top: 0.5%;
   }
 }
 
