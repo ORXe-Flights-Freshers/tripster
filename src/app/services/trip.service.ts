@@ -7,12 +7,27 @@ import { HttpClient } from "@angular/common/http";
 })
 export class TripService {
   trip: Trip;
-  waypoints = [];
+  waypoints: google.maps.DirectionsWaypoint[];
+
+  directionResult: google.maps.DirectionsResult;
 
   constructor(private http: HttpClient) {}
   createTrip(trip: Trip) {
     this.trip = trip;
-    //console.log("trip.service", trip);
-    return this.http.post("https://172.16.5.149:5001/api/trip", trip);
+    // console.log("trip.service", trip);
+    return this.http.post("http://172.16.5.149:5000/api/trip", trip);
+  }
+  handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
+    if (directionResult.routes[0].legs[0]) {
+      let destinationArrival = new Date(this.trip.destination.arrival);
+      console.log(destinationArrival);
+      destinationArrival.setSeconds(
+        destinationArrival.getSeconds() +
+          directionResult.routes[0].legs[0].duration.value
+      );
+      this.trip.destination.arrival = destinationArrival.toString();
+
+      console.log(this.trip.destination.arrival);
+    }
   }
 }

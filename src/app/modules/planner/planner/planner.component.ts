@@ -24,13 +24,11 @@ export class PlannerComponent implements OnInit {
     public dialog: MatDialog
   ) {}
   ngOnInit() {
-    let id = this.route.params["value"].id;
-    this.http
-      .get("https://172.16.5.149:5001/api/trip/" + id)
-      .subscribe(data => {
-        this.tripService.trip = data as Trip;
-      });
-    //console.log(this.route.params["value"]);
+    const id = this.route.params["value"].id;
+    this.http.get("http://172.16.5.149:5000/api/trip/" + id).subscribe(data => {
+      this.tripService.trip = data as Trip;
+    });
+    // console.log(this.route.params["value"]);
   }
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
