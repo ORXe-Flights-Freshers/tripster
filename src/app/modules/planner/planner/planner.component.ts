@@ -34,7 +34,7 @@ export class PlannerComponent implements OnInit {
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.disableClose = true;
+    // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
