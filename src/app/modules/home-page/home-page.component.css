@@ -1,0 +1,18 @@
+img {
+  position: absolute;
+  padding: 0;
+  height: 200px;
+  width: 100%;
+}
+
+@media screen and (max-width: 1300px) and (min-width: 600px) {
+  img {
+    height: 289px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  img {
+    height: 700px;
+  }
+}

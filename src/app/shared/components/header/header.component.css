@@ -5,6 +5,10 @@
   text-decoration: none;
 }
 
+.container-header {
+  /*position: absolute;*/
+}
+
 .display-none {
   display: none;
 }
@@ -12,6 +16,7 @@
 .nav-bar {
   height: 70px;
   background-color: #0B1240;
+  /*background-color: transparent;*/
 }
 
 .nav-bar-content {
