@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialogConfig
+} from '@angular/material/dialog';
 
 
 @Component({
@@ -13,8 +18,8 @@ export class AddStopComponent implements OnInit {
 
   arrivalDate: Date = new Date(Date.now());
   departureDate: Date = new Date(Date.now());
-  arrivalTime: String = "11:00 am";
-  departureTime: String = "11:00 am";
+  arrivalTime = '11:00 am';
+  departureTime = '11:00 am';
   constructor(public dialogRef: MatDialogRef<AddStopComponent>) { }
 
   ngOnInit() {}
@@ -35,7 +40,7 @@ export class AddStopComponent implements OnInit {
     this.departureDate = new Date(date.value);
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialogRef.close();
   }
 }
