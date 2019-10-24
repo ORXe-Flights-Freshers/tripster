@@ -12,5 +12,4 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {}
-  handleDirectionResponse(direction) {}
 }

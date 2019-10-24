@@ -28,7 +28,7 @@
         suppressMarkers: true,
         suppressInfoWindows: false
       }"
-      (onResponse)="handleDirectionResponse($event)"
+      (onResponse)="tripService.handleDirectionResponse($event)"
     >
     </agm-direction>
   </agm-map>

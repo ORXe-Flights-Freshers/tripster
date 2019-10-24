@@ -7,7 +7,7 @@ import { TripService } from "src/app/services/trip.service";
   styleUrls: ["./timeline.component.css"]
 })
 export class TimelineComponent implements OnInit {
-  constructor(private tripService: TripService) {}
+  constructor(public tripService: TripService) {}
 
   ngOnInit() {}
 }
