@@ -9,7 +9,7 @@ import { AgmDirectionModule } from "agm-direction";
 import { AgmCoreModule } from "@agm/core";
 import { AppMaterialModule } from "../app-material/app-material.module";
 import { AddStopComponent } from "./add-stop/add-stop.component";
-
+import { MatIconModule } from "@angular/material";
 const routes: Routes = [
   {
     path: ":id",
@@ -39,7 +39,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     AgmDirectionModule,
     AppMaterialModule,
-    AgmCoreModule
+    AgmCoreModule,
+    MatIconModule
   ],
   exports: [AddStopComponent]
 })

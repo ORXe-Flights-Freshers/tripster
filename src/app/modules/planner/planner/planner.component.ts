@@ -37,7 +37,6 @@ export class PlannerComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = "400px";
     dialogConfig.height = "510px";
-    // dialogConfig.direction='ltr';
 
     this.dialog.open(AddStopComponent, dialogConfig);
   }
