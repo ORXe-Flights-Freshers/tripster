@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "p": "git pull origin develop"
+    "pull": "git pull origin develop"
   },
   "private": true,
   "dependencies": {
