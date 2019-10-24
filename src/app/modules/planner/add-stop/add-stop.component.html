@@ -10,6 +10,7 @@
       class="input-field"
       placeholder="Enter Stop City"
     ></app-place-autocomplete>
+    
     <p>Arrival</p>
     <div id="arrival-block" class="flex-container">
 
@@ -87,7 +88,7 @@
                       [format]="12"
                       [value]="departureTime"
                       readonly
-                    />
+                    />           
                   </mat-form-field>
                   <ngx-material-timepicker
                     (timeSet)="handleDepartureTimeSet($event)"
@@ -98,8 +99,8 @@
       <br>
 
       <div id="buttons-block">
-          <button mat-button (click)="closeDialog()">CANCEL</button>
           <button mat-raised-button color="primary">ADD</button>
+          <button mat-button (click)="closeDialog()">CANCEL</button>    
       </div>
       
    

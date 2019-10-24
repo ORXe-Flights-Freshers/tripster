@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatDialogConfig} from '@angular/material/dialog';
 
-
 @Component({
   selector: 'app-add-stop',
   templateUrl: './add-stop.component.html',
@@ -33,6 +32,9 @@ export class AddStopComponent implements OnInit {
   }
   handleDepartureDateSet(date) {
     this.departureDate = new Date(date.value);
+    if(this.departureDate<this.arrivalDate){
+
+    }
   }
 
   closeDialog(){
