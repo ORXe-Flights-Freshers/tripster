@@ -3,13 +3,15 @@ export class Time {
   minutes: number;
 
   static parseTimeStringToTime(timeString): Time {
-    let [hours, minutes] = timeString
+    const [hours, minutes] = timeString
       .substr(0, timeString.length - 3)
-      .split(":")
+      .split(':')
       .map(Number);
-    if (timeString.includes("PM") && hours !== 12) hours += 12;
-    let time = new Time();
+    const time = new Time();
+
     time.hours = hours;
+    if (timeString.includes('PM') && hours !== 12) { time.hours += 12; }
+
     time.minutes = minutes;
     return time;
   }
