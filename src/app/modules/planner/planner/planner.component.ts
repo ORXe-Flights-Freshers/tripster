@@ -26,7 +26,7 @@ export class PlannerComponent implements OnInit {
   ngOnInit() {
     // @ts-ignore
     const id = this.route.params.value.id;
-    this.http.get('http://172.16.5.149:5000/api/trip/' + id).subscribe(data => {
+    this.http.get('http://localhost:5000/api/trip/' + id).subscribe(data => {
       this.tripService.trip = data as Trip;
     });
     // console.log(this.route.params["value"]);
@@ -36,9 +36,8 @@ export class PlannerComponent implements OnInit {
 
     // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
-    dialogConfig.height = '510px';
-    // dialogConfig.direction='ltr';
+    dialogConfig.width = "400px";
+    dialogConfig.height = "510px";
 
     this.dialog.open(AddStopComponent, dialogConfig);
   }

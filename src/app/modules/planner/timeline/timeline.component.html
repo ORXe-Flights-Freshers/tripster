@@ -12,9 +12,21 @@
           {{ tripService.trip.source.departure | date: "MMM d, y, h:mm a" }}
         </div>
         <div class="delete-icon">
-          D
+          <mat-icon matSuffix>edit</mat-icon>
         </div>
       </li>
+
+
+      <li class="tl-item" *ngFor="let stop of tripService?.trip?.stops ">
+        <div class="item-title">{{ stop.name }}</div>
+        <div class="timestamp">
+          {{ stop.arrival | date: "MMM d, y, h:mm a" }}
+        </div>
+        <div class="delete-icon">
+          <mat-icon matSuffix>delete</mat-icon>
+        </div>
+      </li>
+
 
       <li class="tl-item" *ngIf="tripService?.trip?.destination">
         <div class="item-title">{{ tripService.trip.destination.name }}</div>
@@ -22,7 +34,7 @@
           {{ tripService.trip.destination.arrival | date: "MMM d, y, h:mm a" }}
         </div>
         <div class="delete-icon">
-          D
+          <mat-icon matSuffix>delete</mat-icon>
         </div>
       </li>
 
@@ -49,4 +61,5 @@
       </li> -->
     </ul>
   </div>
+  <button (click)="addStop()"> Addddd </button>
 </mat-card>

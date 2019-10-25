@@ -23,6 +23,7 @@
         lat: tripService?.trip?.destination.location.latitude,
         lng: tripService?.trip?.destination.location.longitude
       }"
+      [waypoints]="tripService?.waypoints"
       [renderOptions]="{
         draggable: false,
         suppressMarkers: true,

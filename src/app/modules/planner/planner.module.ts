@@ -9,6 +9,7 @@ import { AgmDirectionModule } from "agm-direction";
 import { AgmCoreModule } from "@agm/core";
 import { AppMaterialModule } from "../app-material/app-material.module";
 import { AddStopComponent } from "./add-stop/add-stop.component";
+import { MatIconModule } from "@angular/material";
 import { HotelCardComponent } from "./hotel-card/hotel-card.component";
 import { HotelCardListComponent } from "./hotel-card-list/hotel-card-list.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -45,6 +46,7 @@ const routes: Routes = [
     AgmDirectionModule,
     AppMaterialModule,
     AgmCoreModule,
+    MatIconModule,
     FlexLayoutModule
   ],
   exports: [AddStopComponent]

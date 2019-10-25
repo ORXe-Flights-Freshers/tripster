@@ -2,6 +2,7 @@ mat-card {
   margin: 20px auto;
   width: 85%;
   height: 400px;
+  overflow: auto;
 }
 
 /* body {
