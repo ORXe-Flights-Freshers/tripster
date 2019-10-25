@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { TripService } from "src/app/services/trip.service";
-import { HttpClient } from "@angular/common/http";
-import { Trip } from "src/app/models/Trip";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TripService } from 'src/app/services/trip.service';
+import { HttpClient } from '@angular/common/http';
+import { Trip } from 'src/app/models/Trip';
 import {
   MatDialog,
   MatDialogRef,
@@ -10,14 +10,14 @@ import {
   MatDialogConfig
 } from '@angular/material/dialog';
 import { AddStopComponent } from '../add-stop/add-stop.component';
-import { Stop } from "src/app/models/Stop";
+import { Stop } from 'src/app/models/Stop';
 
 
 
 @Component({
-  selector: "app-planner",
-  templateUrl: "./planner.component.html",
-  styleUrls: ["./planner.component.css"]
+  selector: 'app-planner',
+  templateUrl: './planner.component.html',
+  styleUrls: ['./planner.component.css']
 })
 
 
@@ -32,7 +32,7 @@ export class PlannerComponent implements OnInit {
   ngOnInit() {
     // @ts-ignore
     const id = this.route.params.value.id;
-    this.http.get("http://3.14.69.62:5000/api/trip/" + id).subscribe(data => {
+    this.http.get('http://3.14.69.62:5000/api/trip/' + id).subscribe(data => {
       this.tripService.trip = data as Trip;
     });
     // console.log(this.route.params["value"]);
@@ -44,22 +44,22 @@ export class PlannerComponent implements OnInit {
 
     // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "400px";
-    dialogConfig.height = "510px";
+    dialogConfig.width = '400px';
+    dialogConfig.height = '510px';
 
-   const dialogRef=this.dialog.open(AddStopComponent, dialogConfig);
+    const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
       stopFromDialog => {console.log(stopFromDialog);
-        this.addStop(stopFromDialog);}
+                         this.addStop(stopFromDialog); }
   );
 
   }
 
-  addStop(stop){
-  
+  addStop(stop) {
+
     // let stopToAdd=this.generateStop(stop);
-    this.tripService.addStopToTrip(stop);  
+    this.tripService.addStopToTrip(stop);
    }
 
   closeDialog() {
