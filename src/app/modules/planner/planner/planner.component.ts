@@ -19,7 +19,7 @@ import { AddStopComponent } from '../add-stop/add-stop.component';
 export class PlannerComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private tripService: TripService,
+    public tripService: TripService,
     private http: HttpClient,
     public dialog: MatDialog
   ) {}
