@@ -10,7 +10,7 @@ export class TripService {
   waypoints: google.maps.DirectionsWaypoint[];
 
   directionResult: google.maps.DirectionsResult;
-
+  doDisplayHotels: false;
   constructor(private http: HttpClient) {}
   createTrip(trip: Trip) {
     this.trip = trip;

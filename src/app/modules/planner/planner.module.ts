@@ -9,6 +9,9 @@ import { AgmDirectionModule } from "agm-direction";
 import { AgmCoreModule } from "@agm/core";
 import { AppMaterialModule } from "../app-material/app-material.module";
 import { AddStopComponent } from "./add-stop/add-stop.component";
+import { HotelCardComponent } from "./hotel-card/hotel-card.component";
+import { HotelCardListComponent } from "./hotel-card-list/hotel-card-list.component";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 const routes: Routes = [
   {
@@ -26,7 +29,9 @@ const routes: Routes = [
     PlannerComponent,
     MapComponent,
     TimelineComponent,
-    AddStopComponent
+    AddStopComponent,
+    HotelCardComponent,
+    HotelCardListComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -39,7 +44,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     AgmDirectionModule,
     AppMaterialModule,
-    AgmCoreModule
+    AgmCoreModule,
+    FlexLayoutModule
   ],
   exports: [AddStopComponent]
 })

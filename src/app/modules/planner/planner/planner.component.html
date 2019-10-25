@@ -1,5 +1,24 @@
-<div class="flex-container">
-  <app-timeline></app-timeline>
-  <app-map></app-map>
-</div>
-<button mat-raised-button (click)="openDialog()">Add Stop</button>
+<span>
+  <div class="flex-container">
+    <div class="sidebar">
+      <app-timeline></app-timeline>
+      <mat-card>
+        <button
+          (click)="tripService.doDisplayHotels = !tripService.doDisplayHotels"
+          mat-raised-button
+          color="primary"
+        >
+          Hotels
+        </button>
+        <button mat-raised-button color="primary">Attractions</button>
+        <button mat-raised-button color="primary" (click)="openDialog()">
+          Add Stop
+        </button>
+      </mat-card>
+    </div>
+    <app-map></app-map>
+    <app-hotel-card-list
+      *ngIf="tripService?.doDisplayHotels"
+    ></app-hotel-card-list>
+  </div>
+</span>
