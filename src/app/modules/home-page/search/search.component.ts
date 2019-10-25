@@ -1,20 +1,20 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Time } from "../../../models/Time";
-import { TripService } from "src/app/services/trip.service";
-import { Router } from "@angular/router";
-import { Trip } from "src/app/models/Trip";
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Time } from '../../../models/Time';
+import { TripService } from 'src/app/services/trip.service';
+import { Router } from '@angular/router';
+import { Trip } from 'src/app/models/Trip';
 
 @Component({
-  selector: "app-search",
-  templateUrl: "./search.component.html",
-  styleUrls: ["./search.component.css"]
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
   origin: google.maps.places.PlaceResult;
   destination: google.maps.places.PlaceResult;
   tripDate: Date = new Date(Date.now());
-  tripTime = "11:00 am";
+  tripTime = '11:00 am';
   vehicleMileage: number;
 
   searchForm = new FormGroup({
@@ -53,7 +53,7 @@ export class SearchComponent implements OnInit {
       console.log(data);
       // this.tripService.trip = data as Trip;
       // @ts-ignore
-      this.router.navigate(["/", "planner", (data as Trip).id]);
+      this.router.navigate(['/', 'planner', (data as Trip).id]);
       // console.log(data);
       console.log(new Date((data as Trip).destination.arrival));
     });

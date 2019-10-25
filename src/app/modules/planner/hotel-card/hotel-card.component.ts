@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HotelCardComponent implements OnInit {
   @Input() hotelId: string;
-  @Input() stopId:string;
+  @Input() stopId: string;
   @Input() latitude: number;
   @Input() longitude: number;
   @Input() imageUrl =
