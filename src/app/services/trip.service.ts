@@ -1,22 +1,17 @@
 import { Injectable } from "@angular/core";
 import { Trip } from "../models/Trip";
 import { HttpClient } from "@angular/common/http";
-import { Stop } from "../models/Stop";
+// import { Stop } from '../models/Stop';
 
 @Injectable({
   providedIn: "root"
 })
 export class TripService {
   trip: Trip;
-  waypoints = [
-    {
-      location: { lat: 28, lng: 73 }
-    }
-  ];
+  waypoints = [];
   // waypointLocation:location{lat:number,lng:number}[];
   directionResult: google.maps.DirectionsResult;
 
-  testStop: Stop;
   doDisplayHotels = false;
   constructor(private http: HttpClient) {}
 
@@ -40,12 +35,16 @@ export class TripService {
     }
   }
 
-  addStopToTrip(stop: Stop) {
-    console.log("Stop object at trip service:" + stop);
+
+ addStopToTrip(stop){
+
     this.trip.stops.push(stop);
-    console.log(this.trip.stops);
-    this.updateWaypoints();
-  }
+    // console.log("Updated stops array");
+    // console.log(this.trip.stops);
+     this.updateWaypoints();
+ }
+
+
 
   updateWaypoints() {
     if (this.trip.stops.length != 0) {
@@ -64,4 +63,6 @@ export class TripService {
       console.log(this.waypoints);
     }
   }
+
+
 }
