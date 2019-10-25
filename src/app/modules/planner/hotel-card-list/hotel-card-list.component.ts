@@ -8,7 +8,7 @@ import { TripService } from 'src/app/services/trip.service';
 @Component({
   selector: 'app-hotel-card-list',
   templateUrl: './hotel-card-list.component.html',
-  styleUrls: ['./hotel-card-list.component.scss']
+  styleUrls: ['./hotel-card-list.component.css']
 })
 export class HotelCardListComponent {
   @Input() numberOfHotels = 123;
