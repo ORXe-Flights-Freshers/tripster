@@ -26,7 +26,7 @@ export class PlannerComponent implements OnInit {
   ngOnInit() {
     // @ts-ignore
     const id = this.route.params.value.id;
-    this.http.get('http://172.16.5.149:5000/api/trip/' + id).subscribe(data => {
+    this.http.get('http://3.14.69.62:5000/api/trip/' + id).subscribe(data => {
       this.tripService.trip = data as Trip;
     });
     // console.log(this.route.params["value"]);

@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Trip } from '../models/Trip';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { Trip } from "../models/Trip";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class TripService {
   trip: Trip;
@@ -15,7 +15,7 @@ export class TripService {
   createTrip(trip: Trip) {
     this.trip = trip;
     // console.log("trip.service", trip);
-    return this.http.post('http://172.16.5.149:5000/api/trip', trip);
+    return this.http.post("http://3.14.69.62:5000/api/trip", trip);
   }
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     if (directionResult.routes[0].legs[0]) {
