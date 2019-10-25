@@ -1,4 +1,14 @@
+<div id="add-stop-header" class="flex-container-header">
+  <h4 id="header-text">Add Stop</h4>
+  <button id="header-button" (click)="closeDialog()" mat-button>Close</button>
+</div>
+<hr>
 
+<app-place-autocomplete
+  class="input-field"
+  placeholder="Enter Stop City"
+></app-place-autocomplete>
+<p>Arrival</p>
 
         <div id="add-stop-header" class="flex-container-header">
             <h4 id="header-text">Add Stop</h4>
@@ -101,8 +111,30 @@
       <div id="buttons-block">
           <button mat-raised-button color="primary">ADD</button>
           <button mat-button (click)="closeDialog()">CANCEL</button>    
-      </div>
-      
-   
-   
-  
+     </div>
+
+      <div class="time-field">
+          <mat-form-field class="time-input-field" appearance="outline">
+              <mat-label>Time</mat-label>
+              <input
+                matInput
+                [ngxTimepicker]="departureTimePicker"
+                [format]="12"
+                [value]="departureTime"
+                readonly
+              />
+            </mat-form-field>
+            <ngx-material-timepicker
+              (timeSet)="handleDepartureTimeSet($event)"
+              #departureTimePicker
+            ></ngx-material-timepicker>
+        </div>
+<br>
+
+<div id="buttons-block">
+    <button mat-button (click)="closeDialog()">CANCEL</button>
+    <button mat-raised-button color="primary">ADD</button>
+</div>
+
+
+

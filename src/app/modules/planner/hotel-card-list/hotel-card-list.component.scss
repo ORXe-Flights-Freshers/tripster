@@ -1,0 +1,60 @@
+.hotelcardcontainer-header {
+  margin: 8px;
+  //   position: fixed;
+  top: 0;
+  right: 0;
+  //   left: 40%;
+  //   margin-top: 80px;
+  //   background-color: white;
+  //   z-index: 99;
+  border-radius: 10px;
+  //   width: 25%;
+  #noOfHotelsSearched {
+    margin: 2px;
+  }
+  .Containerheader {
+    margin: 8px 0px 8px 0px;
+  }
+}
+
+.hotelCardContainer {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 28px;
+  width: 25%;
+  position: fixed;
+  left: 40%;
+  height: 500px;
+  background-color: white;
+  margin: 10px;
+
+  //   margin-top: 80px;
+}
+
+.cityheader {
+  margin: 8px -10px 8px -10px;
+  background-color: rgba(245, 243, 237);
+  flex-direction: row;
+  white-space: nowrap;
+  overflow-x: auto;
+  //  height: 34px;
+  .mat-stroked-button {
+    margin: 0px 10px 0px 10px;
+    border-radius: 18px;
+    background-color: white;
+  }
+}
+
+#filtertext {
+  float: right;
+  margin: 4px;
+}
+.abc {
+  margin: 8px;
+}
+.hotelcardcontentcontainer {
+  padding: 5px;
+  overflow-y: auto;
+  //   margin-top: 72px;
+}

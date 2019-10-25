@@ -1,13 +1,29 @@
+/* span {
+  position: absolute;
+} */
+
 .flex-container {
   display: flex;
   flex-direction: row;
   width: 100%;
 }
 
-app-timeline {
+.sidebar {
   width: 40%;
 }
-
+mat-card {
+  margin: 20px auto;
+  width: 85%;
+}
 app-map {
   width: 60%;
 }
+button {
+  width: 30%;
+  margin: 5px;
+  /* min-width: 30px; */
+}
+/* app-hotel-card-list {
+  width: 20%;
+  /* position: fixed; 
+} */

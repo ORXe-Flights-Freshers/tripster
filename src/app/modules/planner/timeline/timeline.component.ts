@@ -3,38 +3,37 @@ import { TripService } from "src/app/services/trip.service";
 import { Stop } from "src/app/models/Stop";
 
 @Component({
-  selector: "app-timeline",
-  templateUrl: "./timeline.component.html",
-  styleUrls: ["./timeline.component.css"]
+  selector: 'app-timeline',
+  templateUrl: './timeline.component.html',
+  styleUrls: ['./timeline.component.css']
 })
 export class TimelineComponent implements OnInit {
   constructor(public tripService: TripService) {}
 
   ngOnInit() {}
 
-addStop(){
+  addStop(){
   
-  let stopToAdd=this.generateStop();
-  let lastStopIndex=this.tripService.trip.stops.length;
-  this.tripService.addStopToTrip(stopToAdd,lastStopIndex);
-  
-}
+     let stopToAdd=this.generateStop();
+     let lastStopIndex=this.tripService.trip.stops.length;
+     this.tripService.addStopToTrip(stopToAdd);  
+    }
 
-generateStop(): Stop{
+  generateStop(): Stop{
     let testStop:Stop;
     testStop= {
       location: {
-        latitude: 22,
-        longitude: 75
+        latitude: 17.3850,
+        longitude: 78.4867
       },
       stopId: "xyz",
-      name: "Indore",
+      name: "Hyderabad",
       arrival: "Sun Oct 27 2019 00:08:51 GMT+0530 (India Standard Time)",
       departure: "Sun Oct 27 2019 00:08:51 GMT+0530 (India Standard Time)",
       places: []
+     }
+     return testStop;
     }
-    return testStop;
-}
 
 
 }
