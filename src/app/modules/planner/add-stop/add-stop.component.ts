@@ -6,7 +6,6 @@ import {
   MatDialogConfig
 } from '@angular/material/dialog';
 
-
 @Component({
   selector: 'app-add-stop',
   templateUrl: './add-stop.component.html',
@@ -15,7 +14,8 @@ import {
 
 
 export class AddStopComponent implements OnInit {
-
+  
+  stopCity: google.maps.places.PlaceResult;
   arrivalDate: Date = new Date(Date.now());
   departureDate: Date = new Date(Date.now());
   arrivalTime = '11:00 am';
@@ -23,6 +23,11 @@ export class AddStopComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddStopComponent>) { }
 
   ngOnInit() {}
+
+  handleStopPlaceChange(place: google.maps.places.PlaceResult) {
+    this.stopCity = place;
+    console.log(place);
+  }
   handleArrivalTimeSet(time: string) {
     this.arrivalTime = time;
   }
@@ -38,9 +43,29 @@ export class AddStopComponent implements OnInit {
   }
   handleDepartureDateSet(date) {
     this.departureDate = new Date(date.value);
+    if(this.departureDate<this.arrivalDate){
+
+    }
   }
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  addStop(){
+    
+   var stop= {
+      location: {
+        latitude: this.stopCity.geometry.location.lat(),
+        longitude: this.stopCity.geometry.location.lng()
+      },
+      stopId: "xyz",
+      name: this.stopCity.name,
+      arrival: this.arrivalDate.toString(),
+      departure: this.departureDate.toString(),
+      places: []
+     }
+    console.log(stop);
+    this.dialogRef.close(stop);
   }
 }

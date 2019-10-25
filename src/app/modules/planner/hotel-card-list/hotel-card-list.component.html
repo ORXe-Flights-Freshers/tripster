@@ -8,11 +8,25 @@
     </div>
     <div style="overflow:hidden">
       <div class="cityheader">
-        <span *ngFor="let cityname of cities">
-          <button mat-stroked-button (click)="hotelByCity(cityname.name)">
-            {{ cityname.name }}
+        <button
+          mat-stroked-button
+          *ngIf="tripService?.trip?.source"
+          (click)="hotelByStop(tripService?.trip?.source)"
+        >
+          {{ tripService.trip.source.name }}
+        </button>
+        <span *ngFor="let stop of tripService?.trip?.stops">
+          <button mat-stroked-button (click)="hotelByStop(stop)">
+            {{ stop.name }}
           </button>
         </span>
+        <button
+          mat-stroked-button
+          *ngIf="tripService?.trip?.destination"
+          (click)="hotelByStop(tripService?.trip?.destination)"
+        >
+          {{ tripService.trip.destination.name }}
+        </button>
         <!-- <button mat-stroked-button>Banglore</button> -->
       </div>
     </div>
