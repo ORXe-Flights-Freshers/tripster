@@ -19,7 +19,7 @@ import { AddStopComponent } from "../add-stop/add-stop.component";
 export class PlannerComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private tripService: TripService,
+    public tripService: TripService,
     private http: HttpClient,
     public dialog: MatDialog
   ) {}
@@ -33,7 +33,7 @@ export class PlannerComponent implements OnInit {
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.disableClose = true;
+    // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "400px";
     dialogConfig.height = "510px";

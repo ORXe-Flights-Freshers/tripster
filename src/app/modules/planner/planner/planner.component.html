@@ -4,7 +4,9 @@
       <app-timeline></app-timeline>
       <mat-card>
         <button
-          (click)="tripService.doDisplayHotels = !tripService.doDisplayHotels"
+          (click)="
+            this.tripService.doDisplayHotels = !this.tripService.doDisplayHotels
+          "
           mat-raised-button
           color="primary"
         >
