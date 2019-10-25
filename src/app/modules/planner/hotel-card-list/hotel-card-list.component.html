@@ -1,9 +1,10 @@
 <div class="hotelCardContainer">
   <div class="hotelcardcontainer-header">
     <div class="Containerheader">
-      <span
-        ><strong id="noOfHotelsSearched">{{ numberOfHotels }}</strong></span
-      ><span><strong>Hotel found in your search</strong></span>
+      <span>
+        <strong id="noOfHotelsSearched" *ngIf="arrHotels">{{ arrHotels.length }}</strong>
+        <strong *ngIf="!arrHotels">0</strong>
+      </span><span><strong>hotels found in your search</strong></span>
       <label id="filtertext"><strong>FILTER</strong></label>
     </div>
     <div style="overflow:hidden">
