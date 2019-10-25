@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { Trip } from "../models/Trip";
-import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { Trip } from '../models/Trip';
+import { HttpClient } from '@angular/common/http';
 // import { Stop } from '../models/Stop';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class TripService {
   trip: Trip;
@@ -18,7 +18,7 @@ export class TripService {
   createTrip(trip: Trip) {
     this.trip = trip;
     // console.log("trip.service", trip);
-    return this.http.post("http://3.14.69.62:5000/api/trip", trip);
+    return this.http.post('http://3.14.69.62:5000/api/trip', trip);
   }
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
@@ -36,21 +36,21 @@ export class TripService {
   }
 
 
- addStopToTrip(stop){
+ addStopToTrip(stop) {
 
     this.trip.stops.push(stop);
     // console.log("Updated stops array");
     // console.log(this.trip.stops);
-     this.updateWaypoints();
+    this.updateWaypoints();
  }
 
 
 
   updateWaypoints() {
-    if (this.trip.stops.length != 0) {
-      var allStops = this.trip.stops;
-      let waypointsLocations = [];
-      for (var index = 0; index < this.trip.stops.length; index++) {
+    if (this.trip.stops.length !== 0) {
+      const allStops = this.trip.stops;
+      const waypointsLocations = [];
+      for (let index = 0; index < this.trip.stops.length; index++) {
         waypointsLocations.push({
           location: {
             lat: allStops[index].location.latitude,
