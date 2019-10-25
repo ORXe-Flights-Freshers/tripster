@@ -25,7 +25,7 @@ export class TripService {
         destinationArrival.getSeconds() +
           directionResult.routes[0].legs[0].duration.value
       );
-      this.trip.destination.arrival = destinationArrival;
+      this.trip.destination.arrival = destinationArrival.toDateString();
 
       console.log(this.trip.destination.arrival);
     }
