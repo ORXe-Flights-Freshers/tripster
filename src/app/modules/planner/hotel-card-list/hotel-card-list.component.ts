@@ -39,20 +39,22 @@ export class HotelCardListComponent implements OnInit {
     //     console.log(err.message);
     //   }
     // );
-    this.httpService
-      .get("http://172.16.5.170:5000/api/values/30.3164945/78.03219179999996")
-      .subscribe(
-        data => {
-          console.log(data);
-          this.arrHotels = data["hotels"]; // FILL THE ARRAY WITH DATA.
-        },
-        (err: HttpErrorResponse) => {
-          console.log(err.message);
-        }
-      );
+    // this.httpService
+    //   .get("http://172.16.5.170:5000/api/values/30.3164945/78.03219179999996")
+    //   .subscribe(
+    //     data => {
+    //       console.log(data);
+    //       this.arrHotels = data["hotels"]; // FILL THE ARRAY WITH DATA.
+    //     },
+    //     (err: HttpErrorResponse) => {
+    //       console.log(err.message);
+    //     }
+    //   );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.hotelByStop(this.tripService.trip.source);
+  }
   hotelByStop(stop: Stop) {
     this.httpService
       .get(
