@@ -1,5 +1,5 @@
-import { Location } from "./Location";
-import { Place } from "./Place";
+import { Location } from './Location';
+import { Place } from './Place';
 
 export interface Stop {
   stopId: string;
