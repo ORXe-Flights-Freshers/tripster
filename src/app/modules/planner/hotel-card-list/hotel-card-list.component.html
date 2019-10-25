@@ -1,0 +1,35 @@
+<div class="hotelCardContainer">
+  <div class="hotelcardcontainer-header">
+    <div class="Containerheader">
+      <span
+        ><strong id="noOfHotelsSearched">{{ numberOfHotels }}</strong></span
+      ><span><strong>Hotel found in your search</strong></span>
+      <label id="filtertext"><strong>FILTER</strong></label>
+    </div>
+    <div style="overflow:hidden">
+      <div class="cityheader">
+        <span *ngFor="let cityname of cities">
+          <button mat-stroked-button (click)="hotelByCity(cityname.name)">
+            {{ cityname.name }}
+          </button>
+        </span>
+        <!-- <button mat-stroked-button>Banglore</button> -->
+      </div>
+    </div>
+  </div>
+  <div class="hotelcardcontentcontainer">
+    <div class="abcd">
+      <span *ngFor="let a of arrHotels">
+        <app-hotel-card
+          [name]="a['name']"
+          [rating]="a['rating']"
+          [description]="
+            a['contact']['address']['line1'] +
+            ',' +
+            a['contact']['address']['line2']
+          "
+        ></app-hotel-card>
+      </span>
+    </div>
+  </div>
+</div>
