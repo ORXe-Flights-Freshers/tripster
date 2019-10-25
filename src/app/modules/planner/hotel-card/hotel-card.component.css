@@ -1,0 +1,62 @@
+.card {
+  height: 130px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 3px;
+  position: relative;
+}
+
+.image {
+  width: 100px;
+  height: 110px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  margin-top: 3%;
+  position: absolute;
+}
+.image img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.text-body {
+  position: absolute;
+  margin-left: 35%;
+  width: 200px;
+  height: 100%;
+}
+
+.heading {
+  position: relative;
+  margin-top: 5%;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.facilities {
+  position: relative;
+  margin-top: 2%;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.add-btn {
+  background-color: white;
+  position: absolute;
+  padding: 2% 4%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-left: 80%;
+  margin-top: 90px;
+}
+.add-btn:hover {
+  color: white;
+  background-color: black;
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
