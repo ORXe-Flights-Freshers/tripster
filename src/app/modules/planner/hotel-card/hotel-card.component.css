@@ -1,54 +1,61 @@
-.container {
-  border-radius: 4px;
-  /* border: 1px solid black; */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  display: flex;
-
-  margin: 0px 0px 0px 0px;
-}
-.image-container {
-  padding: 8px;
-  //  flex-grow:1;
-  width: 30%;
-  display: flex;
-
-  img {
-    width: 100%;
-    height: 95%;
-    padding: 2px;
-  }
+.card {
+  height: 130px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 3px;
+  position: relative;
 }
 
-.hotel-detail {
-  // flex-grow: 3;
-  display: flex;
-  width: 70%;
-  flex-direction: column;
-
-  .hotel-header {
-    padding: 2px;
-    height: 25%;
-    h3 {
-      margin: 5px;
-    }
-  }
-  .hotel-discription {
-    height: 40%;
-    margin: 5px;
-    overflow-y: auto;
-    p {
-      margin: 0px;
-      font-family: initial;
-    }
-  }
+.image {
+  width: 100px;
+  height: 110px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  margin-top: 3%;
+  position: absolute;
+}
+.image img {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-.hotel-footer {
-  margin: 0px 0px 0px 0px;
-  height: 35%;
-  .mat-raised-button {
-    float: right;
-    margin: 0px 8px 8px 0px;
-    //  background-color: black;
-  }
+.text-body {
+  position: absolute;
+  margin-left: 35%;
+  width: 200px;
+  height: 100%;
+}
+
+.heading {
+  position: relative;
+  margin-top: 5%;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.facilities {
+  position: relative;
+  margin-top: 2%;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.add-btn {
+  position: absolute;
+  padding: 2% 4%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-left: 80%;
+  margin-top: 90px;
+}
+.add-btn:hover {
+  color: white;
+  background-color: black;
+  transition-duration: 0.2s;
+  cursor: pointer;
 }
