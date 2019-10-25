@@ -4,25 +4,21 @@ import { HttpClient } from "@angular/common/http";
 // import { Stop } from '../models/Stop';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class TripService {
   trip: Trip;
- waypoints=[
-  {
-    location:{lat:28,lng:73}
-  }
-  ];
- // waypointLocation:location{lat:number,lng:number}[];
+  waypoints = [];
+  // waypointLocation:location{lat:number,lng:number}[];
   directionResult: google.maps.DirectionsResult;
- 
+
   doDisplayHotels = false;
-constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   createTrip(trip: Trip) {
     this.trip = trip;
     // console.log("trip.service", trip);
-    return this.http.post('http://localhost:5000/api/trip', trip);
+    return this.http.post("http://3.14.69.62:5000/api/trip", trip);
   }
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
@@ -36,36 +32,37 @@ constructor(private http: HttpClient) {}
       this.trip.destination.arrival = destinationArrival.toDateString();
 
       console.log(this.trip.destination.arrival);
-    
     }
   }
 
-addStopToTrip(stop){
+
+ addStopToTrip(stop){
 
     this.trip.stops.push(stop);
     // console.log("Updated stops array");
     // console.log(this.trip.stops);
      this.updateWaypoints();
-}
+ }
 
-updateWaypoints(){
 
-  if(this.trip.stops.length!=0){
-       
-   var allStops=this.trip.stops;
-   let waypointsLocations=[];
-    for(var index=0; index < this.trip.stops.length; index++ ){
 
-      waypointsLocations.push({location:{lat:allStops[index].location.latitude,lng:allStops[index].location.longitude} });
+  updateWaypoints() {
+    if (this.trip.stops.length != 0) {
+      var allStops = this.trip.stops;
+      let waypointsLocations = [];
+      for (var index = 0; index < this.trip.stops.length; index++) {
+        waypointsLocations.push({
+          location: {
+            lat: allStops[index].location.latitude,
+            lng: allStops[index].location.longitude
+          }
+        });
+      }
+
+      this.waypoints = waypointsLocations;
+      console.log(this.waypoints);
     }
-
-    this.waypoints=waypointsLocations;
-    console.log(this.waypoints);
   }
-  
-}
- 
-
 
 
 }
