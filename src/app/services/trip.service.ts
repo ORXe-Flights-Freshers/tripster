@@ -8,8 +8,8 @@ import { Stop } from '../models/Stop';
 })
 export class TripService {
   trip: Trip;
-  waypoints: google.maps.DirectionsWaypoint[];
-
+ waypoints: google.maps.DirectionsWaypoint[];
+ // waypointLocation:location{lat:number,lng:number}[];
   directionResult: google.maps.DirectionsResult;
  
   testStop:Stop;
@@ -18,7 +18,7 @@ export class TripService {
   createTrip(trip: Trip) {
     this.trip = trip;
     // console.log("trip.service", trip);
-    return this.http.post("http://172.16.5.149:5000/api/trip", trip);
+    return this.http.post("http://localhost:5000/api/trip", trip);
   }
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
@@ -41,11 +41,27 @@ addStopToTrip(stop:Stop,stopIndex:number){
      console.log("Stop to be entered at:"+stopIndex);
     this.trip.stops[stopIndex]=stop;
     console.log(this.trip.stops);
-
+     this.updateWaypoints();
 }
 
-generateWaypoints(){
+updateWaypoints(){
 
+  if(this.trip.stops.length!=0){
+       
+   var allStops=this.trip.stops;
+
+    for(var index=0; index < this.trip.stops.length; index++ ){
+       
+      var waypointLocation={
+        lat: allStops[index].location.latitude, 
+        lng: allStops[index].location.longitude
+      }
+
+     // this.waypoints.push({  lat: allStops[index].location.latitude, lng: allStops[index].location.longitude ,"stopover":false});
+      
+    }
+
+  }
 
   
 }

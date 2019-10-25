@@ -23,6 +23,11 @@
         lat: tripService?.trip?.destination.location.latitude,
         lng: tripService?.trip?.destination.location.longitude
       }"
+      [waypoints]="[{
+      location: { lat: 22, lng: 75 }},{
+        location:{lat:28,lng:73}
+      }
+      ]"
       [renderOptions]="{
         draggable: false,
         suppressMarkers: true,
