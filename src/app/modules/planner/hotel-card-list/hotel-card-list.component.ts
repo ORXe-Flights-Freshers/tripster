@@ -58,7 +58,7 @@ export class HotelCardListComponent implements OnInit {
   hotelByStop(stop: Stop) {
     this.httpService
       .get(
-        "http://172.16.5.170:5000/api/values/" +
+        "http://172.16.5.149:5000/api/values/" +
           stop.location.latitude +
           "/" +
           stop.location.longitude
