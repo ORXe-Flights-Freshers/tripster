@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -10,7 +10,7 @@ import { TripService } from 'src/app/services/trip.service';
   templateUrl: './hotel-card-list.component.html',
   styleUrls: ['./hotel-card-list.component.css']
 })
-export class HotelCardListComponent {
+export class HotelCardListComponent implements OnInit {
   @Input() numberOfHotels = 123;
   arrHotels;
   cities: Stop[];
@@ -27,7 +27,7 @@ export class HotelCardListComponent {
   hotelByStop(stop: Stop) {
     this.httpService
       .get(
-        'http://172.16.5.149:5000/api/values/' +
+        'http://172.16.5.137:5000/api/values/' +
           stop.location.latitude +
           '/' +
           stop.location.longitude
