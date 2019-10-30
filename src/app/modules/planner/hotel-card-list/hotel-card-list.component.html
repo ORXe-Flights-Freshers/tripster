@@ -1,31 +1,20 @@
-<!--<div class="hotelCardContainer">-->
-<!--  <div class="hotelcardcontentcontainer">-->
-<!--    <div class="abcd">-->
-<!--      <span *ngFor="let a of arrHotels">-->
-<!--        <app-hotel-card-->
-<!--          [name]="a['name']"-->
-<!--          [rating]="a['rating']"-->
-<!--          [description]="-->
-<!--            a['contact']['address']['line1'] +-->
-<!--            ',' +-->
-<!--            a['contact']['address']['line2']-->
-<!--          "-->
-<!--        ></app-hotel-card>-->
-<!--      </span>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-
 <div class="container">
 
   <div class="header">
-    <span class="number-of-hotels-info bold">
-      <span class="count bolder">
-        {{ arrHotels ? (arrHotels.length).toString() : '0' }}
+      <span class="number-of-hotels-info bold">
+          <span
+              *ngIf="currentCity; else noLocationSelected"
+          >
+              <span class="bolder">
+                  {{ arrHotels ? (arrHotels.length).toString() : '0' }}
+              </span>
+              hotels found near {{ currentCity.name }}
+          </span>
+          <ng-template #noLocationSelected>
+              Choose a location to view hotels there
+          </ng-template>
+
       </span>
-      hotels found near Mumbai
-    </span>
     <div class="filter-btn bolder">Filter</div>
   </div>
 
@@ -33,20 +22,42 @@
     <button
         *ngIf="tripService?.trip?.source"
         (click)="hotelByStop(tripService?.trip?.source)"
+        [ngClass]="{
+          active: tripService.trip.source.name === currentCity.name
+        }"
     >
         {{ tripService.trip.source.name }}
     </button>
     <button
         *ngFor="let stop of tripService?.trip?.stops"
-        (click)="hotelByStop(stop)">
+        (click)="hotelByStop(stop)"
+        [ngClass]="{
+          active: stop.name === currentCity.name
+        }"
+    >
         {{ stop.name }}
     </button>
     <button
         *ngIf="tripService?.trip?.destination"
         (click)="hotelByStop(tripService?.trip?.destination)"
+        [ngClass]="{
+          active: tripService.trip.destination.name === currentCity.name
+        }"
     >
         {{ tripService.trip.destination.name }}
     </button>
   </div>
 
+  <div class="hotels-list">
+      <app-hotel-card
+          *ngFor="let a of arrHotels"
+          [name]="a['name']"
+          [rating]="a['rating']"
+          [description]="
+            a['contact']['address']['line1'] +
+            ',' +
+            a['contact']['address']['line2']
+          "
+      ></app-hotel-card>
+  </div>
 </div>
