@@ -4,6 +4,7 @@ import { Time } from '../../../models/Time';
 import { TripService } from 'src/app/services/trip.service';
 import { Router } from '@angular/router';
 import { Trip } from 'src/app/models/Trip';
+import {TimePickerThemeService} from '../../../services/TimePickerTheme.service';
 
 @Component({
   selector: 'app-search',
@@ -23,7 +24,9 @@ export class SearchComponent implements OnInit {
     mileage: new FormControl(this.vehicleMileage, [Validators.pattern('^[1-9]+[0-9]*$')])
   });
 
-  constructor(private tripService: TripService, private router: Router) {}
+  constructor(private tripService: TripService,
+              private router: Router,
+              public timePickerThemeService: TimePickerThemeService) {}
 
   ngOnInit() {}
   

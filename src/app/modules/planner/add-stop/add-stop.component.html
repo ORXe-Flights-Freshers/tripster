@@ -10,7 +10,7 @@
       placeholder="Enter Stop City"
       (onPlaceChange)="handleStopPlaceChange($event)"
     ></app-place-autocomplete>
-    
+
     <p>Arrival</p>
     <div id="arrival-block" class="flex-container">
 
@@ -33,7 +33,7 @@
                 <mat-datepicker #arrivalDatepicker></mat-datepicker>
               </mat-form-field>
         </div>
-  
+
         <div class="time-field">
             <mat-form-field class="time-input-field" appearance="outline">
                 <mat-label>Time</mat-label>
@@ -48,16 +48,17 @@
               <ngx-material-timepicker
                 (timeSet)="handleArrivalTimeSet($event)"
                 #arrivalTimePicker
+                [theme]="timePickerThemeService.darkTheme"
               ></ngx-material-timepicker>
-        </div> 
-  
+        </div>
+
       </div>
-  
-  
+
+
       <p>Departure</p>
-  
+
       <div id="departure-block" class="flex-container">
-  
+
           <div class="date-field">
               <mat-form-field class="date-input-field" appearance="outline">
                   <mat-label>Date</mat-label>
@@ -76,9 +77,9 @@
                   ></mat-datepicker-toggle>
                   <mat-datepicker #departureDatepicker></mat-datepicker>
                 </mat-form-field>
-           
+
             </div>
-  
+
             <div class="time-field">
                 <mat-form-field class="time-input-field" appearance="outline">
                     <mat-label>Time</mat-label>
@@ -88,13 +89,14 @@
                       [format]="12"
                       [value]="departureTime"
                       readonly
-                    />           
+                    />
                   </mat-form-field>
                   <ngx-material-timepicker
                     (timeSet)="handleDepartureTimeSet($event)"
                     #departureTimePicker
+                    [theme]="timePickerThemeService.darkTheme"
                   ></ngx-material-timepicker>
-              </div> 
+              </div>
       </div>
       <br>
 
