@@ -11,9 +11,8 @@ import { TripService } from 'src/app/services/trip.service';
   styleUrls: ['./hotel-card-list.component.css']
 })
 export class HotelCardListComponent implements OnInit {
-  @Input() numberOfHotels = 123;
   arrHotels;
-  cities: Stop[];
+  currentCity: Stop;
 
   constructor(
     private httpService: HttpClient,
@@ -25,12 +24,13 @@ export class HotelCardListComponent implements OnInit {
     this.hotelByStop(this.tripService.trip.source);
   }
   hotelByStop(stop: Stop) {
+    this.currentCity = stop;
     this.httpService
       .get(
         'http://172.16.5.137:5000/api/values/' +
-          stop.location.latitude +
+          this.currentCity.location.latitude +
           '/' +
-          stop.location.longitude
+          this.currentCity.location.longitude
       )
       .subscribe(
         (data: {hotels: []}) => {
