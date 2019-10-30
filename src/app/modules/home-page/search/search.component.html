@@ -74,7 +74,7 @@
     <hr />
     <mat-form-field class="mileage input-field" appearance="outline">
       <mat-label>Mileage (in kms per litre)</mat-label>
-      <input matInput placeholder="Enter Mileage(Km/l)" formControlName="mileage"/>
+      <input matInput placeholder="Enter Mileage(Km/l)" formControlName="mileage" />
       <mat-error *ngIf="searchForm.controls['mileage'].errors?.required">Mileage is required</mat-error>
       <mat-error *ngIf="searchForm.controls['mileage'].errors?.pattern">Mileage should be in the range 10-999</mat-error>
     </mat-form-field>
