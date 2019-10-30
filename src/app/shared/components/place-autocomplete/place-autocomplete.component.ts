@@ -8,9 +8,9 @@ import {
   EventEmitter,
   Input
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
-
+import { InputErrorStateMatcher } from './ErrorMatcher';
 @Component({
   selector: 'app-place-autocomplete',
   templateUrl: './place-autocomplete.component.html',
@@ -20,15 +20,24 @@ export class PlaceAutocompleteComponent implements OnInit {
   public latitude: number;
   public longitude: number;
   public searchControl: FormControl;
-
+  public validPlace: boolean = true;
+public autoCompleteFormGroup = new FormGroup({
+    inputPlace : new FormControl('', [Validators.nullValidator])
+  });
+  ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
   @Input() autoCompleteOptions: google.maps.places.AutocompleteOptions = {
     types: ['(cities)'],
     componentRestrictions: { country: 'IN' }
   };
 
   @Input() placeholder: string;
-
+  @Output() IsValid = new EventEmitter(); 
   @Output() onPlaceChange = new EventEmitter();
+  public KeyPress = (event) => {
+    this.validPlace = false;
+    this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
+    this.IsValid.emit({isValid: false});
+};
 
   @ViewChild('search', { read: false, static: true })
   public searchElementRef: ElementRef;
@@ -60,6 +69,9 @@ export class PlaceAutocompleteComponent implements OnInit {
             window.alert('Enter valid address');
             return;
           }
+          this.validPlace = true;
+          this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
+          this.IsValid.emit({isValid: true});
           this.onPlaceChange.emit(place);
         });
       });

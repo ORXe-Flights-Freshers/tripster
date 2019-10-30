@@ -13,17 +13,27 @@ import { Trip } from 'src/app/models/Trip';
 export class SearchComponent implements OnInit {
   origin: google.maps.places.PlaceResult;
   destination: google.maps.places.PlaceResult;
+  sourceValid: boolean;
+  destinationValid: boolean;
   tripDate: Date = new Date(Date.now());
   tripTime = '11:00 am';
   vehicleMileage: number;
 
   searchForm = new FormGroup({
-    mileage: new FormControl()
+    mileage: new FormControl('',[Validators.required, Validators.pattern("^[1-9][0-9][0-9]?$")])
   });
 
   constructor(private tripService: TripService, private router: Router) {}
 
   ngOnInit() {}
+  
+  handleInvalidSource(event){
+    this.sourceValid = event.isValid;
+  }
+  handleInvalidDestination(event){
+    this.destinationValid = event.isValid;
+  }
+
 
   handleSourceChange(place: google.maps.places.PlaceResult) {
     this.origin = place;
