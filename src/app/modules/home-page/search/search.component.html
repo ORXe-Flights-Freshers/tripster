@@ -59,6 +59,7 @@
         <ngx-material-timepicker
           (timeSet)="handleTimeSet($event)"
           #endTime
+          [theme]="timePickerThemeService.darkTheme"
         ></ngx-material-timepicker>
       </span>
       <button

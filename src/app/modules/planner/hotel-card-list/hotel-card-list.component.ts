@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -8,12 +8,11 @@ import { TripService } from 'src/app/services/trip.service';
 @Component({
   selector: 'app-hotel-card-list',
   templateUrl: './hotel-card-list.component.html',
-  styleUrls: ['./hotel-card-list.component.scss']
+  styleUrls: ['./hotel-card-list.component.css']
 })
-export class HotelCardListComponent {
-  @Input() numberOfHotels = 123;
+export class HotelCardListComponent implements OnInit {
   arrHotels;
-  cities: Stop[];
+  currentCity: Stop;
 
   constructor(
     private httpService: HttpClient,
@@ -25,12 +24,13 @@ export class HotelCardListComponent {
     this.hotelByStop(this.tripService.trip.source);
   }
   hotelByStop(stop: Stop) {
+    this.currentCity = stop;
     this.httpService
       .get(
-        'http://172.16.5.149:5000/api/values/' +
-          stop.location.latitude +
+        'http://172.16.5.137:5000/api/values/' +
+          this.currentCity.location.latitude +
           '/' +
-          stop.location.longitude
+          this.currentCity.location.longitude
       )
       .subscribe(
         (data: {hotels: []}) => {

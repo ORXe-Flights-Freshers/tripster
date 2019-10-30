@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PlannerModule } from './modules/planner/planner.module';
+import {TimePickerThemeService} from './services/TimePickerTheme.service';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { PlannerModule } from './modules/planner/planner.module';
     BrowserAnimationsModule,
     PlannerModule
   ],
-  providers: [],
+  providers: [TimePickerThemeService],
   bootstrap: [AppComponent]
 })
 // @ts-ignore
