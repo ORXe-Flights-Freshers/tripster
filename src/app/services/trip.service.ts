@@ -35,6 +35,16 @@ export class TripService {
     }
   }
 
+  getPreviousLocation(){
+
+      if(this.trip.stops.length!=0){
+          let totalStops= this.trip.stops.length;
+          return this.trip.stops[totalStops-1];
+      }else{
+        return this.trip.source;
+      }
+      
+  }
 
  addStopToTrip(stop) {
 

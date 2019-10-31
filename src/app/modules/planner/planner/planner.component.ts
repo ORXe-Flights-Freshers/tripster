@@ -59,19 +59,5 @@ export class PlannerComponent implements OnInit {
     this.dialog.closeAll();
   }
 
-  //  generateStop(stop): Stop{
-  //    let testStop:Stop;
-  //    testStop= {
-  //      location: {
-  //        latitude: stop.location.latitude ,
-  //        longitude: stop.location.longitude
-  //      },
-  //      stopId: "xyz",
-  //      name: stop.name,
-  //      arrival: stop.arrival,
-  //      departure: stop.departure,
-  //      places: []
-  //     }
-  //     return testStop;
-  //    }
+
 }
