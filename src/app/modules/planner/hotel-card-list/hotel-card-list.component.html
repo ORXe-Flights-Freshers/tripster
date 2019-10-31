@@ -1,14 +1,21 @@
 <div class="container">
 
+  <div
+    class="loader"
+    *ngIf="displayLoader"
+  >
+    <mat-spinner class="spinner"></mat-spinner>
+  </div>
+
   <div class="header">
       <span class="number-of-hotels-info bold">
           <span
-              *ngIf="currentCity; else noLocationSelected"
+              *ngIf="chosenCity; else noLocationSelected"
           >
               <span class="bolder">
                   {{ arrHotels ? (arrHotels.length).toString() : '0' }}
               </span>
-              hotels found near {{ currentCity.name }}
+              hotels found near {{ chosenCity }}
           </span>
           <ng-template #noLocationSelected>
               Choose a location to view hotels there
@@ -23,7 +30,7 @@
         *ngIf="tripService?.trip?.source"
         (click)="hotelByStop(tripService?.trip?.source)"
         [ngClass]="{
-          active: tripService.trip.source.name === currentCity.name
+          active: tripService.trip.source.name === chosenCity
         }"
     >
         {{ tripService.trip.source.name }}
@@ -32,7 +39,7 @@
         *ngFor="let stop of tripService?.trip?.stops"
         (click)="hotelByStop(stop)"
         [ngClass]="{
-          active: stop.name === currentCity.name
+          active: stop.name === chosenCity
         }"
     >
         {{ stop.name }}
@@ -41,7 +48,7 @@
         *ngIf="tripService?.trip?.destination"
         (click)="hotelByStop(tripService?.trip?.destination)"
         [ngClass]="{
-          active: tripService.trip.destination.name === currentCity.name
+          active: tripService.trip.destination.name === chosenCity
         }"
     >
         {{ tripService.trip.destination.name }}

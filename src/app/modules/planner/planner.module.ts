@@ -12,7 +12,7 @@ import { AddStopComponent } from './add-stop/add-stop.component';
 import { HotelCardComponent } from './hotel-card/hotel-card.component';
 import { HotelCardListComponent } from './hotel-card-list/hotel-card-list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {MatIconModule} from '@angular/material';
+import {MatIconModule, MatProgressSpinnerModule} from '@angular/material';
 
 const routes: Routes = [
   {
@@ -47,7 +47,8 @@ const routes: Routes = [
     AppMaterialModule,
     AgmCoreModule,
     MatIconModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatProgressSpinnerModule
   ],
   exports: [AddStopComponent]
 })

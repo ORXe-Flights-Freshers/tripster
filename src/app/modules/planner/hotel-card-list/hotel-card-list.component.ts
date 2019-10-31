@@ -12,30 +12,33 @@ import { TripService } from 'src/app/services/trip.service';
 })
 export class HotelCardListComponent implements OnInit {
   arrHotels;
-  currentCity: Stop;
+  chosenCity: string;
+  displayLoader: boolean;
 
   constructor(
     private httpService: HttpClient,
-    public tripService: TripService
-  ) {
+    public tripService: TripService) {
     console.log(tripService.trip);
+    this.displayLoader = false;
   }
   ngOnInit() {
     this.hotelByStop(this.tripService.trip.source);
   }
   hotelByStop(stop: Stop) {
-    this.currentCity = stop;
+    this.displayLoader = true;
     this.httpService
       .get(
         'http://172.16.5.137:5000/api/values/' +
-          this.currentCity.location.latitude +
+          stop.location.latitude +
           '/' +
-          this.currentCity.location.longitude
+          stop.location.longitude
       )
       .subscribe(
         (data: {hotels: []}) => {
-          this.arrHotels = data.hotels; // FILL THE ARRAY WITH DATA.
+          this.chosenCity = stop.name;
+          this.arrHotels = data.hotels;
           //  console.log(this.arrBirds[1]);
+          this.displayLoader = false;
         },
         (err: HttpErrorResponse) => {
           console.log(err.message);
