@@ -1,27 +1,17 @@
 mat-card {
-  margin: 20px auto;
+  margin: 20px auto 20px 131px;
   width: 85%;
   height: 400px;
   overflow: auto;
 }
 
-/* body {
-  line-height: 1.3em;
-  min-width: 920px;
-} */
 .history-tl-container {
   font-family: "Roboto", sans-serif;
   width: 100%;
-  /* margin: auto; */
-  /* display: block; */
-  /* position: relative; */
 }
 .history-tl-container ul {
   font-family: "Roboto", sans-serif;
   width: 100%;
-  /* margin: auto; */
-  /* display: block; */
-  /* position: relative; */
 }
 .history-tl-container ul.tl {
   margin: 20px 0;
@@ -30,8 +20,7 @@ mat-card {
 }
 .history-tl-container ul.tl li {
   list-style: none;
-  margin: auto;
-  margin-left: 20px;
+  margin: auto auto auto 20px;
   min-height: 50px;
   width: auto;
   border-left: 1px dashed black;
