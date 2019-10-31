@@ -3,15 +3,18 @@
        (click)="showOptions()"
        *ngIf="displayIcon"
   >
-  <div class="icon-line"></div>
-  <div class="icon-line"></div>
-  <div class="icon-line"></div>
+      <div class="icon-line"></div>
+      <div class="icon-line"></div>
+      <div class="icon-line"></div>
   </div>
 
   <div class="nav-bar" (window:resize)="onResize($event)">
     <div class="nav-bar-content margin-auto align-items-center white">
 
-      <div class="project-title">
+      <div
+        class="project-title"
+        routerLink="/"
+      >
         <ul>
           <li><h2>Tripster</h2></li>
           <li class="project-sub-title">Roadtrip Planner</li>

@@ -47,6 +47,15 @@
   width: 86%;
 }
 
+.project-title:hover {
+  cursor: pointer;
+  color: #7f7f7f;
+}
+
+.project-title:focus {
+  outline: none;
+}
+
 .project-sub-title {
   font-size: 0.6em;
   letter-spacing: 0.3em;
