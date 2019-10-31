@@ -1,8 +1,8 @@
 import { ErrorStateMatcher } from '@angular/material';
 
-    export class InputErrorStateMatcher implements ErrorStateMatcher {
+export class InputErrorStateMatcher implements ErrorStateMatcher {
         constructor(private errorstate: boolean) {}
-        isErrorState():boolean {
+        isErrorState(): boolean {
         return this.errorstate;
       }
     }
