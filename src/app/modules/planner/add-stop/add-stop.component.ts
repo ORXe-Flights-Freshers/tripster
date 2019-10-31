@@ -27,7 +27,10 @@ export class AddStopComponent implements OnInit {
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
     this.stopCity = place;
     console.log(place);
+    // let previousLocation=this.getPreviousLocation();
   }
+
+
   handleArrivalTimeSet(time: string) {
     this.arrivalTime = time;
   }
@@ -47,6 +50,12 @@ export class AddStopComponent implements OnInit {
 
     }
   }
+
+  // getPreviousLocation(){
+
+  //   if()
+
+  // }
 
   closeDialog() {
     this.dialogRef.close();

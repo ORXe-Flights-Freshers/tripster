@@ -51,6 +51,7 @@ export class PlannerComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
       stopFromDialog => {console.log(stopFromDialog);
+        if(stopFromDialog!=undefined)
         this.addStop(stopFromDialog);}
   );
 
