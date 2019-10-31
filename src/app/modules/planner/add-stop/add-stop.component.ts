@@ -55,7 +55,7 @@ export class AddStopComponent implements OnInit {
 
   addStop() {
 
-   let stop = {
+   const stop = {
       location: {
         latitude: this.stopCity.geometry.location.lat(),
         longitude: this.stopCity.geometry.location.lng()
