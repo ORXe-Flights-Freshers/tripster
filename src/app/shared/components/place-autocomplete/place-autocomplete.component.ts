@@ -40,6 +40,7 @@ export class PlaceAutocompleteComponent implements OnInit {
   predictionDescriptionMapper = prediction => {
     if (prediction) { return prediction.description; }
   }
+
   public KeyPress = event => {
     this.validPlace = false;
     this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
@@ -50,8 +51,11 @@ export class PlaceAutocompleteComponent implements OnInit {
     this.searchControl = new FormControl();
 
     this.searchControl.valueChanges.subscribe(query => {
-      if (query.length < 3) { this.predictions = []; }
-      else { this.getPredictions(query); }
+      if (query.length < 3) {
+        this.predictions = [];
+      } else {
+        this.getPredictions(query);
+      }
     });
 
     this.mapsAPILoader.load().then(() => {
@@ -64,7 +68,7 @@ export class PlaceAutocompleteComponent implements OnInit {
   getPredictions(query: string) {
     // console.log(this.sessionToken);
     // this.autocompleteService = new google.maps.places.AutocompleteService();
-    if (this.sessionToken == undefined) {
+    if (this.sessionToken === undefined) {
       this.sessionToken = new google.maps.places.AutocompleteSessionToken();
     }
     this.autocompleteService.getPlacePredictions(
@@ -83,7 +87,7 @@ export class PlaceAutocompleteComponent implements OnInit {
   ) {
     this.ngZone.run(() => {
       this.predictions = [];
-      if (status != google.maps.places.PlacesServiceStatus.OK) {
+      if (status !== google.maps.places.PlacesServiceStatus.OK) {
         // alert(status);
         console.log(status);
         return;
@@ -97,7 +101,7 @@ export class PlaceAutocompleteComponent implements OnInit {
   }
   onPlaceSelected(prediction: google.maps.places.AutocompletePrediction) {
     // console.log(option);
-    let request = {
+    const request = {
       placeId: prediction.place_id,
       sessionToken: this.sessionToken,
       fields: [
