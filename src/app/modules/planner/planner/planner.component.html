@@ -1,24 +1,38 @@
-<app-hotel-card-list *ngIf="tripService?.doDisplayHotels"></app-hotel-card-list>
-<span>
-  <div class="flex-container">
-    <div class="sidebar">
-      <app-timeline></app-timeline>
-      <mat-card>
-        <button
-          (click)="
-            this.tripService.doDisplayHotels = !this.tripService.doDisplayHotels
-          "
-          mat-raised-button
-          color="primary"
-        >
-          Hotels
-        </button>
-        <button mat-raised-button color="primary" (click)="openDialog()">
-          Add Stop
-        </button>
-        <button mat-raised-button color="primary">Share Trip</button>
-      </mat-card>
+<div class="body">
+  <app-hotel-card-list *ngIf="tripService?.doDisplayHotels"></app-hotel-card-list>
+  <span>
+    <div class="flex-container">
+      <div style="width: 40%">
+        <app-timeline></app-timeline>
+        <div class="amenities-navbar">
+            <div
+              class="btn"
+              (click)="this.tripService.doDisplayHotels = !this.tripService.doDisplayHotels"
+              [ngClass]="{
+                  'btn-active': this.tripService.doDisplayHotels
+              }"
+            >
+              <mat-icon class="btn-icon">hotel</mat-icon>
+              <span class="btn-text">Hotels</span>
+            </div>
+            <div class="btn">
+                <mat-icon class="btn-icon">restaurant</mat-icon>
+                <span class="btn-text">Restaurants</span>
+            </div>
+            <div class="btn">
+                <mat-icon class="btn-icon">local_hospital</mat-icon>
+                <span class="btn-text">Hospitals</span>
+            </div>
+        </div>
+      </div>
+      <app-map></app-map>
     </div>
-    <app-map></app-map>
-  </div>
-</span>
+  </span>
+</div>
+
+<!--        <button-->
+<!--          (click)="openDialog()"-->
+<!--        >-->
+<!--          Add Stop-->
+<!--        </button>-->
+<!--        <button>Share Trip</button>-->

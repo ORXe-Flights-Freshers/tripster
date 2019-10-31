@@ -1,6 +1,6 @@
-/* span {
-  position: absolute;
-} */
+.body {
+  background-color: rgba(240, 240, 240, 0.5);
+}
 
 .flex-container {
   display: flex;
@@ -8,22 +8,65 @@
   width: 100%;
 }
 
-.sidebar {
-  width: 40%;
+.amenities-navbar {
+  height: 70px;
+  width: 500px;
+  margin-top: 20px;
+  margin-left: 130px;
+  margin-bottom: 20px;
+
+  background-color: white;
+  border-radius: 15px;
 }
-mat-card {
-  margin: 20px auto;
-  width: 85%;
+
+.btn {
+  position: relative;
+  display: inline-block;
+
+  height: 90%;
+  width: 100px;
+  margin-top: 4px;
+
+  border-right: 1px solid rgba(127, 127, 127, 0.5);
+  color: rgba(120, 120, 120, 1)
 }
+
+.btn:hover,
+.btn-active {
+  cursor: pointer;
+  color: white;
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.btn * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.btn .btn-icon {
+  margin-top: 12px;
+}
+
+.btn .btn-text {
+  width: fit-content;
+  margin-top: 38px;
+  font-size: 14px;
+}
+
 app-map {
-  width: 60%;
+  position: absolute;
+
+  width: 500px;
+  height: 517px;
+
+  margin-top: 20px;
+  margin-left: 690px;
+
+  border: 1px solid rgba(127, 127, 127, 0.5);
+  border-radius: 20px;
 }
-button {
-  width: 30%;
-  margin: 5px;
-  /* min-width: 30px; */
-}
-/* app-hotel-card-list {
-  width: 20%;
-  /* position: fixed; 
-} */
