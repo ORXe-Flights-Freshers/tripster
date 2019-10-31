@@ -1,80 +1,123 @@
 import {
   Component,
   OnInit,
-  ViewChild,
-  ElementRef,
   NgZone,
   Output,
   EventEmitter,
   Input
-} from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MapsAPILoader } from '@agm/core';
-import { InputErrorStateMatcher } from './ErrorMatcher';
+} from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MapsAPILoader } from "@agm/core";
+import { InputErrorStateMatcher } from "./ErrorMatcher";
 @Component({
-  selector: 'app-place-autocomplete',
-  templateUrl: './place-autocomplete.component.html',
-  styleUrls: ['./place-autocomplete.component.css']
+  selector: "app-place-autocomplete",
+  templateUrl: "./place-autocomplete.component.html",
+  styleUrls: ["./place-autocomplete.component.css"]
 })
 export class PlaceAutocompleteComponent implements OnInit {
-  public latitude: number;
-  public longitude: number;
   public searchControl: FormControl;
+  predictions: google.maps.places.AutocompletePrediction[];
+  sessionToken: google.maps.places.AutocompleteSessionToken;
+  autocompleteService: google.maps.places.AutocompleteService;
+  placeService: google.maps.places.PlacesService;
+
+  predictionDescriptionMapper = prediction => {
+    if (prediction) return prediction.description;
+  };
+
   public validPlace: boolean = true;
-public autoCompleteFormGroup = new FormGroup({
-    inputPlace : new FormControl('', [Validators.nullValidator])
+  public autoCompleteFormGroup = new FormGroup({
+    inputPlace: new FormControl("", [Validators.nullValidator])
   });
   ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
   @Input() autoCompleteOptions: google.maps.places.AutocompleteOptions = {
-    types: ['(cities)'],
-    componentRestrictions: { country: 'IN' }
+    types: ["(cities)"],
+    componentRestrictions: { country: "IN" }
   };
 
   @Input() placeholder: string;
-  @Output() IsValid = new EventEmitter(); 
+  @Output() IsValid = new EventEmitter();
   @Output() onPlaceChange = new EventEmitter();
-  public KeyPress = (event) => {
+  public KeyPress = event => {
     this.validPlace = false;
     this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
-    this.IsValid.emit({isValid: false});
-};
+    this.IsValid.emit({ isValid: false });
+  };
 
-  @ViewChild('search', { read: false, static: true })
-  public searchElementRef: ElementRef;
-
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
+  constructor(private ngZone: NgZone, private mapsAPILoader: MapsAPILoader) {}
 
   ngOnInit() {
-    // set google maps defaults
+    this.searchControl = new FormControl();
 
-    // create search FormControl
-    // this.searchControl = new FormControl();
+    this.searchControl.valueChanges.subscribe(query => {
+      if (query.length < 3) this.predictions = [];
+      else this.getPredictions(query);
+    });
 
-    // //set current position
-    // this.setCurrentPosition();
-
-    // load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(
-        this.searchElementRef.nativeElement,
-        this.autoCompleteOptions
+      this.autocompleteService = new google.maps.places.AutocompleteService();
+      this.placeService = new google.maps.places.PlacesService(
+        document.createElement("div")
       );
-      autocomplete.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          // get the place result
-          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          // console.log(place);
-          // verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            window.alert('Enter valid address');
-            return;
-          }
-          this.validPlace = true;
-          this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
-          this.IsValid.emit({isValid: true});
-          this.onPlaceChange.emit(place);
-        });
+    });
+  }
+  getPredictions(query: string) {
+    // console.log(this.sessionToken);
+    // this.autocompleteService = new google.maps.places.AutocompleteService();
+    if (this.sessionToken == undefined)
+      this.sessionToken = new google.maps.places.AutocompleteSessionToken();
+    this.autocompleteService.getPlacePredictions(
+      {
+        input: query,
+        sessionToken: this.sessionToken,
+        types: ["(cities)"],
+        componentRestrictions: { country: "IN" }
+      },
+      (predictions, status) => this.setPredictions(predictions, status)
+    );
+  }
+  setPredictions(
+    predictions: google.maps.places.AutocompletePrediction[],
+    status: google.maps.places.PlacesServiceStatus
+  ) {
+    this.ngZone.run(() => {
+      this.predictions = [];
+      if (status != google.maps.places.PlacesServiceStatus.OK) {
+        // alert(status);
+        console.log(status);
+        return;
+      }
+      // console.log(predictions);
+
+      predictions.forEach(prediction => {
+        this.predictions.push(prediction);
       });
+    });
+  }
+  onPlaceSelected(prediction: google.maps.places.AutocompletePrediction) {
+    //console.log(option);
+    var request = {
+      placeId: prediction.place_id,
+      sessionToken: this.sessionToken,
+      fields: [
+        "name",
+        "geometry",
+        "formatted_address",
+        "icon",
+        "permanently_closed",
+        "photos",
+        "place_id",
+        "plus_code",
+        "types"
+      ]
+    };
+    this.placeService.getDetails(request, place => {
+      // console.log(place);
+      this.validPlace = true;
+      this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
+      this.IsValid.emit({ isValid: true });
+      this.onPlaceChange.emit(place);
+      this.sessionToken = new google.maps.places.AutocompleteSessionToken();
     });
   }
 }
