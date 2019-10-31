@@ -5,6 +5,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialogConfig
 } from '@angular/material/dialog';
+import {TimePickerThemeService} from '../../../services/TimePickerTheme.service';
 
 @Component({
   selector: 'app-add-stop',
@@ -14,13 +15,13 @@ import {
 
 
 export class AddStopComponent implements OnInit {
-  
   stopCity: google.maps.places.PlaceResult;
   arrivalDate: Date = new Date(Date.now());
   departureDate: Date = new Date(Date.now());
   arrivalTime = '11:00 am';
   departureTime = '11:00 am';
-  constructor(public dialogRef: MatDialogRef<AddStopComponent>) { }
+  constructor(public dialogRef: MatDialogRef<AddStopComponent>,
+              public timePickerThemeService: TimePickerThemeService) { }
 
   ngOnInit() {}
 
@@ -46,7 +47,7 @@ export class AddStopComponent implements OnInit {
   }
   handleDepartureDateSet(date) {
     this.departureDate = new Date(date.value);
-    if(this.departureDate<this.arrivalDate){
+    if (this.departureDate < this.arrivalDate) {
 
     }
   }
@@ -61,20 +62,20 @@ export class AddStopComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  addStop(){
-    
-   var stop= {
+  addStop() {
+
+   let stop = {
       location: {
         latitude: this.stopCity.geometry.location.lat(),
         longitude: this.stopCity.geometry.location.lng()
       },
-      stopId: "xyz",
+      stopId: 'xyz',
       name: this.stopCity.name,
       arrival: this.arrivalDate.toString(),
       departure: this.departureDate.toString(),
       places: []
-     }
-    console.log(stop);
-    this.dialogRef.close(stop);
+     };
+   console.log(stop);
+   this.dialogRef.close(stop);
   }
 }

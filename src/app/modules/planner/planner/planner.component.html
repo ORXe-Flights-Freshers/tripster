@@ -1,3 +1,4 @@
+<app-hotel-card-list *ngIf="tripService?.doDisplayHotels"></app-hotel-card-list>
 <span>
   <div class="flex-container">
     <div class="sidebar">
@@ -12,15 +13,12 @@
         >
           Hotels
         </button>
-        <button mat-raised-button color="primary">Attractions</button>
         <button mat-raised-button color="primary" (click)="openDialog()">
           Add Stop
         </button>
+        <button mat-raised-button color="primary">Share Trip</button>
       </mat-card>
     </div>
     <app-map></app-map>
-    <app-hotel-card-list
-      *ngIf="tripService?.doDisplayHotels"
-    ></app-hotel-card-list>
   </div>
 </span>

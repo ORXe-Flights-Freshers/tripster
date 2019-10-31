@@ -8,25 +8,21 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
   MatDialogConfig
-} from '@angular/material/dialog';
-import { AddStopComponent } from '../add-stop/add-stop.component';
+} from "@angular/material/dialog";
+import { AddStopComponent } from "../add-stop/add-stop.component";
 import { Stop } from "src/app/models/Stop";
-
-
 
 @Component({
   selector: "app-planner",
   templateUrl: "./planner.component.html",
   styleUrls: ["./planner.component.css"]
 })
-
-
 export class PlannerComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public tripService: TripService,
     private http: HttpClient,
-    public dialog: MatDialog,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -38,7 +34,6 @@ export class PlannerComponent implements OnInit {
     // console.log(this.route.params["value"]);
   }
 
-
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
 
@@ -47,41 +42,36 @@ export class PlannerComponent implements OnInit {
     dialogConfig.width = "400px";
     dialogConfig.height = "510px";
 
+
    const dialogRef=this.dialog.open(AddStopComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(
-      stopFromDialog => {console.log(stopFromDialog);
-        if(stopFromDialog!=undefined)
-        this.addStop(stopFromDialog);}
-  );
-
+    dialogRef.afterClosed().subscribe(stopFromDialog => {
+      console.log(stopFromDialog);
+      if (stopFromDialog != undefined) this.addStop(stopFromDialog);
+    });
   }
 
-  addStop(stop){
-  
+  addStop(stop) {
     // let stopToAdd=this.generateStop(stop);
-    this.tripService.addStopToTrip(stop);  
-   }
-
+    this.tripService.addStopToTrip(stop);
+  }
   closeDialog() {
     this.dialog.closeAll();
   }
 
-//  generateStop(stop): Stop{
-//    let testStop:Stop;
-//    testStop= {
-//      location: {
-//        latitude: stop.location.latitude ,
-//        longitude: stop.location.longitude
-//      },
-//      stopId: "xyz",
-//      name: stop.name,
-//      arrival: stop.arrival,
-//      departure: stop.departure,
-//      places: []
-//     }
-//     return testStop;
-//    }
-
-
+  //  generateStop(stop): Stop{
+  //    let testStop:Stop;
+  //    testStop= {
+  //      location: {
+  //        latitude: stop.location.latitude ,
+  //        longitude: stop.location.longitude
+  //      },
+  //      stopId: "xyz",
+  //      name: stop.name,
+  //      arrival: stop.arrival,
+  //      departure: stop.departure,
+  //      places: []
+  //     }
+  //     return testStop;
+  //    }
 }

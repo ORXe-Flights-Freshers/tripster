@@ -1,13 +1,20 @@
-<mat-form-field appearance="outline">
-  <mat-label>{{ placeholder }}</mat-label>
-  <input
-    matInput
-    [placeholder]="placeholder"
-    autocorrect="off"
-    autocapitalize="off"
-    spellcheck="false"
-    type="text"
-    #search
-  />
-  <mat-icon matSuffix>location_on</mat-icon>
-</mat-form-field>
+<form [formGroup]="autoCompleteFormGroup">
+  <mat-form-field appearance="outline">
+    <mat-label>{{ placeholder }}</mat-label>
+    <input
+      matInput
+      [placeholder]="placeholder"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      type="text"
+      #search
+      formControlName="inputPlace"
+      (keyup)="KeyPress($event)"
+      [errorStateMatcher]="ErrorMatcher"
+    />
+    <mat-icon matSuffix>location_on</mat-icon>
+    <mat-error *ngIf="!validPlace"> Select city from list </mat-error> 
+  </mat-form-field>
+  
+</form>
