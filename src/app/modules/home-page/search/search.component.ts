@@ -18,10 +18,10 @@ export class SearchComponent implements OnInit {
   destinationValid: boolean;
   tripDate: Date = new Date(Date.now());
   tripTime = '11:00 am';
-  vehicleMileage: number;
+  vehicleMileage = 25;
 
   searchForm = new FormGroup({
-    mileage: new FormControl('',[Validators.required, Validators.pattern("^[1-9][0-9][0-9]?$")])
+    mileage: new FormControl(this.vehicleMileage, [Validators.pattern('^[1-9]+[0-9]*$')])
   });
 
   constructor(private tripService: TripService,
