@@ -1,4 +1,5 @@
 import {Component } from '@angular/core';
+import {HeaderLinksService} from '../../../services/HeaderLinks/header-links.service';
 
 @Component({
   selector: 'app-header',
@@ -10,11 +11,9 @@ import {Component } from '@angular/core';
 })
 export class HeaderComponent {
   optionsOverlay = false;
-  extraOptions: string[];
   displayIcon = false;
 
-  constructor() {
-    this.extraOptions = ['Explore', 'Login'];
+  constructor(public extraOptions: HeaderLinksService) {
     this.displayIcon = !((window.innerWidth - 1 + 1) > 615);
   }
 
