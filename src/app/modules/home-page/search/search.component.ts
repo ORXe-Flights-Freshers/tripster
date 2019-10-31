@@ -29,11 +29,11 @@ export class SearchComponent implements OnInit {
               public timePickerThemeService: TimePickerThemeService) {}
 
   ngOnInit() {}
-  
-  handleInvalidSource(event){
+
+  handleInvalidSource(event) {
     this.sourceValid = event.isValid;
   }
-  handleInvalidDestination(event){
+  handleInvalidDestination(event) {
     this.destinationValid = event.isValid;
   }
 
