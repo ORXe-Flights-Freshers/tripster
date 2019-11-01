@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HeaderLinksService} from '../../services/HeaderLinks/header-links.service';
+import {HeaderDataService} from '../../services/HeaderData/header-data.service';
 
 @Component({
   selector: 'app-home-page',
@@ -8,8 +8,8 @@ import {HeaderLinksService} from '../../services/HeaderLinks/header-links.servic
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private headerLinks: HeaderLinksService) {
-    this.headerLinks.generateLinksForHomePage();
+  constructor(private headerDataService: HeaderDataService) {
+    this.headerDataService.customizeHeaderForHomePage();
   }
 
   ngOnInit() {
