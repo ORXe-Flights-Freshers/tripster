@@ -8,7 +8,7 @@
       <app-place-autocomplete
         class="input-field"
         placeholder="Source"
-        (onPlaceChange)="handleSourceChange($event)"
+        (placeChange)="handleSourceChange($event)"
         (IsValid)="handleInvalidSource($event)"
       ></app-place-autocomplete>
     </div>
@@ -16,7 +16,7 @@
       <app-place-autocomplete
         class="input-field"
         placeholder="Destination"
-        (onPlaceChange)="handleDestinationChange($event)"
+        (placeChange)="handleDestinationChange($event)"
         (IsValid)="handleInvalidDestination($event)"
       ></app-place-autocomplete>
     </div>
