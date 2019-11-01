@@ -45,7 +45,8 @@ export class PlannerComponent implements OnInit {
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
 
-    const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
+
+   const dialogRef=this.dialog.open(AddStopComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(stopFromDialog => {
       console.log(stopFromDialog);
@@ -63,19 +64,5 @@ export class PlannerComponent implements OnInit {
     this.dialog.closeAll();
   }
 
-  //  generateStop(stop): Stop{
-  //    let testStop:Stop;
-  //    testStop= {
-  //      location: {
-  //        latitude: stop.location.latitude ,
-  //        longitude: stop.location.longitude
-  //      },
-  //      stopId: "xyz",
-  //      name: stop.name,
-  //      arrival: stop.arrival,
-  //      departure: stop.departure,
-  //      places: []
-  //     }
-  //     return testStop;
-  //    }
+
 }

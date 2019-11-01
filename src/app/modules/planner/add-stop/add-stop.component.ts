@@ -6,6 +6,10 @@ import {
   MatDialogConfig
 } from '@angular/material/dialog';
 import {TimePickerThemeService} from '../../../services/TimePickerTheme.service';
+import { TripService } from "src/app/services/trip.service";
+import { HttpClient } from "@angular/common/http";
+import { TransitiveCompileNgModuleMetadata } from '@angular/compiler';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-add-stop',
@@ -20,15 +24,46 @@ export class AddStopComponent implements OnInit {
   departureDate: Date = new Date(Date.now());
   arrivalTime = '11:00 am';
   departureTime = '11:00 am';
+  timeTaken=999;
   constructor(public dialogRef: MatDialogRef<AddStopComponent>,
+              public tripService: TripService,
+              private http: HttpClient,
               public timePickerThemeService: TimePickerThemeService) { }
 
   ngOnInit() {}
 
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
     this.stopCity = place;
-    console.log(place);
+     let previousLocation=this.tripService.getPreviousLocation();
+     var startPoint = new google.maps.LatLng(previousLocation.location.latitude, previousLocation.location.longitude);
+     var endPoint = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
+    let previousLocationDeparture=new Date(previousLocation.departure);
+  //  console.log(previousLocation);
+    var self=this;
+    var distanceMatrixService = new google.maps.DistanceMatrixService();
+
+      distanceMatrixService.getDistanceMatrix(
+        {
+          origins: [startPoint],
+          destinations: [endPoint],
+          travelMode:google.maps.TravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC,
+          avoidHighways: false,
+          avoidTolls: false
+        }, callback);
+      
+      function callback(response, status) {
+     //   console.log(response);
+      // this.timeTaken=response.rows[0].elements[0].duration.value;
+      // console.log(previousLocationDeparture);
+      // console.log(self.arrivalDate);
+       self.arrivalDate.setTime(previousLocationDeparture.getTime() + (response.rows[0].elements[0].duration.value)*1000);
+       console.log(self.arrivalDate);
+      }
+
   }
+
+
   handleArrivalTimeSet(time: string) {
     this.arrivalTime = time;
   }
@@ -39,7 +74,6 @@ export class AddStopComponent implements OnInit {
     return new Date(Date.now());
   }
   handleArrivalDateSet(date) {
-    this.arrivalDate = new Date(date.value);
     console.log(this.arrivalDate);
   }
   handleDepartureDateSet(date) {
@@ -48,6 +82,32 @@ export class AddStopComponent implements OnInit {
 
     }
   }
+
+  // getTimeBetweenLocations(startPoint,endPoint){
+  //   var timeTaken;
+  //   var distanceMatrixService = new google.maps.DistanceMatrixService();
+
+  //   distanceMatrixService.getDistanceMatrix(
+  //     {
+  //       origins: [startPoint],
+  //       destinations: [endPoint],
+  //       travelMode:google.maps.TravelMode.DRIVING,
+  //       unitSystem: google.maps.UnitSystem.METRIC,
+  //       avoidHighways: false,
+  //       avoidTolls: false
+  //     }, callback);
+    
+  //   function callback(response, status) {
+  //     console.log(response);
+  //    // console.log(response.rows[0].elements[0].duration.value);
+  //    this.timeTaken=response.rows[0].elements[0].duration.value;
+  //    console.log(this.timeTaken);
+  //   }
+
+  //    return callback;//in seconds
+  // }
+
+
 
   closeDialog() {
     this.dialogRef.close();
