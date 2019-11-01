@@ -1,5 +1,14 @@
-.body {
+.planner-body {
   background-color: rgba(240, 240, 240, 0.5);
+  position: absolute;
+  margin-top: 65px;
+  width: 100%;
+}
+
+@media screen and (max-width: 615px) {
+  .planner-body {
+    margin-top: 60px;
+  }
 }
 
 .flex-container {
