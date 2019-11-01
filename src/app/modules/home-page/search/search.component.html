@@ -1,11 +1,9 @@
 <form
   [formGroup]="searchForm"
   (ngSubmit)="onSubmit()"
-  [ngStyle]="{
-    marginTop: '86px'
-  }"
+  class="search-card"
 >
-  <mat-card class="search-card">
+  <mat-card>
     <div class="source">
       <app-place-autocomplete
         class="input-field"
