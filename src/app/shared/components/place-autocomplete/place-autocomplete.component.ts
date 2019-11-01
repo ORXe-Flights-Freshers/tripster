@@ -4,11 +4,14 @@ import {
   NgZone,
   Output,
   EventEmitter,
-  Input
+  Input,
+  ViewChild,
+  ElementRef
 } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MapsAPILoader } from "@agm/core";
 import { InputErrorStateMatcher } from "./ErrorMatcher";
+import { Element } from '@angular/compiler';
 @Component({
   selector: "app-place-autocomplete",
   templateUrl: "./place-autocomplete.component.html",
@@ -20,25 +23,27 @@ export class PlaceAutocompleteComponent implements OnInit {
   sessionToken: google.maps.places.AutocompleteSessionToken;
   autocompleteService: google.maps.places.AutocompleteService;
   placeService: google.maps.places.PlacesService;
-
+  
   predictionDescriptionMapper = prediction => {
     if (prediction) return prediction.description;
   };
 
   public validPlace: boolean = true;
   public autoCompleteFormGroup = new FormGroup({
-    inputPlace: new FormControl("", [Validators.nullValidator])
+    inputPlace: new FormControl('')
   });
   ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
   @Input() autoCompleteOptions: google.maps.places.AutocompleteOptions = {
     types: ["(cities)"],
     componentRestrictions: { country: "IN" }
   };
+  // @ViewChild('place') e: ElementRef;
+
 
   @Input() placeholder: string;
   @Output() IsValid = new EventEmitter();
   @Output() onPlaceChange = new EventEmitter();
-  public KeyPress = event => {
+  public KeyPress = (event) => {
     this.validPlace = false;
     this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
     this.IsValid.emit({ isValid: false });
@@ -53,7 +58,7 @@ export class PlaceAutocompleteComponent implements OnInit {
       if (query.length < 3) this.predictions = [];
       else this.getPredictions(query);
     });
-
+    
     this.mapsAPILoader.load().then(() => {
       this.autocompleteService = new google.maps.places.AutocompleteService();
       this.placeService = new google.maps.places.PlacesService(
@@ -83,6 +88,7 @@ export class PlaceAutocompleteComponent implements OnInit {
     this.ngZone.run(() => {
       this.predictions = [];
       if (status != google.maps.places.PlacesServiceStatus.OK) {
+        
         // alert(status);
         console.log(status);
         return;
@@ -112,11 +118,12 @@ export class PlaceAutocompleteComponent implements OnInit {
       ]
     };
     this.placeService.getDetails(request, place => {
+
       // console.log(place);
+      this.onPlaceChange.emit(place);
       this.validPlace = true;
       this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
       this.IsValid.emit({ isValid: true });
-      this.onPlaceChange.emit(place);
       this.sessionToken = new google.maps.places.AutocompleteSessionToken();
     });
   }

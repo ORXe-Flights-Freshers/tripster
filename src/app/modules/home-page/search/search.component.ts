@@ -17,9 +17,11 @@ export class SearchComponent implements OnInit {
   sourceValid: boolean;
   destinationValid: boolean;
   tripDate: Date = new Date(Date.now());
+  placeId = '';
   tripTime = '11:00 am';
   vehicleMileage = 25;
-
+  sourceDuplicate: boolean;
+  destinationDuplicate: boolean;
   searchForm = new FormGroup({
     mileage: new FormControl(this.vehicleMileage, [Validators.pattern('^[1-9]+[0-9]*$')])
   });
@@ -29,21 +31,18 @@ export class SearchComponent implements OnInit {
               public timePickerThemeService: TimePickerThemeService) {}
 
   ngOnInit() {}
-  
   handleInvalidSource(event){
     this.sourceValid = event.isValid;
   }
   handleInvalidDestination(event){
     this.destinationValid = event.isValid;
   }
-
-
+  
   handleSourceChange(place: google.maps.places.PlaceResult) {
     this.origin = place;
-    console.log(place);
   }
   handleDestinationChange(place: google.maps.places.PlaceResult) {
-    this.destination = place;
+    this.destination = place; 
   }
   handleTimeSet(time: string) {
     this.tripTime = time;
