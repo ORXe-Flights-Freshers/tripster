@@ -31,6 +31,7 @@ export class SearchComponent implements OnInit {
               public timePickerThemeService: TimePickerThemeService) {}
 
   ngOnInit() {}
+  
   handleInvalidSource(event){
     this.sourceValid = event.isValid;
   }

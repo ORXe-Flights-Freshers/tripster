@@ -37,7 +37,7 @@ export class PlaceAutocompleteComponent implements OnInit {
     types: ["(cities)"],
     componentRestrictions: { country: "IN" }
   };
-  // @ViewChild('place') e: ElementRef;
+   @ViewChild('place', {static: false}) placeFormField: ElementRef;
 
 
   @Input() placeholder: string;
@@ -118,12 +118,15 @@ export class PlaceAutocompleteComponent implements OnInit {
       ]
     };
     this.placeService.getDetails(request, place => {
-
-      // console.log(place);
-      this.onPlaceChange.emit(place);
       this.validPlace = true;
+      // console.log(place);
+      if(this.validPlace == true){
+          
       this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
       this.IsValid.emit({ isValid: true });
+      this.placeFormField.nativeElement.blur();
+      }
+      this.onPlaceChange.emit(place);
       this.sessionToken = new google.maps.places.AutocompleteSessionToken();
     });
   }
