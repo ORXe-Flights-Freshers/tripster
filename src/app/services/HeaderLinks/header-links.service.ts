@@ -18,6 +18,7 @@ export class HeaderLinksService {
   generateLinksForPlannerPage() {
     this.links = [
       { name: 'Share', url: '/planner/:id/share' },
+      { name: 'Sign in', url: '/signin' },
     ];
   }
 }
