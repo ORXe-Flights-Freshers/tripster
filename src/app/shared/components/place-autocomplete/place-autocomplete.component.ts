@@ -4,7 +4,9 @@ import {
   NgZone,
   Output,
   EventEmitter,
-  Input
+  Input,
+  ViewChild,
+  ElementRef
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
@@ -25,7 +27,7 @@ export class PlaceAutocompleteComponent implements OnInit {
 
   public validPlace = true;
   public autoCompleteFormGroup = new FormGroup({
-    inputPlace: new FormControl('', [Validators.nullValidator])
+    inputPlace: new FormControl('', [Validators.required])
   });
   ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
   @Input() autoCompleteOptions: google.maps.places.AutocompleteOptions = {
@@ -34,13 +36,15 @@ export class PlaceAutocompleteComponent implements OnInit {
   };
 
   @Input() placeholder: string;
+  @ViewChild('place', {static : false})  placeInputFormField;
+  
   @Output() IsValid = new EventEmitter();
   @Output() onPlaceChange = new EventEmitter();
 
   predictionDescriptionMapper = prediction => {
     if (prediction) { return prediction.description; }
   }
-  public KeyPress = event => {
+  public KeyPress = (event) => {
     this.validPlace = false;
     this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
     this.IsValid.emit({ isValid: false });
@@ -115,8 +119,11 @@ export class PlaceAutocompleteComponent implements OnInit {
     this.placeService.getDetails(request, place => {
       // console.log(place);
       this.validPlace = true;
-      this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
-      this.IsValid.emit({ isValid: true });
+      if(this.validPlace == true){
+        this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
+        this.IsValid.emit({ isValid: true });
+        this.placeInputFormField.nativeElement.blur();
+      }
       this.onPlaceChange.emit(place);
       this.sessionToken = new google.maps.places.AutocompleteSessionToken();
     });
