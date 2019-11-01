@@ -1,16 +1,14 @@
 <form
   [formGroup]="searchForm"
   (ngSubmit)="onSubmit()"
-  [ngStyle]="{
-    marginTop: '86px'
-  }"
+  class="search-card"
 >
-  <mat-card class="search-card">
+  <mat-card>
     <div class="source">
       <app-place-autocomplete
         class="input-field"
         placeholder="Source"
-        (onPlaceChange)="handleSourceChange($event)"
+        (placeChange)="handleSourceChange($event)"
         (IsValid)="handleInvalidSource($event)"
       ></app-place-autocomplete>
     </div>
@@ -18,7 +16,7 @@
       <app-place-autocomplete
         class="input-field"
         placeholder="Destination"
-        (onPlaceChange)="handleDestinationChange($event)"
+        (placeChange)="handleDestinationChange($event)"
         (IsValid)="handleInvalidDestination($event)"
       ></app-place-autocomplete>
     </div>

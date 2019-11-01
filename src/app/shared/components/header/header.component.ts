@@ -1,5 +1,5 @@
-import {Component } from '@angular/core';
-import {HeaderLinksService} from '../../../services/HeaderLinks/header-links.service';
+import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
+import {HeaderDataService} from '../../../services/HeaderData/header-data.service';
 
 @Component({
   selector: 'app-header',
@@ -10,19 +10,20 @@ import {HeaderLinksService} from '../../../services/HeaderLinks/header-links.ser
   ]
 })
 export class HeaderComponent {
-  optionsOverlay = false;
-  displayIcon = false;
+  @ViewChild('extras', { static: false }) extras: ElementRef;
+  @ViewChild('burger', { static: false }) burger: ElementRef;
 
-  constructor(public extraOptions: HeaderLinksService) {
-    this.displayIcon = !((window.innerWidth - 1 + 1) > 615);
+  @HostListener('document:click', ['$event']) navLinksToggle(event: Event) {
+    const {target} = event;
+
+    if (this.burger.nativeElement.contains(target)) {
+      (this.extras.nativeElement as HTMLUListElement).classList.toggle('nav-active');
+    } else {
+      if ((this.extras.nativeElement as HTMLUListElement).classList.contains('nav-active')) {
+        (this.extras.nativeElement as HTMLUListElement).classList.remove('nav-active');
+      }
+    }
   }
 
-  onResize(eventData) {
-    this.displayIcon = !((eventData.target.innerWidth - 1 + 1) > 615);
-    this.optionsOverlay = false;
-  }
-
-  showOptions() {
-    this.optionsOverlay = !this.optionsOverlay;
-  }
+  constructor(public extraOptions: HeaderDataService) { }
 }

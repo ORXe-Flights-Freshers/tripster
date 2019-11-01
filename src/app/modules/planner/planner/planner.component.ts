@@ -11,7 +11,7 @@ import {
 } from '@angular/material/dialog';
 import { AddStopComponent } from '../add-stop/add-stop.component';
 import { Stop } from 'src/app/models/Stop';
-import {HeaderLinksService} from '../../../services/HeaderLinks/header-links.service';
+import {HeaderDataService} from '../../../services/HeaderData/header-data.service';
 
 @Component({
   selector: 'app-planner',
@@ -24,8 +24,8 @@ export class PlannerComponent implements OnInit {
     public tripService: TripService,
     private http: HttpClient,
     public dialog: MatDialog,
-    private headerLinks: HeaderLinksService) {
-    this.headerLinks.generateLinksForPlannerPage();
+    private headerLinks: HeaderDataService) {
+    this.headerLinks.customizeHeaderForPlannerPage();
   }
 
   ngOnInit() {
