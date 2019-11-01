@@ -9,6 +9,7 @@ import {TimePickerThemeService} from '../../../services/TimePickerTheme.service'
 import { TripService } from "src/app/services/trip.service";
 import { HttpClient } from "@angular/common/http";
 import { TransitiveCompileNgModuleMetadata } from '@angular/compiler';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-add-stop',
@@ -23,6 +24,7 @@ export class AddStopComponent implements OnInit {
   departureDate: Date = new Date(Date.now());
   arrivalTime = '11:00 am';
   departureTime = '11:00 am';
+  timeTaken=999;
   constructor(public dialogRef: MatDialogRef<AddStopComponent>,
               public tripService: TripService,
               private http: HttpClient,
@@ -32,41 +34,32 @@ export class AddStopComponent implements OnInit {
 
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
     this.stopCity = place;
-    console.log(place);
      let previousLocation=this.tripService.getPreviousLocation();
-    //  let startPoint={lat:999,lng:999};
-    //  let endPoint={lat:999,lng:999};
-    //  startPoint.lat=previousLocation.location.latitude;
-    //  startPoint.lng=previousLocation.location.longitude;
-    //  endPoint.lat=place.geometry.location.lat();
-    //  endPoint.lng=place.geometry.location.lng();    
-    //  console.log(startPoint);
-    //  console.log("qwqwqwqwqwqwq");
-    //  console.log(endPoint);
-    //  let travelTime;
-    //  const key ='AIzaSyC2LnC7a1z5MDzBjx4Us9qo9Z4Yupum03A' ;
-    //  this.http.get("http://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+ startPoint.lat+","+startPoint.lng+"&destinations="+endPoint.lat+","+endPoint.lng+"&key="+ key).subscribe(data => {
-    //    console.log(data);
-    //  });
-    var startPoint = new google.maps.LatLng(previousLocation.location.latitude, previousLocation.location.longitude);
-    var endPoint = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
-    
+     var startPoint = new google.maps.LatLng(previousLocation.location.latitude, previousLocation.location.longitude);
+     var endPoint = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
+    let previousLocationDeparture=new Date(previousLocation.departure);
+  //  console.log(previousLocation);
+    var self=this;
     var distanceMatrixService = new google.maps.DistanceMatrixService();
-    distanceMatrixService.getDistanceMatrix(
-      {
-        origins: [startPoint],
-        destinations: [endPoint],
-        unitSystem: google.maps.UnitSystem.METRIC,
-        avoidHighways: false,
-        avoidTolls: false
-      }, callback);
-    
-    function callback(response, status) {
-      // See Parsing the Results for
-      // the basics of a callback function.
-      console.log(response);
-    }
 
+      distanceMatrixService.getDistanceMatrix(
+        {
+          origins: [startPoint],
+          destinations: [endPoint],
+          travelMode:google.maps.TravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.METRIC,
+          avoidHighways: false,
+          avoidTolls: false
+        }, callback);
+      
+      function callback(response, status) {
+     //   console.log(response);
+      // this.timeTaken=response.rows[0].elements[0].duration.value;
+      // console.log(previousLocationDeparture);
+      // console.log(self.arrivalDate);
+       self.arrivalDate.setTime(previousLocationDeparture.getTime() + (response.rows[0].elements[0].duration.value)*1000);
+       console.log(self.arrivalDate);
+      }
 
   }
 
@@ -81,7 +74,6 @@ export class AddStopComponent implements OnInit {
     return new Date(Date.now());
   }
   handleArrivalDateSet(date) {
-    this.arrivalDate = new Date(date.value);
     console.log(this.arrivalDate);
   }
   handleDepartureDateSet(date) {
@@ -90,6 +82,32 @@ export class AddStopComponent implements OnInit {
 
     }
   }
+
+  // getTimeBetweenLocations(startPoint,endPoint){
+  //   var timeTaken;
+  //   var distanceMatrixService = new google.maps.DistanceMatrixService();
+
+  //   distanceMatrixService.getDistanceMatrix(
+  //     {
+  //       origins: [startPoint],
+  //       destinations: [endPoint],
+  //       travelMode:google.maps.TravelMode.DRIVING,
+  //       unitSystem: google.maps.UnitSystem.METRIC,
+  //       avoidHighways: false,
+  //       avoidTolls: false
+  //     }, callback);
+    
+  //   function callback(response, status) {
+  //     console.log(response);
+  //    // console.log(response.rows[0].elements[0].duration.value);
+  //    this.timeTaken=response.rows[0].elements[0].duration.value;
+  //    console.log(this.timeTaken);
+  //   }
+
+  //    return callback;//in seconds
+  // }
+
+
 
   closeDialog() {
     this.dialogRef.close();
