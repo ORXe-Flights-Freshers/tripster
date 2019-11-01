@@ -1,49 +1,35 @@
-<span class="container-header">
-  <div class="navbar-icon"
-       (click)="showOptions()"
-       *ngIf="displayIcon"
-  >
-  <div class="icon-line"></div>
-  <div class="icon-line"></div>
-  <div class="icon-line"></div>
+<div
+  class="nav-bar"
+  [ngStyle]="{
+    backgroundColor: extraOptions.backgroundColor
+  }"
+>
+  <div class="hamburger" #burger>
+    <div class="icon-line"></div>
+    <div class="icon-line"></div>
+    <div class="icon-line"></div>
   </div>
 
-  <div class="nav-bar" (window:resize)="onResize($event)">
-    <div class="nav-bar-content margin-auto align-items-center white">
+  <div class="nav-bar-content margin-auto align-items-center white">
 
-      <div class="project-title">
-        <ul>
-          <li><h2>Tripster</h2></li>
-          <li class="project-sub-title">Roadtrip Planner</li>
-        </ul>
-      </div>
-
-      <div
-        class="extras"
-        *ngIf="!displayIcon"
-      >
-        <ul>
-          <li
-            *ngFor="let option of extraOptions.links"
-          >
-            {{ option }}
-          </li>
-        </ul>
-      </div>
-
-    </div>
-    <div class="extras-overlay"
-         [ngClass]="{
-            'display-none': !optionsOverlay
-         }"
+    <div
+      class="project-title"
+      routerLink="/"
     >
       <ul>
-        <li
-          *ngFor="let option of extraOptions.links"
-        >
-          {{ option }}
-        </li>
+        <li><h2>Tripster</h2></li>
+        <li class="project-sub-title">Roadtrip Planner</li>
       </ul>
     </div>
+
+    <ul class="extras" #extras>
+      <li
+        *ngFor="let option of extraOptions.links"
+        [routerLink]="option.url"
+      >
+        {{ option.name }}
+      </li>
+    </ul>
+
   </div>
-</span>
+</div>

@@ -5,34 +5,26 @@
   text-decoration: none;
 }
 
-.container-header {
-  /*position: absolute;*/
-}
-
-.display-none {
-  display: none;
-}
-
 .nav-bar {
   height: 70px;
-  background-color: #0B1240;
-  /*background-color: transparent;*/
+  width: 100%;
+
+  position: absolute;
+  z-index: 2;
 }
 
 .nav-bar-content {
+  display: flex;
   width: 80%;
   height: 100%;
-  display: flex;
+  justify-content: space-between;
 }
 
-.navbar-icon {
+.hamburger {
+  display: none;
   position: absolute;
   margin-top: 20px;
   margin-left: 15px;
-}
-
-.nav-bar-icon:focus {
-  color: gray;
 }
 
 .icon-line {
@@ -44,7 +36,15 @@
 
 .project-title {
   letter-spacing: 0.3em;
-  width: 86%;
+}
+
+.project-title:hover {
+  cursor: pointer;
+  color: #7f7f7f;
+}
+
+.project-title:focus {
+  outline: none;
 }
 
 .project-sub-title {
@@ -52,49 +52,41 @@
   letter-spacing: 0.3em;
 }
 
-.extras ul {
-  display: inline-flex;
-  width: 130%;
+ul.extras {
+  display: flex;
+  width: 12%;
   justify-content: space-between;
 }
 
-.extras-overlay {
-  position: absolute;
-  width: 30%;
-  z-index: 1;
-}
-
-.extras-overlay li{
-  background-color: #0B1240;
-  color: white;
-  padding: 5%;
-  font-size: 18px;
-  border-bottom: 1px solid white;
-}
-
-.extras-overlay li:hover {
-  background-color: white;
-  color: #0B1240;
-  text-decoration: underline;
+ul.extras li:hover {
   cursor: pointer;
-  border: 1px solid #0B1240;
+  color: #7f7f7f;
+  font-size: 1.1em;
+  text-decoration: underline;
+  transition: 0.2s ease-in-out;
 }
 
-@media screen and (max-width: 900px) and (min-width: 800px) {
-  .project-title {
-    width: 81%;
+@media screen and (max-width: 1300px) and (min-width: 1100px) {
+  ul.extras {
+    width: 15%;
   }
 }
 
-@media screen and (max-width: 800px) and (min-width: 700px) {
-  .project-title {
-    width: 78%;
+@media screen and (max-width: 1100px) and (min-width: 950px) {
+  ul.extras {
+    width: 18%;
   }
 }
 
-@media screen and (max-width: 700px) and (min-width: 615px) {
-  .project-title {
-    width: 75%;
+@media screen and (max-width: 950px) and (min-width: 800px) {
+  ul.extras {
+    width: 21%;
+  }
+}
+
+@media screen and (max-width: 800px) and (min-width: 0px) {
+  ul.extras {
+    width: 30%;
   }
 }
 
@@ -103,11 +95,53 @@
     height: 60px;
   }
 
+  .hamburger {
+    display: block;
+  }
+
+  .hamburger:hover {
+    cursor: pointer;
+  }
+
   .extras {
-    display: none;
+    position: absolute;
+    background-color: #0B1240;
+
+    left: 0;
+    top: 60px;
+
+    z-index: 2;
+    width: 50%;
+
+    display: flex;
+    flex-direction: column;
+
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .extras li {
+    padding-left: 35%;
+    padding-top: 10px;
+
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .extras li:hover {
+    color: #0B1240;
+
+    text-decoration: underline;
+    background-color: white;
+
+    cursor: pointer;
   }
 
   .project-title {
     margin-left: 30%;
   }
+}
+
+.nav-active {
+  transform: translateX(0);
 }

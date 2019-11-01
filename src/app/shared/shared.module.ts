@@ -7,6 +7,7 @@ import { AppMaterialModule } from '../modules/app-material/app-material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [HeaderComponent, PlaceAutocompleteComponent],
@@ -16,7 +17,8 @@ import { MatIconModule } from '@angular/material';
     AppMaterialModule,
     CommonModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   exports: [HeaderComponent, PlaceAutocompleteComponent]
 })

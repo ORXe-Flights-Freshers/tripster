@@ -1,18 +1,23 @@
+.container {
+  position: absolute;
+  width: 100%;
+}
+
 img {
   position: absolute;
   padding: 0;
-  height: 200px;
+  height: 249px;
   width: 100%;
 }
 
 @media screen and (max-width: 1300px) and (min-width: 600px) {
   img {
-    height: 289px;
+    height: 337px;
   }
 }
 
 @media screen and (max-width: 600px) {
   img {
-    height: 700px;
+    height: 720px;
   }
 }

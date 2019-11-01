@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HeaderLinksService } from './header-links.service';
+import { HeaderDataService } from './header-data.service';
 
 describe('HeaderLinksService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: HeaderLinksService = TestBed.get(HeaderLinksService);
+    const service: HeaderDataService = TestBed.get(HeaderDataService);
     expect(service).toBeTruthy();
   });
 });
