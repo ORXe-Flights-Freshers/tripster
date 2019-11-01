@@ -4,15 +4,20 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class HeaderLinksService {
-  links: string[];
+  links: { [name: string]: string }[];
 
   constructor() { }
 
   generateLinksForHomePage() {
-    this.links = [];
+    this.links = [
+      { 'Sign up': '/signup' },
+      { 'Sign in': '/signin' },
+    ];
   }
 
   generateLinksForPlannerPage() {
-    this.links = ['Share'];
+    this.links = [
+      { 'Share ': '/planner/:id/share'},
+    ];
   }
 }
