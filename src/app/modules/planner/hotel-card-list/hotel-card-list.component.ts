@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -27,22 +27,37 @@ export class HotelCardListComponent implements OnInit {
   hotelByStop(stop: Stop) {
     this.displayLoader = true;
     this.httpService
-      .get(
-        'http://172.16.5.137:5000/api/values/' +
-          stop.location.latitude +
-          '/' +
-          stop.location.longitude
-      )
-      .subscribe(
-        (data: {hotels: []}) => {
-          this.chosenCity = stop.name;
-          this.arrHotels = data.hotels;
-          //  console.log(this.arrBirds[1]);
-          this.displayLoader = false;
-        },
-        (err: HttpErrorResponse) => {
-          console.log(err.message);
+      .get('https://tripster-tavisca.firebaseio.com/hotels-api-ip.json')
+      .subscribe(hotelsApiDetails => {
+
+        const hotelsApiEndpoint: { [ipObj: string]: { [ip: string]: string }} = {};
+        for (const key in hotelsApiDetails) {
+          if (hotelsApiDetails.hasOwnProperty(key)) {
+            hotelsApiEndpoint.ipObj = hotelsApiDetails[key];
+          }
         }
-      );
+
+        console.log(hotelsApiEndpoint.ipObj.ip);
+        const hotelsApiUrl = 'http://' + hotelsApiEndpoint.ipObj.ip + '/api/values/';
+
+        this.httpService
+          .get(
+            hotelsApiUrl +
+            stop.location.latitude +
+            '/' +
+            stop.location.longitude
+          )
+          .subscribe(
+            (data: {hotels: []}) => {
+              this.chosenCity = stop.name;
+              this.arrHotels = data.hotels;
+              //  console.log(this.arrBirds[1]);
+              this.displayLoader = false;
+            },
+            (err: HttpErrorResponse) => {
+              console.log(err.message);
+            }
+          );
+      });
   }
 }
