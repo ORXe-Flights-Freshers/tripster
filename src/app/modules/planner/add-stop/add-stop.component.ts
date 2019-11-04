@@ -87,9 +87,6 @@ export class AddStopComponent implements OnInit {
   }
   handleDepartureDateSet(date) {
     this.departureDate = new Date(date.value);
-    if (this.departureDate < this.arrivalDate) {
-
-    }
   }
 
   // getTimeBetweenLocations(startPoint,endPoint){
