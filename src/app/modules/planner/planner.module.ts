@@ -54,6 +54,9 @@ const routes: Routes = [
     MatProgressSpinnerModule,
     FormsModule
   ],
-  exports: [AddStopComponent]
+  exports: [AddStopComponent,AddHotelDetailsComponent],
+  entryComponents: [
+    AddHotelDetailsComponent
+ ]
 })
 export class PlannerModule {}
