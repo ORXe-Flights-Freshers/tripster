@@ -17,7 +17,7 @@
         <div class="date-field">
            <mat-form-field class="date-input-field" appearance="outline">
                 <mat-label>Date</mat-label>
-                <input placeholder="Trip Date" matInput [matDatepicker]="arrivalDatepicker"
+                <input placeholder="Trip Date"  matInput [matDatepicker]="arrivalDatepicker"
                   (dateChange)="handleArrivalDateSet($event)" [value]="arrivalDate"  disabled/>
                 <mat-datepicker-toggle
                   matSuffix
@@ -35,7 +35,7 @@
                   [ngxTimepicker]="arrivalTimePicker"
                   [format]="12"
                   [value]="arrivalTime"
-                  readonly
+                  disabled=true
                 />
               </mat-form-field>
               <ngx-material-timepicker
