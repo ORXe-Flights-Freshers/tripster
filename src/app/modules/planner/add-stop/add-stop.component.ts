@@ -22,7 +22,7 @@ export class AddStopComponent implements OnInit {
   stopCity: google.maps.places.PlaceResult;
   arrivalDate: Date = new Date(Date.now());
   departureDate: Date = new Date(Date.now());
-  arrivalTime = '11:00 am';
+  arrivalTime = '00:00 am';
   departureTime = '11:00 am';
   timeTaken=999;
   constructor(public dialogRef: MatDialogRef<AddStopComponent>,
@@ -59,13 +59,16 @@ export class AddStopComponent implements OnInit {
       // console.log(self.arrivalDate);
        self.arrivalDate.setTime(previousLocationDeparture.getTime() + (response.rows[0].elements[0].duration.value)*1000);
        console.log(self.arrivalDate);
+       self.arrivalDate=new Date(self.arrivalDate);
+       self.handleArrivalTimeSet(self.arrivalDate);
       }
 
   }
 
 
-  handleArrivalTimeSet(time: string) {
-    this.arrivalTime = time;
+  handleArrivalTimeSet(date) {
+    this.arrivalTime = date.getHours().toString()+":"+date.getMinutes().toString()+" am" ;
+    console.log(this.arrivalTime);
   }
   handleDepartureTimeSet(time: string) {
     this.departureTime = time;

@@ -23,6 +23,11 @@
                 <mat-icon class="btn-icon">local_hospital</mat-icon>
                 <span class="btn-text">Hospitals</span>
             </div>
+            <button
+            (click)="openDialog()"
+         >
+          Add Stop
+        </button>
         </div>
       </div>
       <app-map></app-map>
@@ -30,9 +35,5 @@
   </span>
 </div>
 
-      <button
-          (click)="openDialog()"
-       >
-        Add Stop
-      </button>
+     
 <!--        <button>Share Trip</button>-->
