@@ -1,4 +1,8 @@
-<agm-map [fitBounds]="true">
+<div class="loader" *ngIf="isLoading">
+  <mat-spinner class="spinner"></mat-spinner>
+</div>
+
+<agm-map [fitBounds]="true" *ngIf="!isLoading">
   <agm-marker
     *ngIf="tripService?.trip?.source"
     [agmFitBounds]="true"
@@ -13,15 +17,11 @@
   ></agm-marker>
   <agm-direction
     *ngIf="tripService?.trip?.source && tripService?.trip?.destination"
-    [origin]="{
-      lat: tripService?.trip?.source.location.latitude,
-      lng: tripService?.trip?.source.location.longitude
-    }"
-    [destination]="{
-      lat: tripService?.trip?.destination.location.latitude,
-      lng: tripService?.trip?.destination.location.longitude
-    }"
+    [origin]="origin"
+    [destination]="destination"
     [waypoints]="tripService?.waypoints"
+    [optimizeWaypoints]="false"
+    [markerOptions]="markerOptions"
     [renderOptions]="{
       draggable: false,
       suppressMarkers: true,

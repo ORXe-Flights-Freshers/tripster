@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Trip } from '../models/Trip';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 // import { Stop } from '../models/Stop';
 
 @Injectable({
@@ -8,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TripService {
   trip: Trip;
+  tripSubject = new Subject<Trip>();
   waypoints = [];
   // waypointLocation:location{lat:number,lng:number}[];
   directionResult: google.maps.DirectionsResult;
@@ -17,8 +19,16 @@ export class TripService {
 
   createTrip(trip: Trip) {
     this.trip = trip;
+    this.tripSubject.next(trip);
     // console.log("trip.service", trip);
     return this.http.post('http://3.14.69.62:5000/api/trip', trip);
+  }
+
+  updateTrip(trip: Trip) {
+    this.trip = trip;
+    this.tripSubject.next(trip);
+   // console.log('http://3.14.69.62:5000/api/trip/'+this.trip.id);
+    return this.http.put('http://3.14.69.62:5000/api/trip/'+ trip.id, trip);
   }
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
@@ -49,6 +59,7 @@ export class TripService {
  addStopToTrip(stop) {
 
     this.trip.stops.push(stop);
+    this.tripSubject.next(this.trip);
     // console.log("Updated stops array");
     // console.log(this.trip.stops);
     this.updateWaypoints();
