@@ -35,15 +35,15 @@ export class TripService {
     }
   }
 
-  getPreviousLocation(){
+  getPreviousLocation() {
 
-      if(this.trip.stops.length!=0){
-          let totalStops= this.trip.stops.length;
-          return this.trip.stops[totalStops-1];
-      }else{
+      if (this.trip.stops.length !== 0) {
+          const totalStops = this.trip.stops.length;
+          return this.trip.stops[totalStops - 1];
+      } else {
         return this.trip.source;
       }
-      
+
   }
 
  addStopToTrip(stop) {

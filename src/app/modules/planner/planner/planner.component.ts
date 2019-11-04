@@ -46,7 +46,7 @@ export class PlannerComponent implements OnInit {
     dialogConfig.height = '510px';
 
 
-   const dialogRef=this.dialog.open(AddStopComponent, dialogConfig);
+    const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(stopFromDialog => {
       console.log(stopFromDialog);
