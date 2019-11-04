@@ -33,6 +33,7 @@ export class PlannerComponent implements OnInit {
     const id = this.route.params.value.id;
     this.http.get('http://3.14.69.62:5000/api/trip/' + id).subscribe(data => {
       this.tripService.trip = data as Trip;
+      this.tripService.tripSubject.next(this.tripService.trip);
     });
     // console.log(this.route.params["value"]);
   }
@@ -44,7 +45,6 @@ export class PlannerComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
-
 
     const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
 
@@ -59,6 +59,9 @@ export class PlannerComponent implements OnInit {
   addStop(stop) {
     // let stopToAdd=this.generateStop(stop);
     this.tripService.addStopToTrip(stop);
+    this.tripService.updateTrip(this.tripService.trip).subscribe(response => {
+      //console.log(response);
+    });
   }
   closeDialog() {
     this.dialog.closeAll();

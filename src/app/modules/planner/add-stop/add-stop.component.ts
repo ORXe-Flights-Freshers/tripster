@@ -8,8 +8,7 @@ import {
 import {TimePickerThemeService} from '../../../services/TimePickerTheme.service';
 import { TripService } from 'src/app/services/trip.service';
 import { HttpClient } from '@angular/common/http';
-import { TransitiveCompileNgModuleMetadata } from '@angular/compiler';
-import { async } from '@angular/core/testing';
+import { Time } from '../../../models/Time';
 
 @Component({
   selector: 'app-add-stop',
@@ -38,7 +37,7 @@ export class AddStopComponent implements OnInit {
     const startPoint = new google.maps.LatLng(previousLocation.location.latitude, previousLocation.location.longitude);
     const endPoint = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
     const previousLocationDeparture = new Date(previousLocation.departure);
-  //  console.log(previousLocation);
+  
     const self = this;
     const distanceMatrixService = new google.maps.DistanceMatrixService();
 
@@ -61,20 +60,27 @@ export class AddStopComponent implements OnInit {
        console.log(self.arrivalDate);
        self.arrivalDate=new Date(self.arrivalDate);
        self.handleArrivalTimeSet(self.arrivalDate);
+       self.departureDate=new Date(self.arrivalDate);
+       self.departureTime=self.departureDate.getHours().toString()+":"+self.departureDate.getMinutes().toString()+" am";
       }
  
   }
 
 
+
   handleArrivalTimeSet(date) {
-    this.arrivalTime = date.getHours().toString()+":"+date.getMinutes().toString()+" am" ;
+    this.arrivalTime =date.getHours().toString()+":"+date.getMinutes().toString()+" am";
     console.log(this.arrivalTime);
   }
   handleDepartureTimeSet(time: string) {
     this.departureTime = time;
+    const newDeparturetime = Time.parseTimeStringToTime(this.departureTime);
+    this.departureDate.setHours(newDeparturetime.hours);
+    this.departureDate.setMinutes(newDeparturetime.minutes);
+
   }
   getMinDate() {
-    return new Date(Date.now());
+    return  new Date(this.arrivalDate);
   }
   handleArrivalDateSet(date) {
     console.log(this.arrivalDate);
