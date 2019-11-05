@@ -3,100 +3,100 @@
   <button id="header-button" (click)="closeDialog()" mat-button>Close</button>
 </div>
 
-<hr>
+<hr />
 
-    <app-place-autocomplete
-      class="input-field"
-      placeholder="Enter Stop City"
-      (placeChange)="handleStopPlaceChange($event)"
-    ></app-place-autocomplete>
+<app-place-autocomplete
+  class="input-field"
+  placeholder="Enter Stop City"
+  (placeChange)="handleStopPlaceChange($event)"
+></app-place-autocomplete>
 
-    <p>Arrival</p>
-    <div id="arrival-block" class="flex-container">
+<p>Arrival</p>
+<div id="arrival-block" class="flex-container">
+  <div class="date-field">
+    <mat-form-field class="date-input-field" appearance="outline">
+      <mat-label>Date</mat-label>
+      <input
+        placeholder="Trip Date"
+        matInput
+        [matDatepicker]="arrivalDatepicker"
+        (dateChange)="handleArrivalDateSet($event)"
+        [value]="arrivalDate"
+        (focus)="arrivalDatepicker.open()"
+        disabled
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="arrivalDatepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #arrivalDatepicker></mat-datepicker>
+    </mat-form-field>
+  </div>
 
-        <div class="date-field">
-           <mat-form-field class="date-input-field" appearance="outline">
-                <mat-label>Date</mat-label>
-                <input placeholder="Trip Date"  matInput [matDatepicker]="arrivalDatepicker"
-                  (dateChange)="handleArrivalDateSet($event)" [value]="arrivalDate"  disabled/>
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="arrivalDatepicker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #arrivalDatepicker></mat-datepicker>
-              </mat-form-field>
-        </div>
-
-        <div class="time-field">
-            <mat-form-field class="time-input-field" appearance="outline">
-                <mat-label>Time</mat-label>
-                <input
-                  matInput
-                  [ngxTimepicker]="arrivalTimePicker"
-                  [format]="12"
-                  [value]="arrivalTime"
-                  disabled=true
-                />
-              </mat-form-field>
-              <ngx-material-timepicker
-                (timeSet)="handleArrivalTimeSet($event)"
-                #arrivalTimePicker
-                [theme]="timePickerThemeService.darkTheme"
-              ></ngx-material-timepicker>
-        </div>
-
-      </div>
-
-
-      <p>Departure</p>
-
-      <div id="departure-block" class="flex-container">
-
-          <div class="date-field">
-              <mat-form-field class="date-input-field" appearance="outline">
-                  <mat-label>Date</mat-label>
-                  <input
-                    placeholder="Trip Date"
-                    matInput
-                    [matDatepicker]="departureDatepicker"
-                    (dateChange)="handleDepartureDateSet($event)"
-                    [value]="departureDate"
-                    [min]="getMinDate()"
-                    readonly
-                  />
-                  <mat-datepicker-toggle
-                    matSuffix
-                    [for]="departureDatepicker"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #departureDatepicker></mat-datepicker>
-                </mat-form-field>
-
-            </div>
-
-            <div class="time-field">
-                <mat-form-field class="time-input-field" appearance="outline">
-                    <mat-label>Time</mat-label>
-                    <input
-                      matInput
-                      [ngxTimepicker]="departureTimePicker"
-                      [format]="12"
-                      [value]="departureTime"
-                      readonly
-                    />
-                  </mat-form-field>
-                  <ngx-material-timepicker
-                    (timeSet)="handleDepartureTimeSet($event)"
-                    #departureTimePicker
-                    [theme]="timePickerThemeService.darkTheme"
-                  ></ngx-material-timepicker>
-              </div>
-      </div>
-      <br>
-
-<div id="buttons-block">
-    <button mat-button (click)="closeDialog()">CANCEL</button>
-    <button mat-raised-button (click)="addStop()" color="primary">ADD</button>
+  <div class="time-field">
+    <mat-form-field class="time-input-field" appearance="outline">
+      <mat-label>Time</mat-label>
+      <input
+        matInput
+        [ngxTimepicker]="arrivalTimePicker"
+        [format]="12"
+        [value]="arrivalTime"
+        disabled="true"
+      />
+    </mat-form-field>
+    <ngx-material-timepicker
+      (timeSet)="handleArrivalTimeSet($event)"
+      #arrivalTimePicker
+      [theme]="timePickerThemeService.darkTheme"
+    ></ngx-material-timepicker>
+  </div>
 </div>
 
+<p>Departure</p>
 
+<div id="departure-block" class="flex-container">
+  <div class="date-field">
+    <mat-form-field class="date-input-field" appearance="outline">
+      <mat-label>Date</mat-label>
+      <input
+        placeholder="Trip Date"
+        matInput
+        [matDatepicker]="departureDatepicker"
+        (dateChange)="handleDepartureDateSet($event)"
+        [value]="departureDate"
+        [min]="getMinDate()"
+        (focus)="departureDatepicker.open()"
+        readonly
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="departureDatepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #departureDatepicker></mat-datepicker>
+    </mat-form-field>
+  </div>
 
+  <div class="time-field">
+    <mat-form-field class="time-input-field" appearance="outline">
+      <mat-label>Time</mat-label>
+      <input
+        matInput
+        [ngxTimepicker]="departureTimePicker"
+        [format]="12"
+        [value]="departureTime"
+        readonly
+      />
+    </mat-form-field>
+    <ngx-material-timepicker
+      (timeSet)="handleDepartureTimeSet($event)"
+      #departureTimePicker
+      [theme]="timePickerThemeService.darkTheme"
+    ></ngx-material-timepicker>
+  </div>
+</div>
+<br />
+
+<div id="buttons-block">
+  <button mat-button (click)="closeDialog()">CANCEL</button>
+  <button mat-raised-button (click)="addStop()" color="primary">ADD</button>
+</div>

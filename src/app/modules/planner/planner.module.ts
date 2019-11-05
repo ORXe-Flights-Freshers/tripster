@@ -14,6 +14,7 @@ import { HotelCardListComponent } from './hotel-card-list/hotel-card-list.compon
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatIconModule, MatProgressSpinnerModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { AddHotelDetailsComponent } from './add-hotel-details/add-hotel-details.component';
 
 const routes: Routes = [
   {
@@ -33,7 +34,8 @@ const routes: Routes = [
     TimelineComponent,
     AddStopComponent,
     HotelCardComponent,
-    HotelCardListComponent
+    HotelCardListComponent,
+    AddHotelDetailsComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -52,6 +54,9 @@ const routes: Routes = [
     MatProgressSpinnerModule,
     FormsModule
   ],
-  exports: [AddStopComponent]
+  exports: [AddStopComponent,AddHotelDetailsComponent],
+  entryComponents: [
+    AddHotelDetailsComponent
+ ]
 })
 export class PlannerModule {}

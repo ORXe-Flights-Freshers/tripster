@@ -12,6 +12,7 @@ import {
 import { AddStopComponent } from '../add-stop/add-stop.component';
 import { Stop } from 'src/app/models/Stop';
 import {HeaderDataService} from '../../../services/HeaderData/header-data.service';
+import { AddHotelDetailsComponent } from '../add-hotel-details/add-hotel-details.component';
 
 @Component({
   selector: 'app-planner',
@@ -19,7 +20,7 @@ import {HeaderDataService} from '../../../services/HeaderData/header-data.servic
   styleUrls: ['./planner.component.css']
 })
 export class PlannerComponent implements OnInit {
-  addStopComponentFunction = this.openDialog.bind(this);
+  addStopComponentFunction = this.openStopDialog.bind(this);
 
   constructor(
     private route: ActivatedRoute,
@@ -44,10 +45,8 @@ export class PlannerComponent implements OnInit {
     // console.log(this.route.params["value"]);
   }
 
-  openDialog(): void {
+  openStopDialog(): void {
     const dialogConfig = new MatDialogConfig();
-
-    // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
@@ -63,15 +62,26 @@ export class PlannerComponent implements OnInit {
   }
 
   addStop(stop) {
-    // let stopToAdd=this.generateStop(stop);
     this.tripService.addStopToTrip(stop);
-    this.tripService.updateTrip(this.tripService.trip).subscribe(response => {
-      //console.log(response);
-    });
   }
-  closeDialog() {
+
+  closeStopDialog() {
     this.dialog.closeAll();
   }
 
+  openHotelDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '400px';
+    dialogConfig.height = '510px';
+
+    const dialogRef = this.dialog.open(AddHotelDetailsComponent , dialogConfig);
+
+    dialogRef.afterClosed().subscribe(placeFromDialog => {
+      console.log(placeFromDialog);
+      if (placeFromDialog) {
+      }
+    });
+  }
 
 }
