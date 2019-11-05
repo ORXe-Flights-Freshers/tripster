@@ -19,6 +19,8 @@ import {HeaderDataService} from '../../../services/HeaderData/header-data.servic
   styleUrls: ['./planner.component.css']
 })
 export class PlannerComponent implements OnInit {
+  addStopComponentFunction = this.openDialog.bind(this);
+
   constructor(
     private route: ActivatedRoute,
     public tripService: TripService,
@@ -26,6 +28,10 @@ export class PlannerComponent implements OnInit {
     public dialog: MatDialog,
     private headerLinks: HeaderDataService) {
     this.headerLinks.customizeHeaderForPlannerPage();
+  }
+
+  onClick() {
+    console.log(this.route);
   }
 
   ngOnInit() {
