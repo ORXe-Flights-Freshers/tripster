@@ -102,8 +102,7 @@ export class AddStopComponent implements OnInit {
         latitude: this.stopCity.geometry.location.lat(),
         longitude: this.stopCity.geometry.location.lng()
       },
-      stopId: 'xyz',
-      name: this.stopCity.name,
+       name: this.stopCity.name,
       arrival: this.arrivalDate.toString(),
       departure: this.departureDate.toString(),
       places: []

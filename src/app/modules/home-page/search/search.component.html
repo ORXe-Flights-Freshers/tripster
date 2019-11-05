@@ -1,8 +1,4 @@
-<form
-  [formGroup]="searchForm"
-  (ngSubmit)="onSubmit()"
-  class="search-card"
->
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search-card">
   <mat-card>
     <div class="source">
       <app-place-autocomplete
@@ -31,6 +27,7 @@
             (dateChange)="handleDateSet($event)"
             [value]="tripDate"
             [min]="getMinDate()"
+            (focus)="myDatepicker.open()"
             readonly
           />
           <mat-datepicker-toggle
@@ -65,7 +62,7 @@
         type="submit"
         mat-raised-button
         color="primary"
-        [disabled]=" !(sourceValid && destinationValid)"
+        [disabled]="!(sourceValid && destinationValid)"
       >
         Go
       </button>
@@ -73,9 +70,17 @@
     <hr />
     <mat-form-field class="mileage input-field" appearance="outline">
       <mat-label>Mileage (in kms per litre)</mat-label>
-      <input matInput placeholder="Enter Mileage(Km/l)" formControlName="mileage" />
-      <mat-error *ngIf="searchForm.controls['mileage'].errors?.required">Mileage is required</mat-error>
-      <mat-error *ngIf="searchForm.controls['mileage'].errors?.pattern">Mileage should be in the range 10-999</mat-error>
+      <input
+        matInput
+        placeholder="Enter Mileage(Km/l)"
+        formControlName="mileage"
+      />
+      <mat-error *ngIf="searchForm.controls['mileage'].errors?.required"
+        >Mileage is required</mat-error
+      >
+      <mat-error *ngIf="searchForm.controls['mileage'].errors?.pattern"
+        >Mileage should be in the range 10-999</mat-error
+      >
     </mat-form-field>
   </mat-card>
 </form>

@@ -87,3 +87,11 @@ ul.tl li .delete-icon {
   width: 10%;
   float: left;
 }
+#delbutton{  
+    background-color: Transparent;
+        background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
