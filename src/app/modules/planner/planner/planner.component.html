@@ -1,35 +1,48 @@
 <div class="planner-body">
-  <app-hotel-card-list *ngIf="tripService?.doDisplayHotels"></app-hotel-card-list>
+  <app-hotel-card-list
+    *ngIf="tripService?.doDisplayHotels"
+  ></app-hotel-card-list>
+  <app-attraction-card-list
+    *ngIf="tripService?.doDisplayAttractions"
+  ></app-attraction-card-list>
   <span>
     <div class="flex-container">
       <div style="width: 40%">
         <app-timeline></app-timeline>
         <div class="amenities-navbar">
-            <div
-              class="btn"
-              (click)="this.tripService.doDisplayHotels = !this.tripService.doDisplayHotels"
-              [ngClass]="{
-                  'btn-active': this.tripService.doDisplayHotels
-              }"
-            >
-              <mat-icon class="btn-icon">hotel</mat-icon>
-              <span class="btn-text">Hotels</span>
-            </div>
-            <div class="btn">
-                <mat-icon class="btn-icon">restaurant</mat-icon>
-                <span class="btn-text">Restaurants</span>
-            </div>
-            <div class="btn">
-                <mat-icon class="btn-icon">local_hospital</mat-icon>
-                <span class="btn-text">Hospitals</span>
-            </div>
-            <div
-              class="btn"
-              (click)="openDialog()"
-            >
-                <mat-icon class="btn-icon">add_circle</mat-icon>
-                <span class="btn-text">Add Stop</span>
-            </div>
+          <div
+            class="btn"
+            (click)="
+              this.tripService.doDisplayHotels = !this.tripService
+                .doDisplayHotels;
+              this.tripService.doDisplayAttractions = false
+            "
+            [ngClass]="{
+              'btn-active': this.tripService.doDisplayHotels
+            }"
+          >
+            <mat-icon class="btn-icon">hotel</mat-icon>
+            <span class="btn-text">Hotels</span>
+          </div>
+          <div
+            class="btn"
+            (click)="
+              this.tripService.doDisplayAttractions = !this.tripService
+                .doDisplayAttractions;
+              this.tripService.doDisplayHotels = false
+            "
+          >
+            <mat-icon class="btn-icon">restaurant</mat-icon>
+            <span class="btn-text">Attractions</span>
+          </div>
+          <div class="btn">
+            <mat-icon class="btn-icon">local_hospital</mat-icon>
+            <span class="btn-text">Hospitals</span>
+          </div>
+          <div class="btn" (click)="openDialog()">
+            <mat-icon class="btn-icon">add_circle</mat-icon>
+            <span class="btn-text">Add Stop</span>
+          </div>
         </div>
       </div>
       <app-map></app-map>
