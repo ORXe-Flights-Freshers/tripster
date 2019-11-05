@@ -36,17 +36,19 @@ export class TripService {
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     if (directionResult.routes[0].legs[0]) {
       const destinationArrival = new Date(this.trip.destination.arrival);
-      console.log(destinationArrival);
+      const sourceDeparture=new Date(this.trip.source.departure);
+      //console.log(destinationArrival);
       destinationArrival.setSeconds(
-        destinationArrival.getSeconds() +
+        sourceDeparture.getSeconds() +
           directionResult.routes[0].legs[0].duration.value
       );
-      this.trip.destination.arrival = destinationArrival.toDateString();
+      this.trip.destination.arrival = destinationArrival.toString();
 
       console.log(this.trip.destination.arrival);
     }
   }
 
+  
   getPreviousLocation() {
 
       if (this.trip.stops.length !== 0) {
@@ -64,23 +66,23 @@ export class TripService {
         this.tripSubject.next(this.trip);
         console.log(this.trip.stops);
         this.updateWaypoints();
+        this.updateTrip(this.trip).subscribe(response => {
+          //console.log(response);
+        })
      }
      
  removeStopFromTrip(i: number) {
   console.log(this.trip.stops);
-
   this.trip.stops.splice(i,1);
   this.tripSubject.next(this.trip);
-      console.log(this.trip.stops);
-      console.log(this.waypoints);
-
+      // console.log(this.trip.stops);
+      // console.log(this.waypoints);
       this.updateWaypoints();
-      console.log(this.waypoints);
-      console.log(this.trip);
+      // console.log(this.waypoints);
+      // console.log(this.trip);
       
 this.updateTrip(this.trip).subscribe(response => {console.log(response);});
     }
-
 
 
   updateWaypoints() {

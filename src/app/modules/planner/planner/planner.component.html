@@ -19,13 +19,13 @@
                 <mat-icon class="btn-icon">restaurant</mat-icon>
                 <span class="btn-text">Restaurants</span>
             </div>
-            <div class="btn">
+            <div class="btn"  (click)="openHotelDialog()">
                 <mat-icon class="btn-icon">local_hospital</mat-icon>
                 <span class="btn-text">Hospitals</span>
             </div>
             <div
               class="btn"
-              (click)="openDialog()"
+              (click)="openStopDialog()"
             >
                 <mat-icon class="btn-icon">add_circle</mat-icon>
                 <span class="btn-text">Add Stop</span>
