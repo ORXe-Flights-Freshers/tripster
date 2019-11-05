@@ -93,7 +93,7 @@ export class PlaceAutocompleteComponent implements OnInit {
       this.predictions = [];
       if (status !== google.maps.places.PlacesServiceStatus.OK) {
         // alert(status);
-        console.log(status);
+         //console.log(status);
         return;
       }
       // console.log(predictions);

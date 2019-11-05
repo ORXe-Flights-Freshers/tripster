@@ -56,12 +56,9 @@ export class PlannerComponent implements OnInit {
   }
 
   addStop(stop) {
-    // let stopToAdd=this.generateStop(stop);
     this.tripService.addStopToTrip(stop);
-    this.tripService.updateTrip(this.tripService.trip).subscribe(response => {
-      //console.log(response);
-    });
   }
+  
   closeStopDialog() {
     this.dialog.closeAll();
   }

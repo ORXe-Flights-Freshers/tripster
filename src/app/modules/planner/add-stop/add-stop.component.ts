@@ -63,7 +63,7 @@ export class AddStopComponent implements OnInit {
        self.handleArrivalTimeSet(self.arrivalDate);
        self.departureDate=new Date(self.arrivalDate);
        self.departureTime=self.departureDate.getHours().toString()+":"+self.departureDate.getMinutes().toString()+" am";
-       this.changeDetectorRef.detectChanges();
+       self.changeDetectorRef.detectChanges();
       }
  
   }
@@ -74,6 +74,7 @@ export class AddStopComponent implements OnInit {
     this.arrivalTime =date.getHours().toString()+":"+date.getMinutes().toString()+" am";
     console.log(this.arrivalTime);
   }
+  
   handleDepartureTimeSet(time: string) {
     this.departureTime = time;
     const newDeparturetime = Time.parseTimeStringToTime(this.departureTime);
@@ -90,32 +91,6 @@ export class AddStopComponent implements OnInit {
   handleDepartureDateSet(date) {
     this.departureDate = new Date(date.value);
   }
-
-  // getTimeBetweenLocations(startPoint,endPoint){
-  //   var timeTaken;
-  //   var distanceMatrixService = new google.maps.DistanceMatrixService();
-
-  //   distanceMatrixService.getDistanceMatrix(
-  //     {
-  //       origins: [startPoint],
-  //       destinations: [endPoint],
-  //       travelMode:google.maps.TravelMode.DRIVING,
-  //       unitSystem: google.maps.UnitSystem.METRIC,
-  //       avoidHighways: false,
-  //       avoidTolls: false
-  //     }, callback);
-
-  //   function callback(response, status) {
-  //     console.log(response);
-  //    // console.log(response.rows[0].elements[0].duration.value);
-  //    this.timeTaken=response.rows[0].elements[0].duration.value;
-  //    console.log(this.timeTaken);
-  //   }
-
-  //    return callback;//in seconds
-  // }
-
-
 
   closeDialog() {
     this.dialogRef.close();

@@ -34,17 +34,19 @@ export class TripService {
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     if (directionResult.routes[0].legs[0]) {
       const destinationArrival = new Date(this.trip.destination.arrival);
-      console.log(destinationArrival);
+      const sourceDeparture=new Date(this.trip.source.departure);
+      //console.log(destinationArrival);
       destinationArrival.setSeconds(
-        destinationArrival.getSeconds() +
+        sourceDeparture.getSeconds() +
           directionResult.routes[0].legs[0].duration.value
       );
-      this.trip.destination.arrival = destinationArrival.toDateString();
+      this.trip.destination.arrival = destinationArrival.toString();
 
       console.log(this.trip.destination.arrival);
     }
   }
 
+  
   getPreviousLocation() {
 
       if (this.trip.stops.length !== 0) {
@@ -60,11 +62,11 @@ export class TripService {
 
     this.trip.stops.push(stop);
     this.tripSubject.next(this.trip);
-    // console.log("Updated stops array");
-    // console.log(this.trip.stops);
     this.updateWaypoints();
+    this.updateTrip(this.trip).subscribe(response => {
+         //console.log(response);
+       })
  }
-
 
 
   updateWaypoints() {
