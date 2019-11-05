@@ -10,6 +10,10 @@ export class TimelineComponent implements OnInit {
   constructor(public tripService: TripService) {}
 
   ngOnInit() {}
+deleteStop(i:number)
+{
+  this.tripService.removeStopFromTrip(i);
+console.log("Delete");
 
-
+}
 }

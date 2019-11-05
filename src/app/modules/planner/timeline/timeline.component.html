@@ -17,13 +17,13 @@
       </li>
 
 
-      <li class="tl-item" *ngFor="let stop of tripService?.trip?.stops ">
+      <li class="tl-item" *ngFor="let stop of tripService?.trip?.stops; let i = index ">
         <div class="item-title">{{ stop.name }}</div>
         <div class="timestamp">
           {{ stop.arrival | date: "MMM d, y, h:mm a" }}
         </div>
         <div class="delete-icon">
-          <mat-icon matSuffix>delete</mat-icon>
+          <button id="delbutton" (click)="deleteStop(i)">   <mat-icon matSuffix>delete</mat-icon></button>
         </div>
       </li>
 
@@ -34,8 +34,7 @@
           {{ tripService.trip.destination.arrival | date: "MMM d, y, h:mm a" }}
         </div>
         <div class="delete-icon">
-          <mat-icon matSuffix>edit</mat-icon>
-        </div>
+          <mat-icon matSuffix>edit</mat-icon></div>
       </li>
 
     </ul>
