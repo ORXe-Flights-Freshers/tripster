@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -27,7 +27,8 @@ export class AddStopComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddStopComponent>,
               public tripService: TripService,
               private http: HttpClient,
-              public timePickerThemeService: TimePickerThemeService) { }
+              public timePickerThemeService: TimePickerThemeService,
+              private changeDetectorRef: ChangeDetectorRef ) { }
 
   ngOnInit() {}
 
@@ -62,6 +63,7 @@ export class AddStopComponent implements OnInit {
        self.handleArrivalTimeSet(self.arrivalDate);
        self.departureDate=new Date(self.arrivalDate);
        self.departureTime=self.departureDate.getHours().toString()+":"+self.departureDate.getMinutes().toString()+" am";
+       this.changeDetectorRef.detectChanges();
       }
  
   }

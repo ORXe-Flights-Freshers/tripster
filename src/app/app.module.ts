@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
