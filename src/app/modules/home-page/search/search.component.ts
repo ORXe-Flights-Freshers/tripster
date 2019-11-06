@@ -7,9 +7,9 @@ import { Trip } from 'src/app/models/Trip';
 import {TimePickerThemeService} from '../../../services/TimePickerTheme.service';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  selector: "app-search",
+  templateUrl: "./search.component.html",
+  styleUrls: ["./search.component.css"]
 })
 export class SearchComponent implements OnInit {
   origin: google.maps.places.PlaceResult;
@@ -18,11 +18,13 @@ export class SearchComponent implements OnInit {
   destinationValid: boolean;
   isDuplicatePlace: boolean;
   tripDate: Date = new Date(Date.now());
-  tripTime = '11:00 am';
+  tripTime = "11:00 am";
   vehicleMileage = 25;
 
   searchForm = new FormGroup({
-    mileage: new FormControl(this.vehicleMileage, [Validators.pattern('^[1-9]+[0-9]*$')])
+    mileage: new FormControl(this.vehicleMileage, [
+      Validators.pattern("^[1-9]+[0-9]*$")
+    ])
   });
 
   constructor(private tripService: TripService,
@@ -82,7 +84,7 @@ export class SearchComponent implements OnInit {
       console.log(data);
       // this.tripService.trip = data as Trip;
       // @ts-ignore
-      this.router.navigate(['/', 'planner', (data as Trip).id]);
+      this.router.navigate(["/", "planner", (data as Trip).id]);
       // console.log(data);
       console.log(new Date((data as Trip).destination.arrival));
     });
@@ -106,7 +108,8 @@ export class SearchComponent implements OnInit {
         arrival: this.tripDate.toString(),
         // @ts-ignore
         departure: this.tripDate.toString(),
-        places: []
+        hotels: [],
+        attractions: []
       },
       destination: {
         location: {
@@ -120,7 +123,8 @@ export class SearchComponent implements OnInit {
         arrival: this.tripDate.toString(),
         // @ts-ignore
         departure: this.tripDate.toString(),
-        places: []
+        hotels: [],
+        attractions: []
       },
       stops: [],
       mileage: this.vehicleMileage

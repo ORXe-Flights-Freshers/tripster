@@ -4,13 +4,13 @@
   </div>
   <div class="text-body">
     <div class="heading">
-      {{ name }}
+      {{ hotelData.name }}
     </div>
     <div class="facilities">
-      {{ description }}
+      {{ hotelData.description }}
     </div>
   </div>
-  <div class="add-btn">
+  <div class="add-btn" (click)="openHotelDialog(hotelData)">
     Add
   </div>
 </div>
