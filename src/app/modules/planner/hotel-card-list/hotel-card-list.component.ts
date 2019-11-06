@@ -38,7 +38,7 @@ export class HotelCardListComponent implements OnInit {
         }
 
         console.log(hotelsApiEndpoint.ipObj.ip);
-        const hotelsApiUrl = 'http://' + hotelsApiEndpoint.ipObj.ip + '/api/values/';
+        const hotelsApiUrl = 'http://' + hotelsApiEndpoint.ipObj.ip + '/api/hotels/';
 
         this.httpService
           .get(

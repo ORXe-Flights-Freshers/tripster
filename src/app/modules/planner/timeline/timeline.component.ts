@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { TripService } from 'src/app/services/trip.service';
 
 @Component({
@@ -7,13 +7,14 @@ import { TripService } from 'src/app/services/trip.service';
   styleUrls: ['./timeline.component.css']
 })
 export class TimelineComponent implements OnInit {
+  @Input() addStopComponentFunction;
+
   constructor(public tripService: TripService) {}
 
   ngOnInit() {}
-deleteStop(i:number)
-{
-  this.tripService.removeStopFromTrip(i);
-console.log("Delete");
-
-}
+  deleteStop(i: number) {
+    // @ts-ignore
+    this.tripService.removeStopFromTrip(i);
+    console.log('Delete');
+  }
 }

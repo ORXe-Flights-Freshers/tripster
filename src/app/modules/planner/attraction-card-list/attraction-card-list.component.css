@@ -2,10 +2,7 @@
   position: absolute;
   z-index: 5;
 
-  width: 320px;
-  height: 520px;
-  margin-top: 19px;
-  margin-left: 630px;
+  width: 100%;
 
   border: 1px solid rgba(30, 30, 30, 0.1);
   border-radius: 20px;
@@ -93,4 +90,3 @@
 .bolder {
   font-weight: bolder;
 }
-

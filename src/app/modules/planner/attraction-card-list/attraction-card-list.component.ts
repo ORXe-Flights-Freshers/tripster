@@ -45,7 +45,7 @@ export class AttractionCardListComponent implements OnInit {
           this.arrAttractions.push({
             name: placeResult.name,
             attractionId: placeResult.place_id,
-            description: placeResult.types.toString(),
+            description: placeResult.vicinity,
             rating: placeResult.rating
             // imageUrl: placeResult.photos[0].getUrl({})
           });
