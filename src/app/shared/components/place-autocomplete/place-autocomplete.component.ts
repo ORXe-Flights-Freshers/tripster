@@ -26,6 +26,8 @@ export class PlaceAutocompleteComponent implements OnInit {
   placeService: google.maps.places.PlacesService;
 
   public validPlace = true;
+  public inputPlaceFromUser = '';
+  public errorMessage = '';
   public autoCompleteFormGroup = new FormGroup({
     inputPlace: new FormControl('', [Validators.required])
   });
@@ -46,9 +48,19 @@ export class PlaceAutocompleteComponent implements OnInit {
   }
 
   public KeyPress = (event) => {
+    this.inputPlaceFromUser = event.target.value;
+    if(this.inputPlaceFromUser.length < 3){
     this.validPlace = false;
     this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
+    this.errorMessage = 'Please type at least 3 characters';
     this.IsValid.emit({ isValid: false });
+    }
+    else{
+    this.validPlace = false;
+    this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
+    this.errorMessage = 'Error h boss';
+    this.IsValid.emit({ isValid: false });
+    }
   }
 
   ngOnInit() {

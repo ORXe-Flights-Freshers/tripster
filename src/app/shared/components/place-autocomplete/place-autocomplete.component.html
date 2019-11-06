@@ -28,7 +28,7 @@
       [errorStateMatcher]="ErrorMatcher"
     /> -->
     <mat-icon matSuffix>location_on</mat-icon>
-    <mat-error *ngIf="!validPlace"> Select city from list </mat-error>
+    <mat-error *ngIf="!validPlace"> {{errorMessage}} </mat-error>
   </mat-form-field>
   <mat-autocomplete
     #auto="matAutocomplete"
