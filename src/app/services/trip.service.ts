@@ -76,9 +76,7 @@ export class TripService {
         this.tripSubject.next(this.trip);
         console.log(this.trip.stops);
         this.updateWaypoints();
-        this.updateTrip(this.trip).subscribe(response => {
-          //console.log(response);
-        })
+        this.updateTrip(this.trip).subscribe(response => { })
      }
 
   removeStopFromTrip(i: number) {
@@ -95,13 +93,23 @@ export class TripService {
     console.log(this.trip);
   }
 
-  addHotelToTrip(hotelData) {
+  addHotelToTrip(hotelData,stopIdOfHotel) {
 
     console.log(this.trip.source);
 
-    this.trip.source.hotels.push(hotelData);
-
+    if (stopIdOfHotel === this.trip.source.stopId) { this.trip.source.hotels.push(hotelData); }
+    else if (stopIdOfHotel === this.trip.destination.stopId) { this.trip.source.hotels.push(hotelData); }
+    else {
+      for (let index = 0; index < this.trip.stops.length; index++) {
+        if (stopIdOfHotel === this.trip.stops[index].stopId)
+        {
+          this.trip.stops[index].hotels.push(hotelData);
+          break;
+        }
+      }
+    }
    }
+
 
   updateWaypoints() {
     if (this.trip.stops.length !== 0) {
