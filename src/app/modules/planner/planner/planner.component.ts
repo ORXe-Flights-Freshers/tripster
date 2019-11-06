@@ -7,7 +7,6 @@ import {
   MatDialog,
   MatDialogConfig
 } from '@angular/material/dialog';
-import { AddStopComponent } from '../add-stop/add-stop.component';
 import {HeaderDataService} from '../../../services/HeaderData/header-data.service';
 import { AddHotelDetailsComponent } from '../add-hotel-details/add-hotel-details.component';
 
@@ -17,7 +16,6 @@ import { AddHotelDetailsComponent } from '../add-hotel-details/add-hotel-details
   styleUrls: ['./planner.component.css']
 })
 export class PlannerComponent implements OnInit {
-  addStopComponentFunction = this.openStopDialog.bind(this);
   activeTab: string;
 
   constructor(
@@ -44,37 +42,17 @@ export class PlannerComponent implements OnInit {
     this.activeTab = 'timeline';
   }
 
-  openStopDialog(): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
-    dialogConfig.height = '510px';
-
-    const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
-
-    dialogRef.afterClosed()
-      .subscribe(stopFromDialog => {
-        console.log(stopFromDialog);
-        if (stopFromDialog) {
-          this.addStop(stopFromDialog);
-        }
-      });
-  }
-
-  addStop(stop) {
-    this.tripService.addStopToTrip(stop);
-  }
-
-  closeStopDialog() {
+  closeHotelDialog() {
     this.dialog.closeAll();
   }
 
-  openHotelDialog(): void {
+  openHotelDialog(hotelParentData): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
 
+    dialogConfig.data = hotelParentData;
     const dialogRef = this.dialog.open(AddHotelDetailsComponent, dialogConfig);
 
     dialogRef.afterClosed()

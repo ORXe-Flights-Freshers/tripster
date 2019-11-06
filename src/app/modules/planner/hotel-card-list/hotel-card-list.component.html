@@ -58,13 +58,11 @@
   <div class="hotels-list">
       <app-hotel-card
           *ngFor="let a of arrHotels"
-          [name]="a['name']"
-          [rating]="a['rating']"
-          [description]="
-            a['contact']['address']['line1'] +
-            ',' +
-            a['contact']['address']['line2']
-          "
+          [hotelData]="{name: a['name'], description: a['contact']['address']['line1'] +
+          ',' +
+          a['contact']['address']['line2'],rating:a['rating']}"
+ 
+           
       ></app-hotel-card>
   </div>
 </div>

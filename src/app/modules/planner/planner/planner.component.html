@@ -53,7 +53,6 @@
         [ngStyle]="{
           display: activeTab === 'timeline' ? 'block' : 'none'
         }"
-        [addStopComponentFunction]="addStopComponentFunction"
       ></app-timeline>
       <app-hotel-card-list *ngIf="activeTab === 'hotel'"></app-hotel-card-list>
       <app-attraction-card-list

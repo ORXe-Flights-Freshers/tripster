@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { AddHotelDetailsComponent } from '../add-hotel-details/add-hotel-details.component';
+import {
+  MatDialog,
+  MatDialogConfig
+} from '@angular/material/dialog';
 @Component({
   selector: 'app-hotel-card',
   templateUrl: './hotel-card.component.html',
@@ -15,7 +19,25 @@ export class HotelCardComponent implements OnInit {
   @Input() name = 'Hotel Vistara';
   @Input() rating = 4;
   @Input() description = 'swimming parking playground cab';
-  constructor() {}
+  @Input() hotelData={name:"",description:"",rating:""};
+  constructor( public dialog: MatDialog) {}
 
   ngOnInit() {}
+
+  openHotelDialog(hotelParentData): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '400px';
+    dialogConfig.height = '510px';
+
+    dialogConfig.data = hotelParentData;
+    const dialogRef = this.dialog.open(AddHotelDetailsComponent, dialogConfig);
+
+    dialogRef.afterClosed()
+      .subscribe(placeFromDialog => {
+        console.log(placeFromDialog);
+        if (placeFromDialog) {}
+      });
+  }
+
 }
