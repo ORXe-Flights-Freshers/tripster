@@ -23,7 +23,7 @@ export class TripService {
     this.trip = trip;
     this.tripSubject.next(trip);
     // console.log("trip.service", trip);
-    return this.http.post('http://3.14.69.62:5000/api/trip', trip);
+    return this.http.post('http://3.14.69.62:5001/api/trip', trip);
   }
 
   updateTrip(trip: Trip) {
@@ -32,7 +32,7 @@ export class TripService {
     console.log(trip);
 
     return this.http.put(
-      'http://3.14.69.62:5000/api/trip/' + trip.id,
+      'http://3.14.69.62:5001/api/trip/' + trip.id,
       this.trip
     );
   }
