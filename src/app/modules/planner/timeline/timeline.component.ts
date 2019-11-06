@@ -14,7 +14,7 @@ import {
 export class TimelineComponent implements OnInit {
 
   constructor(public tripService: TripService,
-    public dialog: MatDialog) {}
+              public dialog: MatDialog) {}
 
   ngOnInit() {}
 
