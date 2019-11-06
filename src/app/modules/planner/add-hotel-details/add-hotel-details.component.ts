@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -17,7 +17,7 @@ import { Time } from '../../../models/Time';
 })
 
 export class AddHotelDetailsComponent implements OnInit {
-  hotelData={name:'',description:'',rating:''};
+  hotelData = {name: '', description: '', rating: ''};
   arrivalDate: Date = new Date(Date.now());
   departureDate: Date = new Date(Date.now());
   arrivalTime = '00:00 am';
@@ -27,19 +27,18 @@ export class AddHotelDetailsComponent implements OnInit {
               public tripService: TripService,
               private http: HttpClient,
               public timePickerThemeService: TimePickerThemeService,
-              @Inject(MAT_DIALOG_DATA) data)
-               {  console.log(data);
-                 this.hotelData.name=data.name;
-                this.hotelData.description=data.description;
-                this.hotelData.rating=data.rating;
-               
+              @Inject(MAT_DIALOG_DATA) data) {  console.log(data);
+                  this.hotelData.name = data.name;
+                  this.hotelData.description = data.description;
+                  this.hotelData.rating = data.rating;
+
               }
-             
+
 
   ngOnInit() {}
-  
+
   handleArrivalTimeSet(date) {
-    this.arrivalTime =date.getHours().toString()+":"+date.getMinutes().toString()+" am";
+    this.arrivalTime = date.getHours().toString() + ':' + date.getMinutes().toString() + ' am';
     console.log(this.arrivalTime);
   }
   handleDepartureTimeSet(time: string) {
