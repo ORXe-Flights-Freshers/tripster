@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -39,7 +39,7 @@ export class AddHotelDetailsComponent implements OnInit {
   ngOnInit() {}
 
   handleArrivalTimeSet(date) {
-    this.arrivalTime =date.getHours().toString()+":"+date.getMinutes().toString()+" am";
+    this.arrivalTime = date.getHours().toString() + ':' + date.getMinutes().toString() + ' am';
     console.log(this.arrivalTime);
   }
   handleDepartureTimeSet(time: string) {

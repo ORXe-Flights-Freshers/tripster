@@ -1,14 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { TripService } from "src/app/services/trip.service";
-import { HttpClient } from "@angular/common/http";
-import { Trip } from "src/app/models/Trip";
-import { HeaderDataService } from "../../../services/HeaderData/header-data.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TripService } from 'src/app/services/trip.service';
+import { HttpClient } from '@angular/common/http';
+import { Trip } from 'src/app/models/Trip';
+import { HeaderDataService } from '../../../services/HeaderData/header-data.service';
 
 @Component({
-  selector: "app-planner",
-  templateUrl: "./planner.component.html",
-  styleUrls: ["./planner.component.css"]
+  selector: 'app-planner',
+  templateUrl: './planner.component.html',
+  styleUrls: ['./planner.component.css']
 })
 export class PlannerComponent implements OnInit {
   activeTab: string;
@@ -28,10 +28,11 @@ export class PlannerComponent implements OnInit {
   ngOnInit() {
     // @ts-ignore
     const id = this.route.params.value.id;
-    this.http.get("http://3.14.69.62:5000/api/trip/" + id).subscribe(data => {
+    this.http.get('http://3.14.69.62:5000/api/trip/' + id).subscribe(data => {
       this.tripService.trip = data as Trip;
+      this.tripService.updateWaypoints();
       this.tripService.tripSubject.next(this.tripService.trip);
     });
-    this.activeTab = "timeline";
+    this.activeTab = 'timeline';
   }
 }

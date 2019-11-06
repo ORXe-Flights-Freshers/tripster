@@ -68,9 +68,7 @@
 .btn:hover,
 .btn-active {
   cursor: pointer;
-  color: white;
-  border-radius: 2px;
-  background-color: rgba(0, 0, 0, 0.6);
+  border-bottom: 5px solid rgb(11, 18, 64);
 }
 
 .btn * {
@@ -99,8 +97,8 @@
   position: absolute;
   display: inline-block;
 
-  width: 600px;
-  height: 525px;
+  width: 45%;
+  height: 522px;
 
   right: 10%;
   margin-top: 20px;

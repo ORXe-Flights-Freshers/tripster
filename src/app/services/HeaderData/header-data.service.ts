@@ -7,7 +7,9 @@ export class HeaderDataService {
   links: { name: string, url: string }[];
   backgroundColor: string;
 
-  constructor() { }
+  constructor() {
+    this.links = [];
+  }
 
   customizeHeaderForHomePage() {
     this.backgroundColor = 'transparent';

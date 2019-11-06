@@ -62,7 +62,7 @@
         type="submit"
         mat-raised-button
         color="primary"
-        [disabled]="!(sourceValid && destinationValid)"
+        [disabled]="!sourceValid || !destinationValid || isDuplicatePlace"
       >
         Go
       </button>
@@ -79,8 +79,8 @@
         >Mileage is required</mat-error
       >
       <mat-error *ngIf="searchForm.controls['mileage'].errors?.pattern"
-        >Mileage should be in the range 10-999</mat-error
-      >
+        >Mileage should be in the range 10-999</mat-error>
     </mat-form-field>
+    <p style="color: red;" *ngIf="isDuplicatePlace">Source and Destination cannot be same</p>
   </mat-card>
 </form>

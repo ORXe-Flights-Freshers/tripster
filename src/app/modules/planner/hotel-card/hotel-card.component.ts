@@ -19,8 +19,6 @@ export class HotelCardComponent implements OnInit {
   'https://images.wallpaperscraft.com/image/room_style_hotel_bed_70002_1920x1080.jpg';
 
 
-
-
   constructor( public tripService: TripService, public dialog: MatDialog) {}
 
   ngOnInit() {}

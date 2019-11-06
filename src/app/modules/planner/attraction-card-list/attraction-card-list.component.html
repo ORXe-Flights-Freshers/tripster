@@ -12,7 +12,7 @@
         attractions found near {{ chosenCity }}
       </span>
       <ng-template #noLocationSelected>
-        Choose a location to view attractionss there
+        Choose a location to view attractions there
       </ng-template>
     </span>
     <div class="filter-btn bolder">Filter</div>
@@ -49,6 +49,8 @@
   </div>
 
   <div class="hotels-list">
-
+    <!-- <span *ngFor="let a of arrAttractions">
+      <app-attraction-card [name]="a.name" [description]="a.description"></app-attraction-card>
+    </span> -->
   </div>
 </div>

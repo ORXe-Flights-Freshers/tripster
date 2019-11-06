@@ -26,6 +26,8 @@ export class PlaceAutocompleteComponent implements OnInit {
   placeService: google.maps.places.PlacesService;
 
   public validPlace = true;
+  public inputPlaceFromUser = '';
+  public errorMessage = '';
   public autoCompleteFormGroup = new FormGroup({
     inputPlace: new FormControl('', [Validators.required])
   });
@@ -46,9 +48,15 @@ export class PlaceAutocompleteComponent implements OnInit {
   }
 
   public KeyPress = (event) => {
+    this.inputPlaceFromUser = event.target.value;
     this.validPlace = false;
     this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
     this.IsValid.emit({ isValid: false });
+    if (this.inputPlaceFromUser.length < 3) {
+      this.errorMessage = 'Please type at least 3 characters';
+    } else {
+      this.errorMessage = 'Select from list';
+    }
   }
 
   ngOnInit() {
@@ -93,7 +101,7 @@ export class PlaceAutocompleteComponent implements OnInit {
       this.predictions = [];
       if (status !== google.maps.places.PlacesServiceStatus.OK) {
         // alert(status);
-         //console.log(status);
+         // console.log(status);
         return;
       }
       // console.log(predictions);
