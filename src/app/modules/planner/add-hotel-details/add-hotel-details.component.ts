@@ -28,9 +28,9 @@ export class AddHotelDetailsComponent implements OnInit {
               private http: HttpClient,
               public timePickerThemeService: TimePickerThemeService,
               @Inject(MAT_DIALOG_DATA) data) {  console.log(data);
-                  this.hotelData.name = data.name;
-                  this.hotelData.description = data.description;
-                  this.hotelData.rating = data.rating;
+                                                this.hotelData.name = data.name;
+                                                this.hotelData.description = data.description;
+                                                this.hotelData.rating = data.rating;
 
               }
 

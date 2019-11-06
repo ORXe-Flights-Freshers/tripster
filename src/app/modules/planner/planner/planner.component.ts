@@ -29,11 +29,11 @@ export class PlannerComponent implements OnInit {
   ngOnInit() {
     // @ts-ignore
     const id = this.route.params.value.id;
-    this.http.get('http://3.14.69.62:5000/api/trip/' + id)
-      .subscribe(data => {
-          this.tripService.trip = data as Trip;
-          this.tripService.tripSubject.next(this.tripService.trip);
-        });
+    this.http.get('http://3.14.69.62:5000/api/trip/' + id).subscribe(data => {
+      this.tripService.trip = data as Trip;
+      this.tripService.updateWaypoints();
+      this.tripService.tripSubject.next(this.tripService.trip);
+    });
     this.activeTab = 'timeline';
   }
 }
