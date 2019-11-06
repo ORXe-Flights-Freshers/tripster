@@ -1,3 +1,3 @@
-import { Place } from './Place';
+import { Place } from "./Place";
 
 export interface Hotel extends Place {}

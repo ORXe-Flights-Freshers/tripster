@@ -9,6 +9,7 @@ import {TimePickerThemeService} from '../../../services/TimePickerTheme.service'
 import { TripService } from 'src/app/services/trip.service';
 import { HttpClient } from '@angular/common/http';
 import { Time } from '../../../models/Time';
+import { Hotel } from 'src/app/models/Hotel';
 
 @Component({
   selector: 'app-add-hotel-details',
@@ -17,7 +18,8 @@ import { Time } from '../../../models/Time';
 })
 
 export class AddHotelDetailsComponent implements OnInit {
-  hotelData = {name: '', description: '', rating: ''};
+  hotelData: Hotel;
+  stopIdOfHotel: string;
   arrivalDate: Date = new Date(Date.now());
   departureDate: Date = new Date(Date.now());
   arrivalTime = '00:00 am';
@@ -27,11 +29,10 @@ export class AddHotelDetailsComponent implements OnInit {
               public tripService: TripService,
               private http: HttpClient,
               public timePickerThemeService: TimePickerThemeService,
-              @Inject(MAT_DIALOG_DATA) data) {  console.log(data);
-                                                this.hotelData.name = data.name;
-                                                this.hotelData.description = data.description;
-                                                this.hotelData.rating = data.rating;
-
+              @Inject(MAT_DIALOG_DATA) data)
+               {  console.log(data);
+                  this.hotelData=data.hotelData;
+                  this.stopIdOfHotel=data.stopIdOfHotel;
               }
 
 
@@ -64,19 +65,12 @@ export class AddHotelDetailsComponent implements OnInit {
   }
 
   addHotel() {
-   const place = {
-      // location: {
-      //   latitude: this.stopCity.geometry.location.lat(),
-      //   longitude: this.stopCity.geometry.location.lng()
-      // },
-      placeId: 'xyz',
-      // name: this.stopCity.name,
-      arrival: this.arrivalDate.toString(),
-      departure: this.departureDate.toString(),
-      places: []
-     };
-   console.log(place);
-   this.dialogRef.close(place);
+
+    this.hotelData.arrival= this.arrivalDate.toString();
+    this.hotelData.departure = this.departureDate.toString();
+
+
+    this.dialogRef.close(this.hotelData);
   }
 
 }

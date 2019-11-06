@@ -23,7 +23,7 @@ export class TripService {
     this.trip = trip;
     this.tripSubject.next(trip);
     // console.log("trip.service", trip);
-    return this.http.post('http://3.14.69.62:5000/api/trip', trip);
+    return this.http.post('http://3.14.69.62:5001/api/trip', trip);
   }
 
   updateTrip(trip: Trip) {
@@ -32,7 +32,7 @@ export class TripService {
     console.log(trip);
 
     return this.http.put(
-      'http://3.14.69.62:5000/api/trip/' + trip.id,
+      'http://3.14.69.62:5001/api/trip/' + trip.id,
       this.trip
     );
   }
@@ -72,26 +72,20 @@ export class TripService {
   }
 
   addStopToTrip(stop) {
-    stop.stopId = this.trip.stops.length - 1;
-    this.trip.stops.push(stop);
-    this.tripSubject.next(this.trip);
-    console.log(this.trip.stops);
-    this.updateWaypoints();
-    this.updateTrip(this.trip).subscribe(response => {
-      // console.log(response);
-    });
-  }
+        this.trip.stops.push(stop);
+        this.tripSubject.next(this.trip);
+        console.log(this.trip.stops);
+        this.updateWaypoints();
+        this.updateTrip(this.trip).subscribe(response => {
+          //console.log(response);
+        })
+     }
 
   removeStopFromTrip(i: number) {
     console.log(this.trip.stops);
     this.trip.stops.splice(i, 1);
     this.tripSubject.next(this.trip);
-    // console.log(this.trip.stops);
-    // console.log(this.waypoints);
     this.updateWaypoints();
-    // console.log(this.waypoints);
-    // console.log(this.trip);
-
     this.updateTrip(this.trip).subscribe(response => {
       console.log(response);
     });
@@ -100,6 +94,14 @@ export class TripService {
     console.log(this.waypoints);
     console.log(this.trip);
   }
+
+  addHotelToTrip(hotelData) {
+
+    console.log(this.trip.source);
+
+    this.trip.source.hotels.push(hotelData);
+
+   }
 
   updateWaypoints() {
     if (this.trip.stops.length !== 0) {
