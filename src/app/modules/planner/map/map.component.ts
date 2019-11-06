@@ -12,9 +12,11 @@ import { take } from 'rxjs/operators';
 
 export class MapComponent implements OnInit {
   isLoading: boolean;
+
   constructor(public tripService: TripService) {
     // console.log(this.tripService.trip);
     this.isLoading = true;
+   
   }
   origin;
   destination;
@@ -26,9 +28,7 @@ export class MapComponent implements OnInit {
     // destination:{
     //   icon: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png',
     // },
-    waypoints: {
-      icon: 'https://i.imgur.com/7teZKif.png',
-  },
+    // waypoints:this.waypointsicon,
   };
 
   ngOnInit() {

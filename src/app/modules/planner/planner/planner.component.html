@@ -39,7 +39,7 @@
         <span class="btn-separator"></span>
         <div
           class="btn hospital"
-          (click)="this.activeTab = 'hospital'; openHotelDialog()"
+          (click)="this.activeTab = 'hospital'"
           [ngClass]="{
             'btn-active': activeTab === 'hospital'
           }"
@@ -54,7 +54,6 @@
         [ngStyle]="{
           display: activeTab === 'timeline' ? 'block' : 'none'
         }"
-        [addStopComponentFunction]="addStopComponentFunction"
       ></app-timeline>
       <app-hotel-card-list *ngIf="activeTab === 'hotel'"></app-hotel-card-list>
       <app-attraction-card-list
