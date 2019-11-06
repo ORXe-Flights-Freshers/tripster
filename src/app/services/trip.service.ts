@@ -59,7 +59,6 @@ export class TripService {
   }
 
   addStopToTrip(stop) {
-    stop.stopId= this.trip.stops.length -1;
         this.trip.stops.push(stop);
         this.tripSubject.next(this.trip);
         console.log(this.trip.stops);
@@ -87,6 +86,14 @@ export class TripService {
     console.log(this.waypoints);
     console.log(this.trip);
   }
+
+  addHotelToTrip(hotelData) {
+
+    console.log(this.trip.source);
+     this.trip.source.hotels.push(hotelData);
+
+   }
+
   updateWaypoints() {
     if (this.trip.stops.length != 0) {
       const allStops = this.trip.stops;
