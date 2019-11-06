@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PlannerModule } from './modules/planner/planner.module';
 import {TimePickerThemeService} from './services/TimePickerTheme.service';
 import { FormsModule } from '@angular/forms';
- import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],

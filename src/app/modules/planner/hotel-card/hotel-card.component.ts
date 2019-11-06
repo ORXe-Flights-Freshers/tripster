@@ -19,7 +19,7 @@ export class HotelCardComponent implements OnInit {
   @Input() name = 'Hotel Vistara';
   @Input() rating = 4;
   @Input() description = 'swimming parking playground cab';
-  @Input() hotelData={name:"",description:"",rating:""};
+  @Input() hotelData = {name: '', description: '', rating: ''};
   constructor( public dialog: MatDialog) {}
 
   ngOnInit() {}

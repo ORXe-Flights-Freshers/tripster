@@ -1,11 +1,12 @@
-import { Injectable } from "@angular/core";
-import { Trip } from "../models/Trip";
-import { HttpClient } from "@angular/common/http";
-import { Subject } from "rxjs";
+import {Injectable} from '@angular/core';
+import {Trip} from '../models/Trip';
+import {HttpClient} from '@angular/common/http';
+import {Subject} from 'rxjs';
+
 // import { Stop } from '../models/Stop';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class TripService {
   trip: Trip;
@@ -22,19 +23,18 @@ export class TripService {
     this.trip = trip;
     this.tripSubject.next(trip);
     // console.log("trip.service", trip);
-    return this.http.post("http://3.14.69.62:5000/api/trip", trip);
+    return this.http.post('http://3.14.69.62:5000/api/trip', trip);
   }
 
   updateTrip(trip: Trip) {
     this.trip = trip;
     this.tripSubject.next(trip);
     console.log(trip);
-    var httpResponse = this.http.put(
-      "http://3.14.69.62:5000/api/trip/" + trip.id,
+
+    return this.http.put(
+      'http://3.14.69.62:5000/api/trip/' + trip.id,
       this.trip
     );
-    // console.log('http://3.14.69.62:5000/api/trip/'+this.trip.id);
-    return httpResponse;
   }
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
@@ -42,12 +42,14 @@ export class TripService {
       let previousDeparture;
       console.log(directionResult);
       console.log(this.trip.stops);
-      if (this.trip.stops.length == 0)
+      if (this.trip.stops.length === 0) {
         previousDeparture = new Date(this.trip.source.departure);
-      else
+      } else {
         previousDeparture = new Date(
           this.trip.stops[this.trip.stops.length - 1].departure
         );
+      }
+
       console.log(previousDeparture);
       previousDeparture.setSeconds(
         previousDeparture.getSeconds() +
@@ -76,7 +78,7 @@ export class TripService {
     console.log(this.trip.stops);
     this.updateWaypoints();
     this.updateTrip(this.trip).subscribe(response => {
-      //console.log(response);
+      // console.log(response);
     });
   }
 
@@ -94,12 +96,13 @@ export class TripService {
       console.log(response);
     });
 
-    //this.updateWaypoints();
+    // this.updateWaypoints();
     console.log(this.waypoints);
     console.log(this.trip);
   }
+
   updateWaypoints() {
-    if (this.trip.stops.length != 0) {
+    if (this.trip.stops.length !== 0) {
       const allStops = this.trip.stops;
       const waypointsLocations = [];
       for (let index = 0; index < this.trip.stops.length; index++) {
@@ -113,6 +116,7 @@ export class TripService {
 
       this.waypoints = waypointsLocations;
       console.log(this.waypoints);
+
     } else {
       this.waypoints = [];
     }
