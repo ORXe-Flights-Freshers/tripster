@@ -24,13 +24,13 @@ export class HotelCardComponent implements OnInit {
 
   ngOnInit() {}
 
-  openHotelDialog(hotelParentData): void {
+  openHotelDialog(hotelData): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
 
-    dialogConfig.data = hotelParentData;
+    dialogConfig.data = hotelData;
     const dialogRef = this.dialog.open(AddHotelDetailsComponent, dialogConfig);
 
     dialogRef.afterClosed()
@@ -38,6 +38,10 @@ export class HotelCardComponent implements OnInit {
         console.log(placeFromDialog);
         if (placeFromDialog) {}
       });
+  }
+
+  closeHotelDialog() {
+    this.dialog.closeAll();
   }
 
 }

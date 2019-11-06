@@ -3,12 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TripService } from 'src/app/services/trip.service';
 import { HttpClient } from '@angular/common/http';
 import { Trip } from 'src/app/models/Trip';
-import {
-  MatDialog,
-  MatDialogConfig
-} from '@angular/material/dialog';
 import {HeaderDataService} from '../../../services/HeaderData/header-data.service';
-import { AddHotelDetailsComponent } from '../add-hotel-details/add-hotel-details.component';
 
 @Component({
   selector: 'app-planner',
@@ -22,7 +17,6 @@ export class PlannerComponent implements OnInit {
     public route: ActivatedRoute,
     public tripService: TripService,
     private http: HttpClient,
-    public dialog: MatDialog,
     private headerLinks: HeaderDataService) {
     this.headerLinks.customizeHeaderForPlannerPage();
   }
@@ -42,23 +36,5 @@ export class PlannerComponent implements OnInit {
     this.activeTab = 'timeline';
   }
 
-  closeHotelDialog() {
-    this.dialog.closeAll();
-  }
 
-  openHotelDialog(hotelParentData): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
-    dialogConfig.height = '510px';
-
-    dialogConfig.data = hotelParentData;
-    const dialogRef = this.dialog.open(AddHotelDetailsComponent, dialogConfig);
-
-    dialogRef.afterClosed()
-      .subscribe(placeFromDialog => {
-        console.log(placeFromDialog);
-        if (placeFromDialog) {}
-      });
-  }
 }
