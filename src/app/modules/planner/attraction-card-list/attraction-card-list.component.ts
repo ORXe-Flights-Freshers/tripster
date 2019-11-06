@@ -1,15 +1,15 @@
-import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
-import { HttpClient } from "@angular/common/http";
-import { HttpErrorResponse } from "@angular/common/http";
-import { Stop } from "src/app/models/Stop";
-import { TripService } from "src/app/services/trip.service";
-import { MapsAPILoader } from "@agm/core";
+import { HttpClient } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Stop } from 'src/app/models/Stop';
+import { TripService } from 'src/app/services/trip.service';
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
-  selector: "app-attraction-card-list",
-  templateUrl: "./attraction-card-list.component.html",
-  styleUrls: ["./attraction-card-list.component.css"]
+  selector: 'app-attraction-card-list',
+  templateUrl: './attraction-card-list.component.html',
+  styleUrls: ['./attraction-card-list.component.css']
 })
 export class AttractionCardListComponent implements OnInit {
   arrAttractions = [];
@@ -31,13 +31,13 @@ export class AttractionCardListComponent implements OnInit {
   attractionByStop(stop: Stop) {
     this.displayLoader = true;
     this.placeService = new google.maps.places.PlacesService(
-      document.createElement("div")
+      document.createElement('div')
     );
     this.placeService.nearbySearch(
       {
         location: { lat: stop.location.latitude, lng: stop.location.longitude },
         radius: 2000,
-        type: "tourist_attraction"
+        type: 'tourist_attraction'
       },
       placeResults => {
         this.arrAttractions = [];
@@ -53,7 +53,6 @@ export class AttractionCardListComponent implements OnInit {
         this.chosenCity = stop.name;
         this.displayLoader = false;
         this.changeDetectorRef.detectChanges();
-        console.log(placeResults);
       }
     );
   }

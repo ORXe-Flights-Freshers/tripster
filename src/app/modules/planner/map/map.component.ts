@@ -16,7 +16,7 @@ export class MapComponent implements OnInit {
   constructor(public tripService: TripService) {
     // console.log(this.tripService.trip);
     this.isLoading = true;
-   
+
   }
   origin;
   destination;
