@@ -1,22 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { TripService } from 'src/app/services/trip.service';
-import { Trip } from 'src/app/models/Trip';
-import { take } from 'rxjs/operators';
+import { Component, OnInit } from "@angular/core";
+import { TripService } from "src/app/services/trip.service";
+import { Trip } from "src/app/models/Trip";
+import { take } from "rxjs/operators";
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  selector: "app-map",
+  templateUrl: "./map.component.html",
+  styleUrls: ["./map.component.css"]
 })
-
-
 export class MapComponent implements OnInit {
   isLoading: boolean;
 
   constructor(public tripService: TripService) {
     // console.log(this.tripService.trip);
     this.isLoading = true;
-   
   }
   origin;
   destination;
@@ -33,7 +30,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.tripService.tripSubject.pipe(take(1)).subscribe((trip: Trip) => {
-      this.tripService.updateWaypoints();
+      // this.tripService.updateWaypoints();
       this.origin = {
         lat: this.tripService.trip.source.location.latitude,
         lng: this.tripService.trip.source.location.longitude
