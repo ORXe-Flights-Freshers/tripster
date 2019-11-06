@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="loader" *ngIf="displayLoader">
+    <mat-spinner class="spinner"></mat-spinner>
+  </div>
+
+  <div class="header">
+    <span class="number-of-hotels-info bold">
+      <span *ngIf="chosenCity; else noLocationSelected">
+        <span class="bolder">
+          {{ arrAttractions ? arrAttractions.length.toString() : "0" }}
+        </span>
+        attractions found near {{ chosenCity }}
+      </span>
+      <ng-template #noLocationSelected>
+        Choose a location to view attractionss there
+      </ng-template>
+    </span>
+    <div class="filter-btn bolder">Filter</div>
+  </div>
+
+  <div class="list-of-stops">
+    <button
+      *ngIf="tripService?.trip?.source"
+      (click)="attractionByStop(tripService?.trip?.source)"
+      [ngClass]="{
+        active: tripService.trip.source.name === chosenCity
+      }"
+    >
+      {{ tripService.trip.source.name }}
+    </button>
+    <button
+      *ngFor="let stop of tripService?.trip?.stops"
+      (click)="attractionByStop(stop)"
+      [ngClass]="{
+        active: stop.name === chosenCity
+      }"
+    >
+      {{ stop.name }}
+    </button>
+    <button
+      *ngIf="tripService?.trip?.destination"
+      (click)="attractionByStop(tripService?.trip?.destination)"
+      [ngClass]="{
+        active: tripService.trip.destination.name === chosenCity
+      }"
+    >
+      {{ tripService.trip.destination.name }}
+    </button>
+  </div>
+
+  <div class="hotels-list">
+    <app-hotel-card
+      *ngFor="let a of arrAttractions"
+      [name]="a.name"
+      [description]="a.description"
+    ></app-hotel-card>
+  </div>
+</div>

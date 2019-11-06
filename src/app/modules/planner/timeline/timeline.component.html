@@ -1,4 +1,4 @@
-<mat-card class="test">
+<mat-card>
   <link
     href="//fonts.googleapis.com/css?family=Roboto:200,400,600"
     rel="stylesheet"
@@ -16,7 +16,6 @@
         </div>
       </li>
 
-
       <li class="tl-item" *ngFor="let stop of tripService?.trip?.stops; let i = index ">
         <div class="item-title">{{ stop.name }}</div>
         <div class="timestamp">
@@ -27,7 +26,6 @@
         </div>
       </li>
 
-
       <li class="tl-item" *ngIf="tripService?.trip?.destination">
         <div class="item-title">{{ tripService.trip.destination.name }}</div>
         <div class="timestamp">
@@ -36,7 +34,20 @@
         <div class="delete-icon">
           <mat-icon matSuffix>edit</mat-icon></div>
       </li>
+    </ul>
+  </div>
 
+  <div class="footer-nav">
+    <button
+        class="add-stop"
+        (click)="addStopComponentFunction()">
+      <mat-icon>add</mat-icon>
+      Add Stop
+    </button>
+
+    <ul>
+      <li><mat-icon>share</mat-icon> Share trip</li>
+      <li><mat-icon>map</mat-icon> Navigate</li>
     </ul>
   </div>
 </mat-card>

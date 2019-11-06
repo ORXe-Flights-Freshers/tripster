@@ -1,9 +1,11 @@
 .container {
   position: absolute;
   z-index: 5;
+
   width: 100%;
 
   border: 1px solid rgba(30, 30, 30, 0.1);
+  border-radius: 20px;
   background-color: white;
 }
 
@@ -88,4 +90,3 @@
 .bolder {
   font-weight: bolder;
 }
-

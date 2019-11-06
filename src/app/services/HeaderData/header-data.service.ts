@@ -20,7 +20,6 @@ export class HeaderDataService {
   customizeHeaderForPlannerPage() {
     this.backgroundColor = '#0B1240';
     this.links = [
-      { name: 'Share', url: '/planner/:id/share' },
       { name: 'Sign in', url: '/signin' },
     ];
   }
