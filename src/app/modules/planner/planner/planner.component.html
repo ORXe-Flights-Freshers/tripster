@@ -8,39 +8,53 @@
       <div class="amenities-navbar">
         <div
           class="btn timeline"
-          [routerLink]="['/planner', route.params.value.id]"
+          (click)="this.activeTab = 'timeline'"
+          [ngClass]="{
+            'btn-active': activeTab === 'timeline'
+          }"
         >
           <mat-icon class="btn-icon">timeline</mat-icon>
           <span class="btn-text">Timeline</span>
         </div>
         <span class="btn-separator"></span>
-        <div
-          class="btn hotel"
-          (click)="this.tripService.doDisplayHotels = !this.tripService.doDisplayHotels"
+        <div class="btn hotel"
+          (click)="this.activeTab = 'hotel'"
           [ngClass]="{
-              'btn-active': this.tripService.doDisplayHotels
+              'btn-active': activeTab === 'hotel'
           }"
         >
           <mat-icon class="btn-icon">hotel</mat-icon>
           <span class="btn-text">Hotels</span>
         </div>
         <span class="btn-separator"></span>
-        <div class="btn restaurant">
+        <div class="btn restaurant"
+         (click)="this.activeTab = 'restaurant'"
+         [ngClass]="{
+            'btn-active': activeTab === 'restaurant'
+          }"
+        >
           <mat-icon class="btn-icon">restaurant</mat-icon>
-          <span class="btn-text">Restaurants</span>
+          <span class="btn-text">Attractions</span>
         </div>
         <span class="btn-separator"></span>
-        <div
-          class="btn hospital"
-          (click)="openHotelDialog()"
+        <div class="btn hospital"
+         (click)="this.activeTab = 'hospital'; openHotelDialog()"
+         [ngClass]="{
+            'btn-active': activeTab === 'hospital'
+          }"
         >
           <mat-icon class="btn-icon">local_hospital</mat-icon>
           <span class="btn-text">Hospitals</span>
         </div>
         <span class="btn-separator"></span>
       </div>
-      <app-timeline [addStopComponentFunction]="addStopComponentFunction"></app-timeline>
-      <app-hotel-card-list *ngIf="tripService?.doDisplayHotels"></app-hotel-card-list>
+      <app-timeline
+        [ngStyle]="{
+          display: activeTab === 'timeline' ? 'block' : 'none'
+        }"
+        [addStopComponentFunction]="addStopComponentFunction"
+      ></app-timeline>
+      <app-hotel-card-list *ngIf="activeTab === 'hotel'"></app-hotel-card-list>
     </div>
 
     <app-map class="map"></app-map>
