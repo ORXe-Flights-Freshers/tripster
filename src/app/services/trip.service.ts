@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Trip } from '../models/Trip';
-import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Trip } from "../models/Trip";
+import { HttpClient } from "@angular/common/http";
+import { Subject } from "rxjs";
 // import { Stop } from '../models/Stop';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class TripService {
   trip: Trip;
@@ -15,13 +15,14 @@ export class TripService {
   directionResult: google.maps.DirectionsResult;
 
   doDisplayHotels = false;
+  doDisplayAttractions = false;
   constructor(private http: HttpClient) {}
 
   createTrip(trip: Trip) {
     this.trip = trip;
     this.tripSubject.next(trip);
     // console.log("trip.service", trip);
-    return this.http.post('http://3.14.69.62:5000/api/trip', trip);
+    return this.http.post("http://3.14.69.62:5000/api/trip", trip);
   }
 
   updateTrip(trip: Trip) {
@@ -36,7 +37,7 @@ export class TripService {
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     if (directionResult.routes[0].legs[0]) {
       const destinationArrival = new Date(this.trip.destination.arrival);
-      const sourceDeparture=new Date(this.trip.source.departure);
+      const sourceDeparture = new Date(this.trip.source.departure);
       //console.log(destinationArrival);
       destinationArrival.setSeconds(
         sourceDeparture.getSeconds() +
@@ -48,16 +49,13 @@ export class TripService {
     }
   }
 
-  
   getPreviousLocation() {
-
-      if (this.trip.stops.length !== 0) {
-          const totalStops = this.trip.stops.length;
-          return this.trip.stops[totalStops - 1];
-      } else {
-        return this.trip.source;
-      }
-
+    if (this.trip.stops.length !== 0) {
+      const totalStops = this.trip.stops.length;
+      return this.trip.stops[totalStops - 1];
+    } else {
+      return this.trip.source;
+    }
   }
 
   addStopToTrip(stop) {
@@ -70,20 +68,25 @@ export class TripService {
           //console.log(response);
         })
      }
-     
- removeStopFromTrip(i: number) {
-     console.log(this.trip.stops);
-     this.trip.stops.splice(i,1);
-     this.tripSubject.next(this.trip);
-      // console.log(this.trip.stops);
-      // console.log(this.waypoints);
-      this.updateWaypoints();
-      // console.log(this.waypoints);
-      // console.log(this.trip);
-      this.updateTrip(this.trip).subscribe(response => {console.log(response);});
-    }
 
+  removeStopFromTrip(i: number) {
+    console.log(this.trip.stops);
+    this.trip.stops.splice(i, 1);
+    this.tripSubject.next(this.trip);
+    // console.log(this.trip.stops);
+    // console.log(this.waypoints);
+    this.updateWaypoints();
+    // console.log(this.waypoints);
+    // console.log(this.trip);
 
+    this.updateTrip(this.trip).subscribe(response => {
+      console.log(response);
+    });
+
+    //this.updateWaypoints();
+    console.log(this.waypoints);
+    console.log(this.trip);
+  }
   updateWaypoints() {
     if (this.trip.stops.length != 0) {
       const allStops = this.trip.stops;
@@ -103,6 +106,4 @@ export class TripService {
     else
     {this.waypoints = [];}
   }
-
-
 }

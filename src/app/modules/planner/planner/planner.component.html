@@ -1,9 +1,7 @@
 <div class="container">
-
   <div class="background"></div>
 
   <div class="body">
-
     <div class="navigator">
       <div class="amenities-navbar">
         <div
@@ -17,29 +15,32 @@
           <span class="btn-text">Timeline</span>
         </div>
         <span class="btn-separator"></span>
-        <div class="btn hotel"
+        <div
+          class="btn hotel"
           (click)="this.activeTab = 'hotel'"
           [ngClass]="{
-              'btn-active': activeTab === 'hotel'
+            'btn-active': activeTab === 'hotel'
           }"
         >
           <mat-icon class="btn-icon">hotel</mat-icon>
           <span class="btn-text">Hotels</span>
         </div>
         <span class="btn-separator"></span>
-        <div class="btn restaurant"
-         (click)="this.activeTab = 'restaurant'"
-         [ngClass]="{
-            'btn-active': activeTab === 'restaurant'
+        <div
+          class="btn restaurant"
+          (click)="this.activeTab = 'attractions'"
+          [ngClass]="{
+            'btn-active': activeTab === 'attractions'
           }"
         >
           <mat-icon class="btn-icon">restaurant</mat-icon>
           <span class="btn-text">Attractions</span>
         </div>
         <span class="btn-separator"></span>
-        <div class="btn hospital"
-         (click)="this.activeTab = 'hospital'; openHotelDialog()"
-         [ngClass]="{
+        <div
+          class="btn hospital"
+          (click)="this.activeTab = 'hospital'; openHotelDialog()"
+          [ngClass]="{
             'btn-active': activeTab === 'hospital'
           }"
         >
@@ -54,9 +55,11 @@
         }"
       ></app-timeline>
       <app-hotel-card-list *ngIf="activeTab === 'hotel'"></app-hotel-card-list>
+      <app-attraction-card-list
+        *ngIf="activeTab === 'attractions'"
+      ></app-attraction-card-list>
     </div>
 
     <app-map class="map"></app-map>
-
   </div>
 </div>
