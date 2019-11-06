@@ -1,27 +1,27 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
   MatDialogConfig
-} from '@angular/material/dialog';
-import { TimePickerThemeService } from '../../../services/TimePickerTheme.service';
-import { TripService } from 'src/app/services/trip.service';
-import { HttpClient } from '@angular/common/http';
-import { Time } from '../../../models/Time';
-import { Stop } from 'src/app/models/Stop';
+} from "@angular/material/dialog";
+import { TimePickerThemeService } from "../../../services/TimePickerTheme.service";
+import { TripService } from "src/app/services/trip.service";
+import { HttpClient } from "@angular/common/http";
+import { Time } from "../../../models/Time";
+import { Stop } from "src/app/models/Stop";
 
 @Component({
-  selector: 'app-add-stop',
-  templateUrl: './add-stop.component.html',
-  styleUrls: ['./add-stop.component.css']
+  selector: "app-add-stop",
+  templateUrl: "./add-stop.component.html",
+  styleUrls: ["./add-stop.component.css"]
 })
 export class AddStopComponent implements OnInit {
   stopCity: google.maps.places.PlaceResult;
-  arrivalDate: Date = new Date(Date.now());
-  departureDate: Date = new Date(Date.now());
-  arrivalTime = '00:00 am';
-  departureTime = '11:00 am';
+  arrivalDate: Date;
+  departureDate: Date;
+  arrivalTime = "00:00 am";
+  departureTime = "11:00 am";
   timeTaken = 999;
   constructor(
     public dialogRef: MatDialogRef<AddStopComponent>,
@@ -31,7 +31,12 @@ export class AddStopComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.arrivalDate = new Date(
+      this.tripService.getPreviousLocation().departure
+    );
+    this.departureDate = new Date(this.arrivalDate);
+  }
 
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
     this.stopCity = place;
@@ -74,7 +79,10 @@ export class AddStopComponent implements OnInit {
       self.arrivalDate = new Date(self.arrivalDate);
       self.handleArrivalTimeSet(self.arrivalDate);
       self.departureDate = new Date(self.arrivalDate);
-      self.departureTime =self.departureDate.getHours().toString() +  ":" +self.departureDate.getMinutes().toString() +
+      self.departureTime =
+        self.departureDate.getHours().toString() +
+        ":" +
+        self.departureDate.getMinutes().toString() +
         " am";
       self.changeDetectorRef.detectChanges();
     }
@@ -82,7 +90,7 @@ export class AddStopComponent implements OnInit {
 
   handleArrivalTimeSet(date) {
     this.arrivalTime =
-      date.getHours().toString() + ':' + date.getMinutes().toString() + ' am';
+      date.getHours().toString() + ":" + date.getMinutes().toString() + " am";
     console.log(this.arrivalTime);
   }
 
