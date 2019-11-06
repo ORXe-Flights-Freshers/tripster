@@ -28,9 +28,9 @@ export class TripService {
     this.trip = trip;
     this.tripSubject.next(trip);
     console.log(trip);
-
+   var httpResponse=this.http.put('http://3.14.69.62:5000/api/trip/'+ trip.id, this.trip);
    // console.log('http://3.14.69.62:5000/api/trip/'+this.trip.id);
-    return this.http.put('http://3.14.69.62:5000/api/trip/'+ trip.id, this.trip);
+    return httpResponse;
   }
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
@@ -72,16 +72,15 @@ export class TripService {
      }
      
  removeStopFromTrip(i: number) {
-  console.log(this.trip.stops);
-  this.trip.stops.splice(i,1);
-  this.tripSubject.next(this.trip);
+     console.log(this.trip.stops);
+     this.trip.stops.splice(i,1);
+     this.tripSubject.next(this.trip);
       // console.log(this.trip.stops);
       // console.log(this.waypoints);
       this.updateWaypoints();
       // console.log(this.waypoints);
       // console.log(this.trip);
-      
-this.updateTrip(this.trip).subscribe(response => {console.log(response);});
+      this.updateTrip(this.trip).subscribe(response => {console.log(response);});
     }
 
 
@@ -98,10 +97,10 @@ this.updateTrip(this.trip).subscribe(response => {console.log(response);});
         });
       }
 
-
       this.waypoints = waypointsLocations;
       console.log(this.waypoints);
-    }else
+    }
+    else
     {this.waypoints = [];}
   }
 
