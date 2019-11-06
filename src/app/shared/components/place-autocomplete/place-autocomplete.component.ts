@@ -49,17 +49,16 @@ export class PlaceAutocompleteComponent implements OnInit {
 
   public KeyPress = (event) => {
     this.inputPlaceFromUser = event.target.value;
-    if(this.inputPlaceFromUser.length < 3){
     this.validPlace = false;
     this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
-    this.errorMessage = 'Please type at least 3 characters';
     this.IsValid.emit({ isValid: false });
+    if (this.inputPlaceFromUser.length < 3)
+    {
+      this.errorMessage = 'Please type at least 3 characters';
     }
-    else{
-    this.validPlace = false;
-    this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
-    this.errorMessage = 'Error h boss';
-    this.IsValid.emit({ isValid: false });
+    else
+    {
+      this.errorMessage = 'Select from list';
     }
   }
 

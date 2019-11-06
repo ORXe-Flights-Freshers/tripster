@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Time } from '../../../models/Time';
 import { TripService } from 'src/app/services/trip.service';
@@ -16,6 +16,7 @@ export class SearchComponent implements OnInit {
   destination: google.maps.places.PlaceResult;
   sourceValid: boolean;
   destinationValid: boolean;
+  isDuplicatePlace: boolean;
   tripDate: Date = new Date(Date.now());
   tripTime = '11:00 am';
   vehicleMileage = 25;
@@ -26,7 +27,8 @@ export class SearchComponent implements OnInit {
 
   constructor(private tripService: TripService,
               private router: Router,
-              public timePickerThemeService: TimePickerThemeService) {}
+              public timePickerThemeService: TimePickerThemeService,
+              private changeDetectRef: ChangeDetectorRef) {}
 
   ngOnInit() {}
 
@@ -36,14 +38,13 @@ export class SearchComponent implements OnInit {
   handleInvalidDestination(event) {
     this.destinationValid = event.isValid;
   }
-
-
   handleSourceChange(place: google.maps.places.PlaceResult) {
     this.origin = place;
-    console.log(place);
+    this.checkForDuplicatePlace();
   }
   handleDestinationChange(place: google.maps.places.PlaceResult) {
     this.destination = place;
+    this.checkForDuplicatePlace();
   }
   handleTimeSet(time: string) {
     this.tripTime = time;
@@ -54,11 +55,26 @@ export class SearchComponent implements OnInit {
   getMinDate() {
     return new Date(Date.now());
   }
+  checkForDuplicatePlace(){
+    if(this.origin === undefined || this.destination === undefined)
+    {
+      return;
+    }
+    if(this.origin.place_id === this.destination.place_id)
+    {
+      console.log('matched');
+      this.isDuplicatePlace = true;
+    }
+    else
+    {
+      this.isDuplicatePlace = false;
+    }
+    this.changeDetectRef.detectChanges();
+  }
   onSubmit() {
     const time = Time.parseTimeStringToTime(this.tripTime);
     this.tripDate.setHours(time.hours);
     this.tripDate.setMinutes(time.minutes);
-
     const trip = this.generateTrip();
 
     console.log(trip);
