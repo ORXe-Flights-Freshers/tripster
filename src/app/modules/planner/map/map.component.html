@@ -1,34 +1,35 @@
-<div class="loader" *ngIf="isLoading">
-  <mat-spinner class="spinner"></mat-spinner>
-</div>
+<div class="container">
+  <div class="loader" *ngIf="isLoading">
+    <mat-spinner class="spinner"></mat-spinner>
+  </div>
 
-<agm-map [fitBounds]="true" *ngIf="!isLoading">
-  <agm-marker
-    *ngIf="tripService?.trip?.source"
-    [agmFitBounds]="true"
-    [latitude]="tripService?.trip?.source.location.latitude"
-    [longitude]="tripService?.trip?.source.location.longitude"
-  ></agm-marker>
-  <agm-marker
-    *ngIf="tripService?.trip?.destination"
-    [agmFitBounds]="true"
-    [latitude]="tripService?.trip?.destination.location.latitude"
-    [longitude]="tripService?.trip?.destination.location.longitude"
-  ></agm-marker>
-  <agm-direction
-    *ngIf="tripService?.trip?.source && tripService?.trip?.destination"
-    [origin]="origin"
-    [destination]="destination"
-    [waypoints]="tripService?.waypoints"
-    [optimizeWaypoints]="false"
-    [markerOptions]="markerOptions"
-    [renderOptions]="{
+  <agm-map [fitBounds]="true" *ngIf="!isLoading">
+    <agm-marker
+      *ngIf="tripService?.trip?.source"
+      [agmFitBounds]="true"
+      [latitude]="tripService?.trip?.source.location.latitude"
+      [longitude]="tripService?.trip?.source.location.longitude"
+    ></agm-marker>
+    <agm-marker
+      *ngIf="tripService?.trip?.destination"
+      [agmFitBounds]="true"
+      [latitude]="tripService?.trip?.destination.location.latitude"
+      [longitude]="tripService?.trip?.destination.location.longitude"
+    ></agm-marker>
+    <agm-direction
+      *ngIf="tripService?.trip?.source && tripService?.trip?.destination"
+      [origin]="origin"
+      [destination]="destination"
+      [waypoints]="tripService?.waypoints"
+      [optimizeWaypoints]="false"
+      [markerOptions]="markerOptions"
+      [renderOptions]="{
       draggable: false,
       suppressMarkers: true,
       suppressInfoWindows: false
     }"
-    (onResponse)="tripService.handleDirectionResponse($event)"
-  >
-  </agm-direction>
-</agm-map>
-
+      (onResponse)="tripService.handleDirectionResponse($event)"
+    >
+    </agm-direction>
+  </agm-map>
+</div>

@@ -21,7 +21,7 @@ export class MapComponent implements OnInit {
   origin;
   destination;
 
-  markerOptions={
+  markerOptions = {
     // origin:{
     //   icon: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png',
     // },
@@ -30,21 +30,20 @@ export class MapComponent implements OnInit {
     // },
     // waypoints:this.waypointsicon,
   };
-  
+
   ngOnInit() {
     this.tripService.tripSubject.pipe(take(1)).subscribe((trip: Trip) => {
       this.tripService.updateWaypoints();
-      this.origin={
+      this.origin = {
         lat: this.tripService.trip.source.location.latitude,
         lng: this.tripService.trip.source.location.longitude
       };
-      this.destination={
+      this.destination = {
         lat: this.tripService.trip.destination.location.latitude,
         lng: this.tripService.trip.destination.location.longitude
       };
 
-
-      this.isLoading = false;  
+      this.isLoading = false;
     });
   }
 }
