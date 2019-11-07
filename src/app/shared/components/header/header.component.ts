@@ -10,6 +10,8 @@ import {HeaderDataService} from '../../../services/HeaderData/header-data.servic
   ]
 })
 export class HeaderComponent {
+  private windowWidth;
+
   @ViewChild('extras', { static: false }) extras: ElementRef;
   @ViewChild('burger', { static: false }) burger: ElementRef;
 
@@ -25,5 +27,45 @@ export class HeaderComponent {
     }
   }
 
-  constructor(public extraOptions: HeaderDataService) { }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: UIEvent) {
+    this.windowWidth = (event.target as Window).innerWidth;
+  }
+
+  constructor(public extraOptions: HeaderDataService) {
+    this.windowWidth = window.innerWidth;
+    console.log('Width is: ' + this.windowWidth);
+  }
+
+  getWidth() {
+    if (this.windowWidth < 615) {
+      return '30%';
+    }
+
+    if (this.extraOptions.links.length <= 1 && this.windowWidth > 1210) {
+      return '5%';
+    }
+
+    if (this.extraOptions.links.length <= 1 && this.windowWidth > 800) {
+      return '8%';
+    }
+
+    if (this.extraOptions.links.length <= 1 && this.windowWidth > 600) {
+      return '11%';
+    }
+
+    if (this.extraOptions.links.length === 2 && this.windowWidth > 950) {
+      return '17%';
+    }
+
+    if (this.extraOptions.links.length === 2 && this.windowWidth > 800) {
+      return '25%';
+    }
+
+    if (this.extraOptions.links.length === 2 && this.windowWidth > 615) {
+      return '29%';
+    }
+
+    return '40%';
+  }
 }
