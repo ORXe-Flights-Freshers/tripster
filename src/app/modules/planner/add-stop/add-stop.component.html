@@ -98,5 +98,9 @@
 
 <div id="buttons-block">
   <button mat-button (click)="closeDialog()">CANCEL</button>
-  <button mat-raised-button (click)="addStop()" color="primary">ADD</button>
+  <button
+   mat-raised-button (click)="addStop()"
+   color="primary"
+   [disabled]="duplicatePlace">ADD</button>
+   <p  style="color: red; text-align: left;" *ngIf="duplicatePlace">Stop cannot be same</p>
 </div>
