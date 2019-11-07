@@ -103,5 +103,5 @@
    mat-raised-button (click)="addStop()"
    color="primary"
    [disabled]="duplicatePlace">ADD</button>
-   <p  style="color: red; text-align: left;" *ngIf="duplicatePlace">Stop cannot be same</p>
+   <p id="stop-error" *ngIf="duplicatePlace">Stop cannot be same</p>
 </div>

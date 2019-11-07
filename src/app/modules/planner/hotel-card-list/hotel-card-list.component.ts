@@ -19,12 +19,14 @@ export class HotelCardListComponent implements OnInit {
   constructor(
     private httpService: HttpClient,
     public tripService: TripService) {
-    console.log(tripService.trip);
+    // console.log(tripService.trip);
     this.displayLoader = false;
   }
+
   ngOnInit() {
     this.hotelByStop(this.tripService.trip.source);
   }
+
   hotelByStop(stop: Stop) {
     this.displayLoader = true;
     this.httpService
@@ -53,7 +55,7 @@ export class HotelCardListComponent implements OnInit {
               this.chosenCity = stop.name;
               this.stopIdOfHotel = stop.stopId;
               this.arrHotels = data.hotels;
-              console.log(this.arrHotels);
+              // console.log(this.arrHotels);
               //  console.log(this.arrBirds[1]);
               this.displayLoader = false;
             },
