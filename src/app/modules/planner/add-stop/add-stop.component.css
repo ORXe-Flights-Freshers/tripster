@@ -30,7 +30,8 @@
 }
 
 .mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
-    background-color: black;
+    background-color: black; 
+    /* background-color: blue; */
 }
 
 .mat-form-field {
@@ -88,6 +89,9 @@ hr{
   margin-top: 0px;
 }
 
-#buttons-block{
+#buttons-block {
   text-align: end;
 }
+/* #buttons-block:disabled{
+  color: white;
+} */

@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
 
   searchForm = new FormGroup({
     mileage: new FormControl(this.vehicleMileage, [
-      Validators.pattern("^[1-9]+[0-9]*$")
+      Validators.pattern('^[1-9]+[0-9]*$')
     ])
   });
 
@@ -102,7 +102,7 @@ export class SearchComponent implements OnInit {
           longitude: this.origin.geometry.location.lng()
         },
         // @ts-ignore
-        stopId: this.origin.id,
+        stopId: this.origin.place_id,
         name: this.origin.name,
         // @ts-ignore
         arrival: this.tripDate.toString(),
@@ -117,7 +117,7 @@ export class SearchComponent implements OnInit {
           longitude: this.destination.geometry.location.lng()
         },
         // @ts-ignore
-        stopId: this.destination.id,
+        stopId: this.destination.place_id,
         name: this.destination.name,
         // @ts-ignore
         arrival: this.tripDate.toString(),

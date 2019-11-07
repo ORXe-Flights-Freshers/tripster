@@ -59,7 +59,6 @@ export class TripService {
   }
 
   addStopToTrip(stop) {
-    stop.stopId= this.trip.stops.length -1;
         this.trip.stops.push(stop);
         this.tripSubject.next(this.trip);
         console.log(this.trip.stops);
