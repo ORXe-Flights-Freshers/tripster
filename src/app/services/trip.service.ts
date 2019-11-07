@@ -25,6 +25,18 @@ export class TripService {
     // console.log("trip.service", trip);
     return this.http.post('http://3.14.69.62:5001/api/trip', trip);
   }
+  calculateTotalDistance() {
+    let totalDistance = 0;
+    console.log(this.directionResult);
+    if (this.directionResult ? this.directionResult.routes.length !== 0 : false) {
+      this.directionResult.routes[0].legs.forEach(leg => {
+        totalDistance += leg.distance.value;
+      });
+    }
+    console.log(totalDistance);
+    return totalDistance / 1000;
+  }
+
 
   updateTrip(trip: Trip) {
     this.trip = trip;
@@ -34,6 +46,7 @@ export class TripService {
   }
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
+    this.directionResult = directionResult;
     if (directionResult.routes[0].legs[0]) {
       // tslint:disable-next-line:no-shadowed-variable
       let previousDeparture;
