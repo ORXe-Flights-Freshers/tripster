@@ -40,7 +40,7 @@
         matInput
         [ngxTimepicker]="arrivalTimePicker"
         [format]="12"
-        [value]="arrivalTime"
+        [value]="arrivalDate | date: 'h:mm a'"
         disabled="true"
       />
     </mat-form-field>
@@ -64,7 +64,7 @@
         [matDatepicker]="departureDatepicker"
         (dateChange)="handleDepartureDateSet($event)"
         [value]="departureDate"
-        [min]="getMinDate()"
+        [min]="arrivalDate"
         (focus)="departureDatepicker.open()"
         readonly
       />
@@ -83,7 +83,8 @@
         matInput
         [ngxTimepicker]="departureTimePicker"
         [format]="12"
-        [value]="departureTime"
+        [value]="departureDate | date: 'h:mm a'"
+        [min]="arrivalDate | date: 'h:mm a'"
         readonly
       />
     </mat-form-field>
