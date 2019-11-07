@@ -18,10 +18,12 @@ import { Stop } from "src/app/models/Stop";
 })
 export class AddStopComponent implements OnInit {
   stopCity: google.maps.places.PlaceResult;
+
   arrivalDate: Date;
   departureDate: Date;
   arrivalTime = "00:00 am";
   departureTime = "11:00 am";
+  duplicatePlace: boolean;
   timeTaken = 999;
   constructor(
     public dialogRef: MatDialogRef<AddStopComponent>,
@@ -41,6 +43,15 @@ export class AddStopComponent implements OnInit {
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
     this.stopCity = place;
     const previousLocation = this.tripService.getPreviousLocation();
+    console.log("stop city is", this.stopCity.place_id);
+    console.log("previous stop is ", previousLocation.stopId);
+    if (this.stopCity.place_id === previousLocation.stopId) {
+      console.log("same stop found!!");
+      this.duplicatePlace = true;
+      this.changeDetectorRef.detectChanges();
+      return;
+    }
+    this.duplicatePlace = false;
     const startPoint = new google.maps.LatLng(
       previousLocation.location.latitude,
       previousLocation.location.longitude
