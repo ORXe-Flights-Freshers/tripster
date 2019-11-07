@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { TripService } from 'src/app/services/trip.service';
-import { Trip } from 'src/app/models/Trip';
-import { take } from 'rxjs/operators';
+import { Component, OnInit } from "@angular/core";
+import { TripService } from "src/app/services/trip.service";
+import { Trip } from "src/app/models/Trip";
+import { take } from "rxjs/operators";
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  selector: "app-map",
+  templateUrl: "./map.component.html",
+  styleUrls: ["./map.component.css"]
 })
 export class MapComponent implements OnInit {
   isLoading: boolean;
@@ -17,18 +17,27 @@ export class MapComponent implements OnInit {
   }
   origin;
   destination;
-
-  markerOptions = {
-    // origin:{
-    //   icon: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png',
-    // },
-    // destination:{
-    //   icon: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png',
-    // },
-    // waypoints:this.waypointsicon,
-  };
+  markerOptions;
+  stopIconUrl = "http://maps.gstatic.com/mapfiles/markers2/icon_green.png";
 
   ngOnInit() {
+    this.markerOptions = {
+      // origin: {
+      //   // infoWindow: this.tripService.trip.source.name,
+      //   icon: "http://maps.gstatic.com/mapfiles/markers2/marker_greenA.png",
+      //   label: "sabk"
+      // },
+      // waypoints: {
+      //   infoWindow: "Way",
+      //   icon: "http://maps.gstatic.com/mapfiles/markers2/marker_greenA.png",
+      //   label: "sabk"
+      // },
+      // destination: {
+      //   // infoWindow: this.tripService.trip.destination.name
+      //   icon: "http://maps.gstatic.com/mapfiles/markers2/marker_greenA.png",
+      //   label: "sabk"
+      // }
+    };
     this.tripService.tripSubject.pipe(take(1)).subscribe((trip: Trip) => {
       // this.tripService.updateWaypoints();
       this.origin = {
