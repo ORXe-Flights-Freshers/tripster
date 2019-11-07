@@ -30,7 +30,7 @@
 }
 
 .mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
-    background-color: black; 
+    background-color: black;
     /* background-color: blue; */
 }
 
@@ -52,7 +52,7 @@
         min-width: 100x;
       }
       .flex-container > div {
-     
+
         width:80%;
         /*margin: 10px;*/
       }
@@ -67,7 +67,7 @@
         /*margin: 10px;*/
       }
   }
-  
+
   .flex-container-header {
     display: flex;
     flex-direction: row;
@@ -95,3 +95,9 @@ hr{
 /* #buttons-block:disabled{
   color: white;
 } */
+#stop-error{
+  color: red;
+  text-align: left;
+  float: left;
+  margin-top: 3%;
+}

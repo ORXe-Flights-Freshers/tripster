@@ -29,37 +29,32 @@ export class TripService {
   updateTrip(trip: Trip) {
     this.trip = trip;
     this.tripSubject.next(trip);
-    console.log(trip);
-
-    return this.http.put(
-      'http://3.14.69.62:5001/api/trip/' + trip.id,
-      this.trip
-    );
+    // console.log(trip);
+    return this.http.put('http://3.14.69.62:5001/api/trip/' + trip.id,this.trip);
   }
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
-    if (this.trip.stops.length !== 0) {
-      this.trip.stops.forEach((stop, index) => {
-        // tslint:disable-next-line:no-shadowed-variable
-        let previousDeparture;
-        if (index === 0) {
-          previousDeparture = new Date(this.trip.source.departure);
-          previousDeparture.setSeconds(
-            previousDeparture.getSeconds() +
-              directionResult.routes[0].legs[index].duration.value
-          );
-          this.trip.stops[index].arrival = previousDeparture.toString();
-        } else {
-          previousDeparture = new Date(
-            this.trip.stops[index - 1].departure
-          );
-          previousDeparture.setSeconds(
-            previousDeparture.getSeconds() +
-              directionResult.routes[0].legs[index].duration.value
-          );
-          this.trip.stops[index].arrival = previousDeparture.toString();
-        }
-      });
+    if (directionResult.routes[0].legs[0]) {
+      let previousDeparture;
+      // console.log(directionResult);
+      // console.log(this.trip.stops);
+      if (this.trip.stops.length === 0) {
+        previousDeparture = new Date(this.trip.source.departure);
+      } else {
+        previousDeparture = new Date(
+          this.trip.stops[this.trip.stops.length - 1].departure
+        );
+      }
+
+      // console.log(previousDeparture);
+      previousDeparture.setSeconds(
+        previousDeparture.getSeconds() +
+          directionResult.routes[0].legs[
+            directionResult.routes[0].legs.length - 1
+          ].duration.value
+      );
+      this.trip.destination.arrival = previousDeparture.toString();
+      // console.log(this.trip.destination.arrival);
     }
     // if (directionResult.routes[0].legs[0]) {
     const previousLocation = this.getPreviousLocation();
@@ -88,35 +83,39 @@ export class TripService {
   }
 
   addStopToTrip(stop) {
-    this.trip.stops.push(stop);
-    this.tripSubject.next(this.trip);
-    console.log(this.trip.stops);
-    this.updateWaypoints();
-    this.updateTrip(this.trip).subscribe(response => {
-      // console.log(response);
-    });
-  }
+        this.trip.stops.push(stop);
+        this.tripSubject.next(this.trip);
+        // console.log(this.trip.stops);
+        this.updateWaypoints();
+        this.updateTrip(this.trip).subscribe(response => { })
+     }
 
   removeStopFromTrip(i: number) {
-    console.log(this.trip.stops);
+    // console.log(this.trip.stops);
     this.trip.stops.splice(i, 1);
     this.tripSubject.next(this.trip);
     this.updateWaypoints();
     this.updateTrip(this.trip).subscribe(response => {
       console.log(response);
     });
-
-    // this.updateWaypoints();
-    console.log(this.waypoints);
-    console.log(this.trip);
-    console.log(this.trip.stops.length);
   }
 
-  addHotelToTrip(hotelData) {
-    console.log(this.trip.source);
+  addHotelToTrip(hotelData,stopIdOfHotel) {
 
-    this.trip.source.hotels.push(hotelData);
-  }
+    if (stopIdOfHotel === this.trip.source.stopId) { this.trip.source.hotels.push(hotelData); }
+    else if (stopIdOfHotel === this.trip.destination.stopId) { this.trip.destination.hotels.push(hotelData); }
+    else {
+      for (let index = 0; index < this.trip.stops.length; index++) {
+        if (stopIdOfHotel === this.trip.stops[index].stopId)
+        {
+          this.trip.stops[index].hotels.push(hotelData);
+          break;
+        }
+      }
+    }
+
+   }
+
 
   updateWaypoints() {
     if (this.trip.stops.length !== 0) {

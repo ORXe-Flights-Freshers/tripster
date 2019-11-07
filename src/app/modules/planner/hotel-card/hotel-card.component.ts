@@ -38,7 +38,7 @@ export class HotelCardComponent implements OnInit {
         console.log(placeFromDialog);
         if (placeFromDialog) {
           console.log(placeFromDialog);
-          this.tripService.addHotelToTrip(placeFromDialog);
+          this.tripService.addHotelToTrip(placeFromDialog,this.stopIdOfHotel);
         }
       });
   }
