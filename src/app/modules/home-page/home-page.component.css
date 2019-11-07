@@ -7,7 +7,7 @@ img,
 .img-background {
   position: absolute;
   padding: 0;
-  height: 249px;
+  height: 266px;
   width: 100%;
 }
 
@@ -22,7 +22,7 @@ img {
 @media screen and (max-width: 1300px) and (min-width: 600px) {
   img,
   .img-background {
-    height: 337px;
+    height: 356px;
   }
 }
 
@@ -31,4 +31,22 @@ img {
   .img-background {
     height: 340px;
   }
+
+  .tagline {
+    font-size: 25px;
+  }
+}
+
+.info {
+  position: relative;
+  width: 100%;
+}
+
+.tagline {
+  color: white;
+  width: fit-content;
+
+  letter-spacing: 1px;
+
+  margin: 100px auto auto;
 }

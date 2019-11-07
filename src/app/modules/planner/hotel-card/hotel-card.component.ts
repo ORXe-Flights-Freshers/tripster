@@ -30,7 +30,7 @@ export class HotelCardComponent implements OnInit {
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
 
-    dialogConfig.data ={hotelData,stopId:this.stopIdOfHotel} ;
+    dialogConfig.data = {hotelData, stopId: this.stopIdOfHotel} ;
     const dialogRef = this.dialog.open(AddHotelDetailsComponent, dialogConfig);
 
     dialogRef.afterClosed()
@@ -38,7 +38,7 @@ export class HotelCardComponent implements OnInit {
         console.log(placeFromDialog);
         if (placeFromDialog) {
           console.log(placeFromDialog);
-          this.tripService.addHotelToTrip(placeFromDialog);
+          this.tripService.addHotelToTrip(placeFromDialog,this.stopIdOfHotel);
         }
       });
   }

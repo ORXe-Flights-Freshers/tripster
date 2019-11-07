@@ -19,12 +19,14 @@ export class HotelCardListComponent implements OnInit {
   constructor(
     private httpService: HttpClient,
     public tripService: TripService) {
-    console.log(tripService.trip);
+    // console.log(tripService.trip);
     this.displayLoader = false;
   }
+
   ngOnInit() {
     this.hotelByStop(this.tripService.trip.source);
   }
+
   hotelByStop(stop: Stop) {
     this.displayLoader = true;
     this.httpService
@@ -53,7 +55,7 @@ export class HotelCardListComponent implements OnInit {
               this.chosenCity = stop.name;
               this.stopIdOfHotel = stop.stopId;
               this.arrHotels = data.hotels;
-              console.log(this.arrHotels);
+              // console.log(this.arrHotels);
               //  console.log(this.arrBirds[1]);
               this.displayLoader = false;
             },
@@ -67,17 +69,17 @@ export class HotelCardListComponent implements OnInit {
   }
 
 
-  getHotelData(hotelDataApi){
+  getHotelData(hotelDataApi) {
 
    const hotelData: Hotel = {
-      placeId     : hotelDataApi['id'],
-      name        : hotelDataApi['name'],
-      description : hotelDataApi['contact']['address']['line1'] + ',' + hotelDataApi['contact']['address']['line2'],
+      placeId     : hotelDataApi.id,
+      name        : hotelDataApi.name,
+      description : hotelDataApi.contact.address.line1 + ',' + hotelDataApi.contact.address.line2,
       location    : {
-                       latitude : hotelDataApi['geoCode']['lat'],
-                       longitude : hotelDataApi['geoCode']['long']
+                       latitude : hotelDataApi.geoCode.lat,
+                       longitude : hotelDataApi.geoCode.long
                     },
-      rating      : hotelDataApi['rating'],
+      rating      : hotelDataApi.rating,
       arrival     : '',
       departure   : ''
     };

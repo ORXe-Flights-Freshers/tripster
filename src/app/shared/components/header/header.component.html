@@ -25,10 +25,7 @@
     <ul
       class="extras" #extras
       [ngStyle]="{
-        width: extraOptions.links?.length <= 1 ?
-                '5%' :
-                extraOptions.links?.length === 2 ?
-                '12%' : '17%'
+        width: getWidth()
       }"
     >
       <li
