@@ -70,6 +70,8 @@ export class HotelCardListComponent implements OnInit {
   }
 
   getHotelData(hotelDataApi) {
+    console.log(hotelDataApi);
+
     const hotelData: Hotel = {
       placeId: hotelDataApi.id,
       name: hotelDataApi.name,
@@ -85,7 +87,6 @@ export class HotelCardListComponent implements OnInit {
       arrival: "",
       departure: ""
     };
-
     return hotelData;
   }
 }
