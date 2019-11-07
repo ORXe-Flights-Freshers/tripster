@@ -29,10 +29,9 @@ export class AddHotelDetailsComponent implements OnInit {
               public tripService: TripService,
               private http: HttpClient,
               public timePickerThemeService: TimePickerThemeService,
-              @Inject(MAT_DIALOG_DATA) data)
-               {  console.log(data);
-                  this.hotelData=data.hotelData;
-                  this.stopIdOfHotel=data.stopIdOfHotel;
+              @Inject(MAT_DIALOG_DATA) data) {  console.log(data);
+                  this.hotelData = data.hotelData;
+                  this.stopIdOfHotel = data.stopIdOfHotel;
               }
 
 
@@ -66,7 +65,7 @@ export class AddHotelDetailsComponent implements OnInit {
 
   addHotel() {
 
-    this.hotelData.arrival= this.arrivalDate.toString();
+    this.hotelData.arrival = this.arrivalDate.toString();
     this.hotelData.departure = this.departureDate.toString();
 
 

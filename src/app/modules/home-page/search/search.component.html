@@ -45,7 +45,8 @@
             style="width: 100%"
             [ngxTimepicker]="endTime"
             [format]="12"
-            [value]="tripTime"
+            [value]="getMinDate() | date: 'h:mm a'"
+            [min]="getMinDate() | date: 'h:mm a'"
             readonly
           />
           <mat-icon matSuffix style="color: gray">access_time</mat-icon>
@@ -79,8 +80,11 @@
         >Mileage is required</mat-error
       >
       <mat-error *ngIf="searchForm.controls['mileage'].errors?.pattern"
-        >Mileage should be in the range 10-999</mat-error>
+        >Mileage should be in the range 10-999</mat-error
+      >
     </mat-form-field>
-    <p style="color: red;" *ngIf="isDuplicatePlace">Source and Destination cannot be same</p>
+    <p style="color: red;" *ngIf="isDuplicatePlace">
+      Source and Destination cannot be same
+    </p>
   </mat-card>
 </form>

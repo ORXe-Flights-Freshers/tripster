@@ -8,9 +8,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material';
 import {RouterModule} from '@angular/router';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
-  declarations: [HeaderComponent, PlaceAutocompleteComponent],
+  declarations: [HeaderComponent, PlaceAutocompleteComponent, NotFoundComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,

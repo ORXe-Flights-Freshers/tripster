@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Trip} from '../models/Trip';
-import {HttpClient} from '@angular/common/http';
-import {Subject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Trip } from '../models/Trip';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 // import { Stop } from '../models/Stop';
 
@@ -56,6 +56,21 @@ export class TripService {
       this.trip.destination.arrival = previousDeparture.toString();
       // console.log(this.trip.destination.arrival);
     }
+    // if (directionResult.routes[0].legs[0]) {
+    const previousLocation = this.getPreviousLocation();
+    const previousDeparture = new Date(previousLocation.departure);
+    console.log(directionResult);
+    console.log(this.trip.stops);
+
+    previousDeparture.setSeconds(
+      previousDeparture.getSeconds() +
+        directionResult.routes[0].legs[
+          directionResult.routes[0].legs.length - 1
+        ].duration.value
+    );
+    this.trip.destination.arrival = previousDeparture.toString();
+    console.log(this.trip.destination.arrival);
+    // }
   }
 
   getPreviousLocation() {

@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { AddHotelDetailsComponent } from './add-hotel-details/add-hotel-details.component';
 import { AttractionCardListComponent } from './attraction-card-list/attraction-card-list.component';
 import { AttractionCardComponent } from './attraction-card/attraction-card.component';
+import { ExpensesComponent } from './expenses/expenses.component';
 
 const routes: Routes = [
   {
@@ -39,7 +40,8 @@ const routes: Routes = [
     HotelCardListComponent,
     AttractionCardComponent,
     AttractionCardListComponent,
-    AddHotelDetailsComponent
+    AddHotelDetailsComponent,
+    ExpensesComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

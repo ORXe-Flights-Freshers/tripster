@@ -18,10 +18,11 @@ import { Stop } from 'src/app/models/Stop';
 })
 export class AddStopComponent implements OnInit {
   stopCity: google.maps.places.PlaceResult;
-  arrivalDate: Date = new Date(Date.now());
-  departureDate: Date = new Date(Date.now());
-  arrivalTime = "00:00 am";
-  departureTime = "11:00 am";
+
+  arrivalDate: Date;
+  departureDate: Date;
+  arrivalTime = '00:00 am';
+  departureTime = '11:00 am';
   duplicatePlace: boolean;
   timeTaken = 999;
   constructor(
@@ -32,15 +33,19 @@ export class AddStopComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.arrivalDate = new Date(
+      this.tripService.getPreviousLocation().departure
+    );
+    this.departureDate = new Date(this.arrivalDate);
+  }
 
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
     this.stopCity = place;
     const previousLocation = this.tripService.getPreviousLocation();
     console.log('stop city is', this.stopCity.place_id);
     console.log('previous stop is ', previousLocation.stopId);
-    if(this.stopCity.place_id === previousLocation.stopId)
-    {
+    if (this.stopCity.place_id === previousLocation.stopId) {
       console.log('same stop found!!');
       this.duplicatePlace = true;
       this.changeDetectorRef.detectChanges();
@@ -85,8 +90,11 @@ export class AddStopComponent implements OnInit {
       self.arrivalDate = new Date(self.arrivalDate);
       self.handleArrivalTimeSet(self.arrivalDate);
       self.departureDate = new Date(self.arrivalDate);
-      self.departureTime =self.departureDate.getHours().toString() +  ":" +self.departureDate.getMinutes().toString() +
-        " am";
+      self.departureTime =
+        self.departureDate.getHours().toString() +
+        ':' +
+        self.departureDate.getMinutes().toString() +
+        ' am';
       self.changeDetectorRef.detectChanges();
     }
   }
