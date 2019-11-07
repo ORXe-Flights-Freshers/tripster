@@ -64,14 +64,12 @@ export class HotelCardListComponent implements OnInit {
             }
           );
       });
-
-
   }
 
-
   getHotelData(hotelDataApi) {
+    console.log(hotelDataApi);
 
-   const hotelData: Hotel = {
+    const hotelData: Hotel = {
       placeId     : hotelDataApi.id,
       name        : hotelDataApi.name,
       description : hotelDataApi.contact.address.line1 + ',' + hotelDataApi.contact.address.line2,
@@ -83,10 +81,6 @@ export class HotelCardListComponent implements OnInit {
       arrival     : '',
       departure   : ''
     };
-
-
-   return  hotelData;
-   }
-
-
+    return  hotelData;
+  }
 }

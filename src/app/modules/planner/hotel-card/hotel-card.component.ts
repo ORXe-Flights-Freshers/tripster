@@ -18,8 +18,9 @@ export class HotelCardComponent implements OnInit {
   @Input() imageUrl =
   'https://images.wallpaperscraft.com/image/room_style_hotel_bed_70002_1920x1080.jpg';
 
-
-  constructor( public tripService: TripService, public dialog: MatDialog) {}
+  constructor( public tripService: TripService, public dialog: MatDialog) {
+    this.imageUrl = 'http://lorempixel.com/200/200/city/?id=' + Math.random();
+  }
 
   ngOnInit() {}
 
@@ -38,7 +39,7 @@ export class HotelCardComponent implements OnInit {
         console.log(placeFromDialog);
         if (placeFromDialog) {
           console.log(placeFromDialog);
-          this.tripService.addHotelToTrip(placeFromDialog,this.stopIdOfHotel);
+          this.tripService.addHotelToTrip(placeFromDialog, this.stopIdOfHotel);
         }
       });
   }
