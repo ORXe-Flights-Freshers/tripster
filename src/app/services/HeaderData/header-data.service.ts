@@ -25,4 +25,11 @@ export class HeaderDataService {
       { name: 'Sign in', url: '/signin' },
     ];
   }
+
+  customizeHeaderForNotFoundPage() {
+    this.backgroundColor = '#0B1240';
+    this.links = [
+      { name: 'Back', url: '/' },
+    ];
+  }
 }
