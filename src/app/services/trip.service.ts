@@ -26,6 +26,19 @@ export class TripService {
     // console.log("trip.service", trip);
     return this.http.post("http://3.14.69.62:5001/api/trip", trip);
   }
+  calculateTotalDistance() {
+    let totalDistance = 0;
+    console.log(this.directionResult);
+    if (
+      this.directionResult ? this.directionResult.routes.length !== 0 : false
+    ) {
+      this.directionResult.routes[0].legs.forEach(leg => {
+        totalDistance += leg.distance.value;
+      });
+    }
+    console.log(totalDistance);
+    return totalDistance / 1000;
+  }
 
   updateTrip(trip: Trip) {
     this.trip = trip;
@@ -109,9 +122,9 @@ export class TripService {
     } else if (stopIdOfHotel === this.trip.destination.stopId) {
       this.trip.destination.hotels.push(hotelData);
     } else {
-      for (let index = 0; index < this.trip.stops.length; index++) {
-        if (stopIdOfHotel === this.trip.stops[index].stopId) {
-          this.trip.stops[index].hotels.push(hotelData);
+      for (const stop of this.trip.stops) {
+        if (stopIdOfHotel === stop.stopId) {
+          stop.hotels.push(hotelData);
           break;
         }
       }
