@@ -38,14 +38,14 @@
         </div>
         <span class="btn-separator"></span>
         <div
-          class="btn hospital"
-          (click)="this.activeTab = 'hospital'"
+          class="btn expenses"
+          (click)="this.activeTab = 'expenses'"
           [ngClass]="{
-            'btn-active': activeTab === 'hospital'
+            'btn-active': activeTab === 'expenses'
           }"
         >
-          <mat-icon class="btn-icon">local_hospital</mat-icon>
-          <span class="btn-text">Hospitals</span>
+          <mat-icon class="btn-icon">local_gas_station</mat-icon>
+          <span class="btn-text">Expenses</span>
         </div>
         <span class="btn-separator"></span>
       </div>
@@ -56,9 +56,8 @@
         }"
       ></app-timeline>
       <app-hotel-card-list *ngIf="activeTab === 'hotel'"></app-hotel-card-list>
-      <app-attraction-card-list
-        *ngIf="activeTab === 'attractions'"
-      ></app-attraction-card-list>
+      <app-attraction-card-list *ngIf="activeTab === 'attractions'"></app-attraction-card-list>
+      <app-expenses *ngIf="activeTab === 'expenses'"></app-expenses>
     </div>
 
     <app-map class="map"></app-map>
