@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Trip } from '../models/Trip';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-
-// import { Stop } from '../models/Stop';
+import { Stop } from '../models/Stop';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +29,7 @@ export class TripService {
     this.trip = trip;
     this.tripSubject.next(trip);
     // console.log(trip);
-    return this.http.put('http://3.14.69.62:5001/api/trip/' + trip.id,this.trip);
+    return this.http.put('http://3.14.69.62:5001/api/trip/' + trip.id, this.trip);
   }
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
@@ -57,23 +56,25 @@ export class TripService {
       // console.log(this.trip.destination.arrival);
     }
     // if (directionResult.routes[0].legs[0]) {
-    const previousLocation = this.getPreviousLocation();
-    const previousDeparture = new Date(previousLocation.departure);
-    console.log(directionResult);
-    console.log(this.trip.stops);
+    {
+      const previousLocation = this.getPreviousLocation();
+      const previousDeparture = new Date(previousLocation.departure);
+      console.log(directionResult);
+      console.log(this.trip.stops);
 
-    previousDeparture.setSeconds(
-      previousDeparture.getSeconds() +
-        directionResult.routes[0].legs[
-          directionResult.routes[0].legs.length - 1
-        ].duration.value
-    );
-    this.trip.destination.arrival = previousDeparture.toString();
-    console.log(this.trip.destination.arrival);
+      previousDeparture.setSeconds(
+        previousDeparture.getSeconds() +
+          directionResult.routes[0].legs[
+            directionResult.routes[0].legs.length - 1
+          ].duration.value
+      );
+      this.trip.destination.arrival = previousDeparture.toString();
+      console.log(this.trip.destination.arrival);
+    }
     // }
   }
 
-  getPreviousLocation() {
+  getPreviousLocation(): Stop {
     if (this.trip.stops.length !== 0) {
       const totalStops = this.trip.stops.length;
       return this.trip.stops[totalStops - 1];
@@ -87,7 +88,7 @@ export class TripService {
         this.tripSubject.next(this.trip);
         // console.log(this.trip.stops);
         this.updateWaypoints();
-        this.updateTrip(this.trip).subscribe(response => { })
+        this.updateTrip(this.trip).subscribe(response => { });
      }
 
   removeStopFromTrip(i: number) {
@@ -100,40 +101,84 @@ export class TripService {
     });
   }
 
-  addHotelToTrip(hotelData,stopIdOfHotel) {
+  addHotelToTrip(hotelData, stopIdOfHotel) {
 
-    if (stopIdOfHotel === this.trip.source.stopId) { this.trip.source.hotels.push(hotelData); }
-    else if (stopIdOfHotel === this.trip.destination.stopId) { this.trip.destination.hotels.push(hotelData); }
-    else {
-      for (let index = 0; index < this.trip.stops.length; index++) {
-        if (stopIdOfHotel === this.trip.stops[index].stopId)
-        {
-          this.trip.stops[index].hotels.push(hotelData);
-          break;
+    if (stopIdOfHotel === this.trip.source.stopId) {
+       this.trip.source.hotels.push(hotelData);
+    } else if (stopIdOfHotel === this.trip.destination.stopId) {
+      this.trip.destination.hotels.push(hotelData);
+    } else {
+      for (const stop of this.trip.stops ) {
+        if (stopIdOfHotel === stop.stopId) {
+            stop.hotels.push(hotelData);
+            break;
         }
       }
     }
-
-   }
-
+  }
 
   updateWaypoints() {
     if (this.trip.stops.length !== 0) {
       const allStops = this.trip.stops;
       const waypointsLocations = [];
-      for (let index = 0; index < this.trip.stops.length; index++) {
+
+      for (const hotel of this.trip.source.hotels) {
         waypointsLocations.push({
           location: {
-            lat: allStops[index].location.latitude,
-            lng: allStops[index].location.longitude
+            lat: hotel.location.latitude,
+            lng: hotel.location.longitude
           }
         });
       }
 
+      for (let index = 0; index < this.trip.stops.length; index++) {
+
+        if (allStops[index].hotels.length === 0) {
+          waypointsLocations.push({
+          location: {
+            lat: allStops[index].location.latitude,
+            lng: allStops[index].location.longitude
+          }
+        }); } else {
+
+          for (const hotel of allStops[index].hotels) {
+            waypointsLocations.push({
+              location: {
+                lat: hotel.location.latitude,
+                lng: hotel.location.longitude
+              }
+            });
+          }
+       }
+
+        this.trip.destination.hotels.forEach(hotel => {
+            const {latitude, longitude} = hotel.location;
+            waypointsLocations.push({
+              location: { lat: latitude, lng: longitude }
+            });
+        });
+
+      }
+
       this.waypoints = waypointsLocations;
-      console.log(this.waypoints);
     } else {
       this.waypoints = [];
     }
   }
+
+
+  getStopByStopId(stopId): Stop {
+
+    if (stopId === this.trip.source.stopId) {
+      return this.trip.source;
+    } else if (stopId === this.trip.destination.stopId) {
+      return this.trip.destination;
+    } else {
+      for (const stop of this.trip.stops) {
+        if (stopId === stop.stopId) {
+           return  stop; }
+      }
+    }
+  }
+
 }
