@@ -38,32 +38,46 @@ export class TripService {
   }
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
-    if (directionResult.routes[0].legs[0]) {
-      let previousDeparture;
-      console.log(directionResult);
-      console.log(this.trip.stops);
-      if (this.trip.stops.length === 0) {
-        previousDeparture = new Date(this.trip.source.departure);
-      } else {
-        previousDeparture = new Date(
-          this.trip.stops[this.trip.stops.length - 1].departure
-        );
-      }
-
-      console.log(previousDeparture);
-      previousDeparture.setSeconds(
-        previousDeparture.getSeconds() +
-          directionResult.routes[0].legs[
-            directionResult.routes[0].legs.length - 1
-          ].duration.value
-      );
-      this.trip.destination.arrival = previousDeparture.toString();
-      console.log(this.trip.destination.arrival);
+    if (this.trip.stops.length != 0) {
+      this.trip.stops.forEach((stop, index) => {
+        if (index == 0) {
+          let previousDeparture = new Date(this.trip.source.departure);
+          previousDeparture.setSeconds(
+            previousDeparture.getSeconds() +
+              directionResult.routes[0].legs[index].duration.value
+          );
+          this.trip.stops[index].arrival = previousDeparture.toString();
+        } else {
+          let previousDeparture = new Date(
+            this.trip.stops[index - 1].departure
+          );
+          previousDeparture.setSeconds(
+            previousDeparture.getSeconds() +
+              directionResult.routes[0].legs[index].duration.value
+          );
+          this.trip.stops[index].arrival = previousDeparture.toString();
+        }
+      });
     }
+    // if (directionResult.routes[0].legs[0]) {
+    let previousLocation = this.getPreviousLocation();
+    let previousDeparture = new Date(previousLocation.departure);
+    console.log(directionResult);
+    console.log(this.trip.stops);
+
+    previousDeparture.setSeconds(
+      previousDeparture.getSeconds() +
+        directionResult.routes[0].legs[
+          directionResult.routes[0].legs.length - 1
+        ].duration.value
+    );
+    this.trip.destination.arrival = previousDeparture.toString();
+    console.log(this.trip.destination.arrival);
+    // }
   }
 
   getPreviousLocation() {
-    if (this.trip.stops.length !== 0) {
+    if (this.trip.stops.length != 0) {
       const totalStops = this.trip.stops.length;
       return this.trip.stops[totalStops - 1];
     } else {
@@ -93,6 +107,7 @@ export class TripService {
     // this.updateWaypoints();
     console.log(this.waypoints);
     console.log(this.trip);
+    console.log(this.trip.stops.length);
   }
 
   addHotelToTrip(hotelData) {
