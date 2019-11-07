@@ -48,6 +48,7 @@ export class TripService {
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     this.directionResult = directionResult;
     if (directionResult.routes[0].legs[0]) {
+      // tslint:disable-next-line:no-shadowed-variable
       let previousDeparture;
       // console.log(directionResult);
       // console.log(this.trip.stops);
@@ -100,7 +101,7 @@ export class TripService {
         this.tripSubject.next(this.trip);
         // console.log(this.trip.stops);
         this.updateWaypoints();
-        this.updateTrip(this.trip).subscribe(response => { })
+        this.updateTrip(this.trip).subscribe(response => { });
      }
 
   removeStopFromTrip(i: number) {
@@ -113,15 +114,16 @@ export class TripService {
     });
   }
 
-  addHotelToTrip(hotelData,stopIdOfHotel) {
+  addHotelToTrip(hotelData, stopIdOfHotel) {
 
-    if (stopIdOfHotel === this.trip.source.stopId) { this.trip.source.hotels.push(hotelData); }
-    else if (stopIdOfHotel === this.trip.destination.stopId) { this.trip.destination.hotels.push(hotelData); }
-    else {
-      for (let index = 0; index < this.trip.stops.length; index++) {
-        if (stopIdOfHotel === this.trip.stops[index].stopId)
-        {
-          this.trip.stops[index].hotels.push(hotelData);
+    if (stopIdOfHotel === this.trip.source.stopId) {
+      this.trip.source.hotels.push(hotelData);
+    } else if (stopIdOfHotel === this.trip.destination.stopId) {
+      this.trip.destination.hotels.push(hotelData);
+    } else {
+      for (const stop of this.trip.stops) {
+        if (stopIdOfHotel === stop.stopId) {
+          stop.hotels.push(hotelData);
           break;
         }
       }
