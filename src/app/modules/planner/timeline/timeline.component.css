@@ -1,6 +1,5 @@
 mat-card {
   height: 430px;
-  overflow: auto;
   border-radius: 20px;
   padding: 0;
 }
@@ -41,7 +40,6 @@ mat-card {
 .footer-nav .add-stop:hover {
   text-decoration: underline;
   cursor: pointer;
-  height: 60%;
 }
 
 .footer-nav .add-stop mat-icon {
@@ -51,9 +49,9 @@ mat-card {
 }
 
 .footer-nav ul mat-icon {
-  font-size: 15px;
-  height: 14px;
-  width: 14px;
+  font-size: 12px;
+  height: 12px;
+  width: 12px;
 }
 
 .footer-nav ul {
@@ -61,28 +59,46 @@ mat-card {
   justify-content: space-between;
 
   margin-right: 10px;
-
-  width: 180px;
+  width: 250px;
 
   text-decoration: none;
 }
 
 .footer-nav ul li {
-  color: rgba(100, 100, 100, 0.9);
-  width: fit-content;
   list-style: none;
   font-size: 16px;
 }
 
-.footer-nav ul li:hover {
+.btn-footer {
+  text-transform: uppercase;
+
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+
+  font-size: 12px;
+  font-family: "Times New Roman", sans-serif;
+  font-weight: bolder;
+
+  letter-spacing: 1px;
+  background-color: white;
+
+  outline: none;
+}
+
+.btn-footer:hover {
+  color: white;
+  background-color: rgba(100, 100, 100, 0.7);
+
   text-decoration: underline;
-  color: black;
   cursor: pointer;
 }
 
 .history-tl-container {
   font-family: "Roboto", sans-serif;
   width: 100%;
+  height: 360px;
+  overflow-y: auto;
 }
 .history-tl-container ul {
   font-family: "Roboto", sans-serif;
@@ -162,11 +178,11 @@ ul.tl li .delete-icon {
   width: 10%;
   float: left;
 }
-#delbutton{  
-    background-color: Transparent;
-        background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
+#delbutton{
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
 }

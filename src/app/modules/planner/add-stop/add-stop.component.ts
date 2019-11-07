@@ -1,20 +1,20 @@
-import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
   MatDialogConfig
-} from "@angular/material/dialog";
-import { TimePickerThemeService } from "../../../services/TimePickerTheme.service";
-import { TripService } from "src/app/services/trip.service";
-import { HttpClient } from "@angular/common/http";
-import { Time } from "../../../models/Time";
-import { Stop } from "src/app/models/Stop";
+} from '@angular/material/dialog';
+import { TimePickerThemeService } from '../../../services/TimePickerTheme.service';
+import { TripService } from 'src/app/services/trip.service';
+import { HttpClient } from '@angular/common/http';
+import { Time } from '../../../models/Time';
+import { Stop } from 'src/app/models/Stop';
 
 @Component({
-  selector: "app-add-stop",
-  templateUrl: "./add-stop.component.html",
-  styleUrls: ["./add-stop.component.css"]
+  selector: 'app-add-stop',
+  templateUrl: './add-stop.component.html',
+  styleUrls: ['./add-stop.component.css']
 })
 export class AddStopComponent implements OnInit {
   stopCity: google.maps.places.PlaceResult;
@@ -85,10 +85,7 @@ export class AddStopComponent implements OnInit {
       self.arrivalDate = new Date(self.arrivalDate);
       self.handleArrivalTimeSet(self.arrivalDate);
       self.departureDate = new Date(self.arrivalDate);
-      self.departureTime =
-        self.departureDate.getHours().toString() +
-        ":" +
-        self.departureDate.getMinutes().toString() +
+      self.departureTime =self.departureDate.getHours().toString() +  ":" +self.departureDate.getMinutes().toString() +
         " am";
       self.changeDetectorRef.detectChanges();
     }
@@ -96,7 +93,7 @@ export class AddStopComponent implements OnInit {
 
   handleArrivalTimeSet(date) {
     this.arrivalTime =
-      date.getHours().toString() + ":" + date.getMinutes().toString() + " am";
+      date.getHours().toString() + ':' + date.getMinutes().toString() + ' am';
     console.log(this.arrivalTime);
   }
 

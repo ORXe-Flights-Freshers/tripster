@@ -1,9 +1,6 @@
 <div class="container">
 
-  <div
-    class="loader"
-    *ngIf="displayLoader"
-  >
+  <div class="loader" *ngIf="displayLoader">
     <mat-spinner class="spinner"></mat-spinner>
   </div>
 
@@ -57,12 +54,10 @@
 
   <div class="hotels-list">
       <app-hotel-card
+          [stopIdOfHotel]="stopIdOfHotel"
           *ngFor="let a of arrHotels"
-          [hotelData]="{name: a['name'], description: a['contact']['address']['line1'] +
-          ',' +
-          a['contact']['address']['line2'],rating:a['rating']}"
- 
-           
+          [hotelData]="getHotelData(a)"
+
       ></app-hotel-card>
   </div>
 </div>
