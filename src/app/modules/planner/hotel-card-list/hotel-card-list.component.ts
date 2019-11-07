@@ -67,17 +67,17 @@ export class HotelCardListComponent implements OnInit {
   }
 
 
-  getHotelData(hotelDataApi){
+  getHotelData(hotelDataApi) {
 
    const hotelData: Hotel = {
-      placeId     : hotelDataApi['id'],
-      name        : hotelDataApi['name'],
-      description : hotelDataApi['contact']['address']['line1'] + ',' + hotelDataApi['contact']['address']['line2'],
+      placeId     : hotelDataApi.id,
+      name        : hotelDataApi.name,
+      description : hotelDataApi.contact.address.line1 + ',' + hotelDataApi.contact.address.line2,
       location    : {
-                       latitude : hotelDataApi['geoCode']['lat'],
-                       longitude : hotelDataApi['geoCode']['long']
+                       latitude : hotelDataApi.geoCode.lat,
+                       longitude : hotelDataApi.geoCode.long
                     },
-      rating      : hotelDataApi['rating'],
+      rating      : hotelDataApi.rating,
       arrival     : '',
       departure   : ''
     };
