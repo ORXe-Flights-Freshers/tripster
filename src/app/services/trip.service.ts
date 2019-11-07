@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Trip} from '../models/Trip';
-import {HttpClient} from '@angular/common/http';
-import {Subject} from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Trip } from "../models/Trip";
+import { HttpClient } from "@angular/common/http";
+import { Subject } from "rxjs";
 
 // import { Stop } from '../models/Stop';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class TripService {
   trip: Trip;
@@ -23,7 +23,7 @@ export class TripService {
     this.trip = trip;
     this.tripSubject.next(trip);
     // console.log("trip.service", trip);
-    return this.http.post('http://3.14.69.62:5001/api/trip', trip);
+    return this.http.post("http://3.14.69.62:5001/api/trip", trip);
   }
 
   updateTrip(trip: Trip) {
@@ -32,7 +32,7 @@ export class TripService {
     console.log(trip);
 
     return this.http.put(
-      'http://3.14.69.62:5001/api/trip/' + trip.id,
+      "http://3.14.69.62:5001/api/trip/" + trip.id,
       this.trip
     );
   }
@@ -72,14 +72,14 @@ export class TripService {
   }
 
   addStopToTrip(stop) {
-        this.trip.stops.push(stop);
-        this.tripSubject.next(this.trip);
-        console.log(this.trip.stops);
-        this.updateWaypoints();
-        this.updateTrip(this.trip).subscribe(response => {
-          //console.log(response);
-        })
-     }
+    this.trip.stops.push(stop);
+    this.tripSubject.next(this.trip);
+    console.log(this.trip.stops);
+    this.updateWaypoints();
+    this.updateTrip(this.trip).subscribe(response => {
+      //console.log(response);
+    });
+  }
 
   removeStopFromTrip(i: number) {
     console.log(this.trip.stops);
@@ -96,12 +96,10 @@ export class TripService {
   }
 
   addHotelToTrip(hotelData) {
-
     console.log(this.trip.source);
 
     this.trip.source.hotels.push(hotelData);
-
-   }
+  }
 
   updateWaypoints() {
     if (this.trip.stops.length !== 0) {
@@ -118,7 +116,6 @@ export class TripService {
 
       this.waypoints = waypointsLocations;
       console.log(this.waypoints);
-
     } else {
       this.waypoints = [];
     }

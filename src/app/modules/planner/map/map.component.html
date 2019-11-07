@@ -16,18 +16,31 @@
       [latitude]="tripService?.trip?.destination.location.latitude"
       [longitude]="tripService?.trip?.destination.location.longitude"
     ></agm-marker>
+    <agm-marker
+      *ngFor="let stop of tripService?.trip?.stops"
+      [latitude]="stop.location.latitude"
+      [longitude]="stop.location.longitude"
+      [iconUrl]="stopIconUrl"
+    >
+    </agm-marker>
     <agm-direction
       *ngIf="tripService?.trip?.source && tripService?.trip?.destination"
-      [origin]="origin"
-      [destination]="destination"
+      [origin]="{
+        lat: tripService?.trip?.source.location.latitude,
+        lng: tripService?.trip?.source.location.longitude
+      }"
+      [destination]="{
+        lat: tripService?.trip?.destination.location.latitude,
+        lng: tripService?.trip?.destination.location.longitude
+      }"
       [waypoints]="tripService?.waypoints"
       [optimizeWaypoints]="false"
       [markerOptions]="markerOptions"
       [renderOptions]="{
-      draggable: false,
-      suppressMarkers: true,
-      suppressInfoWindows: false
-    }"
+        draggable: false,
+        suppressMarkers: true,
+        suppressInfoWindows: false
+      }"
       (onResponse)="tripService.handleDirectionResponse($event)"
     >
     </agm-direction>
