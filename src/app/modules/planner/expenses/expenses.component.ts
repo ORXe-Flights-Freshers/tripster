@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TripService } from 'src/app/services/trip.service';
-import { totalmem } from 'os';
 
 @Component({
   selector: 'app-expenses',
