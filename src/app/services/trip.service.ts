@@ -36,8 +36,8 @@ export class TripService {
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     if (directionResult.routes[0].legs[0]) {
       let previousDeparture;
-      console.log(directionResult);
-      console.log(this.trip.stops);
+      // console.log(directionResult);
+      // console.log(this.trip.stops);
       if (this.trip.stops.length === 0) {
         previousDeparture = new Date(this.trip.source.departure);
       } else {
@@ -46,7 +46,7 @@ export class TripService {
         );
       }
 
-      console.log(previousDeparture);
+      // console.log(previousDeparture);
       previousDeparture.setSeconds(
         previousDeparture.getSeconds() +
           directionResult.routes[0].legs[
@@ -54,7 +54,7 @@ export class TripService {
           ].duration.value
       );
       this.trip.destination.arrival = previousDeparture.toString();
-      console.log(this.trip.destination.arrival);
+      // console.log(this.trip.destination.arrival);
     }
   }
 
@@ -87,10 +87,8 @@ export class TripService {
 
   addHotelToTrip(hotelData,stopIdOfHotel) {
 
-    console.log(this.trip.source);
-
     if (stopIdOfHotel === this.trip.source.stopId) { this.trip.source.hotels.push(hotelData); }
-    else if (stopIdOfHotel === this.trip.destination.stopId) { this.trip.source.hotels.push(hotelData); }
+    else if (stopIdOfHotel === this.trip.destination.stopId) { this.trip.destination.hotels.push(hotelData); }
     else {
       for (let index = 0; index < this.trip.stops.length; index++) {
         if (stopIdOfHotel === this.trip.stops[index].stopId)
@@ -100,6 +98,7 @@ export class TripService {
         }
       }
     }
+
    }
 
 

@@ -56,7 +56,7 @@ export class AddStopComponent implements OnInit {
       place.geometry.location.lng()
     );
     const previousLocationDeparture = new Date(previousLocation.departure);
-     
+
     const self = this;
     const distanceMatrixService = new google.maps.DistanceMatrixService();
 
