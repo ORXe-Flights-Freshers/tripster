@@ -146,58 +146,52 @@ export class TripService {
         }
       }
     }
-    this.updateTrip(this.trip).subscribe(response => {});
     this.updateWaypoints();
+    console.log(this.waypoints);
+    this.updateTrip(this.trip).subscribe(response => {});
   }
 
   updateWaypoints() {
-    if (this.trip.stops.length !== 0) {
-      const allStops = this.trip.stops;
-      const waypointsLocations = [];
+    const allStops = this.trip.stops;
+    const waypointsLocations = [];
 
-      for (const hotel of this.trip.source.hotels) {
-        waypointsLocations.push({
+    for (const hotel of this.trip.source.hotels) {
+      waypointsLocations.push({
+        location: {
+          lat: hotel.location.latitude,
+          lng: hotel.location.longitude
+        }
+      });
+    }
+
+    for (let index = 0; index < this.trip.stops.length; index++) {
+
+      if (allStops[index].hotels.length === 0) {
+          waypointsLocations.push({
           location: {
-            lat: hotel.location.latitude,
-            lng: hotel.location.longitude
+            lat: allStops[index].location.latitude,
+            lng: allStops[index].location.longitude
           }
         });
-      }
-
-      for (let index = 0; index < this.trip.stops.length; index++) {
-
-        if (allStops[index].hotels.length === 0) {
-            waypointsLocations.push({
+      } else {
+        for (const hotel of allStops[index].hotels) {
+          waypointsLocations.push({
             location: {
-              lat: allStops[index].location.latitude,
-              lng: allStops[index].location.longitude
+              lat: hotel.location.latitude,
+              lng: hotel.location.longitude
             }
           });
-        } else {
-
-          for (const hotel of allStops[index].hotels) {
-            waypointsLocations.push({
-              location: {
-                lat: hotel.location.latitude,
-                lng: hotel.location.longitude
-              }
-            });
-          }
-       }
-
-        for (const hotel of this.trip.destination.hotels) {
-          const {latitude, longitude} = hotel.location;
-          waypointsLocations.push({
-            location: { lat: latitude, lng: longitude }
-          });
         }
-
-      }
-
-      this.waypoints = waypointsLocations;
-    } else {
-      this.waypoints = [];
+     }
     }
+    for (const hotel of this.trip.destination.hotels) {
+      const {latitude, longitude} = hotel.location;
+      waypointsLocations.push({
+        location: { lat: latitude, lng: longitude }
+      });
+    }
+
+    this.waypoints = waypointsLocations;
   }
 
   getStopByStopId(stopId): Stop {
