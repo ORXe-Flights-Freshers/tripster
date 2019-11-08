@@ -19,7 +19,7 @@ export class SearchComponent implements OnInit {
   isDuplicatePlace: boolean;
   tripDate: Date = new Date(Date.now());
   tripTime = '11:00 am';
-  vehicleMileage = 25;
+  vehicleMileage = 22;
 
   searchForm = new FormGroup({
     mileage: new FormControl(this.vehicleMileage, [
@@ -126,5 +126,9 @@ export class SearchComponent implements OnInit {
       mileage: this.vehicleMileage
     };
     return trip;
+  }
+
+  onMileageChange($event: Event) {
+    this.vehicleMileage = +($event.target as HTMLInputElement).value;
   }
 }

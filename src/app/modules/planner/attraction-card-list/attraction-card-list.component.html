@@ -50,8 +50,10 @@
 
   <div class="hotels-list">
       <app-attraction-card
-       *ngFor="let a of arrAttractions"
-       [name]="a.name" [description]="a.description"
+       *ngFor="let attraction of arrAttractions"
+       [name]="attraction.name"
+       [description]="attraction.description"
+       [imageUrl]="attraction.imageUrl"
 
        ></app-attraction-card>
   </div>
