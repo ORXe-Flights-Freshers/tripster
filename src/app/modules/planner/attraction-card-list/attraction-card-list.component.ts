@@ -12,7 +12,13 @@ import { MapsAPILoader } from '@agm/core';
   styleUrls: ['./attraction-card-list.component.css']
 })
 export class AttractionCardListComponent implements OnInit {
-  arrAttractions = [];
+  arrAttractions: {
+    name: string,
+    attractionId: string,
+    description: string,
+    rating: number,
+    imageUrl: string
+  }[] = [];
   chosenCity: string;
   displayLoader: boolean;
   placeService: google.maps.places.PlacesService;
@@ -46,8 +52,11 @@ export class AttractionCardListComponent implements OnInit {
             name: placeResult.name,
             attractionId: placeResult.place_id,
             description: placeResult.vicinity,
-            rating: placeResult.rating
-            // imageUrl: placeResult.photos[0].getUrl({})
+            rating: placeResult.rating,
+            imageUrl: placeResult.photos ? placeResult.photos[0].getUrl({
+              maxHeight: 200,
+              maxWidth: 200
+            }) : 'http://lorempixel.com/200/200/nature/?id=' + Math.random()
           });
         });
         this.chosenCity = stop.name;

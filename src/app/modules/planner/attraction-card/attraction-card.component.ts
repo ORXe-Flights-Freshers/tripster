@@ -17,8 +17,10 @@ export class AttractionCardComponent implements OnInit {
   @Input() description = 'swimming parking playground cab';
 
   constructor() {
-    this.imageUrl = 'http://lorempixel.com/200/200/nature/?id=' + Math.random();
+    // this.imageUrl = 'http://lorempixel.com/200/200/nature/?id=' + Math.random();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // console.log(this.imageUrl);
+  }
 }

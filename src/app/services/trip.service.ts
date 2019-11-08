@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { Trip } from "../models/Trip";
-import { HttpClient } from "@angular/common/http";
-import { Subject } from "rxjs";
-import { Stop } from "../models/Stop";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Injectable } from '@angular/core';
+import { Trip } from '../models/Trip';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { Stop } from '../models/Stop';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // import { Stop } from '../models/Stop';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class TripService {
   trip: Trip;
@@ -25,17 +25,17 @@ export class TripService {
     this.trip = trip;
     this.tripSubject.next(trip);
     // console.log("trip.service", trip);
-    return this.http.post("http://3.14.69.62:5001/api/trip", trip);
+    return this.http.post('http://3.14.69.62:5001/api/trip', trip);
   }
   getTrip(tripId: Trip) {
-    this.http.get("http://3.14.69.62:5001/api/trip/" + tripId).subscribe(
+    this.http.get('http://3.14.69.62:5001/api/trip/' + tripId).subscribe(
       data => {
         this.trip = data as Trip;
         this.updateWaypoints();
         this.tripSubject.next(this.trip);
       },
       error => {
-        this.route.navigate(["/", "not-found"]);
+        this.route.navigate(['/', 'not-found']);
       }
     );
   }
@@ -60,17 +60,19 @@ export class TripService {
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     this.directionResult = directionResult;
-    if (this.trip.stops.length != 0) {
+
+    if (this.trip.stops.length !== 0) {
       this.trip.stops.forEach((stop, index) => {
-        if (index == 0) {
-          let previousDeparture = new Date(this.trip.source.departure);
+        let previousDeparture;
+        if (index === 0) {
+          previousDeparture = new Date(this.trip.source.departure);
           previousDeparture.setSeconds(
             previousDeparture.getSeconds() +
               directionResult.routes[0].legs[index].duration.value
           );
           this.trip.stops[index].arrival = previousDeparture.toString();
         } else {
-          let previousDeparture = new Date(
+          previousDeparture = new Date(
             this.trip.stops[index - 1].departure
           );
           previousDeparture.setSeconds(
@@ -81,21 +83,23 @@ export class TripService {
         }
       });
     }
-    // if (directionResult.routes[0].legs[0]) {
-    let previousLocation = this.getPreviousLocation();
-    let previousDeparture = new Date(previousLocation.departure);
-    //console.log(directionResult);
-    // console.log(this.trip.stops);
 
-    previousDeparture.setSeconds(
-      previousDeparture.getSeconds() +
+    {
+      const previousLocation = this.getPreviousLocation();
+      const previousDeparture = new Date(previousLocation.departure);
+      console.log(directionResult);
+      console.log(this.trip.stops);
+
+      previousDeparture.setSeconds(
+        previousDeparture.getSeconds() +
         directionResult.routes[0].legs[
-          directionResult.routes[0].legs.length - 1
-        ].duration.value
-    );
-    this.trip.destination.arrival = previousDeparture.toString();
-    console.log(this.trip.destination.arrival);
-    // }
+        directionResult.routes[0].legs.length - 1
+          ].duration.value
+      );
+      this.trip.destination.arrival = previousDeparture.toString();
+      console.log(this.trip.destination.arrival);
+    }
+
   }
 
   getPreviousLocation(): Stop {
@@ -197,16 +201,15 @@ export class TripService {
   }
 
   getStopByStopId(stopId): Stop {
-    if (stopId === this.trip.source.stopId) {
-      return this.trip.source;
-    } else if (stopId === this.trip.destination.stopId) {
-      return this.trip.destination;
-    } else {
-      for (const stop of this.trip.stops) {
-        if (stopId === stop.stopId) {
-           return  stop; }
+    const { source, destination } = this.trip;
+
+    [source, destination, ...this.trip.stops].forEach(stop => {
+      if (stopId === stop.stopId) {
+        return stop;
       }
-    }
+    });
+
+    return null;
   }
 
 }

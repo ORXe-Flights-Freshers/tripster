@@ -75,6 +75,7 @@
         matInput
         placeholder="Enter Mileage(Km/l)"
         formControlName="mileage"
+        (change)="onMileageChange($event)"
       />
       <mat-error *ngIf="searchForm.controls['mileage'].errors?.required"
         >Mileage is required</mat-error
