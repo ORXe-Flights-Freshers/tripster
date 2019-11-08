@@ -9,7 +9,11 @@
     <div class="facilities">
       {{ hotelData.description }}
     </div>
-    <div class="facilities"><b>Rating : </b>{{ hotelData.rating }}</div>
+    <div class="rating">
+      <strong>Rating: </strong>
+      {{ hotelData.rating }}
+      <span class="fa fa-star"></span>
+    </div>
   </div>
   <div class="add-btn" (click)="openHotelDialog(hotelData)">
     Add
