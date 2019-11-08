@@ -107,7 +107,8 @@
 
 <div id="buttons-block">
     <div id="bottom-error-block">
-      <p id="stop-error" *ngIf="invalidTimeErrorHotel">* Departure time must be  more than arrival</p>
+      <p id="stop-error" *ngIf="invalidArrivalTimeError">* Departure time must be  more than arrival</p>
+      <p id="stop-error" *ngIf="invalidDepartureTimeError">* Departure time must be  less than stop departure.</p>
     </div>
     <div id="bottom-button-block">
         <button mat-button (click)="closeHotelDialog()">CANCEL</button>
@@ -115,7 +116,7 @@
           mat-raised-button
           (click)="addHotel()"
           color="primary"
-          [disabled]="invalidTimeErrorHotel"
+          [disabled]="invalidDepartureTimeError || invalidArrivalTimeError "
         >
           ADD
         </button>

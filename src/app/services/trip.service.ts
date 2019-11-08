@@ -142,13 +142,13 @@ export class TripService {
       for (const stop of this.trip.stops) {
         if (stopIdOfHotel === stop.stopId) {
           stop.hotels.push(hotelData);
-          this.updateTrip(this.trip).subscribe(response => {
-            // console.log(response);
-            });
           break;
         }
       }
     }
+    this.updateTrip(this.trip).subscribe(response => {
+      // console.log(response);
+      });
   }
 
   updateWaypoints() {

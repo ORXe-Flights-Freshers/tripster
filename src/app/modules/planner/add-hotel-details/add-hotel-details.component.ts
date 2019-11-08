@@ -21,9 +21,12 @@ export class AddHotelDetailsComponent implements OnInit {
   stopIdOfHotel: string;
   arrivalDate: Date;
   departureDate: Date;
+  maxDepartureDate: Date;
   arrivalTime = "00:00 am";
-  departureTime = "11:00 am";
-  invalidTimeErrorHotel: boolean;
+  departureTime = "00:00 am" ;
+  invalidDepartureTimeError: boolean;
+  invalidArrivalTimeError:boolean;
+
   constructor(
     public dialogRef: MatDialogRef<AddHotelDetailsComponent>,
     public tripService: TripService,
@@ -38,6 +41,7 @@ export class AddHotelDetailsComponent implements OnInit {
   ngOnInit() {
     this.arrivalDate = new Date(this.getMinDate());
     this.departureDate = new Date(this.getMinDate());
+    this.maxDepartureDate = new Date(this.getMaxDate());
   }
 
   handleArrivalTimeSet(time: string) {
@@ -51,16 +55,22 @@ export class AddHotelDetailsComponent implements OnInit {
     //   this.departureDate = this.arrivalDate;
   }
   handleDepartureTimeSet(time: string) {
+
     this.departureTime = time;
-    console.log(this.arrivalDate );
     const newdeparturetime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newdeparturetime.hours);
     this.departureDate.setMinutes(newdeparturetime.minutes);
     if (this.departureDate < this.arrivalDate) {
-      this.invalidTimeErrorHotel = true;
+      this.invalidArrivalTimeError = true;
     } else {
-      this.invalidTimeErrorHotel = false;
+      this.invalidArrivalTimeError = false;
     }
+    if (this.departureDate > this.maxDepartureDate) {
+      this.invalidDepartureTimeError = true;
+    } else {
+      this.invalidDepartureTimeError = false;
+    }
+
   }
   getMinDate() {
     return new Date(
@@ -81,9 +91,9 @@ export class AddHotelDetailsComponent implements OnInit {
     this.departureDate.setHours(newDeparturetime.hours);
     this.departureDate.setMinutes(newDeparturetime.minutes);
     if (this.departureDate < this.arrivalDate) {
-      this.invalidTimeErrorHotel = true;
+      this.invalidArrivalTimeError = true;
     } else {
-      this.invalidTimeErrorHotel = false;
+      this.invalidArrivalTimeError = false;
     }
   }
 
