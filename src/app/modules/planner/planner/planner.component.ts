@@ -22,7 +22,7 @@ export class PlannerComponent implements OnInit {
     }
 
   onClick() {
-    console.log(this.route);
+    // console.log(this.route);
   }
 
   ngOnInit() {
