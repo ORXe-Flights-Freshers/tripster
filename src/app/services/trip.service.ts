@@ -1,8 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Trip } from '../models/Trip';
-import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
-import { Stop } from '../models/Stop';
+import { Injectable } from "@angular/core";
+import { Trip } from "../models/Trip";
+import { HttpClient } from "@angular/common/http";
+import { Subject } from "rxjs";
+import { Stop } from "../models/Stop";
+import { ActivatedRoute, Router } from "@angular/router";
+
+// import { Stop } from '../models/Stop';
 
 @Injectable({
   providedIn: "root"
@@ -16,13 +19,25 @@ export class TripService {
 
   doDisplayHotels = false;
   doDisplayAttractions = false;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private route: Router) {}
 
   createTrip(trip: Trip) {
     this.trip = trip;
     this.tripSubject.next(trip);
     // console.log("trip.service", trip);
     return this.http.post("http://3.14.69.62:5001/api/trip", trip);
+  }
+  getTrip(tripId: Trip) {
+    this.http.get("http://3.14.69.62:5001/api/trip/" + tripId).subscribe(
+      data => {
+        this.trip = data as Trip;
+        this.updateWaypoints();
+        this.tripSubject.next(this.trip);
+      },
+      error => {
+        this.route.navigate(["/", "not-found"]);
+      }
+    );
   }
   calculateTotalDistance() {
     let totalDistance = 0;
