@@ -17,9 +17,9 @@
       [longitude]="tripService?.trip?.destination.location.longitude"
     ></agm-marker>
     <agm-marker
-      *ngFor="let stop of tripService?.trip?.stops"
-      [latitude]="stop.location.latitude"
-      [longitude]="stop.location.longitude"
+      *ngFor="let stop of tripService?.waypoints"
+      [latitude]="stop.location.lat"
+      [longitude]="stop.location.lng"
       [iconUrl]="stopIconUrl"
     >
     </agm-marker>

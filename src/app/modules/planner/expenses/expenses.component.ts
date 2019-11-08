@@ -15,7 +15,7 @@ export class ExpensesComponent implements OnInit {
   }
 
   getDistance() {
-    return this.tripService.directionResult ? Math.round(this.tripService.calculateTotalDistance()) : 0  ;
+     return this.tripService.directionResult ? Math.round(this.tripService.calculateTotalDistance()) : 0  ;
   }
   getFuelConsumption() {
     const totalFuel = this.tripService.trip ? this.getDistance() / this.tripService.trip.mileage : 0;
