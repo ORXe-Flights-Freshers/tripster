@@ -1,5 +1,59 @@
 <div class="container">
-    <p>Total fuel consumption - {{ getFuelConsumption().toString() + ' Liter' }} </p>
-    <p>Total distance traveled - {{ getDistance().toString()  + ' Kms'}}</p>
-    <p>Approximate fuel  cost - {{ getFuelCost().toString() + ' Rupees'}}</p>
+  <table>
+    <thead>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <span>
+            <label for="fuelCost">Cost of fuel (per litre)
+            </label>
+          </span>
+        </td>
+        <td>
+          <input
+            type="number"
+            min="0"
+            id="fuelCost"
+            [(ngModel)]="fuelCostPerLiter"
+            (input)="onPriceInput($event)"
+            #price
+          >
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <span>
+            <label for="mileage">Mileage (in kilometers)
+
+            </label>
+          </span>
+        </td>
+        <td>
+          <input
+            type="number"
+            min="0"
+            id="mileage"
+            [(ngModel)]="mileageOfCar"
+            (input)="onMileageInput($event)"
+            #mileage
+          >
+        </td>
+      </tr>
+      <tr>
+        <td><p>Total distance </p></td>
+        <td><p>{{ getDistance()  + ' Kilometers'}}</p></td>
+      </tr>
+      <tr>
+        <td><p>Total fuel consumption </p></td>
+        <td><p>{{ getFuelConsumption() + ' Litre' }} </p></td>
+      </tr>
+      <tr>
+        <td><p>Approximate fuel cost </p></td>
+        <td><p>{{ getFuelCost() + ' Rupees'}}</p></td>
+      </tr>
+    </tbody>
+  </table>
+
  </div>
