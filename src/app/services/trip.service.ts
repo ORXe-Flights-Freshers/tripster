@@ -41,7 +41,6 @@ export class TripService {
   }
   calculateTotalDistance() {
     let totalDistance = 0;
-    console.log(this.directionResult);
     if (
       this.directionResult ? this.directionResult.routes.length !== 0 : false
     ) {
@@ -49,14 +48,13 @@ export class TripService {
         totalDistance += leg.distance.value;
       });
     }
-    console.log(totalDistance);
     return totalDistance / 1000;
   }
 
   updateTrip(trip: Trip) {
     this.trip = trip;
     this.tripSubject.next(trip);
-    // console.log(trip);
+
     return this.http.put(
       'http://3.14.69.62:5001/api/trip/' + trip.id,
       this.trip
@@ -65,6 +63,7 @@ export class TripService {
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     this.directionResult = directionResult;
+
     if (this.trip.stops.length !== 0) {
       this.trip.stops.forEach((stop, index) => {
         let previousDeparture;
@@ -106,7 +105,7 @@ export class TripService {
 
   }
 
-  getPreviousLocation() {
+  getPreviousLocation(): Stop {
     if (this.trip.stops.length !== 0) {
       const totalStops = this.trip.stops.length;
       return this.trip.stops[totalStops - 1];
@@ -116,12 +115,12 @@ export class TripService {
   }
 
   addStopToTrip(stop) {
-    this.trip.stops.push(stop);
-    this.tripSubject.next(this.trip);
-    // console.log(this.trip.stops);
-    this.updateWaypoints();
-    this.updateTrip(this.trip).subscribe(response => {});
-  }
+        this.trip.stops.push(stop);
+        this.tripSubject.next(this.trip);
+        // console.log(this.trip.stops);
+        this.updateWaypoints();
+        this.updateTrip(this.trip).subscribe(response => { });
+     }
 
   removeStopFromTrip(i: number) {
     // console.log(this.trip.stops);
@@ -152,21 +151,51 @@ export class TripService {
     if (this.trip.stops.length !== 0) {
       const allStops = this.trip.stops;
       const waypointsLocations = [];
-      for (let index = 0; index < this.trip.stops.length; index++) {
+
+      for (const hotel of this.trip.source.hotels) {
         waypointsLocations.push({
           location: {
-            lat: allStops[index].location.latitude,
-            lng: allStops[index].location.longitude
+            lat: hotel.location.latitude,
+            lng: hotel.location.longitude
           }
         });
       }
 
+      for (let index = 0; index < this.trip.stops.length; index++) {
+
+        if (allStops[index].hotels.length === 0) {
+          waypointsLocations.push({
+          location: {
+            lat: allStops[index].location.latitude,
+            lng: allStops[index].location.longitude
+          }
+        }); } else {
+
+          for (const hotel of allStops[index].hotels) {
+            waypointsLocations.push({
+              location: {
+                lat: hotel.location.latitude,
+                lng: hotel.location.longitude
+              }
+            });
+          }
+       }
+
+        this.trip.destination.hotels.forEach(hotel => {
+            const {latitude, longitude} = hotel.location;
+            waypointsLocations.push({
+              location: { lat: latitude, lng: longitude }
+            });
+        });
+
+      }
+
       this.waypoints = waypointsLocations;
-      console.log(this.waypoints);
     } else {
       this.waypoints = [];
     }
   }
+
   getStopByStopId(stopId): Stop {
     const { source, destination } = this.trip;
 
@@ -178,4 +207,5 @@ export class TripService {
 
     return null;
   }
+
 }
