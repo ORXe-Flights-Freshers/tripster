@@ -142,9 +142,8 @@ export class TripService {
       for (const stop of this.trip.stops) {
         if (stopIdOfHotel === stop.stopId) {
           stop.hotels.push(hotelData);
-          this.updateTrip(this.trip).subscribe(response => {
-            // console.log(response);
-            });
+          this.updateTrip(this.trip).subscribe(response => {});
+          this.updateWaypoints();
           break;
         }
       }
@@ -168,12 +167,13 @@ export class TripService {
       for (let index = 0; index < this.trip.stops.length; index++) {
 
         if (allStops[index].hotels.length === 0) {
-          waypointsLocations.push({
-          location: {
-            lat: allStops[index].location.latitude,
-            lng: allStops[index].location.longitude
-          }
-        }); } else {
+            waypointsLocations.push({
+            location: {
+              lat: allStops[index].location.latitude,
+              lng: allStops[index].location.longitude
+            }
+          });
+        } else {
 
           for (const hotel of allStops[index].hotels) {
             waypointsLocations.push({
@@ -185,12 +185,12 @@ export class TripService {
           }
        }
 
-        this.trip.destination.hotels.forEach(hotel => {
-            const {latitude, longitude} = hotel.location;
-            waypointsLocations.push({
-              location: { lat: latitude, lng: longitude }
-            });
-        });
+        for (const hotel of this.trip.destination.hotels) {
+          const {latitude, longitude} = hotel.location;
+          waypointsLocations.push({
+            location: { lat: latitude, lng: longitude }
+          });
+        }
 
       }
 
