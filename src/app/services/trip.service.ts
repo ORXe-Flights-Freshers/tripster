@@ -202,13 +202,11 @@ export class TripService {
 
   getStopByStopId(stopId): Stop {
     const { source, destination } = this.trip;
-
-    [source, destination, ...this.trip.stops].forEach(stop => {
+    for (const stop of [source, destination, ...this.trip.stops]) {
       if (stopId === stop.stopId) {
         return stop;
       }
-    });
-
+    }
     return null;
   }
 
