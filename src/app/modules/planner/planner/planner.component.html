@@ -6,9 +6,9 @@
       <div class="amenities-navbar">
         <div
           class="btn timeline"
-          (click)="this.activeTab = 'timeline'"
+          (click)="navigatorService.activeTab = 'timeline'"
           [ngClass]="{
-            'btn-active': activeTab === 'timeline'
+            'btn-active': navigatorService.activeTab === 'timeline'
           }"
         >
           <mat-icon class="btn-icon">timeline</mat-icon>
@@ -17,9 +17,9 @@
         <span class="btn-separator"></span>
         <div
           class="btn hotel"
-          (click)="this.activeTab = 'hotel'"
+          (click)="this.navigatorService.activeTab = 'hotel'"
           [ngClass]="{
-            'btn-active': activeTab === 'hotel'
+            'btn-active': navigatorService.activeTab === 'hotel'
           }"
         >
           <mat-icon class="btn-icon">hotel</mat-icon>
@@ -28,9 +28,9 @@
         <span class="btn-separator"></span>
         <div
           class="btn restaurant"
-          (click)="this.activeTab = 'attractions'"
+          (click)="this.navigatorService.activeTab = 'attractions'"
           [ngClass]="{
-            'btn-active': activeTab === 'attractions'
+            'btn-active': navigatorService.activeTab === 'attractions'
           }"
         >
           <mat-icon class="btn-icon">restaurant</mat-icon>
@@ -39,9 +39,9 @@
         <span class="btn-separator"></span>
         <div
           class="btn expenses"
-          (click)="this.activeTab = 'expenses'"
+          (click)="this.navigatorService.activeTab = 'expenses'"
           [ngClass]="{
-            'btn-active': activeTab === 'expenses'
+            'btn-active': navigatorService.activeTab === 'expenses'
           }"
         >
           <mat-icon class="btn-icon">local_gas_station</mat-icon>
@@ -52,12 +52,12 @@
 
       <app-timeline
         [ngStyle]="{
-          display: activeTab === 'timeline' ? 'block' : 'none'
+          display: navigatorService.activeTab === 'timeline' ? 'block' : 'none'
         }"
       ></app-timeline>
-      <app-hotel-card-list *ngIf="activeTab === 'hotel'"></app-hotel-card-list>
-      <app-attraction-card-list *ngIf="activeTab === 'attractions'"></app-attraction-card-list>
-      <app-expenses *ngIf="activeTab === 'expenses'"></app-expenses>
+      <app-hotel-card-list *ngIf="navigatorService.activeTab === 'hotel'"></app-hotel-card-list>
+      <app-attraction-card-list *ngIf="navigatorService.activeTab === 'attractions'"></app-attraction-card-list>
+      <app-expenses *ngIf="navigatorService.activeTab === 'expenses'"></app-expenses>
     </div>
 
     <app-map class="map"></app-map>

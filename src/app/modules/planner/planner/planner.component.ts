@@ -4,6 +4,7 @@ import { TripService } from 'src/app/services/trip.service';
 import { HttpClient } from '@angular/common/http';
 import { Trip } from 'src/app/models/Trip';
 import { HeaderDataService } from '../../../services/HeaderData/header-data.service';
+import {NavigatorService} from '../../../services/navigator.service';
 
 @Component({
   selector: 'app-planner',
@@ -11,13 +12,13 @@ import { HeaderDataService } from '../../../services/HeaderData/header-data.serv
   styleUrls: ['./planner.component.css']
 })
 export class PlannerComponent implements OnInit {
-  activeTab: string;
 
   constructor(
     public route: ActivatedRoute,
     public tripService: TripService,
     private http: HttpClient,
-    private headerLinks: HeaderDataService
+    private headerLinks: HeaderDataService,
+    public navigatorService: NavigatorService
   ) {
     this.headerLinks.customizeHeaderForPlannerPage();
   }
@@ -30,6 +31,5 @@ export class PlannerComponent implements OnInit {
     // @ts-ignore
     const tripId = this.route.params.value.id;
     this.tripService.getTrip(tripId);
-    this.activeTab = 'timeline';
   }
 }
