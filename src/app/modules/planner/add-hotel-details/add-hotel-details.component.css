@@ -51,7 +51,7 @@
         min-width: 100x;
       }
       .flex-container > div {
-     
+
         width:80%;
         /*margin: 10px;*/
       }
@@ -66,7 +66,7 @@
         /*margin: 10px;*/
       }
   }
-  
+
   .flex-container-header {
     display: flex;
     flex-direction: row;
@@ -88,6 +88,23 @@ hr{
   margin-top: 0px;
 }
 
-#buttons-block{
+#buttons-block {
   text-align: end;
+}
+#bottom-button-block{
+  width:50%;
+  float: right;
+}
+#bottom-error-block{
+  width:50%;
+}
+/* #buttons-block:disabled{
+  color: white;
+} */
+#stop-error{
+  color: red;
+  text-align: left;
+  float: left;
+  margin-top: 3%;
+  font-size: 13px;
 }

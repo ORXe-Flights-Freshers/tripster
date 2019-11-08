@@ -84,8 +84,8 @@ export class TripService {
     // if (directionResult.routes[0].legs[0]) {
     let previousLocation = this.getPreviousLocation();
     let previousDeparture = new Date(previousLocation.departure);
-    console.log(directionResult);
-    console.log(this.trip.stops);
+    //console.log(directionResult);
+    // console.log(this.trip.stops);
 
     previousDeparture.setSeconds(
       previousDeparture.getSeconds() +
@@ -138,6 +138,9 @@ export class TripService {
       for (const stop of this.trip.stops) {
         if (stopIdOfHotel === stop.stopId) {
           stop.hotels.push(hotelData);
+          this.updateTrip(this.trip).subscribe(response => {
+            // console.log(response);
+            });
           break;
         }
       }
