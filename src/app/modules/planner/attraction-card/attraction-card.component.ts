@@ -15,7 +15,10 @@ export class AttractionCardComponent implements OnInit {
     'https://images.wallpaperscraft.com/image/room_style_hotel_bed_70002_1920x1080.jpg';
   @Input() rating = 4;
   @Input() description = 'swimming parking playground cab';
-  constructor() {}
+
+  constructor() {
+    this.imageUrl = 'http://lorempixel.com/200/200/nature/?id=' + Math.random();
+  }
 
   ngOnInit() {}
 }

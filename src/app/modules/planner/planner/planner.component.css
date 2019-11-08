@@ -1,6 +1,6 @@
-.container {
-  max-width: 1100px;
-  width: 80%;
+.body {
+  position: absolute;
+  width: 100%;
 }
 
 .background {
@@ -10,11 +10,12 @@
   height: 105vh;
 }
 
-.body {
-  position: absolute;
-  margin-top: 65px;
+.container {
+  position: relative;
+  margin: 65px auto auto;
 
-  width: 100%;
+  max-width: 1100px;
+  width: 80%;
   box-sizing: border-box;
 }
 
@@ -22,8 +23,7 @@
   display: inline-block;
   position: relative;
 
-  width: 33%;
-  margin: 0 0 0 10%;
+  width: 40%;
 }
 
 .amenities-navbar {
@@ -94,13 +94,13 @@
 }
 
 .map {
-  position: absolute;
   display: inline-block;
+  position: absolute;
 
-  width: 45%;
-  height: 522px;
+  width: 55%;
+  height: 521px;
 
-  right: 10%;
+  right: 0;
   margin-top: 20px;
 
   border-radius: 20px;

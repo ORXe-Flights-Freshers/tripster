@@ -24,6 +24,7 @@ export class AddStopComponent implements OnInit {
   arrivalTime = '00:00 am';
   departureTime = '11:00 am';
   duplicatePlace: boolean;
+  invalidTimeError: boolean;
   timeTaken = 999;
   constructor(
     public dialogRef: MatDialogRef<AddStopComponent>,
@@ -110,6 +111,11 @@ export class AddStopComponent implements OnInit {
     const newDeparturetime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDeparturetime.hours);
     this.departureDate.setMinutes(newDeparturetime.minutes);
+    if (this.departureDate < this.arrivalDate) {
+      this.invalidTimeError = true;
+    } else {
+      this.invalidTimeError = false;
+    }
   }
   getMinDate() {
     return new Date(this.arrivalDate);

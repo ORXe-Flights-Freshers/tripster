@@ -84,7 +84,6 @@
         [ngxTimepicker]="departureTimePicker"
         [format]="12"
         [value]="departureDate | date: 'h:mm a'"
-        [min]="arrivalDate | date: 'h:mm a'"
         readonly
       />
     </mat-form-field>
@@ -98,10 +97,22 @@
 <br />
 
 <div id="buttons-block">
-  <button mat-button (click)="closeDialog()">CANCEL</button>
-  <button
-   mat-raised-button (click)="addStop()"
-   color="primary"
-   [disabled]="duplicatePlace">ADD</button>
-   <p id="stop-error" *ngIf="duplicatePlace">Stop cannot be same</p>
+  <div id="bottom-error-block">
+      <p id="stop-error" *ngIf="duplicatePlace">* Stop cannot be same </p>
+    <p id="stop-error" *ngIf="invalidTimeError">* Departure time must be  more than arrival</p>
+  </div>
+  <div id="bottom-button-block">
+      <button mat-button (click)="closeDialog()">CANCEL</button>
+      <button
+        mat-raised-button
+        (click)="addStop()"
+        color="primary"
+        [disabled]="duplicatePlace || invalidTimeError"
+      >
+        ADD
+      </button>
+  </div>
+
+
+
 </div>

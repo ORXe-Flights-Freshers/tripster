@@ -92,6 +92,13 @@ hr{
 #buttons-block {
   text-align: end;
 }
+#bottom-button-block{
+  width:50%;
+  float: right;
+}
+#bottom-error-block{
+  width:50%;
+}
 /* #buttons-block:disabled{
   color: white;
 } */
@@ -100,4 +107,5 @@ hr{
   text-align: left;
   float: left;
   margin-top: 3%;
+  font-size: 13px;
 }
