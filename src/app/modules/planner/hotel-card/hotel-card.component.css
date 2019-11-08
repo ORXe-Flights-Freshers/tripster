@@ -29,6 +29,7 @@
 .heading {
   position: relative;
   margin-top: 5%;
+  font-family: 'Poppins', sans-serif;
   font-size: 18px;
   font-weight: 500;
   line-height: 1.1;
@@ -38,9 +39,19 @@
 .facilities {
   position: relative;
   margin-top: 2%;
+  font-family: 'Poppins', sans-serif;
   font-size: 13px;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.6);
+}
+
+.rating {
+  position: absolute;
+  font-size: 14px;
+}
+
+.btn-icon {
+  /*padding-top: 50%;*/
 }
 
 .add-btn {
@@ -55,6 +66,7 @@
   margin-left: 80%;
   margin-top: 90px;
 }
+
 .add-btn:hover {
   color: white;
   background-color: black;
