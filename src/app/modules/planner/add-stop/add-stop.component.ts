@@ -10,7 +10,6 @@ import { TripService } from 'src/app/services/trip.service';
 import { HttpClient } from '@angular/common/http';
 import { Time } from '../../../models/Time';
 import { Stop } from 'src/app/models/Stop';
-
 @Component({
   selector: 'app-add-stop',
   templateUrl: './add-stop.component.html',

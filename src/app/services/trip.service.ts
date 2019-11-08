@@ -53,7 +53,7 @@ export class TripService {
 
   updateTrip(trip: Trip) {
     this.trip = trip;
-    this.tripSubject.next(trip);
+    // this.tripSubject.next(trip);
     // console.log(trip);
     return this.http.put('http://3.14.69.62:5001/api/trip/' + trip.id, this.trip);
   }
@@ -107,22 +107,26 @@ export class TripService {
     }
   }
 
-  addStopToTrip(stop) {
+  addStopToTrip(stop): string {
         this.trip.stops.push(stop);
-        this.tripSubject.next(this.trip);
+        // this.tripSubject.next(this.trip);
         // console.log(this.trip.stops);
         this.updateWaypoints();
-        this.updateTrip(this.trip).subscribe(response => { });
+        this.updateTrip(this.trip).subscribe(response => {
+        //   console.log(response);
+         });
+        return 'success';
      }
 
-  removeStopFromTrip(i: number) {
+  removeStopFromTrip(i: number): string {
     // console.log(this.trip.stops);
     this.trip.stops.splice(i, 1);
-    this.tripSubject.next(this.trip);
+    // this.tripSubject.next(this.trip);
     this.updateWaypoints();
     this.updateTrip(this.trip).subscribe(response => {
-      console.log(response);
+    // console.log(response);
     });
+    return 'success';
   }
 
   addHotelToTrip(hotelData, stopIdOfHotel) {
