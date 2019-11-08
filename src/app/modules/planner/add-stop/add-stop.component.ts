@@ -44,7 +44,8 @@ export class AddStopComponent implements OnInit {
     const previousLocation = this.tripService.getPreviousLocation();
     console.log('stop city is', this.stopCity.place_id);
     console.log('previous stop is ', previousLocation.stopId);
-    if (this.stopCity.place_id === previousLocation.stopId) {
+    if (this.stopCity.place_id === previousLocation.stopId ||
+      this.stopCity.place_id === this.tripService.trip.destination.stopId) {
       console.log('same stop found!!');
       this.duplicatePlace = true;
       this.changeDetectorRef.detectChanges();
