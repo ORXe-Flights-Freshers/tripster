@@ -23,7 +23,7 @@ export class AddHotelDetailsComponent implements OnInit {
   departureDate: Date;
   arrivalTime = "00:00 am";
   departureTime = "11:00 am";
-  timeTaken = 999;
+  invalidTimeErrorHotel: boolean;
   constructor(
     public dialogRef: MatDialogRef<AddHotelDetailsComponent>,
     public tripService: TripService,
@@ -33,15 +33,14 @@ export class AddHotelDetailsComponent implements OnInit {
   ) {
     console.log(data);
     this.hotelData = data.hotelData;
-    this.stopIdOfHotel = data.stopId;
+    this.stopIdOfHotel = data.stopIdOfHotel;
   }
   ngOnInit() {
-    this.arrivalDate = this.getMinDate();
-    this.departureDate = this.arrivalDate;
+    this.arrivalDate = new Date(this.getMinDate());
+    this.departureDate = new Date(this.getMinDate());
   }
 
   handleArrivalTimeSet(time: string) {
-    // this.arrivalTime =
     //   date.getHours().toString() + ":" + date.getMinutes().toString() + " am";
     // console.log(this.arrivalTime);
     this.arrivalTime = time;
@@ -53,9 +52,15 @@ export class AddHotelDetailsComponent implements OnInit {
   }
   handleDepartureTimeSet(time: string) {
     this.departureTime = time;
+    console.log(this.arrivalDate );
     const newdeparturetime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newdeparturetime.hours);
     this.departureDate.setMinutes(newdeparturetime.minutes);
+    if (this.departureDate < this.arrivalDate) {
+      this.invalidTimeErrorHotel = true;
+    } else {
+      this.invalidTimeErrorHotel = false;
+    }
   }
   getMinDate() {
     return new Date(
@@ -72,6 +77,14 @@ export class AddHotelDetailsComponent implements OnInit {
   }
   handleDepartureDateSet(date) {
     this.departureDate = new Date(date.value);
+    const newDeparturetime = Time.parseTimeStringToTime(this.departureTime);
+    this.departureDate.setHours(newDeparturetime.hours);
+    this.departureDate.setMinutes(newDeparturetime.minutes);
+    if (this.departureDate < this.arrivalDate) {
+      this.invalidTimeErrorHotel = true;
+    } else {
+      this.invalidTimeErrorHotel = false;
+    }
   }
 
   closeHotelDialog() {

@@ -53,12 +53,9 @@ export class TripService {
 
   updateTrip(trip: Trip) {
     this.trip = trip;
-    this.tripSubject.next(trip);
-
-    return this.http.put(
-      'http://3.14.69.62:5001/api/trip/' + trip.id,
-      this.trip
-    );
+    // this.tripSubject.next(trip);
+    // console.log(trip);
+    return this.http.put('http://3.14.69.62:5001/api/trip/' + trip.id, this.trip);
   }
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
@@ -114,22 +111,26 @@ export class TripService {
     }
   }
 
-  addStopToTrip(stop) {
+  addStopToTrip(stop): string {
         this.trip.stops.push(stop);
-        this.tripSubject.next(this.trip);
+        // this.tripSubject.next(this.trip);
         // console.log(this.trip.stops);
         this.updateWaypoints();
-        this.updateTrip(this.trip).subscribe(response => { });
+        this.updateTrip(this.trip).subscribe(response => {
+        //   console.log(response);
+         });
+        return 'success';
      }
 
-  removeStopFromTrip(i: number) {
+  removeStopFromTrip(i: number): string {
     // console.log(this.trip.stops);
     this.trip.stops.splice(i, 1);
-    this.tripSubject.next(this.trip);
+    // this.tripSubject.next(this.trip);
     this.updateWaypoints();
     this.updateTrip(this.trip).subscribe(response => {
-      console.log(response);
+    // console.log(response);
     });
+    return 'success';
   }
 
   addHotelToTrip(hotelData, stopIdOfHotel) {
@@ -141,6 +142,9 @@ export class TripService {
       for (const stop of this.trip.stops) {
         if (stopIdOfHotel === stop.stopId) {
           stop.hotels.push(hotelData);
+          this.updateTrip(this.trip).subscribe(response => {
+            // console.log(response);
+            });
           break;
         }
       }
@@ -198,13 +202,11 @@ export class TripService {
 
   getStopByStopId(stopId): Stop {
     const { source, destination } = this.trip;
-
-    [source, destination, ...this.trip.stops].forEach(stop => {
+    for (const stop of [source, destination, ...this.trip.stops]) {
       if (stopId === stop.stopId) {
         return stop;
       }
-    });
-
+    }
     return null;
   }
 

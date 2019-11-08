@@ -33,7 +33,7 @@ export class ExpensesComponent implements OnInit {
     const acceptablePattern = /^[1-9.]+[0-9.]*$/;
 
     if (acceptablePattern.test(currentValue) === false) {
-      (this.mileageElement.nativeElement as HTMLInputElement).value = '0';
+      (this.mileageElement.nativeElement as HTMLInputElement).value = '';
     }
   }
 

@@ -6,6 +6,7 @@ import {
 } from '@angular/material/dialog';
 import { Hotel } from 'src/app/models/Hotel';
 import { TripService } from 'src/app/services/trip.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-hotel-card',
   templateUrl: './hotel-card.component.html',
@@ -18,7 +19,7 @@ export class HotelCardComponent implements OnInit {
   @Input() imageUrl =
   'https://images.wallpaperscraft.com/image/room_style_hotel_bed_70002_1920x1080.jpg';
 
-  constructor( public tripService: TripService, public dialog: MatDialog) {
+  constructor( public tripService: TripService, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.imageUrl = 'http://lorempixel.com/200/200/city/?id=' + Math.random();
   }
 
@@ -31,7 +32,7 @@ export class HotelCardComponent implements OnInit {
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
 
-    dialogConfig.data = {hotelData, stopId: this.stopIdOfHotel} ;
+    dialogConfig.data = {hotelData, stopIdOfHotel: this.stopIdOfHotel} ;
     const dialogRef = this.dialog.open(AddHotelDetailsComponent, dialogConfig);
 
     dialogRef.afterClosed()
@@ -40,10 +41,16 @@ export class HotelCardComponent implements OnInit {
         if (placeFromDialog) {
           console.log(placeFromDialog);
           this.tripService.addHotelToTrip(placeFromDialog, this.stopIdOfHotel);
+          this.openSnackBar('Hotel Added Sucessfully', 'OK');
         }
       });
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
   closeHotelDialog() {
     this.dialog.closeAll();
   }

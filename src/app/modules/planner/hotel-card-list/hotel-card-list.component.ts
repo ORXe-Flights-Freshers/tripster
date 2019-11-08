@@ -70,7 +70,7 @@ export class HotelCardListComponent implements OnInit {
   }
 
   getHotelData(hotelDataApi) {
-    console.log(hotelDataApi);
+  //  console.log(hotelDataApi);
 
     const hotelData: Hotel = {
       placeId: hotelDataApi.id,

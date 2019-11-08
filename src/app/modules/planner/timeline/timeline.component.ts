@@ -3,7 +3,7 @@ import { TripService } from "src/app/services/trip.service";
 import { AddStopComponent } from "../add-stop/add-stop.component";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { Router } from "@angular/router";
-
+import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: "app-timeline",
   templateUrl: "./timeline.component.html",
@@ -13,7 +13,8 @@ export class TimelineComponent implements OnInit {
   constructor(
     public tripService: TripService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {}
@@ -29,13 +30,27 @@ export class TimelineComponent implements OnInit {
     dialogRef.afterClosed().subscribe(stopFromDialog => {
       console.log(stopFromDialog);
       if (stopFromDialog) {
-        this.addStop(stopFromDialog);
+        const responseStatus = this.addStop(stopFromDialog);
+        if (responseStatus) {
+          this.openSnackBar('Stop Added Succesfully', 'OK');
+        }
       }
     });
   }
 
-  addStop(stop) {
-    this.tripService.addStopToTrip(stop);
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
+  addStop(stop): boolean {
+   const responseMessage = this.tripService.addStopToTrip(stop);
+   if (responseMessage === 'success') {
+   return true;
+   } else {
+    return false;
+   }
   }
 
   closeStopDialog() {
@@ -43,8 +58,13 @@ export class TimelineComponent implements OnInit {
   }
   deleteStop(i: number) {
     // @ts-ignore
-    this.tripService.removeStopFromTrip(i);
-    console.log("Delete");
+    const responseMessage = this.tripService.removeStopFromTrip(i);
+    if (responseMessage === 'success') {
+      this.openSnackBar('Stop Deleted Successfuly', 'OK');
+      } else {
+        this.openSnackBar('Stop Deletion Failed!', 'OK');
+      }
+
   }
   getEmailString() {
     return (
@@ -53,7 +73,7 @@ export class TimelineComponent implements OnInit {
     );
   }
   getNavigationUrl() {
-    let url: string = "";
+    let url: string = '';
     if (this.tripService.trip) {
       url =
         "https://www.google.com/maps/dir/?api=1&origin=" +
