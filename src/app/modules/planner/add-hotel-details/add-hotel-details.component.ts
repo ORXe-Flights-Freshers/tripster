@@ -1,20 +1,21 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
   MatDialogConfig
-} from "@angular/material/dialog";
-import { TimePickerThemeService } from "../../../services/TimePickerTheme.service";
-import { TripService } from "src/app/services/trip.service";
-import { HttpClient } from "@angular/common/http";
-import { Time } from "../../../models/Time";
-import { Hotel } from "src/app/models/Hotel";
+} from '@angular/material/dialog';
+import { TimePickerThemeService } from '../../../services/TimePickerTheme.service';
+import { TripService } from 'src/app/services/trip.service';
+import { HttpClient } from '@angular/common/http';
+import { Time } from '../../../models/Time';
+import { Hotel } from 'src/app/models/Hotel';
+import {NavigatorService} from '../../../services/navigator.service';
 
 @Component({
-  selector: "app-add-hotel-details",
-  templateUrl: "./add-hotel-details.component.html",
-  styleUrls: ["./add-hotel-details.component.css"]
+  selector: 'app-add-hotel-details',
+  templateUrl: './add-hotel-details.component.html',
+  styleUrls: ['./add-hotel-details.component.css']
 })
 export class AddHotelDetailsComponent implements OnInit {
   hotelData: Hotel;
@@ -30,6 +31,7 @@ export class AddHotelDetailsComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddHotelDetailsComponent>,
     public tripService: TripService,
+    public navigatorService: NavigatorService,
     private http: HttpClient,
     public timePickerThemeService: TimePickerThemeService,
     @Inject(MAT_DIALOG_DATA) data
@@ -48,9 +50,9 @@ export class AddHotelDetailsComponent implements OnInit {
     //   date.getHours().toString() + ":" + date.getMinutes().toString() + " am";
     // console.log(this.arrivalTime);
     this.arrivalTime = time;
-    const newarrivaltime = Time.parseTimeStringToTime(this.arrivalTime);
-    this.arrivalDate.setHours(newarrivaltime.hours);
-    this.arrivalDate.setMinutes(newarrivaltime.minutes);
+    const newArrivalTime = Time.parseTimeStringToTime(this.arrivalTime);
+    this.arrivalDate.setHours(newArrivalTime.hours);
+    this.arrivalDate.setMinutes(newArrivalTime.minutes);
     // if (this.arrivalDate.getTime() > this.departureDate.getTime())
     //   this.departureDate = this.arrivalDate;
   }
@@ -102,6 +104,7 @@ export class AddHotelDetailsComponent implements OnInit {
   }
 
   addHotel() {
+    this.navigatorService.activeTab = 'timeline';
     this.hotelData.arrival = this.arrivalDate.toString();
     this.hotelData.departure = this.departureDate.toString();
 
