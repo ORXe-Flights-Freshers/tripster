@@ -4,7 +4,7 @@
   </div>
 
   <div class="header">
-    <span class="number-of-hotels-info bold">
+    <span class="number-of-attractions-info bold">
       <span *ngIf="chosenCity; else noLocationSelected">
         <span class="bolder">
           {{ arrAttractions ? arrAttractions.length.toString() : "0" }}
@@ -48,12 +48,12 @@
     </button>
   </div>
 
-  <div class="hotels-list">
+  <div class="attractions-list">
       <app-attraction-card
-       *ngFor="let attraction of arrAttractions"
-       [name]="attraction.name"
-       [description]="attraction.description"
-       [imageUrl]="attraction.imageUrl"
+      [stopIdOfAttraction]="stopIdOfAttraction"
+      *ngFor="let attraction of arrAttractions"
+      [attractionData]="getAttractionData(attraction)"
+      [imageUrl]="attraction.imageUrl"
 
        ></app-attraction-card>
   </div>

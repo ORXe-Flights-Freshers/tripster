@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit ,Inject} from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -9,17 +9,17 @@ import { TimePickerThemeService } from '../../../services/TimePickerTheme.servic
 import { TripService } from 'src/app/services/trip.service';
 import { HttpClient } from '@angular/common/http';
 import { Time } from '../../../models/Time';
-import { Hotel } from 'src/app/models/Hotel';
+import { Attraction } from 'src/app/models/Attraction';
 import {NavigatorService} from '../../../services/navigator.service';
 
 @Component({
-  selector: 'app-add-hotel-details',
-  templateUrl: './add-hotel-details.component.html',
-  styleUrls: ['./add-hotel-details.component.css']
+  selector: 'app-add-attraction-details',
+  templateUrl: './add-attraction-details.component.html',
+  styleUrls: ['./add-attraction-details.component.css']
 })
-export class AddHotelDetailsComponent implements OnInit {
-  hotelData: Hotel;
-  stopIdOfHotel: string;
+export class AddAttractionDetailsComponent implements OnInit {
+  attractionData: Attraction;
+  stopIdOfAttraction: string;
   arrivalDate: Date;
   departureDate: Date;
   maxDepartureDate: Date;
@@ -27,19 +27,18 @@ export class AddHotelDetailsComponent implements OnInit {
   departureTime = "00:00 am" ;
   invalidDepartureTimeError: boolean;
   invalidArrivalTimeError:boolean;
-
   constructor(
-    public dialogRef: MatDialogRef<AddHotelDetailsComponent>,
+    public dialogRef: MatDialogRef<AddAttractionDetailsComponent>,
     public tripService: TripService,
     public navigatorService: NavigatorService,
     private http: HttpClient,
     public timePickerThemeService: TimePickerThemeService,
     @Inject(MAT_DIALOG_DATA) data
   ) {
-    console.log(data);
-    this.hotelData = data.hotelData;
-    this.stopIdOfHotel = data.stopIdOfHotel;
-  }
+      console.log(data);
+      this.attractionData = data.attractionData;
+      this.stopIdOfAttraction = data.stopIdOfAttraction; }
+
   ngOnInit() {
     this.arrivalDate = new Date(this.getMinDate());
     this.departureDate = new Date(this.getMaxDate());
@@ -76,12 +75,12 @@ export class AddHotelDetailsComponent implements OnInit {
   }
   getMinDate() {
     return new Date(
-      this.tripService.getStopByStopId(this.stopIdOfHotel).arrival
+      this.tripService.getStopByStopId(this.stopIdOfAttraction).arrival
     );
   }
   getMaxDate() {
     return new Date(
-      this.tripService.getStopByStopId(this.stopIdOfHotel).departure
+      this.tripService.getStopByStopId(this.stopIdOfAttraction).departure
     );
   }
   handleArrivalDateSet(date) {
@@ -103,15 +102,16 @@ export class AddHotelDetailsComponent implements OnInit {
     }
   }
 
-  closeHotelDialog() {
+  closeAttractionDialog() {
     this.dialogRef.close();
   }
 
-  addHotel() {
+  addAttraction() {
     this.navigatorService.activeTab = 'timeline';
-    this.hotelData.arrival = this.arrivalDate.toString();
-    this.hotelData.departure = this.departureDate.toString();
+    this.attractionData.arrival = this.arrivalDate.toString();
+    this.attractionData.departure = this.departureDate.toString();
 
-    this.dialogRef.close(this.hotelData);
+    this.dialogRef.close(this.attractionData);
   }
+
 }
