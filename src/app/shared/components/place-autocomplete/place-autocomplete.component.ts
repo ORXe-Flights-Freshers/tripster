@@ -125,7 +125,11 @@ export class PlaceAutocompleteComponent implements OnInit {
         'photos',
         'place_id',
         'plus_code',
-        'types'
+        'types',
+        'address_component', 
+        'adr_address',
+        'vicinity',
+        'url'
       ]
     };
     this.placeService.getDetails(request, place => {
