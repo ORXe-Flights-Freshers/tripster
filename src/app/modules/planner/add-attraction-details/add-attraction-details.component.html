@@ -1,5 +1,5 @@
 <div id="add-hotel-details-header" class="flex-container-header">
-  <h4 id="header-text">Add Hotel</h4>
+  <h4 id="header-text">Add Attraction</h4>
   <button id="header-button" (click)="closeAttractionDialog()" mat-button>
     Close
   </button>
@@ -13,7 +13,7 @@
   <h5>{{ attractionData.description }}</h5>
 </div>
 
-<p>Check In</p>
+<p>Arrival</p>
 <div id="arrival-block" class="flex-container">
   <div class="date-field">
     <mat-form-field class="date-input-field" appearance="outline">
@@ -28,7 +28,6 @@
         [min]="getMinDate()"
         [max]="getMaxDate()"
         (focus)="arrivalDatepicker.open()"
-        disabled
         readonly
       />
 
@@ -48,7 +47,6 @@
         [ngxTimepicker]="arrivalTimePicker"
         [format]="12"
         [value]="arrivalDate | date: 'h:mm a'"
-        disabled="true"
         readonly
       />
     </mat-form-field>
@@ -60,7 +58,7 @@
   </div>
 </div>
 
-<p>Check Out</p>
+<p>Departure</p>
 
 <div id="departure-block" class="flex-container">
   <div class="date-field">
@@ -107,7 +105,9 @@
 
 <div id="buttons-block">
     <div id="bottom-error-block">
-      <p id="stop-error" *ngIf="invalidArrivalTimeError">* Departure time must be  more than arrival</p>
+      <p id="stop-error" *ngIf="invalidMoreArrivalTimeError">* Departure time must be  more than arrival</p>
+      <p id="stop-error" *ngIf="invalidLessArrivalTimeError">* Arrival time can not be less than arrival of Stop</p>
+      <p id="stop-error" *ngIf="invalidMoreArrivalTimeErrorDepart">* Arrival time can not be more than departue</p>
       <p id="stop-error" *ngIf="invalidDepartureTimeError">* Departure time must be  less than stop departure.</p>
     </div>
     <div id="bottom-button-block">
@@ -116,7 +116,7 @@
           mat-raised-button
           (click)="addAttraction()"
           color="primary"
-          [disabled]="invalidDepartureTimeError || invalidArrivalTimeError "
+          [disabled]="invalidDepartureTimeError || invalidMoreArrivalTimeError || invalidLessArrivalTimeError "
         >
           ADD
         </button>

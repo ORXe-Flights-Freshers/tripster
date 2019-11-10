@@ -22,11 +22,14 @@ export class AddAttractionDetailsComponent implements OnInit {
   stopIdOfAttraction: string;
   arrivalDate: Date;
   departureDate: Date;
+  minArrivalDate: Date;
   maxDepartureDate: Date;
   arrivalTime = "00:00 am";
   departureTime = "00:00 am" ;
   invalidDepartureTimeError: boolean;
-  invalidArrivalTimeError:boolean;
+  invalidMoreArrivalTimeError:boolean;
+  invalidLessArrivalTimeError: boolean;
+  invalidMoreArrivalTimeErrorDepart: boolean;
   constructor(
     public dialogRef: MatDialogRef<AddAttractionDetailsComponent>,
     public tripService: TripService,
@@ -41,19 +44,21 @@ export class AddAttractionDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.arrivalDate = new Date(this.getMinDate());
+    this.arrivalTime = this.arrivalDate.getHours().toString() +
+    ':' +  this.arrivalDate.getMinutes().toString() + ' am';
     this.departureDate = new Date(this.getMaxDate());
+    this.departureTime = this.departureDate.getHours().toString() +
+        ':' +  this.departureDate.getMinutes().toString() + ' am';
     this.maxDepartureDate = new Date(this.getMaxDate());
+    this.minArrivalDate= new Date(this.getMinDate());
   }
 
   handleArrivalTimeSet(time: string) {
-    //   date.getHours().toString() + ":" + date.getMinutes().toString() + " am";
-    // console.log(this.arrivalTime);
     this.arrivalTime = time;
     const newArrivalTime = Time.parseTimeStringToTime(this.arrivalTime);
     this.arrivalDate.setHours(newArrivalTime.hours);
     this.arrivalDate.setMinutes(newArrivalTime.minutes);
-    // if (this.arrivalDate.getTime() > this.departureDate.getTime())
-    //   this.departureDate = this.arrivalDate;
+    this.validateDateTime();
   }
   handleDepartureTimeSet(time: string) {
 
@@ -61,16 +66,7 @@ export class AddAttractionDetailsComponent implements OnInit {
     const newdeparturetime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newdeparturetime.hours);
     this.departureDate.setMinutes(newdeparturetime.minutes);
-    if (this.departureDate < this.arrivalDate) {
-      this.invalidArrivalTimeError = true;
-    } else {
-      this.invalidArrivalTimeError = false;
-    }
-    if (this.departureDate > this.maxDepartureDate) {
-      this.invalidDepartureTimeError = true;
-    } else {
-      this.invalidDepartureTimeError = false;
-    }
+    this.validateDateTime();
 
   }
   getMinDate() {
@@ -84,22 +80,42 @@ export class AddAttractionDetailsComponent implements OnInit {
     );
   }
   handleArrivalDateSet(date) {
-    console.log(this.arrivalDate);
+    this.arrivalDate = new Date(date.value);
+    const newArrivaltime = Time.parseTimeStringToTime(this.arrivalTime);
+    this.arrivalDate.setHours(newArrivaltime.hours);
+    this.arrivalDate.setMinutes(newArrivaltime.minutes);
+    this.validateDateTime();
   }
   handleDepartureDateSet(date) {
     this.departureDate = new Date(date.value);
-    if (this.departureTime === '00:00 am' ) {
-     this.departureTime = this.departureDate.getHours().toString() +
-        ':' +  this.departureDate.getMinutes().toString() + ' am';
-    }
     const newDeparturetime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDeparturetime.hours);
     this.departureDate.setMinutes(newDeparturetime.minutes);
+    this.validateDateTime();
+  }
+
+  validateDateTime(){
     if (this.departureDate < this.arrivalDate) {
-      this.invalidArrivalTimeError = true;
+      this.invalidMoreArrivalTimeError = true;
     } else {
-      this.invalidArrivalTimeError = false;
+      this.invalidMoreArrivalTimeError = false;
     }
+    if (this.departureDate > this.maxDepartureDate) {
+      this.invalidDepartureTimeError = true;
+    } else {
+      this.invalidDepartureTimeError = false;
+    }
+    if (this.arrivalDate.getTime() < this.minArrivalDate.getTime()) {
+      this.invalidLessArrivalTimeError = true;
+    } else {
+      this.invalidLessArrivalTimeError = false;
+    }
+    if (this.arrivalDate > this.departureDate) {
+       this.invalidMoreArrivalTimeErrorDepart = true;
+    } else {
+      this.invalidMoreArrivalTimeErrorDepart = false;
+    }
+
   }
 
   closeAttractionDialog() {

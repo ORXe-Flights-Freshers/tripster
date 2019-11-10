@@ -43,7 +43,7 @@ export class AttractionCardComponent implements OnInit {
         if (placeFromDialog) {
           console.log(placeFromDialog);
           this.tripService.addHotelToTrip(placeFromDialog, this.stopIdOfAttraction);
-          //this.openSnackBar('Hotel Added Sucessfully', 'OK');
+          //this.openSnackBar('Attraction Added Sucessfully', 'OK');
         }
       });
 }
