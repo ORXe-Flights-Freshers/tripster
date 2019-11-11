@@ -131,9 +131,7 @@ export class TripService {
   }
 
   addHotelToTrip(hotelData, stopIdOfHotel) {
-    if (stopIdOfHotel === this.trip.source.stopId) {
-      this.trip.source.hotels.push(hotelData);
-    } else if (stopIdOfHotel === this.trip.destination.stopId) {
+   if (stopIdOfHotel === this.trip.destination.stopId) {
       this.trip.destination.hotels.push(hotelData);
     } else {
       for (const stop of this.trip.stops) {
@@ -143,8 +141,8 @@ export class TripService {
         }
       }
     }
-    this.updateWaypoints();
-    this.updateTrip(this.trip).subscribe(response => {});
+   this.updateWaypoints();
+   this.updateTrip(this.trip).subscribe(response => {});
   }
 
   addAttractionToTrip(attractionData, stopIdOfAttraction) {
@@ -153,7 +151,16 @@ export class TripService {
     } else {
       for (const stop of this.trip.stops) {
         if (stopIdOfAttraction === stop.stopId) {
-          stop.attractions.push(attractionData);
+          if (stop.attractions.length === 0) {
+             stop.attractions.push(attractionData);
+          } else {
+            let index = 0;
+            while (index < stop.attractions.length && stop.attractions[index].arrival > attractionData.arrival) {
+             index++;
+            }
+            stop.attractions.splice(index, 0, attractionData);
+          }
+
           break;
         }
       }
