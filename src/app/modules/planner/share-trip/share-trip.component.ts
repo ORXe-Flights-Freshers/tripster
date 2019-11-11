@@ -36,8 +36,9 @@ export class ShareTripComponent implements OnInit {
       this.closeDialog();
         this.openSnackBar(value['message'])
     },(error:HttpErrorResponse)=>{
-      this.closeDialog();
-      this.openSnackBar(error.message)
+      this.closeDialog()
+    
+      this.openSnackBar("An error occured at our side");
     })
   }
   copyShareableLink(){
