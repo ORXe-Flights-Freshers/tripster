@@ -25,7 +25,11 @@ export class HotelCardListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.hotelByStop(this.tripService.trip.source);
+    if (this.tripService.trip.stops.length === 0) {
+      this.hotelByStop(this.tripService.trip.destination);
+    } else {
+      this.hotelByStop(this.tripService.trip.stops[0]);
+    }
   }
 
   hotelByStop(stop: Stop) {

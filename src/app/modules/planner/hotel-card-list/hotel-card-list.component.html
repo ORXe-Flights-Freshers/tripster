@@ -23,15 +23,7 @@
   </div>
 
   <div class="list-of-stops">
-    <button
-        *ngIf="tripService?.trip?.source"
-        (click)="hotelByStop(tripService?.trip?.source)"
-        [ngClass]="{
-          active: tripService.trip.source.name === chosenCity
-        }"
-    >
-        {{ tripService.trip.source.name }}
-    </button>
+
     <button
         *ngFor="let stop of tripService?.trip?.stops"
         (click)="hotelByStop(stop)"
