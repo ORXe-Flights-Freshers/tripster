@@ -5,8 +5,6 @@ import { Subject } from 'rxjs';
 import { Stop } from '../models/Stop';
 import { ActivatedRoute, Router } from '@angular/router';
 
-// import { Stop } from '../models/Stop';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -147,9 +145,26 @@ export class TripService {
       }
     }
     this.updateWaypoints();
-    console.log(this.waypoints);
     this.updateTrip(this.trip).subscribe(response => {});
   }
+
+  // addAttractionToTrip(attractionData,stopIdOfAttraction) {
+  //   if (stopIdOfAttraction === this.trip.source.stopId) {
+  //     this.trip.source.attractions.push(attractionData);
+  //   } else if (stopIdOfAttraction === this.trip.destination.stopId) {
+  //     this.trip.destination.attractions.push(attractionData);
+  //   } else {
+  //     for (const stop of this.trip.stops) {
+  //       if (stopIdOfAttraction === stop.stopId) {
+  //         stop.attractions.push(attractionData);
+  //         break;
+  //       }
+  //     }
+  //   }
+  //   this.updateWaypoints();
+  //   this.updateTrip(this.trip).subscribe(response => {});
+  // }
+
 
   updateWaypoints() {
     const allStops = this.trip.stops;

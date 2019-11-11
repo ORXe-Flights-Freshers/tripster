@@ -19,7 +19,7 @@ import { AttractionCardListComponent } from './attraction-card-list/attraction-c
 import { AttractionCardComponent } from './attraction-card/attraction-card.component';
 import { ExpensesComponent } from './expenses/expenses.component';
 import { ShareTripComponent } from './share-trip/share-trip.component';
-
+import { AddAttractionDetailsComponent } from './add-attraction-details/add-attraction-details.component';
 
 const routes: Routes = [
   {
@@ -44,7 +44,8 @@ const routes: Routes = [
     AttractionCardListComponent,
     AddHotelDetailsComponent,
     ExpensesComponent,
-    ShareTripComponent
+    ShareTripComponent,
+    AddAttractionDetailsComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -64,7 +65,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  exports: [AddStopComponent, AddHotelDetailsComponent,ShareTripComponent],
-  entryComponents: [AddHotelDetailsComponent,ShareTripComponent]
+  exports: [AddStopComponent, AddHotelDetailsComponent,ShareTripComponent,AddAttractionDetailsComponent],
+  entryComponents: [AddHotelDetailsComponent,ShareTripComponent,AddAttractionDetailsComponent]
 })
 export class PlannerModule {}
