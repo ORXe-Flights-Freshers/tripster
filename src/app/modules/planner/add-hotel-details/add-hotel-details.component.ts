@@ -26,7 +26,7 @@ export class AddHotelDetailsComponent implements OnInit {
   arrivalTime = "00:00 am";
   departureTime = "00:00 am" ;
   invalidDepartureTimeError: boolean;
-  invalidArrivalTimeError:boolean;
+  invalidArrivalTimeError: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<AddHotelDetailsComponent>,
@@ -53,11 +53,9 @@ export class AddHotelDetailsComponent implements OnInit {
     const newArrivalTime = Time.parseTimeStringToTime(this.arrivalTime);
     this.arrivalDate.setHours(newArrivalTime.hours);
     this.arrivalDate.setMinutes(newArrivalTime.minutes);
-    // if (this.arrivalDate.getTime() > this.departureDate.getTime())
-    //   this.departureDate = this.arrivalDate;
+
   }
   handleDepartureTimeSet(time: string) {
-
     this.departureTime = time;
     const newdeparturetime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newdeparturetime.hours);

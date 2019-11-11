@@ -192,9 +192,9 @@ export class TripService {
           }
         });
       } else {
-        let places = [];
-        places = this.getPlacesInOrder(stop);
-        for (const place of places) {
+        let placesArray = [];
+        placesArray = this.getPlacesInOrder(stop);
+        for (const place of placesArray) {
           waypointsLocations.push({
             location: {
               lat: place.location.latitude,

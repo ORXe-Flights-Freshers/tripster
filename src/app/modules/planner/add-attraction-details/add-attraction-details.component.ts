@@ -27,7 +27,7 @@ export class AddAttractionDetailsComponent implements OnInit {
   arrivalTime = "00:00 am";
   departureTime = "00:00 am" ;
   invalidDepartureTimeError: boolean;
-  invalidMoreArrivalTimeError:boolean;
+  invalidMoreArrivalTimeError: boolean;
   invalidLessArrivalTimeError: boolean;
   // invalidMoreArrivalTimeErrorDepart: boolean;
   constructor(
@@ -50,7 +50,7 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.departureTime = this.departureDate.getHours().toString() +
         ':' +  this.departureDate.getMinutes().toString() + ' am';
     this.maxDepartureDate = new Date(this.getMaxDate());
-    this.minArrivalDate= new Date(this.getMinDate());
+    this.minArrivalDate = new Date(this.getMinDate());
   }
 
   handleArrivalTimeSet(time: string) {
@@ -94,7 +94,7 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.validateDateTime();
   }
 
-  validateDateTime(){
+  validateDateTime() {
     if (this.departureDate < this.arrivalDate) {
       this.invalidMoreArrivalTimeError = true;
     } else {
