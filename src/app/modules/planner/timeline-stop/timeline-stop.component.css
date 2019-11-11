@@ -27,8 +27,8 @@
 .edit-delete {
   display: inline-block;
 
-  margin-left: 300px;
-  margin-top: 70px;
+  margin-left: 390px;
+  margin-top: 53px;
   right: 0;
 }
 
@@ -39,7 +39,7 @@
 .places-delete,
 .places-photos {
   /*background-color: rgba(255, 255, 0, 0.3);*/
-  margin-top: 150px;
+  margin-top: 105px;
 }
 
 .all-buttons {
@@ -47,7 +47,7 @@
 }
 
 .places-delete-holder{
-  margin-left: 500px;
+  margin-left: 390px;
   margin-bottom: 67px;
 }
 
@@ -61,7 +61,7 @@
 
 .all-images {
   margin-top: 10px;
-  margin-left: 85px;
+  margin-left: 60px;
 }
 
 .places-image-holder {

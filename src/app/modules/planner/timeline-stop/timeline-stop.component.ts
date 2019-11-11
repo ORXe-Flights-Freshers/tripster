@@ -266,7 +266,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
     const aDate = this.arrivalDate;
     const dDate = this.departureDate;
     const dateFontSize = 7;
-    let dateXCoordinate = 28;
+    let dateXCoordinate = 35;
 
     if (!this.places) {
       this.stopLabelYCoordinate = this.mapped.height / 2;
@@ -275,11 +275,11 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
     if (this.stopType === 'stop') {
       this.helperCanvas.writeText(
         'Arrival: ' + aDate.toLocaleDateString() + ', ' + aDate.toLocaleTimeString(),
-        dateXCoordinate, this.stopLabelYCoordinate - 15, dateFontSize, this.currentTheme.dateColor
+        dateXCoordinate, this.stopLabelYCoordinate - 16, dateFontSize, this.currentTheme.dateColor
       );
       this.helperCanvas.writeText(
         'Departure: ' + dDate.toLocaleDateString() + ', ' + dDate.toLocaleTimeString(),
-        dateXCoordinate, this.stopLabelYCoordinate + 19, dateFontSize, this.currentTheme.dateColor
+        dateXCoordinate, this.stopLabelYCoordinate + 21, dateFontSize, this.currentTheme.dateColor
       );
       return;
     }
@@ -288,17 +288,17 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
       dDate.toLocaleDateString() + ', ' + dDate.toLocaleTimeString() :
       aDate.toLocaleDateString() + ', ' + aDate.toLocaleTimeString();
 
-    dateXCoordinate = this.stop.name.length > 12 ? 170 : 150;
+    dateXCoordinate = this.stop.name.length > 12 ? 160 : 140;
 
     this.helperCanvas.drawFilledRect(
       dateXCoordinate - 5, this.stopLabelYCoordinate - 8,
-      80, 15,
+      90, 15,
       this.currentTheme.sourceAndDestinationDateBackgroundColor
     );
 
     this.helperCanvas.drawOutlineRect(
       dateXCoordinate - 5, this.stopLabelYCoordinate - 8,
-      80, 15,
+      90, 15,
       this.currentTheme.sourceAndDestinationDateBorderColor
     );
 
