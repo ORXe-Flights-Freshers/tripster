@@ -12,6 +12,7 @@ export class TripService {
   trip: Trip;
   // tripSubject = new Subject<Trip>();
   waypoints = [];
+  waypointsInfo=[];
   // waypointLocation:location{lat:number,lng:number}[];
   directionResult: google.maps.DirectionsResult;
 
@@ -179,6 +180,7 @@ export class TripService {
   updateWaypoints() {
     const allStops = this.trip.stops;
     const waypointsLocations = [];
+    const waypointsInfo=[];
 
     // for (const hotel of this.trip.source.hotels) {
     //   waypointsLocations.push({
@@ -196,6 +198,7 @@ export class TripService {
             lng: stop.location.longitude
           }
         });
+        waypointsInfo.push({name:stop.name});
       } else {
         let placesArray = [];
         placesArray = this.getPlacesInOrder(stop);
@@ -206,6 +209,7 @@ export class TripService {
               lng: place.location.longitude
             }
           });
+          waypointsInfo.push({name:place.name});
         }
      }
     }
@@ -218,9 +222,11 @@ export class TripService {
           lng: place.location.longitude
         }
       });
+      waypointsInfo.push({name:place.name});
     }
 
     this.waypoints = waypointsLocations;
+    this.waypointsInfo=waypointsInfo;
   }
 
   getPlacesInOrder(stop: Stop) {
