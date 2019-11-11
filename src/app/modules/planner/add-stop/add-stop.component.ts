@@ -24,6 +24,7 @@ export class AddStopComponent implements OnInit {
   departureTime = '11:00 am';
   duplicatePlace: boolean;
   invalidTimeError: boolean;
+  invalidPlace: boolean;
   constructor(
     public dialogRef: MatDialogRef<AddStopComponent>,
     public tripService: TripService,

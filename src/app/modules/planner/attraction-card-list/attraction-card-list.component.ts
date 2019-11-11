@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Stop } from 'src/app/models/Stop';
+import { Attraction } from 'src/app/models/Attraction';
 import { TripService } from 'src/app/services/trip.service';
 import { MapsAPILoader } from '@agm/core';
 
@@ -17,8 +17,13 @@ export class AttractionCardListComponent implements OnInit {
     attractionId: string,
     description: string,
     rating: number,
-    imageUrl: string
+    imageUrl: string,
+    location: {
+      lat: number,
+      lng: number
+    }
   }[] = [];
+  stopIdOfAttraction: string;
   chosenCity: string;
   displayLoader: boolean;
   placeService: google.maps.places.PlacesService;
@@ -53,16 +58,41 @@ export class AttractionCardListComponent implements OnInit {
             attractionId: placeResult.place_id,
             description: placeResult.vicinity,
             rating: placeResult.rating,
+            location: {
+              lat: placeResult.geometry.location.lat(),
+              lng: placeResult.geometry.location.lng()
+            },
             imageUrl: placeResult.photos ? placeResult.photos[0].getUrl({
               maxHeight: 200,
               maxWidth: 200
             }) : 'http://lorempixel.com/200/200/nature/?id=' + Math.random()
           });
         });
+        this.stopIdOfAttraction = stop.stopId;
         this.chosenCity = stop.name;
         this.displayLoader = false;
         this.changeDetectorRef.detectChanges();
       }
     );
   }
-}
+
+
+  getAttractionData(attractionDataApi) {
+    //  console.log(attractionDataApi);
+
+      const attractionData: Attraction = {
+        placeId: attractionDataApi.id,
+        name: attractionDataApi.name,
+        description: attractionDataApi.description,
+        location: {
+          latitude: attractionDataApi.location.lat,
+          longitude: attractionDataApi.location.lng
+        },
+        rating: attractionDataApi.rating,
+        arrival: '',
+        departure: ''
+      };
+      return attractionData;
+    }
+  }
+
