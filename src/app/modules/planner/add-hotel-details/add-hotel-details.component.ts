@@ -62,13 +62,15 @@ export class AddHotelDetailsComponent implements OnInit {
     const newdeparturetime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newdeparturetime.hours);
     this.departureDate.setMinutes(newdeparturetime.minutes);
-
-
+    this.validateDateTime();
   }
   getMinDate() {
-    return new Date(
-      this.tripService.getStopByStopId(this.stopIdOfHotel).arrival
-    );
+    const stop = this.tripService.getStopByStopId(this.stopIdOfHotel);
+    if (stop.hotels.length === 0) {
+      return new Date(stop.arrival);
+    } else {
+      return new Date(stop.hotels[stop.hotels.length - 1].arrival);
+    }
   }
   getMaxDate() {
     return new Date(
@@ -77,6 +79,7 @@ export class AddHotelDetailsComponent implements OnInit {
   }
   handleArrivalDateSet(date) {
     console.log(this.arrivalDate);
+
   }
   handleDepartureDateSet(date) {
     this.departureDate = new Date(date.value);
@@ -89,6 +92,7 @@ export class AddHotelDetailsComponent implements OnInit {
     this.departureDate.setMinutes(newDeparturetime.minutes);
     this.validateDateTime();
   }
+
   validateDateTime() {
     if (this.departureDate < this.arrivalDate) {
       this.invalidArrivalTimeError = true;

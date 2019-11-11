@@ -52,7 +52,6 @@ export class TripService {
   updateTrip(trip: Trip) {
     this.trip = trip;
     // this.tripSubject.next(trip);
-    // console.log(trip);
     return this.http.put('http://3.14.69.62:5001/api/trip/' + trip.id, this.trip);
   }
 
@@ -148,66 +147,115 @@ export class TripService {
     this.updateTrip(this.trip).subscribe(response => {});
   }
 
-  // addAttractionToTrip(attractionData,stopIdOfAttraction) {
-  //   if (stopIdOfAttraction === this.trip.source.stopId) {
-  //     this.trip.source.attractions.push(attractionData);
-  //   } else if (stopIdOfAttraction === this.trip.destination.stopId) {
-  //     this.trip.destination.attractions.push(attractionData);
-  //   } else {
-  //     for (const stop of this.trip.stops) {
-  //       if (stopIdOfAttraction === stop.stopId) {
-  //         stop.attractions.push(attractionData);
-  //         break;
-  //       }
-  //     }
-  //   }
-  //   this.updateWaypoints();
-  //   this.updateTrip(this.trip).subscribe(response => {});
-  // }
+  addAttractionToTrip(attractionData, stopIdOfAttraction) {
+     if (stopIdOfAttraction === this.trip.destination.stopId) {
+      this.trip.destination.attractions.push(attractionData);
+    } else {
+      for (const stop of this.trip.stops) {
+        if (stopIdOfAttraction === stop.stopId) {
+          stop.attractions.push(attractionData);
+          break;
+        }
+      }
+    }
+     console.log(this.trip);
+     this.updateWaypoints();
+     this.updateTrip(this.trip).subscribe(response => {});
+  }
 
 
   updateWaypoints() {
     const allStops = this.trip.stops;
     const waypointsLocations = [];
 
-    for (const hotel of this.trip.source.hotels) {
-      waypointsLocations.push({
-        location: {
-          lat: hotel.location.latitude,
-          lng: hotel.location.longitude
-        }
-      });
-    }
-
-    for (let index = 0; index < this.trip.stops.length; index++) {
-
-      if (allStops[index].hotels.length === 0) {
+    // for (const hotel of this.trip.source.hotels) {
+    //   waypointsLocations.push({
+    //     location: {
+    //       lat: hotel.location.latitude,
+    //       lng: hotel.location.longitude
+    //     }
+    //   });
+    // }
+    for (const stop of this.trip.stops) {
+      if (stop.hotels.length === 0 && stop.attractions.length === 0) {
           waypointsLocations.push({
           location: {
-            lat: allStops[index].location.latitude,
-            lng: allStops[index].location.longitude
+            lat: stop.location.latitude,
+            lng: stop.location.longitude
           }
         });
       } else {
-        for (const hotel of allStops[index].hotels) {
+        let places = [];
+        places = this.getPlacesInOrder(stop);
+        for (const place of places) {
           waypointsLocations.push({
             location: {
-              lat: hotel.location.latitude,
-              lng: hotel.location.longitude
+              lat: place.location.latitude,
+              lng: place.location.longitude
             }
           });
         }
      }
     }
-    for (const hotel of this.trip.destination.hotels) {
-      const {latitude, longitude} = hotel.location;
+
+    const places = this.getPlacesInOrder(this.trip.destination);
+    for (const place of places) {
       waypointsLocations.push({
-        location: { lat: latitude, lng: longitude }
+        location: {
+          lat: place.location.latitude,
+          lng: place.location.longitude
+        }
       });
     }
 
     this.waypoints = waypointsLocations;
   }
+
+  getPlacesInOrder(stop: Stop) {
+   // Returns array of places containing hotels and attractions in order of arrival time
+   // Assuming hotels and attraction are in order of arrival in their array
+   let hotelIndex = 0;
+   let attractionIndex = 0;
+   const places = [];
+
+   const totalPlaces = stop.hotels.length + stop.attractions.length  ;
+
+   for (let counter = 0; counter < totalPlaces; counter++) {
+
+    if (hotelIndex >= stop.hotels.length && attractionIndex >= stop.attractions.length ) {
+      const minPlace = this.getSmallerArrivalTime(stop.hotels[hotelIndex], stop.attractions[attractionIndex]);
+      if ( minPlace === 'hotel') {
+           places.push(stop.hotels[hotelIndex]);
+           hotelIndex++;
+      } else {
+       places.push(stop.attractions[attractionIndex]);
+       attractionIndex++;
+      }
+    } else {
+       while (hotelIndex < stop.hotels.length) {
+        places.push(stop.hotels[hotelIndex]);
+        hotelIndex++;
+       }
+       while (attractionIndex < stop.attractions.length) {
+        places.push(stop.attractions[attractionIndex]);
+        attractionIndex++;
+       }
+       break;
+    }
+  }
+
+   return places;
+  }
+
+
+  getSmallerArrivalTime(hotel, attraction) {
+    if (hotel.arrival < attraction.arrival) {
+      return 'hotel';
+    } else {
+      return 'attraction';
+    }
+  }
+
 
   getStopByStopId(stopId): Stop {
     const { source, destination } = this.trip;
