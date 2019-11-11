@@ -93,6 +93,7 @@ export class AttractionCardListComponent implements OnInit {
           longitude: attractionDataApi.location.lng
         },
         rating: attractionDataApi.rating,
+        imageUrl: attractionDataApi.imageUrl ,
         arrival: '',
         departure: ''
       };
