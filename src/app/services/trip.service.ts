@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TripService {
   trip: Trip;
-  tripSubject = new Subject<Trip>();
+  // tripSubject = new Subject<Trip>();
   waypoints = [];
   // waypointLocation:location{lat:number,lng:number}[];
   directionResult: google.maps.DirectionsResult;
@@ -21,16 +21,17 @@ export class TripService {
 
   createTrip(trip: Trip) {
     this.trip = trip;
-    this.tripSubject.next(trip);
+    // this.tripSubject.next(trip);
     // console.log("trip.service", trip);
     return this.http.post('http://3.14.69.62:5001/api/trip', trip);
   }
-  getTrip(tripId: Trip) {
+  getTrip(tripId) {
+    console.log(tripId);
     this.http.get('http://3.14.69.62:5001/api/trip/' + tripId).subscribe(
       data => {
         this.trip = data as Trip;
         this.updateWaypoints();
-        this.tripSubject.next(this.trip);
+        // this.tripSubject.next(this.trip);
       },
       error => {
         this.route.navigate(['/', 'not-found']);
