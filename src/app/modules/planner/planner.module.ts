@@ -13,11 +13,12 @@ import { HotelCardComponent } from './hotel-card/hotel-card.component';
 import { HotelCardListComponent } from './hotel-card-list/hotel-card-list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule, MatProgressSpinnerModule } from '@angular/material';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddHotelDetailsComponent } from './add-hotel-details/add-hotel-details.component';
 import { AttractionCardListComponent } from './attraction-card-list/attraction-card-list.component';
 import { AttractionCardComponent } from './attraction-card/attraction-card.component';
 import { ExpensesComponent } from './expenses/expenses.component';
+import { ShareTripComponent } from './share-trip/share-trip.component';
 import { AddAttractionDetailsComponent } from './add-attraction-details/add-attraction-details.component';
 
 const routes: Routes = [
@@ -43,6 +44,7 @@ const routes: Routes = [
     AttractionCardListComponent,
     AddHotelDetailsComponent,
     ExpensesComponent,
+    ShareTripComponent,
     AddAttractionDetailsComponent
   ],
   imports: [
@@ -60,9 +62,10 @@ const routes: Routes = [
     MatIconModule,
     FlexLayoutModule,
     MatProgressSpinnerModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  exports: [AddStopComponent, AddHotelDetailsComponent, AddAttractionDetailsComponent],
-  entryComponents: [AddHotelDetailsComponent, AddAttractionDetailsComponent]
+  exports: [AddStopComponent, AddHotelDetailsComponent,ShareTripComponent,AddAttractionDetailsComponent],
+  entryComponents: [AddHotelDetailsComponent,ShareTripComponent,AddAttractionDetailsComponent]
 })
 export class PlannerModule {}
