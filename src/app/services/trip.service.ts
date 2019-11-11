@@ -12,8 +12,9 @@ export class TripService {
   trip: Trip;
   tripSubject = new Subject<Trip>();
   waypoints = [];
-  // waypointLocation:location{lat:number,lng:number}[];
   directionResult: google.maps.DirectionsResult;
+
+  displayTimeline = false;
 
   doDisplayHotels = false;
   doDisplayAttractions = false;
@@ -22,7 +23,7 @@ export class TripService {
   createTrip(trip: Trip) {
     this.trip = trip;
     this.tripSubject.next(trip);
-    // console.log("trip.service", trip);
+    this.displayTimeline = true;
     return this.http.post('http://3.14.69.62:5001/api/trip', trip);
   }
   getTrip(tripId: Trip) {
@@ -31,6 +32,7 @@ export class TripService {
         this.trip = data as Trip;
         this.updateWaypoints();
         this.tripSubject.next(this.trip);
+        this.displayTimeline = true;
       },
       error => {
         this.route.navigate(['/', 'not-found']);
@@ -110,28 +112,19 @@ export class TripService {
   }
 
   addStopToTrip(stop): string {
-        this.trip.stops.push(stop);
-        // this.tripSubject.next(this.trip);
-        // console.log(this.trip.stops);
-        this.updateWaypoints();
-        this.updateTrip(this.trip).subscribe(response => {
-        //   console.log(response);
-         });
-        return 'success';
-     }
-
-  removeStopFromTrip(i: number): string {
+    this.displayTimeline = false;
+    this.trip.stops.push(stop);
+    this.tripSubject.next(this.trip);
     // console.log(this.trip.stops);
-    this.trip.stops.splice(i, 1);
-    // this.tripSubject.next(this.trip);
     this.updateWaypoints();
-    this.updateTrip(this.trip).subscribe(response => {
-    // console.log(response);
-    });
+    this.updateTrip(this.trip).subscribe();
+    this.displayTimeline = true;
     return 'success';
-  }
+   }
 
   addHotelToTrip(hotelData, stopIdOfHotel) {
+    this.displayTimeline = false;
+
     if (stopIdOfHotel === this.trip.source.stopId) {
       this.trip.source.hotels.push(hotelData);
     } else if (stopIdOfHotel === this.trip.destination.stopId) {
@@ -144,6 +137,10 @@ export class TripService {
         }
       }
     }
+
+    this.trip = Object.assign({}, this.trip);
+
+    this.displayTimeline = true;
     this.updateWaypoints();
     this.updateTrip(this.trip).subscribe(response => {});
   }
@@ -168,7 +165,7 @@ export class TripService {
 
   updateWaypoints() {
     const allStops = this.trip.stops;
-    const waypointsLocations = [];
+    const waypointsLocations = []
 
     for (const hotel of this.trip.source.hotels) {
       waypointsLocations.push({
@@ -219,4 +216,59 @@ export class TripService {
     return null;
   }
 
+  removeStopFromTrip(stopId: string): string {
+    const stops = [];
+    this.displayTimeline = false;
+
+    this.trip.stops.forEach((stop: Stop) => {
+      if (stop.stopId !== stopId) {
+        stops.push(stop);
+      }
+    });
+
+    this.trip.stops = stops;
+    this.displayTimeline = true;
+    this.updateWaypoints();
+    this.updateTrip(this.trip).subscribe();
+    return 'success';
+  }
+
+  editSourceOrDestination(stop: Stop, sourceOrDestination: string) {
+    console.log(`Edited ${sourceOrDestination}...`);
+  }
+
+  deletePlaceFromStop(stopId: string, placeId: string, placeType: string) {
+    this.displayTimeline = false;
+
+    for (const stop of [this.trip.source, ...this.trip.stops, this.trip.destination]) {
+      if (stop.stopId === stopId) {
+        if (placeType === 'hotel') {
+          const hotels = [];
+          for (const hotel of stop.hotels) {
+            if (hotel.placeId !== placeId) {
+              hotels.push(hotel);
+            }
+          }
+          stop.hotels = hotels;
+        } else if (placeType === 'attraction') {
+          const attractions = [];
+          for (const attraction of stop.attractions) {
+            if (attraction.placeId !== placeId) {
+              attractions.push(attraction);
+            }
+          }
+          stop.attractions = attractions;
+        }
+        break;
+      }
+    }
+
+    this.updateWaypoints();
+    this.updateTrip(this.trip).subscribe();
+    this.displayTimeline = true;
+  }
+
+  getRandomUrl(): string {
+    return 'assets/images/hotel.jpg';
+  }
 }

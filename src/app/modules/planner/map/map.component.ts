@@ -21,23 +21,8 @@ export class MapComponent implements OnInit {
   stopIconUrl = 'http://maps.gstatic.com/mapfiles/markers2/icon_green.png';
 
   ngOnInit() {
-    this.markerOptions = {
-      // origin: {
-      //   // infoWindow: this.tripService.trip.source.name,
-      //   icon: "http://maps.gstatic.com/mapfiles/markers2/marker_greenA.png",
-      //   label: "sabk"
-      // },
-      // waypoints: {
-      //   infoWindow: "Way",
-      //   icon: "http://maps.gstatic.com/mapfiles/markers2/marker_greenA.png",
-      //   label: "sabk"
-      // },
-      // destination: {
-      //   // infoWindow: this.tripService.trip.destination.name
-      //   icon: "http://maps.gstatic.com/mapfiles/markers2/marker_greenA.png",
-      //   label: "sabk"
-      // }
-    };
+    this.markerOptions = {};
+
     this.tripService.tripSubject.pipe(take(1)).subscribe((trip: Trip) => {
       // this.tripService.updateWaypoints();
       this.origin = {

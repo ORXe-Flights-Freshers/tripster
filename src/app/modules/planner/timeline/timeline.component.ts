@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { TripService } from "src/app/services/trip.service";
-import { AddStopComponent } from "../add-stop/add-stop.component";
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { Router } from "@angular/router";
+import { Component, Input, OnInit } from '@angular/core';
+import { TripService } from 'src/app/services/trip.service';
+import { AddStopComponent } from '../add-stop/add-stop.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { ShareTripComponent } from '../share-trip/share-trip.component';
 @Component({
-  selector: "app-timeline",
-  templateUrl: "./timeline.component.html",
-  styleUrls: ["./timeline.component.css"]
+  selector: 'app-timeline',
+  templateUrl: './timeline.component.html',
+  styleUrls: ['./timeline.component.css']
 })
 export class TimelineComponent implements OnInit {
   constructor(
@@ -23,8 +23,8 @@ export class TimelineComponent implements OnInit {
   openStopDialog(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "400px";
-    dialogConfig.height = "510px";
+    dialogConfig.width = '400px';
+    dialogConfig.height = '510px';
 
     const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
 
@@ -41,8 +41,8 @@ export class TimelineComponent implements OnInit {
   openShareTripDialog(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "500px";
-    dialogConfig.height = "250px";
+    dialogConfig.width = '500px';
+    dialogConfig.height = '250px';
 
     const dialogRef = this.dialog.open(ShareTripComponent, dialogConfig);
 
@@ -65,11 +65,7 @@ export class TimelineComponent implements OnInit {
 
   addStop(stop): boolean {
    const responseMessage = this.tripService.addStopToTrip(stop);
-   if (responseMessage === 'success') {
-   return true;
-   } else {
-    return false;
-   }
+   return responseMessage === 'success';
   }
 
   closeStopDialog() {
@@ -87,21 +83,21 @@ export class TimelineComponent implements OnInit {
   }
   getEmailString() {
     return (
-      "mailto:?Subject=Shared RoadTrip from Tripster&body=Hey, Here is the shareable link for the roadtrip : http://3.14.69.62:82" +
+      'mailto:?Subject=Shared RoadTrip from Tripster&body=Hey, Here is the shareable link for the roadtrip : http://3.14.69.62:82' +
       this.router.url
     );
   }
   getNavigationUrl() {
-    let url: string = '';
+    let url = '';
     if (this.tripService.trip) {
       url =
-        "https://www.google.com/maps/dir/?api=1&origin=" +
+        'https://www.google.com/maps/dir/?api=1&origin=' +
         this.tripService.trip.source.name +
-        "&destination=" +
+        '&destination=' +
         this.tripService.trip.destination.name +
-        "&travelmode=driving&waypoints=";
+        '&travelmode=driving&waypoints=';
       this.tripService.waypoints.forEach(waypoint => {
-        url += waypoint.location.lat + "," + waypoint.location.lng + "|";
+        url += waypoint.location.lat + ',' + waypoint.location.lng + '|';
       });
     }
     return url;
