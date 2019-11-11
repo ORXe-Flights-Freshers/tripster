@@ -111,11 +111,7 @@ export class AddStopComponent implements OnInit {
     const newDeparturetime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDeparturetime.hours);
     this.departureDate.setMinutes(newDeparturetime.minutes);
-    if (this.departureDate < this.arrivalDate) {
-      this.invalidTimeError = true;
-    } else {
-      this.invalidTimeError = false;
-    }
+    this.validateDateTime();
   }
   getMinDate() {
     return new Date(this.arrivalDate);
@@ -128,14 +124,16 @@ export class AddStopComponent implements OnInit {
     const newDeparturetime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDeparturetime.hours);
     this.departureDate.setMinutes(newDeparturetime.minutes);
+    this.validateDateTime();
+  }
+
+  validateDateTime() {
     if (this.departureDate < this.arrivalDate) {
       this.invalidTimeError = true;
     } else {
       this.invalidTimeError = false;
     }
-
   }
-
   closeDialog() {
     this.dialogRef.close();
   }

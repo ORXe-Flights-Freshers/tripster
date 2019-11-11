@@ -37,7 +37,11 @@ export class AttractionCardListComponent implements OnInit {
     this.displayLoader = false;
   }
   ngOnInit() {
-    this.attractionByStop(this.tripService.trip.source);
+    if (this.tripService.trip.stops.length === 0) {
+      this.attractionByStop(this.tripService.trip.destination);
+    } else {
+      this.attractionByStop(this.tripService.trip.stops[0]);
+    }
   }
   attractionByStop(stop: Stop) {
     this.displayLoader = true;
