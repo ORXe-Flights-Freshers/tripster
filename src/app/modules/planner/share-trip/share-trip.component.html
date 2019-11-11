@@ -1,0 +1,23 @@
+<div id="share-trip-header" class="flex-container-header">
+        <h4 id="header-text">Share trip with friends</h4>
+        <button id="header-button" (click)="closeDialog()" mat-button>Close</button>
+</div>
+<hr />
+<form [formGroup]="shareTripForm">
+    <mat-form-field appearance="outline" class="email">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" placeholder="Email" formControlName="email">
+        <mat-error *ngIf="shareTripForm.controls['email'].errors?.required"
+        >Email is required</mat-error
+      >
+      <mat-error *ngIf="shareTripForm.controls['email'].errors?.email"
+        >Enter valid email</mat-error
+      >
+    </mat-form-field>
+    <div>
+    <button mat-raised-button color="primary" id="copy-btn" (click)="copyShareableLink()">Copy Shareable Link</button>
+    <button mat-raised-button type="submit" id="share-btn" 
+    [disabled]="shareTripForm.controls['email'].errors?.email || shareTripForm.controls['email'].errors?.required"
+    color="primary" (click)="share()">Share</button>  
+</div>
+</form>

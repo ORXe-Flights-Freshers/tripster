@@ -4,6 +4,7 @@ import { AddStopComponent } from "../add-stop/add-stop.component";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { ShareTripComponent } from '../share-trip/share-trip.component';
 @Component({
   selector: "app-timeline",
   templateUrl: "./timeline.component.html",
@@ -36,6 +37,24 @@ export class TimelineComponent implements OnInit {
         }
       }
     });
+  }
+  openShareTripDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "500px";
+    dialogConfig.height = "250px";
+
+    const dialogRef = this.dialog.open(ShareTripComponent, dialogConfig);
+
+    // dialogRef.afterClosed().subscribe(stopFromDialog => {
+    //   console.log(stopFromDialog);
+    //   if (stopFromDialog) {
+    //     const responseStatus = this.addStop(stopFromDialog);
+    //     if (responseStatus) {
+    //       this.openSnackBar('Stop Added Succesfully', 'OK');
+    //     }
+    //   }
+    // });
   }
 
   openSnackBar(message: string, action: string) {

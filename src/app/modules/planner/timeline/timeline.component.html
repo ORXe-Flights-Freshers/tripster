@@ -84,12 +84,10 @@
 
     <ul>
       <li>
-        <a href="{{ getEmailString() }}">
-          <button class="btn-footer">
+          <button class="btn-footer" (click)="openShareTripDialog()">
             <span class="fa fa-share-alt"></span>
             Share trip
           </button>
-        </a>
       </li>
       <li>
         <a href="{{ getNavigationUrl() }}" target="_blank">
