@@ -15,9 +15,6 @@ import { AddAttractionDetailsComponent } from '../add-attraction-details/add-att
 export class AttractionCardComponent implements OnInit {
   @Input() stopIdOfAttraction: string;
   @Input() attractionData: Attraction;
-  @Input() imageUrl =
-    'https://images.wallpaperscraft.com/image/room_style_hotel_bed_70002_1920x1080.jpg';
-
 
   constructor(public tripService: TripService, public dialog: MatDialog, private snackBar: MatSnackBar) {
 
