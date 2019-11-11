@@ -29,7 +29,7 @@ export class AddAttractionDetailsComponent implements OnInit {
   invalidDepartureTimeError: boolean;
   invalidMoreArrivalTimeError:boolean;
   invalidLessArrivalTimeError: boolean;
-  invalidMoreArrivalTimeErrorDepart: boolean;
+  // invalidMoreArrivalTimeErrorDepart: boolean;
   constructor(
     public dialogRef: MatDialogRef<AddAttractionDetailsComponent>,
     public tripService: TripService,
@@ -110,11 +110,11 @@ export class AddAttractionDetailsComponent implements OnInit {
     } else {
       this.invalidLessArrivalTimeError = false;
     }
-    if (this.arrivalDate > this.departureDate) {
-       this.invalidMoreArrivalTimeErrorDepart = true;
-    } else {
-      this.invalidMoreArrivalTimeErrorDepart = false;
-    }
+    // if (this.arrivalDate > this.departureDate) {
+    //    this.invalidMoreArrivalTimeErrorDepart = true;
+    // } else {
+    //   this.invalidMoreArrivalTimeErrorDepart = false;
+    // }
 
   }
 

@@ -62,16 +62,7 @@ export class AddHotelDetailsComponent implements OnInit {
     const newdeparturetime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newdeparturetime.hours);
     this.departureDate.setMinutes(newdeparturetime.minutes);
-    if (this.departureDate < this.arrivalDate) {
-      this.invalidArrivalTimeError = true;
-    } else {
-      this.invalidArrivalTimeError = false;
-    }
-    if (this.departureDate > this.maxDepartureDate) {
-      this.invalidDepartureTimeError = true;
-    } else {
-      this.invalidDepartureTimeError = false;
-    }
+
 
   }
   getMinDate() {
@@ -96,10 +87,18 @@ export class AddHotelDetailsComponent implements OnInit {
     const newDeparturetime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDeparturetime.hours);
     this.departureDate.setMinutes(newDeparturetime.minutes);
+    this.validateDateTime();
+  }
+  validateDateTime() {
     if (this.departureDate < this.arrivalDate) {
       this.invalidArrivalTimeError = true;
     } else {
       this.invalidArrivalTimeError = false;
+    }
+    if (this.departureDate > this.maxDepartureDate) {
+      this.invalidDepartureTimeError = true;
+    } else {
+      this.invalidDepartureTimeError = false;
     }
   }
 

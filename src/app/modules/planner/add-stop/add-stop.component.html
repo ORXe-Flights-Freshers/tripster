@@ -99,7 +99,8 @@
 <div id="buttons-block">
   <div id="bottom-error-block">
       <p id="stop-error" *ngIf="duplicatePlace">* Stop cannot be same </p>
-    <p id="stop-error" *ngIf="invalidTimeError">* Departure time must be  more than arrival</p>
+      <p id="stop-error" *ngIf="invalidTimeError">* Departure time must be  more than arrival</p>
+      <p id="stop-error" *ngIf="invalidPlace">* Enter valid place</p>
   </div>
   <div id="bottom-button-block">
       <button mat-button (click)="closeDialog()">CANCEL</button>
@@ -107,7 +108,7 @@
         mat-raised-button
         (click)="addStop()"
         color="primary"
-        [disabled]="duplicatePlace || invalidTimeError"
+        [disabled]="duplicatePlace || invalidTimeError || invalidPlace"
       >
         ADD
       </button>
