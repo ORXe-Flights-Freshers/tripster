@@ -8,4 +8,5 @@ export interface Place {
   arrival: string;
   departure: string;
   rating: number;
+  imageUrl: string;
 }

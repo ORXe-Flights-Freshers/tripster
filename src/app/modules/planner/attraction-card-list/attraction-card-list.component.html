@@ -20,15 +20,6 @@
 
   <div class="list-of-stops">
     <button
-      *ngIf="tripService?.trip?.source"
-      (click)="attractionByStop(tripService?.trip?.source)"
-      [ngClass]="{
-        active: tripService.trip.source.name === chosenCity
-      }"
-    >
-      {{ tripService.trip.source.name }}
-    </button>
-    <button
       *ngFor="let stop of tripService?.trip?.stops"
       (click)="attractionByStop(stop)"
       [ngClass]="{
@@ -53,7 +44,6 @@
       [stopIdOfAttraction]="stopIdOfAttraction"
       *ngFor="let attraction of arrAttractions"
       [attractionData]="getAttractionData(attraction)"
-      [imageUrl]="attraction.imageUrl"
 
        ></app-attraction-card>
   </div>

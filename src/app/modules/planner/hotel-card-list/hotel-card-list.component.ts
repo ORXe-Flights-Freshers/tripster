@@ -25,7 +25,11 @@ export class HotelCardListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.hotelByStop(this.tripService.trip.source);
+    if (this.tripService.trip.stops.length === 0) {
+      this.hotelByStop(this.tripService.trip.destination);
+    } else {
+      this.hotelByStop(this.tripService.trip.stops[0]);
+    }
   }
 
   hotelByStop(stop: Stop) {
@@ -84,6 +88,7 @@ export class HotelCardListComponent implements OnInit {
         longitude: hotelDataApi.geoCode.long
       },
       rating: hotelDataApi.rating,
+      imageUrl: 'https://images.wallpaperscraft.com/image/room_style_hotel_bed_70002_1920x1080.jpg',
       arrival: "",
       departure: ""
     };

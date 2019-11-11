@@ -108,24 +108,32 @@ export class AddStopComponent implements OnInit {
 
   handleDepartureTimeSet(time: string) {
     this.departureTime = time;
-    const newDeparturetime = Time.parseTimeStringToTime(this.departureTime);
-    this.departureDate.setHours(newDeparturetime.hours);
-    this.departureDate.setMinutes(newDeparturetime.minutes);
-    this.invalidTimeError = this.departureDate < this.arrivalDate;
+    const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
+    this.departureDate.setHours(newDepartureTime.hours);
+    this.departureDate.setMinutes(newDepartureTime.minutes);
+
+    this.validateDateTime();
   }
+
   getMinDate() {
     return new Date(this.arrivalDate);
   }
+
   handleArrivalDateSet(date) {
     console.log(this.arrivalDate);
   }
+
   handleDepartureDateSet(date) {
     this.departureDate = new Date(date.value);
-    const newDeparturetime = Time.parseTimeStringToTime(this.departureTime);
-    this.departureDate.setHours(newDeparturetime.hours);
-    this.departureDate.setMinutes(newDeparturetime.minutes);
-    this.invalidTimeError = this.departureDate < this.arrivalDate;
+    const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
+    this.departureDate.setHours(newDepartureTime.hours);
+    this.departureDate.setMinutes(newDepartureTime.minutes);
 
+    this.validateDateTime();
+  }
+
+  validateDateTime() {
+    this.invalidTimeError = this.departureDate < this.arrivalDate;
   }
 
   closeDialog() {
