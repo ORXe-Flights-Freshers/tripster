@@ -235,47 +235,51 @@ export class TripService {
   getPlacesInOrder(stop: Stop) {
    // Returns array of places containing hotels and attractions in order of arrival time
    // Assuming hotels and attraction are in order of arrival in their array
-   let hotelIndex = 0;
-   let attractionIndex = 0;
-   const places = [];
-
-   const totalPlaces = stop.hotels.length + stop.attractions.length  ;
-
-   for (let counter = 0; counter < totalPlaces; counter++) {
-
-    if (hotelIndex >= stop.hotels.length && attractionIndex >= stop.attractions.length ) {
-      const minPlace = this.getSmallerArrivalTime(stop.hotels[hotelIndex], stop.attractions[attractionIndex]);
-      if ( minPlace === 'hotel') {
-           places.push(stop.hotels[hotelIndex]);
-           hotelIndex++;
-      } else {
-       places.push(stop.attractions[attractionIndex]);
-       attractionIndex++;
-      }
-    } else {
-       while (hotelIndex < stop.hotels.length) {
-        places.push(stop.hotels[hotelIndex]);
-        hotelIndex++;
-       }
-       while (attractionIndex < stop.attractions.length) {
-        places.push(stop.attractions[attractionIndex]);
-        attractionIndex++;
-       }
-       break;
-    }
+  //  let hotelIndex = 0;
+  //  let attractionIndex = 0;
+  //  const places = [];
+  //
+  //  const totalPlaces = stop.hotels.length + stop.attractions.length  ;
+  //
+  //  for (let counter = 0; counter < totalPlaces; counter++) {
+  //
+  //   if (hotelIndex >= stop.hotels.length && attractionIndex >= stop.attractions.length ) {
+  //     const minPlace = this.getSmallerArrivalTime(stop.hotels[hotelIndex], stop.attractions[attractionIndex]);
+  //     if ( minPlace === 'hotel') {
+  //          places.push(stop.hotels[hotelIndex]);
+  //          hotelIndex++;
+  //     } else {
+  //      places.push(stop.attractions[attractionIndex]);
+  //      attractionIndex++;
+  //     }
+  //   } else {
+  //      while (hotelIndex < stop.hotels.length) {
+  //       places.push(stop.hotels[hotelIndex]);
+  //       hotelIndex++;
+  //      }
+  //      while (attractionIndex < stop.attractions.length) {
+  //       places.push(stop.attractions[attractionIndex]);
+  //       attractionIndex++;
+  //      }
+  //      break;
+  //   }
+  // }
+  //
+  //  return places;
+    return [...stop.hotels, ...stop.attractions]
+      .sort((place1: Place, place2: Place) => {
+        return new Date(place1.arrival) < new Date(place2.arrival) ? -1 : 1;
+      });
   }
 
-   return places;
-  }
 
-
-  getSmallerArrivalTime(hotel, attraction) {
-    if (hotel.arrival < attraction.arrival) {
-      return 'hotel';
-    } else {
-      return 'attraction';
-    }
-  }
+  // getSmallerArrivalTime(hotel, attraction) {
+  //   if (hotel.arrival < attraction.arrival) {
+  //     return 'hotel';
+  //   } else {
+  //     return 'attraction';
+  //   }
+  // }
 
 
   getStopByStopId(stopId): Stop {

@@ -23,8 +23,8 @@ export class AddHotelDetailsComponent implements OnInit {
   arrivalDate: Date;
   departureDate: Date;
   maxDepartureDate: Date;
-  arrivalTime = "00:00 am";
-  departureTime = "00:00 am" ;
+  arrivalTime = '00:00 am';
+  departureTime = '00:00 am' ;
   invalidDepartureTimeError: boolean;
   invalidArrivalTimeError: boolean;
 

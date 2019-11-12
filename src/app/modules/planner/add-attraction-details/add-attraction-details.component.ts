@@ -1,4 +1,4 @@
-import { Component, OnInit ,Inject} from '@angular/core';
+import { Component, OnInit , Inject} from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -24,8 +24,8 @@ export class AddAttractionDetailsComponent implements OnInit {
   departureDate: Date;
   minArrivalDate: Date;
   maxDepartureDate: Date;
-  arrivalTime = "00:00 am";
-  departureTime = "00:00 am" ;
+  arrivalTime = '00:00 am';
+  departureTime = '00:00 am' ;
   invalidDepartureTimeError: boolean;
   invalidMoreArrivalTimeError: boolean;
   invalidLessArrivalTimeError: boolean;
