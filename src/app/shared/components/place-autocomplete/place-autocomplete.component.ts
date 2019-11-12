@@ -126,7 +126,7 @@ export class PlaceAutocompleteComponent implements OnInit {
         'place_id',
         'plus_code',
         'types',
-        'address_component', 
+        'address_component',
         'adr_address',
         'vicinity',
         'url'

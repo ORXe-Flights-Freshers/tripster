@@ -34,7 +34,6 @@ export class HeaderComponent {
 
   constructor(public extraOptions: HeaderDataService) {
     this.windowWidth = window.innerWidth;
-    console.log('Width is: ' + this.windowWidth);
   }
 
   getWidth() {
