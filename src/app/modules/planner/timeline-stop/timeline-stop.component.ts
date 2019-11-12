@@ -11,6 +11,7 @@ import {Stop} from '../../../models/Stop';
 import {TripService} from '../../../services/trip.service';
 import {Hotel} from '../../../models/Hotel';
 import {Attraction} from '../../../models/Attraction';
+import {UtilityService} from '../../../services/utility.service';
 
 interface TimelinePlace {
   id: string;
@@ -72,7 +73,8 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
 
   currentTheme;
 
-  constructor(public tripService: TripService) {
+  constructor(public tripService: TripService,
+              public utilityService: UtilityService) {
     this.currentTheme = this.lightTheme;
   }
 
@@ -185,11 +187,6 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
       outlineRectWidth, 20, this.currentTheme.backgroundColor
     );
 
-    // this.helperCanvas.drawOutlineRect(
-    //   32, this.stopLabelYCoordinate - 10,
-    //   outlineRectWidth, 20, this.currentTheme.color
-    // );
-
     this.helperCanvas.drawRoundedRect(
       32, this.stopLabelYCoordinate - 10,
       outlineRectWidth, 20, 10, this.currentTheme.color
@@ -199,7 +196,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
       this.helperCanvas.writeText(
         this.stop.name, 40, this.stopLabelYCoordinate + 2.5,
         fontSize, this.currentTheme.color,
-        'bold ' + fontSize + 'px Courier New'
+        'bold ' + fontSize + 'px ' + this.helperCanvas.fontFamily
       );
     } else {
       this.helperCanvas.writeText(
@@ -274,19 +271,19 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
 
     if (this.stopType === 'stop') {
       this.helperCanvas.writeText(
-        'Arrival: ' + aDate.toLocaleDateString() + ', ' + aDate.toLocaleTimeString(),
+        'Arrival: ' + this.utilityService.formatDateTime(aDate),
         dateXCoordinate, this.stopLabelYCoordinate - 16, dateFontSize, this.currentTheme.dateColor
       );
       this.helperCanvas.writeText(
-        'Departure: ' + dDate.toLocaleDateString() + ', ' + dDate.toLocaleTimeString(),
+        'Departure: ' + this.utilityService.formatDateTime(dDate),
         dateXCoordinate, this.stopLabelYCoordinate + 21, dateFontSize, this.currentTheme.dateColor
       );
       return;
     }
 
     const displayDate = this.stopType === 'source' ?
-      dDate.toLocaleDateString() + ', ' + dDate.toLocaleTimeString() :
-      aDate.toLocaleDateString() + ', ' + aDate.toLocaleTimeString();
+      this.utilityService.formatDateTime(aDate) :
+      this.utilityService.formatDateTime(dDate);
 
     dateXCoordinate = this.stop.name.length > 12 ? 160 : 140;
 
@@ -322,7 +319,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
         yCoordinate + 12.5,
         8,
         this.currentTheme.color,
-        'bold 10px Courier New'
+        'bold 10px ' + this.helperCanvas.fontFamily
       );
 
       this.renderPlacesMarker(place, yCoordinate);
@@ -362,13 +359,13 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
     const dateXCoordinate = 80;
 
     this.helperCanvas.writeText(
-      'Arrival: ' + aDate.toLocaleDateString() + ', ' + aDate.toLocaleTimeString(),
+      'Arrival: ' + this.utilityService.formatDateTime(aDate),
       dateXCoordinate, yCoordinate,
       dateFontSize, this.currentTheme.dateColor
     );
 
     this.helperCanvas.writeText(
-      'Departure: ' + dDate.toLocaleDateString() + ', ' + dDate.toLocaleTimeString(),
+      'Departure: ' + this.utilityService.formatDateTime(dDate),
       dateXCoordinate, yCoordinate + 25,
       dateFontSize, this.currentTheme.dateColor
     );

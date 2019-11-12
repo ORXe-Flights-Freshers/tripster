@@ -6,7 +6,8 @@ import {
 } from '@angular/material/dialog';
 import { Hotel } from 'src/app/models/Hotel';
 import { TripService } from 'src/app/services/trip.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-hotel-card',
   templateUrl: './hotel-card.component.html',
@@ -51,8 +52,4 @@ export class HotelCardComponent implements OnInit {
       duration: 2000,
     });
   }
-  closeHotelDialog() {
-    this.dialog.closeAll();
-  }
-
 }

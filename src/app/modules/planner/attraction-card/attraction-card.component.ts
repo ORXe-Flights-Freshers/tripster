@@ -5,8 +5,8 @@ import {
 } from '@angular/material/dialog';
 import { Attraction } from 'src/app/models/Attraction';
 import { TripService } from 'src/app/services/trip.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import { AddAttractionDetailsComponent } from '../add-attraction-details/add-attraction-details.component';
+
 @Component({
   selector: 'app-attraction-card',
   templateUrl: './attraction-card.component.html',
@@ -17,8 +17,7 @@ export class AttractionCardComponent implements OnInit {
   @Input() attractionData: Attraction;
 
   constructor(public tripService: TripService,
-              public dialog: MatDialog,
-              private snackBar: MatSnackBar
+              public dialog: MatDialog
   ) {}
 
   ngOnInit() {

@@ -1,9 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-  MatDialogConfig
+  MatDialogRef
 } from '@angular/material/dialog';
 import { TimePickerThemeService } from '../../../services/TimePickerTheme.service';
 import { TripService } from 'src/app/services/trip.service';
