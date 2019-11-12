@@ -61,3 +61,7 @@
   transition-duration: 0.2s;
   cursor: pointer;
 }
+.rating {
+  position: absolute;
+  font-size: 14px;
+}

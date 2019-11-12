@@ -15,6 +15,7 @@ export class TripService {
   waypoints = [];
   waypointsInfo = [];
   placeMarker;
+  mapZoom=9;
   // waypointLocation:location{lat:number,lng:number}[];
 
   directionResult: google.maps.DirectionsResult;
@@ -294,7 +295,19 @@ export class TripService {
 
   showPlaceMarker(place: Place) {
     this.placeMarker = place;
-    // console.log(place);
+    this.mapZoomIn();
+  }
+  mapZoomIn() {
+    const interValZoom = setInterval(() => {
+      if (this.mapZoom <= 15) {
+        this.mapZoom = this.mapZoom + 1 ;           
+          }
+          else
+          {
+            clearInterval(interValZoom);
+          }
+      
+  }, 100);
   }
 
   hidePlaceMarker() {
