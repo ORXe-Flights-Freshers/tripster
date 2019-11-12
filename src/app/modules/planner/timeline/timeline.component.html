@@ -6,19 +6,19 @@
   />
   <div class="timeline-body">
     <span
-      *ngIf="tripService.displayTimeline"
+      *ngIf="tripService?.displayTimeline"
     >
       <app-timeline-stop
-        [stop]="tripService.trip?.source"
+        [stop]="tripService?.trip?.source"
         [stopType]="'source'"
       ></app-timeline-stop>
       <span
-        *ngFor="let stop of tripService.trip?.stops"
+        *ngFor="let stop of tripService?.trip?.stops"
       >
         <app-timeline-stop [stop]="stop"></app-timeline-stop>
       </span>
       <app-timeline-stop
-        [stop]="tripService.trip?.destination"
+        [stop]="tripService?.trip?.destination"
         [stopType]="'destination'"
       ></app-timeline-stop>
     </span>

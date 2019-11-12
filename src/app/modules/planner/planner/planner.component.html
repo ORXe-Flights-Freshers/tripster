@@ -50,11 +50,7 @@
         <span class="btn-separator"></span>
       </div>
 
-      <app-timeline
-        [ngStyle]="{
-          display: navigatorService.activeTab === 'timeline' ? 'block' : 'none'
-        }"
-      ></app-timeline>
+      <app-timeline *ngIf="navigatorService.activeTab === 'timeline'"></app-timeline>
       <app-hotel-card-list *ngIf="navigatorService.activeTab === 'hotel'"></app-hotel-card-list>
       <app-attraction-card-list *ngIf="navigatorService.activeTab === 'attractions'"></app-attraction-card-list>
       <app-expenses *ngIf="navigatorService.activeTab === 'expenses'"></app-expenses>

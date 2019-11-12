@@ -18,7 +18,8 @@ export class SearchComponent implements OnInit {
   destinationValid: boolean;
   isDuplicatePlace: boolean;
   tripDate: Date = new Date(Date.now());
-  tripTime = '11:00 am';
+  tripTime = this.tripDate.getHours().toString() +
+    ':' +  this.tripDate.getMinutes().toString() + ' am';
   vehicleMileage = 22;
   invalidDepartureDateTimeError: boolean;
 
@@ -61,12 +62,7 @@ export class SearchComponent implements OnInit {
     this.validateDateTime();
   }
   validateDateTime() {
-    if (this.tripDate.getTime() < new Date(Date.now()).setSeconds(0)) {
-      this.invalidDepartureDateTimeError = true;
-    }
-    else {
-      this.invalidDepartureDateTimeError = false;
-    }
+    this.invalidDepartureDateTimeError = this.tripDate.getTime() < new Date(Date.now()).setSeconds(0);
     console.log(this.invalidDepartureDateTimeError);
     console.log(this.tripDate);
 
@@ -97,10 +93,12 @@ export class SearchComponent implements OnInit {
     this.tripDate.setHours(time.hours);
     this.tripDate.setMinutes(time.minutes);
     const trip = this.generateTrip();
+    this.tripService.displayTimeline = false;
 
     console.log(trip);
     this.tripService.createTrip(trip).subscribe(data => {
       console.log(data);
+      this.tripService.updateTimeline();
       // this.tripService.trip = data as Trip;
       // @ts-ignore
       this.router.navigate(['/', 'planner', (data as Trip).id]);

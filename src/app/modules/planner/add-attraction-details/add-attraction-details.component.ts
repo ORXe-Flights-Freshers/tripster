@@ -1,9 +1,7 @@
 import { Component, OnInit , Inject} from '@angular/core';
 import {
-  MatDialog,
   MatDialogRef,
-  MAT_DIALOG_DATA,
-  MatDialogConfig
+  MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 import { TimePickerThemeService } from '../../../services/TimePickerTheme.service';
 import { TripService } from 'src/app/services/trip.service';
