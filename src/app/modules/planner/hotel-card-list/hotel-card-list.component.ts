@@ -5,13 +5,29 @@ import { Stop } from 'src/app/models/Stop';
 import { TripService } from 'src/app/services/trip.service';
 import { Hotel } from 'src/app/models/Hotel';
 
+interface HotelResult {
+  hotelId: string;
+  name: string;
+  contact: {
+    address: {
+      line1: string,
+      line2: string
+    }
+  };
+  geoCode: {
+    lat: number,
+    long: number
+  };
+  rating: number;
+}
+
 @Component({
   selector: 'app-hotel-card-list',
   templateUrl: './hotel-card-list.component.html',
   styleUrls: ['./hotel-card-list.component.css']
 })
 export class HotelCardListComponent implements OnInit {
-  arrHotels;
+  arrHotels: HotelResult[];
   stopIdOfHotel: string;
   chosenCity: string;
   displayLoader: boolean;
@@ -20,7 +36,6 @@ export class HotelCardListComponent implements OnInit {
     private httpService: HttpClient,
     public tripService: TripService
   ) {
-    // console.log(tripService.trip);
     this.displayLoader = false;
   }
 
@@ -49,14 +64,12 @@ export class HotelCardListComponent implements OnInit {
         console.log(hotelsApiEndpoint.ipObj.ip);
 
         // Production Data Link
-
         const hotelsApiUrl = 'http://' + hotelsApiEndpoint.ipObj.ip + '/api/hotels/';
 
         // Mock Data Link
-
-        // const hotelsApiUrl = "https://hotel-mock.s3.us-east-2.amazonaws.com/hotel.json";
-          // const hotelsApiUrl =
-          // "http://172.16.5.159:5000/api/hotels/";
+        // const hotelsApiUrl = 'https://hotel-mock.s3.us-east-2.amazonaws.com/hotel.json';
+        // const hotelsApiUrl =
+        // 'http://172.16.5.159:5000/api/hotels/';
 
         this.httpService
           .get(
@@ -81,11 +94,9 @@ export class HotelCardListComponent implements OnInit {
       });
   }
 
-  getHotelData(hotelDataApi) {
-  //  console.log(hotelDataApi);
-
+  getHotelData(hotelDataApi: HotelResult) {
     const hotelData: Hotel = {
-      placeId: hotelDataApi.id,
+      placeId: hotelDataApi.hotelId,
       name: hotelDataApi.name,
       description:
         hotelDataApi.contact.address.line1 +
