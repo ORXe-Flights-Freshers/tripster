@@ -9,22 +9,30 @@
       [agmFitBounds]="true"
       [latitude]="tripService?.trip?.source.location.latitude"
       [longitude]="tripService?.trip?.source.location.longitude"
+      (mouseOver)="showPlaceInfoWindow(sourcePlaceInfoWindow)"
+      (mouseOut)="hidePlaceInfoWindow(sourcePlaceInfoWindow)"
     >
-    <agm-info-window>{{tripService?.trip?.source.name}}</agm-info-window>
+    <agm-info-window #sourcePlaceInfoWindow>{{tripService?.trip?.source.name}}</agm-info-window>
   </agm-marker>
     <agm-marker
       *ngIf="tripService?.trip?.destination"
       [agmFitBounds]="true"
       [latitude]="tripService?.trip?.destination.location.latitude"
       [longitude]="tripService?.trip?.destination.location.longitude"
-    ></agm-marker>
+      (mouseOver)="showPlaceInfoWindow(destinationPlaceInfoWindow)"
+      (mouseOut)="hidePlaceInfoWindow(destinationPlaceInfoWindow)"
+    >
+    <agm-info-window #destinationPlaceInfoWindow>{{tripService?.trip?.destination.name}}</agm-info-window>
+  </agm-marker>
     <agm-marker
       *ngFor="let stop of tripService?.waypoints;let i = index"
       [latitude]="stop.location.lat"
       [longitude]="stop.location.lng"
       [iconUrl]="stopIconUrl"
+      (mouseOver)="showPlaceInfoWindow(placeInfoWindow)"
+      (mouseOut)="hidePlaceInfoWindow(placeInfoWindow)"
     >
-    <agm-info-window>{{tripService?.waypointsInfo[i].name}}</agm-info-window>
+    <agm-info-window #placeInfoWindow>{{tripService?.waypointsInfo[i].name}}</agm-info-window>
     </agm-marker>
 
     <agm-marker

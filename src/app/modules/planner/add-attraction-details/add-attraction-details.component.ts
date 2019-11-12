@@ -1,4 +1,4 @@
-import { Component, OnInit ,Inject } from '@angular/core';
+import { Component, OnInit , Inject} from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -24,8 +24,8 @@ export class AddAttractionDetailsComponent implements OnInit {
   departureDate: Date;
   minArrivalDate: Date;
   maxDepartureDate: Date;
-  arrivalTime = "00:00 am";
-  departureTime = "00:00 am" ;
+  arrivalTime = '00:00 am';
+  departureTime = '00:00 am' ;
   invalidDepartureTimeError: boolean;
   invalidMoreArrivalTimeError: boolean;
   invalidLessArrivalTimeError: boolean;
@@ -38,9 +38,9 @@ export class AddAttractionDetailsComponent implements OnInit {
     public timePickerThemeService: TimePickerThemeService,
     @Inject(MAT_DIALOG_DATA) data
   ) {
-      console.log(data);
       this.attractionData = data.attractionData;
-      this.stopIdOfAttraction = data.stopIdOfAttraction; }
+      this.stopIdOfAttraction = data.stopIdOfAttraction;
+  }
 
   ngOnInit() {
     this.arrivalDate = new Date(this.getMinDate());
@@ -62,9 +62,9 @@ export class AddAttractionDetailsComponent implements OnInit {
   }
   handleDepartureTimeSet(time: string) {
     this.departureTime = time;
-    const newdeparturetime = Time.parseTimeStringToTime(this.departureTime);
-    this.departureDate.setHours(newdeparturetime.hours);
-    this.departureDate.setMinutes(newdeparturetime.minutes);
+    const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
+    this.departureDate.setHours(newDepartureTime.hours);
+    this.departureDate.setMinutes(newDepartureTime.minutes);
     this.validateDateTime();
   }
   getMinDate() {
@@ -79,35 +79,23 @@ export class AddAttractionDetailsComponent implements OnInit {
   }
   handleArrivalDateSet(date) {
     this.arrivalDate = new Date(date.value);
-    const newArrivaltime = Time.parseTimeStringToTime(this.arrivalTime);
-    this.arrivalDate.setHours(newArrivaltime.hours);
-    this.arrivalDate.setMinutes(newArrivaltime.minutes);
+    const newArrivalTime = Time.parseTimeStringToTime(this.arrivalTime);
+    this.arrivalDate.setHours(newArrivalTime.hours);
+    this.arrivalDate.setMinutes(newArrivalTime.minutes);
     this.validateDateTime();
   }
   handleDepartureDateSet(date) {
     this.departureDate = new Date(date.value);
-    const newDeparturetime = Time.parseTimeStringToTime(this.departureTime);
-    this.departureDate.setHours(newDeparturetime.hours);
-    this.departureDate.setMinutes(newDeparturetime.minutes);
+    const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
+    this.departureDate.setHours(newDepartureTime.hours);
+    this.departureDate.setMinutes(newDepartureTime.minutes);
     this.validateDateTime();
   }
 
   validateDateTime() {
-    if (this.departureDate < this.arrivalDate) {
-      this.invalidMoreArrivalTimeError = true;
-    } else {
-      this.invalidMoreArrivalTimeError = false;
-    }
-    if (this.departureDate > this.maxDepartureDate) {
-      this.invalidDepartureTimeError = true;
-    } else {
-      this.invalidDepartureTimeError = false;
-    }
-    if (this.arrivalDate.getTime() < this.minArrivalDate.getTime()) {
-      this.invalidLessArrivalTimeError = true;
-    } else {
-      this.invalidLessArrivalTimeError = false;
-    }
+    this.invalidMoreArrivalTimeError = this.departureDate < this.arrivalDate;
+    this.invalidDepartureTimeError = this.departureDate > this.maxDepartureDate;
+    this.invalidLessArrivalTimeError = this.arrivalDate.getTime() < this.minArrivalDate.getTime();
     // if (this.arrivalDate > this.departureDate) {
     //    this.invalidMoreArrivalTimeErrorDepart = true;
     // } else {

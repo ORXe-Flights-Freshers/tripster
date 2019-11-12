@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import { Trip } from '../models/Trip';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -13,19 +13,26 @@ export class TripService {
   trip: Trip;
   // tripSubject = new Subject<Trip>();
   waypoints = [];
-  waypointsInfo=[];
+  waypointsInfo = [];
   placeMarker;
   // waypointLocation:location{lat:number,lng:number}[];
+
   directionResult: google.maps.DirectionsResult;
 
-  doDisplayHotels = false;
-  doDisplayAttractions = false;
-  constructor(private http: HttpClient, private route: Router) {}
+  displayTimeline = false;
+  timelinePauseTime = 100;
+
+  constructor(private http: HttpClient,
+              private route: Router
+  ) {}
 
   createTrip(trip: Trip) {
     this.trip = trip;
+    this.displayTimeline = true;
+
     // this.tripSubject.next(trip);
     // console.log("trip.service", trip);
+
     return this.http.post('http://3.14.69.62:5001/api/trip', trip);
   }
   getTrip(tripId) {
@@ -34,6 +41,8 @@ export class TripService {
       data => {
         this.trip = data as Trip;
         this.updateWaypoints();
+
+        this.updateTimeline();
         // this.tripSubject.next(this.trip);
       },
       error => {
@@ -88,8 +97,6 @@ export class TripService {
     {
       const previousLocation = this.getPreviousLocation();
       const previousDeparture = new Date(previousLocation.departure);
-      console.log(directionResult);
-      console.log(this.trip.stops);
 
       previousDeparture.setSeconds(
         previousDeparture.getSeconds() +
@@ -99,10 +106,7 @@ export class TripService {
       );
       this.trip.destination.arrival = previousDeparture.toString();
       this.trip.destination.departure = previousDeparture.toString();
-      this.updateTrip(this.trip).subscribe(response => {
-        // console.log(response);
-        });
-      console.log(this.trip.destination.arrival);
+      this.updateTrip(this.trip).subscribe();
     }
 
   }
@@ -117,29 +121,21 @@ export class TripService {
   }
 
   addStopToTrip(stop): string {
-        this.trip.stops.push(stop);
-        // this.tripSubject.next(this.trip);
-        // console.log(this.trip.stops);
-        this.updateWaypoints();
-        this.updateTrip(this.trip).subscribe(response => {
-        //   console.log(response);
-         });
-        return 'success';
-     }
-
-  removeStopFromTrip(i: number): string {
-    // console.log(this.trip.stops);
-    this.trip.stops.splice(i, 1);
+    this.displayTimeline = false;
+    this.trip.stops.push(stop);
     // this.tripSubject.next(this.trip);
     this.updateWaypoints();
-    this.updateTrip(this.trip).subscribe(response => {
-    // console.log(response);
-    });
+    this.updateTrip(this.trip).subscribe();
+
+    this.updateTimeline();
     return 'success';
-  }
+   }
 
   addHotelToTrip(hotelData, stopIdOfHotel) {
-   if (stopIdOfHotel === this.trip.destination.stopId) {
+
+    this.displayTimeline = false;
+
+    if (stopIdOfHotel === this.trip.destination.stopId) {
       this.trip.destination.hotels.push(hotelData);
     } else {
       for (const stop of this.trip.stops) {
@@ -149,8 +145,10 @@ export class TripService {
         }
       }
     }
-   this.updateWaypoints();
-   this.updateTrip(this.trip).subscribe(response => {});
+
+    this.updateTimeline();
+    this.updateWaypoints();
+    this.updateTrip(this.trip).subscribe(response => {});
   }
 
   addAttractionToTrip(attractionData, stopIdOfAttraction) {
@@ -173,7 +171,10 @@ export class TripService {
         }
       }
     }
-     console.log(this.trip);
+
+     // this.tripSubject.next(this.trip);
+
+     this.updateTimeline();
      this.updateWaypoints();
      this.updateTrip(this.trip).subscribe(response => {});
   }
@@ -224,7 +225,7 @@ export class TripService {
           lng: place.location.longitude
         }
       });
-      waypointsInfo.push({name:place.name});
+      waypointsInfo.push({name: place.name});
     }
 
     this.waypoints = waypointsLocations;
@@ -234,47 +235,51 @@ export class TripService {
   getPlacesInOrder(stop: Stop) {
    // Returns array of places containing hotels and attractions in order of arrival time
    // Assuming hotels and attraction are in order of arrival in their array
-   let hotelIndex = 0;
-   let attractionIndex = 0;
-   const places = [];
-
-   const totalPlaces = stop.hotels.length + stop.attractions.length  ;
-
-   for (let counter = 0; counter < totalPlaces; counter++) {
-
-    if (hotelIndex >= stop.hotels.length && attractionIndex >= stop.attractions.length ) {
-      const minPlace = this.getSmallerArrivalTime(stop.hotels[hotelIndex], stop.attractions[attractionIndex]);
-      if ( minPlace === 'hotel') {
-           places.push(stop.hotels[hotelIndex]);
-           hotelIndex++;
-      } else {
-       places.push(stop.attractions[attractionIndex]);
-       attractionIndex++;
-      }
-    } else {
-       while (hotelIndex < stop.hotels.length) {
-        places.push(stop.hotels[hotelIndex]);
-        hotelIndex++;
-       }
-       while (attractionIndex < stop.attractions.length) {
-        places.push(stop.attractions[attractionIndex]);
-        attractionIndex++;
-       }
-       break;
-    }
+  //  let hotelIndex = 0;
+  //  let attractionIndex = 0;
+  //  const places = [];
+  //
+  //  const totalPlaces = stop.hotels.length + stop.attractions.length  ;
+  //
+  //  for (let counter = 0; counter < totalPlaces; counter++) {
+  //
+  //   if (hotelIndex >= stop.hotels.length && attractionIndex >= stop.attractions.length ) {
+  //     const minPlace = this.getSmallerArrivalTime(stop.hotels[hotelIndex], stop.attractions[attractionIndex]);
+  //     if ( minPlace === 'hotel') {
+  //          places.push(stop.hotels[hotelIndex]);
+  //          hotelIndex++;
+  //     } else {
+  //      places.push(stop.attractions[attractionIndex]);
+  //      attractionIndex++;
+  //     }
+  //   } else {
+  //      while (hotelIndex < stop.hotels.length) {
+  //       places.push(stop.hotels[hotelIndex]);
+  //       hotelIndex++;
+  //      }
+  //      while (attractionIndex < stop.attractions.length) {
+  //       places.push(stop.attractions[attractionIndex]);
+  //       attractionIndex++;
+  //      }
+  //      break;
+  //   }
+  // }
+  //
+  //  return places;
+    return [...stop.hotels, ...stop.attractions]
+      .sort((place1: Place, place2: Place) => {
+        return new Date(place1.arrival) < new Date(place2.arrival) ? -1 : 1;
+      });
   }
 
-   return places;
-  }
 
-
-  getSmallerArrivalTime(hotel, attraction) {
-    if (hotel.arrival < attraction.arrival) {
-      return 'hotel';
-    } else {
-      return 'attraction';
-    }
-  }
+  // getSmallerArrivalTime(hotel, attraction) {
+  //   if (hotel.arrival < attraction.arrival) {
+  //     return 'hotel';
+  //   } else {
+  //     return 'attraction';
+  //   }
+  // }
 
 
   getStopByStopId(stopId): Stop {
@@ -287,6 +292,7 @@ export class TripService {
     return null;
   }
 
+
   showPlaceMarker(place: Place){
     this.placeMarker = place;
     // console.log(place);
@@ -295,8 +301,83 @@ export class TripService {
     this.placeMarker = undefined;
   }
 
-  updateTimeInTrip() {
+  addTimeInTrip(timeToChange, stopId) {
+
+
 
   }
 
+  getStopIndexByStopId(stopId){
+    let index = 0;
+    for (const stop of this.trip.stops) {
+      if (stopId === stop.stopId) {
+        return index;
+      } else {
+        index++;
+      }
+    }
+  }
+
+  removeStopFromTrip(stopId: string): string {
+    const stops = [];
+    this.displayTimeline = false;
+
+    this.trip.stops.forEach((stop: Stop) => {
+      if (stop.stopId !== stopId) {
+        stops.push(stop);
+      }
+    });
+
+    this.trip.stops = stops;
+
+    this.updateTimeline();
+    this.updateWaypoints();
+    this.updateTrip(this.trip).subscribe();
+    return 'success';
+  }
+
+  editSourceOrDestination(stop: Stop, sourceOrDestination: string) {
+    console.log(`Edited ${sourceOrDestination}...`);
+  }
+
+  deletePlaceFromStop(stopId: string, placeId: string, placeType: string) {
+    this.displayTimeline = false;
+
+    for (const stop of [this.trip.source, ...this.trip.stops, this.trip.destination]) {
+      if (stop.stopId === stopId) {
+        if (placeType === 'hotel') {
+          const hotels = [];
+          for (const hotel of stop.hotels) {
+            if (hotel.placeId !== placeId) {
+              hotels.push(hotel);
+            }
+          }
+          stop.hotels = hotels;
+        } else if (placeType === 'attraction') {
+          const attractions = [];
+          for (const attraction of stop.attractions) {
+            if (attraction.placeId !== placeId) {
+              attractions.push(attraction);
+            }
+          }
+          stop.attractions = attractions;
+        }
+        break;
+      }
+    }
+
+    this.updateTimeline();
+    this.updateWaypoints();
+    this.updateTrip(this.trip).subscribe();
+  }
+
+  updateTimeline(): void {
+    setTimeout(() => {
+      this.displayTimeline = true;
+    }, this.timelinePauseTime);
+  }
+
+  getRandomUrl(): string {
+    return 'assets/images/hotel.jpg';
+  }
 }
