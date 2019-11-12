@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TripService } from 'src/app/services/trip.service';
 import { Trip } from 'src/app/models/Trip';
 import { take } from 'rxjs/operators';
+import { InfoWindow } from '@agm/core/services/google-maps-types';
 
 @Component({
   selector: 'app-map',
@@ -19,4 +20,12 @@ export class MapComponent implements OnInit {
   stopIconUrl = 'http://maps.gstatic.com/mapfiles/markers2/icon_green.png';
 
   ngOnInit() {}
+  showPlaceInfoWindow(placeInfoWindow:InfoWindow)
+  {
+    placeInfoWindow.open();
+  }
+  hidePlaceInfoWindow(placeInfoWindow:InfoWindow)
+  {
+    placeInfoWindow.close();
+  }
 }
