@@ -13,7 +13,7 @@ export class MapComponent implements OnInit {
 
   constructor(public tripService: TripService) {
     // console.log(this.tripService.trip);
-    this.isLoading = true;
+    // this.isLoading = true;
   }
   origin;
   destination;
@@ -38,18 +38,18 @@ export class MapComponent implements OnInit {
       //   label: "sabk"
       // }
     };
-    this.tripService.tripSubject.pipe(take(1)).subscribe((trip: Trip) => {
-      // this.tripService.updateWaypoints();
-      this.origin = {
-        lat: this.tripService.trip.source.location.latitude,
-        lng: this.tripService.trip.source.location.longitude
-      };
-      this.destination = {
-        lat: this.tripService.trip.destination.location.latitude,
-        lng: this.tripService.trip.destination.location.longitude
-      };
+    // this.tripService.tripSubject.pipe(take(1)).subscribe((trip: Trip) => {
+    //   // this.tripService.updateWaypoints();
+    //   this.origin = {
+    //     lat: this.tripService.trip.source.location.latitude,
+    //     lng: this.tripService.trip.source.location.longitude
+    //   };
+    //   this.destination = {
+    //     lat: this.tripService.trip.destination.location.latitude,
+    //     lng: this.tripService.trip.destination.location.longitude
+    //   };
 
-      this.isLoading = false;
-    });
+    // this.isLoading = false;
+    // });
   }
 }

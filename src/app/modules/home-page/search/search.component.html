@@ -62,7 +62,7 @@
         type="submit"
         mat-raised-button
         color="primary"
-        [disabled]="!sourceValid || !destinationValid || isDuplicatePlace"
+        [disabled]="!sourceValid || !destinationValid || isDuplicatePlace || invalidDepartureDateTimeError"
       >
         Go
       </button>
@@ -86,5 +86,9 @@
     <p style="color: red;" *ngIf="isDuplicatePlace">
       Source and Destination cannot be same
     </p>
+    <p style="color: red;" *ngIf="invalidDepartureDateTimeError">
+        Time can't be less than current time.
+    </p>
+    
   </mat-card>
 </form>

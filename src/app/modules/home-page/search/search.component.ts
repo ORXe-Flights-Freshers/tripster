@@ -20,6 +20,7 @@ export class SearchComponent implements OnInit {
   tripDate: Date = new Date(Date.now());
   tripTime = '11:00 am';
   vehicleMileage = 22;
+  invalidDepartureDateTimeError: boolean;
 
   searchForm = new FormGroup({
     mileage: new FormControl(this.vehicleMileage, [
@@ -50,9 +51,28 @@ export class SearchComponent implements OnInit {
   }
   handleTimeSet(time: string) {
     this.tripTime = time;
+    this.setTripDateTime();
+    this.validateDateTime();
   }
+ 
   handleDateSet(date) {
     this.tripDate = new Date(date.value);
+    this.setTripDateTime();
+    this.validateDateTime();
+  }
+  validateDateTime() {
+    if(this.tripDate.getTime() < new Date(Date.now()).setSeconds(0))
+      this.invalidDepartureDateTimeError=true;
+    else
+      this.invalidDepartureDateTimeError=false;
+    console.log(this.invalidDepartureDateTimeError);
+    console.log(this.tripDate);
+    
+  }
+  setTripDateTime() {
+    const newTripTime = Time.parseTimeStringToTime(this.tripTime);
+    this.tripDate.setHours(newTripTime.hours);
+    this.tripDate.setMinutes(newTripTime.minutes);
   }
   getMinDate() {
     return new Date(Date.now());
@@ -69,6 +89,7 @@ export class SearchComponent implements OnInit {
     }
     this.changeDetectRef.detectChanges();
   }
+  
   onSubmit() {
     const time = Time.parseTimeStringToTime(this.tripTime);
     this.tripDate.setHours(time.hours);
