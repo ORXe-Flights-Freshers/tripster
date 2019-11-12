@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MatSnackBar, MatButton } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -26,8 +26,12 @@ export class ShareTripComponent implements OnInit {
     ])
   });
 
-  share() {
+  share(shareBtn:MatButton) {
+    // console.log(shareBtn);
+    shareBtn.disabled = true;
+    shareBtn._elementRef.nativeElement.textContent="Sending...";
     let email = this.shareTripForm.controls['email'].value;
+    
     this.http.post(this.mailServerLink,{
       to:[email],
       subject:this.subject,
