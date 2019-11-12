@@ -26,6 +26,15 @@
     >
     <agm-info-window>{{tripService?.waypointsInfo[i].name}}</agm-info-window>
     </agm-marker>
+
+    <agm-marker
+      *ngIf="tripService?.placeMarker"
+      [latitude]="tripService?.placeMarker.location.latitude"
+      [longitude]="tripService?.placeMarker.location.longitude"
+      [iconUrl]="stopIconUrl"
+    >
+    <agm-info-window [isOpen]="true">{{tripService?.placeMarker.name}}</agm-info-window>
+    </agm-marker>
     <agm-direction
       *ngIf="tripService?.trip?.source && tripService?.trip?.destination"
       [origin]="{

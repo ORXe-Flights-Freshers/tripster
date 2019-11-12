@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Stop } from '../models/Stop';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Place } from '../models/Place';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class TripService {
   // tripSubject = new Subject<Trip>();
   waypoints = [];
   waypointsInfo=[];
+  placeMarker;
   // waypointLocation:location{lat:number,lng:number}[];
   directionResult: google.maps.DirectionsResult;
 
@@ -283,6 +285,14 @@ export class TripService {
       }
     }
     return null;
+  }
+
+  showPlaceMarker(place:Place){
+    this.placeMarker = place;
+    // console.log(place);
+  }
+  hidePlaceMarker(){
+    this.placeMarker=undefined;
   }
 
 }
