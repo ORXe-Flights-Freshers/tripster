@@ -69,16 +69,6 @@ export class TimelineComponent implements OnInit {
    return responseMessage === 'success';
   }
 
-  closeStopDialog() {
-    this.dialog.closeAll();
-  }
-
-  getEmailString() {
-    return (
-      'mailto:?Subject=Shared RoadTrip from Tripster&body=Hey, Here is the shareable link for the roadtrip : http://3.14.69.62:82' +
-      this.router.url
-    );
-  }
   getNavigationUrl() {
     let url = '';
     if (this.tripService.trip) {

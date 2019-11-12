@@ -12,7 +12,6 @@ import { AddStopComponent } from './add-stop/add-stop.component';
 import { HotelCardComponent } from './hotel-card/hotel-card.component';
 import { HotelCardListComponent } from './hotel-card-list/hotel-card-list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatIconModule, MatProgressSpinnerModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddHotelDetailsComponent } from './add-hotel-details/add-hotel-details.component';
 import { AttractionCardListComponent } from './attraction-card-list/attraction-card-list.component';
@@ -61,9 +60,7 @@ const routes: Routes = [
     AgmDirectionModule,
     AppMaterialModule,
     AgmCoreModule,
-    MatIconModule,
     FlexLayoutModule,
-    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule
   ],

@@ -33,16 +33,16 @@ export class TripService {
 
     // this.tripSubject.next(trip);
     // console.log("trip.service", trip);
-
+    this.updateTimeline();
     return this.http.post('http://3.14.69.62:5001/api/trip', trip);
   }
   getTrip(tripId) {
     console.log(tripId);
+    this.displayTimeline = false;
     this.http.get('http://3.14.69.62:5001/api/trip/' + tripId).subscribe(
       data => {
         this.trip = data as Trip;
         this.updateWaypoints();
-
         this.updateTimeline();
         // this.tripSubject.next(this.trip);
       },
@@ -71,6 +71,7 @@ export class TripService {
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     this.directionResult = directionResult;
+    this.displayTimeline = false;
 
     if (this.trip.stops.length !== 0) {
       this.trip.stops.forEach((stop, index) => {
@@ -107,6 +108,7 @@ export class TripService {
       );
       this.trip.destination.arrival = previousDeparture.toString();
       this.trip.destination.departure = previousDeparture.toString();
+      this.updateTimeline();
       this.updateTrip(this.trip).subscribe();
     }
 

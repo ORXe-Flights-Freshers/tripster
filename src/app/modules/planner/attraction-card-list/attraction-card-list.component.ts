@@ -1,10 +1,21 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Stop } from 'src/app/models/Stop';
 import { Attraction } from 'src/app/models/Attraction';
 import { TripService } from 'src/app/services/trip.service';
-import { MapsAPILoader } from '@agm/core';
+
+
+interface AttractionResult {
+  name: string;
+  attractionId: string;
+  description: string;
+  rating: number;
+  imageUrl: string;
+  location: {
+    lat: number,
+    lng: number
+  };
+}
 
 @Component({
   selector: 'app-attraction-card-list',
@@ -12,17 +23,7 @@ import { MapsAPILoader } from '@agm/core';
   styleUrls: ['./attraction-card-list.component.css']
 })
 export class AttractionCardListComponent implements OnInit {
-  arrAttractions: {
-    name: string,
-    attractionId: string,
-    description: string,
-    rating: number,
-    imageUrl: string,
-    location: {
-      lat: number,
-      lng: number
-    }
-  }[] = [];
+  arrAttractions: AttractionResult[] = [];
   stopIdOfAttraction: string;
   chosenCity: string;
   displayLoader: boolean;
@@ -80,10 +81,10 @@ export class AttractionCardListComponent implements OnInit {
   }
 
 
-  getAttractionData(attractionDataApi) {
+  getAttractionData(attractionDataApi: AttractionResult) {
 
       const attractionData: Attraction = {
-        placeId: attractionDataApi.id,
+        placeId: attractionDataApi.attractionId,
         name: attractionDataApi.name,
         description: attractionDataApi.description,
         location: {
