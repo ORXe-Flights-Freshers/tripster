@@ -54,20 +54,22 @@ export class SearchComponent implements OnInit {
     this.setTripDateTime();
     this.validateDateTime();
   }
- 
+
   handleDateSet(date) {
     this.tripDate = new Date(date.value);
     this.setTripDateTime();
     this.validateDateTime();
   }
   validateDateTime() {
-    if(this.tripDate.getTime() < new Date(Date.now()).setSeconds(0))
-      this.invalidDepartureDateTimeError=true;
-    else
-      this.invalidDepartureDateTimeError=false;
+    if (this.tripDate.getTime() < new Date(Date.now()).setSeconds(0)) {
+      this.invalidDepartureDateTimeError = true;
+    }
+    else {
+      this.invalidDepartureDateTimeError = false;
+    }
     console.log(this.invalidDepartureDateTimeError);
     console.log(this.tripDate);
-    
+
   }
   setTripDateTime() {
     const newTripTime = Time.parseTimeStringToTime(this.tripTime);
@@ -89,7 +91,7 @@ export class SearchComponent implements OnInit {
     }
     this.changeDetectRef.detectChanges();
   }
-  
+
   onSubmit() {
     const time = Time.parseTimeStringToTime(this.tripTime);
     this.tripDate.setHours(time.hours);

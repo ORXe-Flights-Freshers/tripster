@@ -4,76 +4,24 @@
     rel="stylesheet"
     type="text/css"
   />
-  <div class="history-tl-container">
-    <ul class="tl">
-      <li class="tl-item" *ngIf="tripService?.trip?.source">
-        <div class="item-title">{{ tripService.trip.source.name }}</div>
-        <div class="timestamp">
-          {{ tripService.trip.source.departure | date: "MMM d, y, h:mm a" }}
-        </div>
-        <div class="delete-icon">
-          <mat-icon matSuffix>edit</mat-icon>
-        </div>
-        <br /><br />
-        <ul style="padding-left: 0%;">
-          <li
-            id="hotels"
-            *ngFor="let hotel of tripService?.trip?.source.hotels"
-          >
-            <div class="item-title">{{ hotel.name }}</div>
-            <div class="timestamp">
-              {{ hotel.arrival | date: "MMM d, y, h:mm a" }}
-            </div>
-          </li>
-        </ul>
-      </li>
-
-      <li
-        class="tl-item"
-        *ngFor="let stop of tripService?.trip?.stops; let i = index"
+  <div class="timeline-body">
+    <span
+      *ngIf="tripService.displayTimeline"
+    >
+      <app-timeline-stop
+        [stop]="tripService.trip?.source"
+        [stopType]="'source'"
+      ></app-timeline-stop>
+      <span
+        *ngFor="let stop of tripService.trip?.stops"
       >
-        <div class="item-title">{{ stop.name }}</div>
-        <div class="timestamp">
-          {{ stop.arrival | date: "MMM d, y, h:mm a" }}
-        </div>
-        <div class="delete-icon">
-          <button id="delbutton" (click)="deleteStop(i)">
-            <mat-icon matSuffix>delete</mat-icon>
-          </button>
-        </div>
-        <br /><br />
-        <ul style="padding-left: 0%;">
-          <li id="hotels" *ngFor="let hotel of stop.hotels">
-            <div class="item-title">{{ hotel.name }}</div>
-            <div class="timestamp">
-              {{ hotel.arrival | date: "MMM d, y, h:mm a" }}
-            </div>
-          </li>
-        </ul>
-      </li>
-
-      <li class="tl-item" *ngIf="tripService?.trip?.destination">
-        <div class="item-title">{{ tripService.trip.destination.name }}</div>
-        <div class="timestamp">
-          {{ tripService.trip.destination.arrival | date: "MMM d, y, h:mm a" }}
-        </div>
-        <div class="delete-icon">
-          <mat-icon matSuffix>edit</mat-icon>
-        </div>
-        <br /><br />
-        <ul style="padding-left: 0%;">
-          <li
-            id="hotels"
-            *ngFor="let hotel of tripService?.trip?.destination.hotels"
-          >
-            <div class="item-title">{{ hotel.name }}</div>
-            <div class="timestamp">
-              {{ hotel.arrival | date: "MMM d, y, h:mm a" }}
-            </div>
-          </li>
-        </ul>
-      </li>
-    </ul>
+        <app-timeline-stop [stop]="stop"></app-timeline-stop>
+      </span>
+      <app-timeline-stop
+        [stop]="tripService.trip?.destination"
+        [stopType]="'destination'"
+      ></app-timeline-stop>
+    </span>
   </div>
 
   <div class="footer-nav">

@@ -16,8 +16,16 @@
     </mat-form-field>
     <div>
     <button mat-raised-button color="primary" id="copy-btn" (click)="copyShareableLink()">Copy Shareable Link</button>
-    <button mat-raised-button type="submit" id="share-btn" 
-    [disabled]="!shareTripForm.valid"
-    color="primary" (click)="share()">Share</button>  
+
+    <button
+      mat-raised-button
+      type="submit"
+      id="share-btn"
+      [disabled]="!shareTripForm.valid"
+      color="primary"
+      (click)="share()"
+    >
+      Share
+    </button>
 </div>
 </form>

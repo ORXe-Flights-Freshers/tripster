@@ -23,8 +23,8 @@ export class AddHotelDetailsComponent implements OnInit {
   arrivalDate: Date;
   departureDate: Date;
   maxDepartureDate: Date;
-  arrivalTime = "00:00 am";
-  departureTime = "00:00 am" ;
+  arrivalTime = '00:00 am';
+  departureTime = '00:00 am' ;
   invalidDepartureTimeError: boolean;
   invalidArrivalTimeError: boolean;
   invalidSameTimeError: boolean;
@@ -37,7 +37,6 @@ export class AddHotelDetailsComponent implements OnInit {
     public timePickerThemeService: TimePickerThemeService,
     @Inject(MAT_DIALOG_DATA) data
   ) {
-    console.log(data);
     this.hotelData = data.hotelData;
     this.stopIdOfHotel = data.stopIdOfHotel;
   }
@@ -61,9 +60,9 @@ export class AddHotelDetailsComponent implements OnInit {
   }
   handleDepartureTimeSet(time: string) {
     this.departureTime = time;
-    const newdeparturetime = Time.parseTimeStringToTime(this.departureTime);
-    this.departureDate.setHours(newdeparturetime.hours);
-    this.departureDate.setMinutes(newdeparturetime.minutes);
+    const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
+    this.departureDate.setHours(newDepartureTime.hours);
+    this.departureDate.setMinutes(newDepartureTime.minutes);
     this.validateDateTime();
   }
   getMinDate() {
@@ -85,32 +84,16 @@ export class AddHotelDetailsComponent implements OnInit {
   }
   handleDepartureDateSet(date) {
     this.departureDate = new Date(date.value);
-    if (this.departureTime === '00:00 am' ) {
-     this.departureTime = this.departureDate.getHours().toString() +
-        ':' +  this.departureDate.getMinutes().toString() + ' am';
-    }
-    const newDeparturetime = Time.parseTimeStringToTime(this.departureTime);
-    this.departureDate.setHours(newDeparturetime.hours);
-    this.departureDate.setMinutes(newDeparturetime.minutes);
+    const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
+    this.departureDate.setHours(newDepartureTime.hours);
+    this.departureDate.setMinutes(newDepartureTime.minutes);
     this.validateDateTime();
   }
 
   validateDateTime() {
-    if (this.departureDate < this.arrivalDate) {
-      this.invalidArrivalTimeError = true;
-    } else {
-      this.invalidArrivalTimeError = false;
-    }
-    if (this.departureDate > this.maxDepartureDate) {
-      this.invalidDepartureTimeError = true;
-    } else {
-      this.invalidDepartureTimeError = false;
-    }
-    if (this.departureDate.getTime() === this.arrivalDate.getTime()) {
-      this.invalidSameTimeError = true;
-    } else {
-      this.invalidSameTimeError = false;
-    }
+    this.invalidArrivalTimeError = this.departureDate < this.arrivalDate;
+    this.invalidDepartureTimeError = this.departureDate > this.maxDepartureDate;
+    this.invalidSameTimeError = this.departureDate.getTime() === this.arrivalDate.getTime();
   }
 
   closeHotelDialog() {
@@ -121,6 +104,8 @@ export class AddHotelDetailsComponent implements OnInit {
     this.navigatorService.activeTab = 'timeline';
     this.hotelData.arrival = this.arrivalDate.toString();
     this.hotelData.departure = this.departureDate.toString();
+    // console.log('Departure Date: ' + this.departureDate);
+    // console.log('Hotel Data Departure Date: ' + this.hotelData.departure);
 
     this.dialogRef.close(this.hotelData);
   }
