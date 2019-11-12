@@ -313,7 +313,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
 
     for (const place of this.places) {
       this.helperCanvas.drawOutlineRect(
-        40, yCoordinate - 10, 150, 40, '#ccc'
+        40, yCoordinate - 10, 180, 40, '#ccc'
       );
 
       this.helperCanvas.writeText(

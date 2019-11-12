@@ -33,7 +33,6 @@ export class AttractionCardListComponent implements OnInit {
     public tripService: TripService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
-    console.log(tripService.trip);
     this.displayLoader = false;
   }
   ngOnInit() {
@@ -82,7 +81,6 @@ export class AttractionCardListComponent implements OnInit {
 
 
   getAttractionData(attractionDataApi) {
-    //  console.log(attractionDataApi);
 
       const attractionData: Attraction = {
         placeId: attractionDataApi.id,

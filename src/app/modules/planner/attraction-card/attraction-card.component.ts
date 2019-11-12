@@ -16,9 +16,10 @@ export class AttractionCardComponent implements OnInit {
   @Input() stopIdOfAttraction: string;
   @Input() attractionData: Attraction;
 
-  constructor(public tripService: TripService, public dialog: MatDialog, private snackBar: MatSnackBar) {
-
-  }
+  constructor(public tripService: TripService,
+              public dialog: MatDialog,
+              private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     // console.log(this.imageUrl);
@@ -36,11 +37,11 @@ export class AttractionCardComponent implements OnInit {
 
     dialogRef.afterClosed()
       .subscribe(placeFromDialog => {
-        console.log(placeFromDialog);
+        this.tripService.displayTimeline = false;
+
         if (placeFromDialog) {
-          console.log(placeFromDialog);
           this.tripService.addAttractionToTrip(placeFromDialog, this.stopIdOfAttraction);
-          //this.openSnackBar('Attraction Added Sucessfully', 'OK');
+          // this.openSnackBar('Attraction Added Successfully', 'OK');
         }
       });
 }

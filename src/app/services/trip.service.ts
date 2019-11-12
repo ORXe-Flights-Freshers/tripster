@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import { Trip } from '../models/Trip';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -15,10 +15,13 @@ export class TripService {
   directionResult: google.maps.DirectionsResult;
 
   displayTimeline = false;
+  timelinePauseTime = 100;
 
   doDisplayHotels = false;
   doDisplayAttractions = false;
-  constructor(private http: HttpClient, private route: Router) {}
+  constructor(private http: HttpClient,
+              private route: Router
+  ) {}
 
   createTrip(trip: Trip) {
     this.trip = trip;
@@ -32,7 +35,7 @@ export class TripService {
         this.trip = data as Trip;
         this.updateWaypoints();
         this.tripSubject.next(this.trip);
-        this.displayTimeline = true;
+        this.updateTimeline();
       },
       error => {
         this.route.navigate(['/', 'not-found']);
@@ -86,8 +89,6 @@ export class TripService {
     {
       const previousLocation = this.getPreviousLocation();
       const previousDeparture = new Date(previousLocation.departure);
-      console.log(directionResult);
-      console.log(this.trip.stops);
 
       previousDeparture.setSeconds(
         previousDeparture.getSeconds() +
@@ -97,10 +98,7 @@ export class TripService {
       );
       this.trip.destination.arrival = previousDeparture.toString();
       this.trip.destination.departure = previousDeparture.toString();
-      this.updateTrip(this.trip).subscribe(response => {
-        // console.log(response);
-        });
-      console.log(this.trip.destination.arrival);
+      this.updateTrip(this.trip).subscribe();
     }
 
   }
@@ -118,10 +116,10 @@ export class TripService {
     this.displayTimeline = false;
     this.trip.stops.push(stop);
     this.tripSubject.next(this.trip);
-    // console.log(this.trip.stops);
     this.updateWaypoints();
     this.updateTrip(this.trip).subscribe();
-    this.displayTimeline = true;
+
+    this.updateTimeline();
     return 'success';
    }
 
@@ -140,7 +138,7 @@ export class TripService {
       }
     }
 
-    this.displayTimeline = true;
+    this.updateTimeline();
     this.updateWaypoints();
     this.updateTrip(this.trip).subscribe(response => {});
   }
@@ -165,7 +163,10 @@ export class TripService {
         }
       }
     }
-     console.log(this.trip);
+
+     this.tripSubject.next(this.trip);
+
+     this.updateTimeline();
      this.updateWaypoints();
      this.updateTrip(this.trip).subscribe(response => {});
   }
@@ -285,7 +286,8 @@ export class TripService {
     });
 
     this.trip.stops = stops;
-    this.displayTimeline = true;
+
+    this.updateTimeline();
     this.updateWaypoints();
     this.updateTrip(this.trip).subscribe();
     return 'success';
@@ -321,9 +323,15 @@ export class TripService {
       }
     }
 
+    this.updateTimeline();
     this.updateWaypoints();
     this.updateTrip(this.trip).subscribe();
-    this.displayTimeline = true;
+  }
+
+  updateTimeline(): void {
+    setTimeout(() => {
+      this.displayTimeline = true;
+    }, this.timelinePauseTime);
   }
 
   getRandomUrl(): string {

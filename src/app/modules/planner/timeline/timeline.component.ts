@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TripService } from 'src/app/services/trip.service';
 import { AddStopComponent } from '../add-stop/add-stop.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { ShareTripComponent } from '../share-trip/share-trip.component';
+import {Trip} from '../../../models/Trip';
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
@@ -71,16 +72,7 @@ export class TimelineComponent implements OnInit {
   closeStopDialog() {
     this.dialog.closeAll();
   }
-  deleteStop(i: number) {
-    // @ts-ignore
-    const responseMessage = this.tripService.removeStopFromTrip(i);
-    if (responseMessage === 'success') {
-      this.openSnackBar('Stop Deleted Successfuly', 'OK');
-      } else {
-        this.openSnackBar('Stop Deletion Failed!', 'OK');
-      }
 
-  }
   getEmailString() {
     return (
       'mailto:?Subject=Shared RoadTrip from Tripster&body=Hey, Here is the shareable link for the roadtrip : http://3.14.69.62:82' +
