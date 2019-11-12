@@ -27,6 +27,7 @@ export class AddHotelDetailsComponent implements OnInit {
   departureTime = '00:00 am' ;
   invalidDepartureTimeError: boolean;
   invalidArrivalTimeError: boolean;
+  invalidSameTimeError: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<AddHotelDetailsComponent>,
@@ -43,12 +44,15 @@ export class AddHotelDetailsComponent implements OnInit {
   ngOnInit() {
     this.arrivalDate = new Date(this.getMinDate());
     this.departureDate = new Date(this.getMaxDate());
+    this.arrivalTime = this.arrivalDate.getHours().toString() +
+    ':' +  this.arrivalDate.getMinutes().toString() + ' am';
+    this.departureTime = this.departureDate.getHours().toString() +
+    ':' +  this.departureDate.getMinutes().toString() + ' am';
     this.maxDepartureDate = new Date(this.getMaxDate());
   }
 
   handleArrivalTimeSet(time: string) {
     //   date.getHours().toString() + ":" + date.getMinutes().toString() + " am";
-    // console.log(this.arrivalTime);
     this.arrivalTime = time;
     const newArrivalTime = Time.parseTimeStringToTime(this.arrivalTime);
     this.arrivalDate.setHours(newArrivalTime.hours);
@@ -67,7 +71,7 @@ export class AddHotelDetailsComponent implements OnInit {
     if (stop.hotels.length === 0) {
       return new Date(stop.arrival);
     } else {
-      return new Date(stop.hotels[stop.hotels.length - 1].arrival);
+      return new Date(stop.hotels[stop.hotels.length - 1].departure);
     }
   }
   getMaxDate() {
@@ -101,6 +105,11 @@ export class AddHotelDetailsComponent implements OnInit {
       this.invalidDepartureTimeError = true;
     } else {
       this.invalidDepartureTimeError = false;
+    }
+    if (this.departureDate.getTime() === this.arrivalDate.getTime()) {
+      this.invalidSameTimeError = true;
+    } else {
+      this.invalidSameTimeError = false;
     }
   }
 

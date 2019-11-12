@@ -44,11 +44,11 @@ export class AddAttractionDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.arrivalDate = new Date(this.getMinDate());
-    this.arrivalTime = this.arrivalDate.getHours().toString() +
-    ':' +  this.arrivalDate.getMinutes().toString() + ' am';
     this.departureDate = new Date(this.getMaxDate());
     this.departureTime = this.departureDate.getHours().toString() +
         ':' +  this.departureDate.getMinutes().toString() + ' am';
+    this.arrivalTime = this.arrivalDate.getHours().toString() +
+        ':' +  this.arrivalDate.getMinutes().toString() + ' am';
     this.maxDepartureDate = new Date(this.getMaxDate());
     this.minArrivalDate = new Date(this.getMinDate());
   }
@@ -61,13 +61,11 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.validateDateTime();
   }
   handleDepartureTimeSet(time: string) {
-
     this.departureTime = time;
     const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDepartureTime.hours);
     this.departureDate.setMinutes(newDepartureTime.minutes);
     this.validateDateTime();
-
   }
   getMinDate() {
     return new Date(

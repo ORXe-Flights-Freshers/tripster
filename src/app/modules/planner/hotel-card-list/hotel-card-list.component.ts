@@ -47,8 +47,14 @@ export class HotelCardListComponent implements OnInit {
         }
 
         console.log(hotelsApiEndpoint.ipObj.ip);
-        const hotelsApiUrl =
-          'http://' + hotelsApiEndpoint.ipObj.ip + '/api/hotels/';
+
+        // Production Data Link
+
+        const hotelsApiUrl = 'http://' + hotelsApiEndpoint.ipObj.ip + '/api/hotels/';
+
+        // Mock Data Link
+
+        // const hotelsApiUrl = "https://hotel-mock.s3.us-east-2.amazonaws.com/hotel.json";
           // const hotelsApiUrl =
           // "http://172.16.5.159:5000/api/hotels/";
 
@@ -90,7 +96,8 @@ export class HotelCardListComponent implements OnInit {
         longitude: hotelDataApi.geoCode.long
       },
       rating: hotelDataApi.rating,
-      imageUrl: 'https://images.wallpaperscraft.com/image/room_style_hotel_bed_70002_1920x1080.jpg',
+
+      imageUrl: 'assets\\img\\hotel-demo.jpg',
       arrival: '',
       departure: ''
     };
