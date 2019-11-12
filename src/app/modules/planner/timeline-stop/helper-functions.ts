@@ -17,7 +17,7 @@ export class HelperCanvas {
     this.canvasContext = this.canvas.getContext('2d');
 
     // const resolution = this.pixelRatio();
-    this.resolution = 1.4;
+    this.resolution = 1.6;
 
     this.canvas.width = canvas.width * this.resolution;
     this.canvas.height = canvas.height * this.resolution;

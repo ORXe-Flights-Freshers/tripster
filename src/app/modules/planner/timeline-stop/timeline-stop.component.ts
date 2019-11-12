@@ -319,10 +319,10 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
       this.helperCanvas.writeText(
         place.name,
         80,
-        yCoordinate + 1,
+        yCoordinate + 12.5,
         8,
         this.currentTheme.color,
-        'bold 8px Courier New'
+        'bold 10px Courier New'
       );
 
       this.renderPlacesMarker(place, yCoordinate);
@@ -358,18 +358,18 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
   renderPlacesDates(place: TimelinePlace, yCoordinate: number) {
     const aDate = place.arrivalTime;
     const dDate = place.departureTime;
-    const dateFontSize = 6;
+    const dateFontSize = 7;
     const dateXCoordinate = 80;
 
     this.helperCanvas.writeText(
       'Arrival: ' + aDate.toLocaleDateString() + ', ' + aDate.toLocaleTimeString(),
-      dateXCoordinate, yCoordinate + 10,
+      dateXCoordinate, yCoordinate,
       dateFontSize, this.currentTheme.dateColor
     );
 
     this.helperCanvas.writeText(
       'Departure: ' + dDate.toLocaleDateString() + ', ' + dDate.toLocaleTimeString(),
-      dateXCoordinate, yCoordinate + 18,
+      dateXCoordinate, yCoordinate + 25,
       dateFontSize, this.currentTheme.dateColor
     );
   }

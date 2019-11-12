@@ -23,7 +23,7 @@
   display: inline-block;
   position: relative;
 
-  width: 40%;
+  width: 46%;
 }
 
 .amenities-navbar {
@@ -98,7 +98,7 @@
   display: inline-block;
   position: absolute;
 
-  width: 55%;
+  width: 50%;
   height: 521px;
 
   right: 0;
