@@ -356,8 +356,8 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
   }
 
   renderPlacesDates(place: TimelinePlace, yCoordinate: number) {
-    const aDate = this.arrivalDate;
-    const dDate = this.departureDate;
+    const aDate = place.arrivalTime;
+    const dDate = place.departureTime;
     const dateFontSize = 6;
     const dateXCoordinate = 80;
 
