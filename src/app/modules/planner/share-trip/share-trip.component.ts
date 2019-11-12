@@ -14,14 +14,16 @@ export class ShareTripComponent implements OnInit {
   constructor(private snackBar: MatSnackBar, public dialogRef: MatDialogRef<ShareTripComponent>,
               private http: HttpClient, private router: Router) { }
   email: string;
-  mailServerLink = 'http://172.16.5.140:10000/api/send';
-  subject = 'Shared RoadTrip from Tripster';
-  body = 'Hey, Here is the shareable link for the roadtrip : http://3.14.69.62:82';
+
   shareTripForm = new FormGroup({
     email: new FormControl(this.email, [
-      Validators.required, Validators.email
+      Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')
     ])
   });
+
+  mailServerLink = 'http://3.14.69.62:10000/api/send';
+  subject = 'Shared RoadTrip from Tripster';
+  body = 'Hey, Here is the shareable link for the roadtrip : http://3.14.69.62:82';
 
 
   ngOnInit() {
@@ -39,7 +41,6 @@ export class ShareTripComponent implements OnInit {
       this.openSnackBar(value.message);
     }, (error: HttpErrorResponse) => {
       this.closeDialog();
-
       this.openSnackBar('An error occured at our side');
     });
   }

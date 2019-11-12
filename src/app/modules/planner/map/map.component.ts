@@ -13,28 +13,10 @@ export class MapComponent implements OnInit {
 
   constructor(public tripService: TripService) {
     // console.log(this.tripService.trip);
-    this.isLoading = true;
+    // this.isLoading = true;
   }
-  origin;
-  destination;
   markerOptions;
   stopIconUrl = 'http://maps.gstatic.com/mapfiles/markers2/icon_green.png';
 
-  ngOnInit() {
-    this.markerOptions = {};
-
-    this.tripService.tripSubject.pipe(take(1)).subscribe((trip: Trip) => {
-      // this.tripService.updateWaypoints();
-      this.origin = {
-        lat: this.tripService.trip.source.location.latitude,
-        lng: this.tripService.trip.source.location.longitude
-      };
-      this.destination = {
-        lat: this.tripService.trip.destination.location.latitude,
-        lng: this.tripService.trip.destination.location.longitude
-      };
-
-      this.isLoading = false;
-    });
-  }
+  ngOnInit() {}
 }

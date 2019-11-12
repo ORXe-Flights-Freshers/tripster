@@ -4,38 +4,46 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Stop } from '../models/Stop';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Place } from '../models/Place';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TripService {
   trip: Trip;
-  tripSubject = new Subject<Trip>();
+  // tripSubject = new Subject<Trip>();
   waypoints = [];
+  waypointsInfo = [];
+  placeMarker;
+  // waypointLocation:location{lat:number,lng:number}[];
+
   directionResult: google.maps.DirectionsResult;
 
   displayTimeline = false;
   timelinePauseTime = 100;
 
-  doDisplayHotels = false;
-  doDisplayAttractions = false;
   constructor(private http: HttpClient,
               private route: Router
   ) {}
 
   createTrip(trip: Trip) {
     this.trip = trip;
-    this.tripSubject.next(trip);
     this.displayTimeline = true;
+
+    // this.tripSubject.next(trip);
+    // console.log("trip.service", trip);
+
     return this.http.post('http://3.14.69.62:5001/api/trip', trip);
   }
-  getTrip(tripId: Trip) {
+  getTrip(tripId) {
+    console.log(tripId);
     this.http.get('http://3.14.69.62:5001/api/trip/' + tripId).subscribe(
       data => {
         this.trip = data as Trip;
         this.updateWaypoints();
-        this.tripSubject.next(this.trip);
+
         this.updateTimeline();
+        // this.tripSubject.next(this.trip);
       },
       error => {
         this.route.navigate(['/', 'not-found']);
@@ -115,7 +123,7 @@ export class TripService {
   addStopToTrip(stop): string {
     this.displayTimeline = false;
     this.trip.stops.push(stop);
-    this.tripSubject.next(this.trip);
+    // this.tripSubject.next(this.trip);
     this.updateWaypoints();
     this.updateTrip(this.trip).subscribe();
 
@@ -164,7 +172,7 @@ export class TripService {
       }
     }
 
-     this.tripSubject.next(this.trip);
+     // this.tripSubject.next(this.trip);
 
      this.updateTimeline();
      this.updateWaypoints();
@@ -175,6 +183,7 @@ export class TripService {
   updateWaypoints() {
     const allStops = this.trip.stops;
     const waypointsLocations = [];
+    const waypointsInfo = [];
 
     // for (const hotel of this.trip.source.hotels) {
     //   waypointsLocations.push({
@@ -192,6 +201,7 @@ export class TripService {
             lng: stop.location.longitude
           }
         });
+          waypointsInfo.push({name: stop.name});
       } else {
         let placesArray = [];
         placesArray = this.getPlacesInOrder(stop);
@@ -202,6 +212,7 @@ export class TripService {
               lng: place.location.longitude
             }
           });
+          waypointsInfo.push({name: place.name});
         }
      }
     }
@@ -214,9 +225,11 @@ export class TripService {
           lng: place.location.longitude
         }
       });
+      waypointsInfo.push({name: place.name});
     }
 
     this.waypoints = waypointsLocations;
+    this.waypointsInfo = waypointsInfo;
   }
 
   getPlacesInOrder(stop: Stop) {
@@ -273,6 +286,15 @@ export class TripService {
       }
     }
     return null;
+  }
+
+  showPlaceMarker(place: Place) {
+    this.placeMarker = place;
+    // console.log(place);
+  }
+
+  hidePlaceMarker() {
+    this.placeMarker = undefined;
   }
 
   removeStopFromTrip(stopId: string): string {
