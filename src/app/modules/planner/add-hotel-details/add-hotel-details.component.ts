@@ -85,10 +85,6 @@ export class AddHotelDetailsComponent implements OnInit {
   }
   handleDepartureDateSet(date) {
     this.departureDate = new Date(date.value);
-    if (this.departureTime === '00:00 am' ) {
-     this.departureTime = this.departureDate.getHours().toString() +
-        ':' +  this.departureDate.getMinutes().toString() + ' am';
-    }
     const newDeparturetime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDeparturetime.hours);
     this.departureDate.setMinutes(newDeparturetime.minutes);

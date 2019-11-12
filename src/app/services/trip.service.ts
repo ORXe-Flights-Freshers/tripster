@@ -182,7 +182,7 @@ export class TripService {
   updateWaypoints() {
     const allStops = this.trip.stops;
     const waypointsLocations = [];
-    const waypointsInfo=[];
+    const waypointsInfo = [];
 
     // for (const hotel of this.trip.source.hotels) {
     //   waypointsLocations.push({
@@ -200,7 +200,7 @@ export class TripService {
             lng: stop.location.longitude
           }
         });
-        waypointsInfo.push({name:stop.name});
+          waypointsInfo.push({name: stop.name});
       } else {
         let placesArray = [];
         placesArray = this.getPlacesInOrder(stop);
@@ -211,7 +211,7 @@ export class TripService {
               lng: place.location.longitude
             }
           });
-          waypointsInfo.push({name:place.name});
+          waypointsInfo.push({name: place.name});
         }
      }
     }
@@ -228,7 +228,7 @@ export class TripService {
     }
 
     this.waypoints = waypointsLocations;
-    this.waypointsInfo=waypointsInfo;
+    this.waypointsInfo = waypointsInfo;
   }
 
   getPlacesInOrder(stop: Stop) {
@@ -287,12 +287,16 @@ export class TripService {
     return null;
   }
 
-  showPlaceMarker(place:Place){
+  showPlaceMarker(place: Place){
     this.placeMarker = place;
     // console.log(place);
   }
-  hidePlaceMarker(){
-    this.placeMarker=undefined;
+  hidePlaceMarker() {
+    this.placeMarker = undefined;
+  }
+
+  updateTimeInTrip() {
+
   }
 
 }

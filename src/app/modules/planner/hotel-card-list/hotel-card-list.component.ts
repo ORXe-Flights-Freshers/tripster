@@ -61,10 +61,10 @@ export class HotelCardListComponent implements OnInit {
         this.httpService
           .get(
             hotelsApiUrl
-            //  +
-            //   stop.location.latitude +
-            //   "/" +
-            //   stop.location.longitude
+             +
+               stop.location.latitude +
+               "/" +
+               stop.location.longitude
           )
           .subscribe(
             (data: { hotels: [] }) => {
