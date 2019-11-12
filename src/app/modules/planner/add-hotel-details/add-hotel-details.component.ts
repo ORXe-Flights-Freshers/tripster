@@ -3,12 +3,12 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA
 } from '@angular/material/dialog';
-import { TimePickerThemeService } from '../../../services/TimePickerTheme.service';
-import { TripService } from 'src/app/services/trip.service';
+import { TimePickerThemeService } from '@services/TimePickerTheme.service';
+import { TripService } from '@services/trip.service';
 import { HttpClient } from '@angular/common/http';
-import { Time } from '../../../models/Time';
-import { Hotel } from 'src/app/models/Hotel';
-import {NavigatorService} from '../../../services/navigator.service';
+import { Time } from '@models/Time';
+import { Hotel } from '@models/Hotel';
+import {NavigatorService} from '@services/navigator.service';
 
 @Component({
   selector: 'app-add-hotel-details',

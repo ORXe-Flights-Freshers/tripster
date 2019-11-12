@@ -3,8 +3,8 @@ import {
   MatDialog,
   MatDialogConfig
 } from '@angular/material/dialog';
-import { Attraction } from 'src/app/models/Attraction';
-import { TripService } from 'src/app/services/trip.service';
+import { Attraction } from '@models/Attraction';
+import { TripService } from '@services/trip.service';
 import { AddAttractionDetailsComponent } from '../add-attraction-details/add-attraction-details.component';
 
 @Component({

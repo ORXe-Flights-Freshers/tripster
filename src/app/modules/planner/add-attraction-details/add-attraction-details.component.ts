@@ -3,12 +3,12 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA
 } from '@angular/material/dialog';
-import { TimePickerThemeService } from '../../../services/TimePickerTheme.service';
-import { TripService } from 'src/app/services/trip.service';
+import { TimePickerThemeService } from '@services/TimePickerTheme.service';
+import { TripService } from '@services/trip.service';
 import { HttpClient } from '@angular/common/http';
-import { Time } from '../../../models/Time';
-import { Attraction } from 'src/app/models/Attraction';
-import {NavigatorService} from '../../../services/navigator.service';
+import { Time } from '@models/Time';
+import { Attraction } from '@models/Attraction';
+import {NavigatorService} from '@services/navigator.service';
 
 @Component({
   selector: 'app-add-attraction-details',

@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import { Trip } from '../models/Trip';
+import { Trip } from '@models/Trip';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { Stop } from '../models/Stop';
+import { Stop } from '@models/Stop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Place } from '../models/Place';
+import { Place } from '@models/Place';
 
 @Injectable({
   providedIn: 'root'
