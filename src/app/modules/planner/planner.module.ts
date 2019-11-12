@@ -66,6 +66,6 @@ const routes: Routes = [
     ReactiveFormsModule
   ],
   exports: [AddStopComponent, AddHotelDetailsComponent,ShareTripComponent,AddAttractionDetailsComponent],
-  entryComponents: [AddHotelDetailsComponent,ShareTripComponent,AddAttractionDetailsComponent]
+  entryComponents: [AddHotelDetailsComponent,AddAttractionDetailsComponent,ShareTripComponent]
 })
 export class PlannerModule {}

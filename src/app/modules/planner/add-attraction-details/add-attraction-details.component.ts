@@ -1,4 +1,4 @@
-import { Component, OnInit ,Inject} from '@angular/core';
+import { Component, OnInit ,Inject } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -44,11 +44,11 @@ export class AddAttractionDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.arrivalDate = new Date(this.getMinDate());
-    this.arrivalTime = this.arrivalDate.getHours().toString() +
-    ':' +  this.arrivalDate.getMinutes().toString() + ' am';
     this.departureDate = new Date(this.getMaxDate());
     this.departureTime = this.departureDate.getHours().toString() +
         ':' +  this.departureDate.getMinutes().toString() + ' am';
+    this.arrivalTime = this.arrivalDate.getHours().toString() +
+        ':' +  this.arrivalDate.getMinutes().toString() + ' am';
     this.maxDepartureDate = new Date(this.getMaxDate());
     this.minArrivalDate = new Date(this.getMinDate());
   }
@@ -61,13 +61,11 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.validateDateTime();
   }
   handleDepartureTimeSet(time: string) {
-
     this.departureTime = time;
     const newdeparturetime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newdeparturetime.hours);
     this.departureDate.setMinutes(newdeparturetime.minutes);
     this.validateDateTime();
-
   }
   getMinDate() {
     return new Date(
