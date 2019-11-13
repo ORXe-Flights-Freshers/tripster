@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TripService } from 'src/app/services/trip.service';
+import { TripService } from '@services/trip.service';
 import { AgmInfoWindow } from '@agm/core';
 
 @Component({

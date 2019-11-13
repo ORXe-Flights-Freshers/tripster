@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { TripService } from 'src/app/services/trip.service';
+import { TripService } from '@services/trip.service';
 import { AddStopComponent } from '../add-stop/add-stop.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { ShareTripComponent } from '../share-trip/share-trip.component';
-import {Trip} from '../../../models/Trip';
+import {Trip} from '@models/Trip';
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',

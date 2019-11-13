@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TripService } from 'src/app/services/trip.service';
+import { TripService } from '@services/trip.service';
 import { HttpClient } from '@angular/common/http';
-import { HeaderDataService } from '../../../services/HeaderData/header-data.service';
-import {NavigatorService} from '../../../services/navigator.service';
+import { HeaderDataService } from '@services/HeaderData/header-data.service';
+import {NavigatorService} from '@services/navigator.service';
 
 @Component({
   selector: 'app-planner',

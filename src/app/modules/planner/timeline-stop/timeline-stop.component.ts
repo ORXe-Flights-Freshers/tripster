@@ -7,11 +7,11 @@ import {
   ViewChild
 } from '@angular/core';
 import { HelperCanvas } from './helper-functions';
-import {Stop} from '../../../models/Stop';
-import {TripService} from '../../../services/trip.service';
-import {Hotel} from '../../../models/Hotel';
-import {Attraction} from '../../../models/Attraction';
-import {UtilityService} from '../../../services/utility.service';
+import {Stop} from '@models/Stop';
+import {TripService} from '@services/trip.service';
+import {Hotel} from '@models/Hotel';
+import {Attraction} from '@models/Attraction';
+import {UtilityService} from '@services/utility.service';
 
 interface TimelinePlace {
   id: string;
@@ -283,7 +283,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
 
     const displayDate = this.stopType === 'source' ?
       this.utilityService.formatDateTime(aDate) :
-      this.utilityService.formatDateTime(dDate);
+      this.utilityService.formatDateTime(aDate);
 
     dateXCoordinate = this.stop.name.length > 12 ? 160 : 140;
 
@@ -317,7 +317,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
         place.name,
         80,
         yCoordinate + 12.5,
-        8,
+        7,
         this.currentTheme.color,
         'bold 10px ' + this.helperCanvas.fontFamily
       );

@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from 'app/shared/shared.module';
 import { HomePageComponent } from './home-page.component';
 import { SearchComponent } from './search/search.component';
 import { AppMaterialModule } from '../app-material/app-material.module';
