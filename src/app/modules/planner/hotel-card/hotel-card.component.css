@@ -10,7 +10,7 @@
   height: 110px;
   border: 1px solid rgba(0, 0, 0, 0.4);
   margin-top: 2%;
-  margin-left: 1%;
+  margin-left: 2%;
   position: absolute;
 }
 .image img {
@@ -21,7 +21,8 @@
 
 .text-body {
   position: absolute;
-  margin-left: 35%;
+  margin-top: 1%;
+  margin-left: 34%;
   width: 200px;
   height: 100%;
 }
@@ -29,7 +30,6 @@
 .heading {
   position: relative;
   margin-top: 5%;
-  font-family: 'Poppins', sans-serif;
   font-size: 18px;
   font-weight: 500;
   line-height: 1.1;
@@ -39,22 +39,26 @@
 .facilities {
   position: relative;
   margin-top: 2%;
-  font-family: 'Poppins', sans-serif;
   font-size: 13px;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.6);
 }
 
-.rating {
+.locate-on-map {
   position: absolute;
-  font-size: 14px;
+  font-size: 30px;
+  right: 6%;
+  transition: 100ms ease-in-out;
 }
 
-.btn-icon {
-  /*padding-top: 50%;*/
+.locate-on-map:hover {
+  background-color: #eeeeee;
+  cursor: pointer;
+  padding: 5px;
+  right: 5%;
 }
 
-.add-btn {
+.add-btn-hotel {
   background-color: white;
   position: absolute;
   padding: 2% 4%;
@@ -63,13 +67,19 @@
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
-  margin-left: 80%;
-  margin-top: 90px;
+  margin-left: 84%;
+  margin-top: 80px;
 }
 
-.add-btn:hover {
+.add-btn-hotel:hover {
   color: white;
   background-color: black;
   transition-duration: 0.2s;
   cursor: pointer;
+}
+
+.hotel-rating {
+  position: absolute;
+  font-size: 14px;
+  bottom: 15%;
 }
