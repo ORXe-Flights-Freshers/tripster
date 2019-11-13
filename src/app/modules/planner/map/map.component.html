@@ -3,7 +3,8 @@
     <mat-spinner class="spinner"></mat-spinner>
   </div>
 
-  <agm-map [fitBounds]="true" *ngIf="!isLoading">
+  <agm-map [fitBounds]="true" *ngIf="!isLoading" [latitude]="tripService?.placeMarker?.location.latitude"
+  [longitude]="tripService?.placeMarker?.location.longitude" [minZoom]="minZoom" [maxZoom]="maxZoom" [zoom]="tripService?.mapZoom" (zoomChange)="handleZoomChange($event)">
     <agm-marker
       *ngIf="tripService?.trip?.source"
       [agmFitBounds]="true"
@@ -37,8 +38,8 @@
 
     <agm-marker
       *ngIf="tripService?.placeMarker"
-      [latitude]="tripService?.placeMarker.location.latitude"
-      [longitude]="tripService?.placeMarker.location.longitude"
+      [latitude]="tripService?.placeMarker?.location.latitude"
+      [longitude]="tripService?.placeMarker?.location.longitude"
       [iconUrl]="stopIconUrl"
     >
     <agm-info-window [isOpen]="true">{{tripService?.placeMarker.name}}</agm-info-window>

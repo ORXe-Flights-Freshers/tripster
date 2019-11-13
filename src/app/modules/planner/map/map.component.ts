@@ -13,6 +13,8 @@ export class MapComponent implements OnInit {
 
   constructor(public tripService: TripService) {}
   markerOptions;
+  minZoom=4;
+  maxZoom=16;
   stopIconUrl = 'http://maps.gstatic.com/mapfiles/markers2/icon_green.png';
 
   ngOnInit() {}
@@ -22,5 +24,8 @@ export class MapComponent implements OnInit {
 
   hidePlaceInfoWindow(placeInfoWindow: AgmInfoWindow) {
     placeInfoWindow.close();
+  }
+  handleZoomChange(zoom:number){
+    this.tripService.mapZoom = zoom;
   }
 }

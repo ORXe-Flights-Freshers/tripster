@@ -13,6 +13,8 @@ export class TripService {
   waypoints = [];
   waypointsInfo = [];
   placeMarker;
+  mapZoom=9;
+  // waypointLocation:location{lat:number,lng:number}[];
 
   directionResult: google.maps.DirectionsResult;
 
@@ -20,7 +22,7 @@ export class TripService {
   timelinePauseTime = 100;
 
   constructor(private http: HttpClient,
-              private route: Router
+              private route: Router,
   ) {}
 
   createTrip(trip: Trip) {
@@ -236,10 +238,21 @@ export class TripService {
     return null;
   }
 
-
-  showPlaceMarker(place: Place){
+  showPlaceMarker(place: Place) {
+    this.mapZoomIn();
     this.placeMarker = place;
-    // console.log(place);
+  }
+  mapZoomIn() {
+    const interValZoom = setInterval(() => {
+      if (this.mapZoom <= 15) {
+        this.mapZoom = this.mapZoom + 1 ;           
+          }
+          else
+          {
+            clearInterval(interValZoom);
+          }
+      
+  }, 10);
   }
   hidePlaceMarker() {
     this.placeMarker = undefined;
