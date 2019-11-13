@@ -26,7 +26,7 @@ interface HotelResult {
   styleUrls: ['./hotel-card-list.component.css']
 })
 export class HotelCardListComponent implements OnInit {
-  arrHotels: Hotel[];
+  arrHotels: Hotel[] = [];
   stopIdOfHotel: string;
   chosenCity: string;
   displayLoader: boolean;

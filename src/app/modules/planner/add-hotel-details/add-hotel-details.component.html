@@ -26,7 +26,6 @@
         (dateChange)="handleArrivalDateSet($event)"
         [value]="arrivalDate"
         [min]="getMinDate()"
-        [max]="getMaxDate()"
         (focus)="arrivalDatepicker.open()"
         disabled
         readonly
@@ -74,7 +73,6 @@
         [value]="departureDate"
         (focus)="departureDatepicker.open()"
         [min]="getMinDate()"
-        [max]="getMaxDate()"
         readonly
       />
       <mat-datepicker-toggle
