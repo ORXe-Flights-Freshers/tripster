@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { Attraction } from '@models/Attraction';
 import { TripService } from '@services/trip.service';
-import { MatSliderChange } from '@angular/material';
 
 
 interface AttractionResult {
@@ -29,8 +28,8 @@ export class AttractionCardListComponent implements OnInit {
   chosenCity: string;
   displayLoader: boolean;
   placeService: google.maps.places.PlacesService;
-  stop:Stop;
-  radius:number=2;
+  stop: Stop;
+  radius = 2;
 
   constructor(
     private httpService: HttpClient,
@@ -48,7 +47,7 @@ export class AttractionCardListComponent implements OnInit {
   }
   attractionByStop(stop: Stop) {
     this.displayLoader = true;
-    this.stop=stop;
+    this.stop = stop;
     this.placeService = new google.maps.places.PlacesService(
       document.createElement('div')
     );
@@ -56,10 +55,10 @@ export class AttractionCardListComponent implements OnInit {
     this.placeService.nearbySearch(
       {
         location: { lat: stop.location.latitude, lng: stop.location.longitude },
-        radius: this.radius*1000,
+        radius: this.radius * 1000,
         type: 'tourist_attraction'
       },
-      (placeResults,status,pagination) => {
+      (placeResults, status, pagination) => {
         placeResults.forEach(placeResult => {
           this.arrAttractions.push({
             name: placeResult.name,
@@ -80,8 +79,9 @@ export class AttractionCardListComponent implements OnInit {
         this.chosenCity = stop.name;
         this.displayLoader = false;
         this.changeDetectorRef.detectChanges();
-        if(pagination.hasNextPage)
+        if (pagination.hasNextPage) {
           pagination.nextPage();
+        }
       }
     );
   }
@@ -104,10 +104,9 @@ export class AttractionCardListComponent implements OnInit {
       };
       return attractionData;
     }
-    
-    handleRadiusChange(radiusSliderChange:MatSliderChange)
-    {
-      this.radius = radiusSliderChange.value;
+
+    handleRadiusChange(radiusSliderChange: Event) {
+      this.radius = +(radiusSliderChange.target as HTMLInputElement).value;
       this.attractionByStop(this.stop);
     }
   }
