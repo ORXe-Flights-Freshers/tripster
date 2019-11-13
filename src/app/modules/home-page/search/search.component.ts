@@ -23,6 +23,7 @@ export class SearchComponent implements OnInit {
     ':' +  this.tripDate.getMinutes().toString() + ' am';
   vehicleMileage = 22;
   invalidDepartureDateTimeError: boolean;
+  minTime: Date;
 
   searchForm = new FormGroup({
     mileage: new FormControl(this.vehicleMileage, [
@@ -35,7 +36,9 @@ export class SearchComponent implements OnInit {
               public timePickerThemeService: TimePickerThemeService,
               private changeDetectRef: ChangeDetectorRef) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.minTime = this.getMinTime();
+  }
 
   handleInvalidSource(event) {
     this.sourceValid = event.isValid;
@@ -60,6 +63,7 @@ export class SearchComponent implements OnInit {
   handleDateSet(date) {
     this.tripDate = new Date(date.value);
     this.setTripDateTime();
+    this.minTime = this.getMinTime();
     this.validateDateTime();
   }
   validateDateTime() {
@@ -161,7 +165,7 @@ export class SearchComponent implements OnInit {
         // @ts-ignore
         arrival: this.tripDate.toString(),
         // @ts-ignore
-        departure: this.tripDate.toString(),
+        departure: 'Mon Nov 13 2090 11:37:09 GMT+0530 (India Standard Time)',
         hotels: [],
         attractions: []
       },

@@ -92,6 +92,8 @@
         matInput
         [ngxTimepicker]="departureTimePicker"
         [format]="12"
+        [min]="minTime | date: 'h:mm a'"
+        [max]="maxTime | date: 'h:mm a'"
         [value]="departureDate | date: 'h:mm a'"
         readonly
       />
@@ -107,9 +109,9 @@
 
 <div id="buttons-block">
     <div id="bottom-error-block">
-      <p id="stop-error" *ngIf="invalidArrivalTimeError">* Departure time must be  more than arrival</p>
-      <p id="stop-error" *ngIf="invalidDepartureTimeError">* Departure time must be  less than stop departure.</p>
-      <p id="stop-error" *ngIf="invalidSameTimeError">* Arrival and departure can't be same.</p>
+      <p id="hotel-error" *ngIf="invalidArrivalTimeError">* Departure time must be  more than arrival</p>
+      <p id="hotel-error" *ngIf="invalidDepartureTimeError">* Departure time must be  less than stop departure.</p>
+      <p id="hotel-error" *ngIf="invalidSameTimeError">* Arrival and departure can't be same.</p>
     </div>
     <div id="bottom-button-block">
         <button mat-button (click)="closeHotelDialog()">CANCEL</button>
