@@ -94,15 +94,10 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.invalidMoreArrivalTimeError = this.departureDate < this.arrivalDate;
     this.invalidDepartureTimeError = this.departureDate > this.maxDepartureDate;
     this.invalidLessArrivalTimeError = this.arrivalDate.getTime() < this.minArrivalDate.getTime();
-    // if (this.arrivalDate > this.departureDate) {
-    //    this.invalidMoreArrivalTimeErrorDepart = true;
-    // } else {
-    //   this.invalidMoreArrivalTimeErrorDepart = false;
-    // }
-
   }
 
   closeAttractionDialog() {
+    this.tripService.updateTimeline();
     this.dialogRef.close();
   }
 
