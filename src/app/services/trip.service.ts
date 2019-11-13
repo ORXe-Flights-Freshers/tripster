@@ -96,7 +96,6 @@ export class TripService {
           ].duration.value
       );
       this.trip.destination.arrival = previousDeparture.toString();
-      this.trip.destination.departure = previousDeparture.toString();
       this.updateTimeline();
       this.updateTrip(this.trip).subscribe();
     }

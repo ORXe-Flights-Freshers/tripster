@@ -1,6 +1,3 @@
-.add-hotel-details-card{
-    max-width: 800px;
-}
 .date-input-field{
     width:40%;
     height:100%;
@@ -101,7 +98,7 @@ hr{
 /* #buttons-block:disabled{
   color: white;
 } */
-#stop-error{
+#hotel-error{
   color: red;
   text-align: left;
   float: left;

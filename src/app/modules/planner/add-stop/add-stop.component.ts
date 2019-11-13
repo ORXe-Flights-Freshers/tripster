@@ -23,6 +23,7 @@ export class AddStopComponent implements OnInit {
   duplicatePlace: boolean;
   invalidTimeError: boolean;
   invalidPlace: boolean;
+  minTime: Date;
   constructor(
     public dialogRef: MatDialogRef<AddStopComponent>,
     public tripService: TripService,
@@ -40,6 +41,7 @@ export class AddStopComponent implements OnInit {
     ':' +
     this.departureDate.getMinutes().toString() +
     ' am';
+    this.minTime = this.getMinTime();
   }
 
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
@@ -81,10 +83,6 @@ export class AddStopComponent implements OnInit {
     );
 
     function callback(response, status) {
-      //   console.log(response);
-      // this.timeTaken=response.rows[0].elements[0].duration.value;
-      // console.log(previousLocationDeparture);
-      // console.log(self.arrivalDate);
       self.arrivalDate.setTime(
         previousLocationDeparture.getTime() +
           response.rows[0].elements[0].duration.value * 1000
@@ -99,6 +97,7 @@ export class AddStopComponent implements OnInit {
         self.departureDate.getMinutes().toString() +
         ' am';
       self.changeDetectorRef.detectChanges();
+      self.minTime = self.getMinTime();
     }
   }
 
@@ -149,7 +148,7 @@ export class AddStopComponent implements OnInit {
     const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDepartureTime.hours);
     this.departureDate.setMinutes(newDepartureTime.minutes);
-
+    this.minTime = this.getMinTime();
     this.validateDateTime();
   }
 

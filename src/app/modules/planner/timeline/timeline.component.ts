@@ -46,16 +46,6 @@ export class TimelineComponent implements OnInit {
     dialogConfig.height = '250px';
 
     const dialogRef = this.dialog.open(ShareTripComponent, dialogConfig);
-
-    // dialogRef.afterClosed().subscribe(stopFromDialog => {
-    //   console.log(stopFromDialog);
-    //   if (stopFromDialog) {
-    //     const responseStatus = this.addStop(stopFromDialog);
-    //     if (responseStatus) {
-    //       this.openSnackBar('Stop Added Succesfully', 'OK');
-    //     }
-    //   }
-    // });
   }
 
   openSnackBar(message: string, action: string) {
