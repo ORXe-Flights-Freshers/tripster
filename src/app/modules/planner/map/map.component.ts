@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TripService } from 'src/app/services/trip.service';
 import { InfoWindow } from '@agm/core/services/google-maps-types';
+import {AgmInfoWindow} from '@agm/core';
 
 @Component({
   selector: 'app-map',
@@ -17,11 +18,11 @@ export class MapComponent implements OnInit {
   stopIconUrl = 'http://maps.gstatic.com/mapfiles/markers2/icon_green.png';
 
   ngOnInit() {}
-  showPlaceInfoWindow(placeInfoWindow: InfoWindow) {
+  showPlaceInfoWindow(placeInfoWindow: AgmInfoWindow) {
     placeInfoWindow.open();
   }
 
-  hidePlaceInfoWindow(placeInfoWindow: InfoWindow) {
+  hidePlaceInfoWindow(placeInfoWindow: AgmInfoWindow) {
     placeInfoWindow.close();
   }
   handleZoomChange(zoom:number){
