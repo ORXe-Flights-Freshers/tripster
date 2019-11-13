@@ -172,11 +172,11 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
       +this.helperCanvas.canvasContext.font.split('px')[0];
     let fontSize = 11;
 
-    const outlineRectWidth = ((fontSize * textWidth) / currentFontSize) + 30;
-
     if (this.stopType === 'stop') {
       fontSize = 10;
     }
+
+    const outlineRectWidth = (fontSize * (textWidth + 18)) / currentFontSize;
 
     if (!this.places) {
       this.stopLabelYCoordinate = (this.mapped.height / 2);
@@ -194,13 +194,13 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
 
     if (this.stopType === 'stop') {
       this.helperCanvas.writeText(
-        this.stop.name, 40, this.stopLabelYCoordinate + 2.5,
+        this.stop.name, 40, this.stopLabelYCoordinate + 3,
         fontSize, this.currentTheme.color,
         'bold ' + fontSize + 'px ' + this.helperCanvas.fontFamily
       );
     } else {
       this.helperCanvas.writeText(
-        this.stop.name, 40, this.stopLabelYCoordinate + 2.5,
+        this.stop.name, 40, this.stopLabelYCoordinate + 3,
         fontSize, this.currentTheme.color,
         'bold ' + fontSize + 'px ' + this.helperCanvas.fontFamily
       );
@@ -283,7 +283,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
 
     const displayDate = this.stopType === 'source' ?
       this.utilityService.formatDateTime(aDate) :
-      this.utilityService.formatDateTime(dDate);
+      this.utilityService.formatDateTime(aDate);
 
     dateXCoordinate = this.stop.name.length > 12 ? 160 : 140;
 
@@ -317,7 +317,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
         place.name,
         80,
         yCoordinate + 12.5,
-        8,
+        7,
         this.currentTheme.color,
         'bold 10px ' + this.helperCanvas.fontFamily
       );

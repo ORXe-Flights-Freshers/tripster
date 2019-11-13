@@ -7,7 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'tripster';
-  options: google.maps.places.AutocompleteOptions = {
-    componentRestrictions: { country: ['IN'] }
-  };
 }

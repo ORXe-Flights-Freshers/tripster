@@ -1,6 +1,6 @@
-<div class="card" (click)="tripService.showPlaceMarker(attractionData)">
+<div class="card">
   <div class="image">
-    <img [src]=attractionData.imageUrl />
+    <img [src]=attractionData.imageUrl alt="Attraction image"/>
   </div>
   <div class="text-body">
     <div class="heading">
@@ -9,13 +9,19 @@
     <div class="facilities">
       {{ attractionData.description }}
     </div>
-    <div class="rating">
+    <div class="attraction-rating">
       <strong>Rating: </strong>
       {{ attractionData.rating }}
       <span class="fa fa-star"></span>
     </div>
   </div>
-  <div class="add-btn" (click)='openAttractionDialog(attractionData)'>
+  <div
+    class="locate-on-map"
+    (click)="tripService.showPlaceMarker(attractionData)"
+  >
+    <img src="assets/icons/location_searching.svg" alt="Locate on map">
+  </div>
+  <div class="add-btn-attraction" (click)='openAttractionDialog(attractionData)'>
     Add
   </div>
 </div>

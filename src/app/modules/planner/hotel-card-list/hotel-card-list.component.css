@@ -4,6 +4,8 @@
   border: 1px solid rgba(30, 30, 30, 0.1);
   border-radius: 20px;
   background-color: white;
+
+  overflow: hidden;
 }
 
 .loader {
@@ -76,7 +78,7 @@
 }
 
 .hotels-list {
-  height: 320px;
+  height: 305px;
   overflow-y: auto;
 }
 
@@ -91,7 +93,14 @@
 .bolder {
   font-weight: bolder;
 }
-.slider{
+
+.footer {
+  height: 40px;
   width:100%;
+
+  background-color: #f4f4f4;
 }
 
+.footer .slider {
+  margin: 1% auto auto 5%;
+}
