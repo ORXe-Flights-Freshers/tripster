@@ -77,11 +77,14 @@ export class AttractionCardListComponent implements OnInit {
         });
         this.stopIdOfAttraction = stop.stopId;
         this.chosenCity = stop.name;
-        this.displayLoader = false;
-        this.changeDetectorRef.detectChanges();
+        
         if (pagination.hasNextPage) {
           pagination.nextPage();
         }
+        else{
+          this.displayLoader=false;
+        }
+        this.changeDetectorRef.detectChanges();
       }
     );
   }
