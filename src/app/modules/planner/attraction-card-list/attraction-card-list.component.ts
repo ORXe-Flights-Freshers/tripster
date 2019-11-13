@@ -60,7 +60,7 @@ export class AttractionCardListComponent implements OnInit {
       },
       (placeResults, status, pagination) => {
         placeResults.forEach(placeResult => {
-          const atData = this.getAttractionData({
+          const attractionData = this.getAttractionData({
             name: placeResult.name,
             attractionId: placeResult.place_id,
             description: placeResult.vicinity,
@@ -74,7 +74,7 @@ export class AttractionCardListComponent implements OnInit {
               maxWidth: 200
             }) : 'http://lorempixel.com/200/200/nature/?id=' + Math.random()
           });
-          this.arrAttractions.push(atData);
+          this.arrAttractions.push(attractionData);
         });
         this.stopIdOfAttraction = stop.stopId;
         this.chosenCity = stop.name;
