@@ -47,9 +47,8 @@
   <div class="hotels-list">
       <app-hotel-card
           [stopIdOfHotel]="stopIdOfHotel"
-          *ngFor="let a of arrHotels"
-          [hotelData]="getHotelData(a)"
-
+          *ngFor="let hotelData of arrHotels"
+          [hotelData]="hotelData"
       ></app-hotel-card>
   </div>
 

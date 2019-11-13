@@ -20,7 +20,6 @@ import { ExpensesComponent } from './expenses/expenses.component';
 import { ShareTripComponent } from './share-trip/share-trip.component';
 import { AddAttractionDetailsComponent } from './add-attraction-details/add-attraction-details.component';
 import { TimelineStopComponent } from './timeline-stop/timeline-stop.component';
-import { DemoDComponent } from './demo-d/demo-d.component';
 
 const routes: Routes = [
   {

@@ -122,6 +122,13 @@ export class TripService {
     for (const stop of [...this.trip.stops, this.trip.destination]) {
       if (stopIdOfHotel === stop.stopId) {
         stop.hotels.push(hotelData);
+        const stopTime = (new Date(stop.departure)).getTime();
+        const hotelTime = (new Date(hotelData.departure)).getTime();
+        if (stopTime < hotelTime) {
+          console.log(this.trip);
+          this.addTimetoTrip(( hotelTime - stopTime), stop.stopId);
+          console.log(this.trip);
+        }
         break;
       }
     }
@@ -210,7 +217,32 @@ export class TripService {
         return new Date(place1.arrival) < new Date(place2.arrival) ? -1 : 1;
       });
   }
-
+  addTimetoTrip(timeToAdd, changeStopId){
+    let toAdd = false;
+    const firstStop = this.getStopByStopId(changeStopId);
+    firstStop.departure = this.getNewTime(firstStop.departure, timeToAdd);
+    for (const stop of [...this.trip.stops, this.trip.destination]) {
+      if (toAdd) {
+          stop.arrival = this.getNewTime(stop.arrival, timeToAdd);
+          stop.departure = this.getNewTime(stop.departure, timeToAdd);
+          const arrayToManipulate = [...stop.attractions, ...stop.hotels];
+          this.addTimeToArray(arrayToManipulate, timeToAdd);
+      }
+      if (changeStopId === stop.stopId && !toAdd) {
+          toAdd = true;
+        }
+  }
+}
+  addTimeToArray(arrayToManipulate, timeToAdd) {
+    arrayToManipulate.forEach(element => {
+      element.arrival = this.getNewTime(element.arrival, timeToAdd);
+      element.departure = this.getNewTime(element.departure, timeToAdd);
+    });
+  }
+  getNewTime(oldTime, timeToAdd): string {
+    const timeInMilli = new Date(oldTime).getTime();
+    return new Date(timeInMilli + timeToAdd).toString();
+  }
 
   getStopByStopId(stopId): Stop {
     const { source, destination } = this.trip;

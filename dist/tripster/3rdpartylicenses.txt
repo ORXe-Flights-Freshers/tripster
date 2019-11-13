@@ -153,8 +153,6 @@ THE SOFTWARE.
 
 @angular/material/progress-spinner
 
-@angular/material/slider
-
 @angular/material/snack-bar
 
 @angular/platform-browser
