@@ -28,6 +28,7 @@
   </agm-marker>
     <agm-marker
       *ngFor="let stop of tripService?.waypoints;let i = index"
+      [agmFitBounds]="true"
       [latitude]="stop.location.lat"
       [longitude]="stop.location.lng"
       [iconUrl]="stopIconUrl"
