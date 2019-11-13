@@ -92,6 +92,7 @@
         matInput
         [ngxTimepicker]="departureTimePicker"
         [format]="12"
+        [min]="minTime | date: 'h:mm a'"
         [value]="departureDate | date: 'h:mm a'"
         readonly
       />

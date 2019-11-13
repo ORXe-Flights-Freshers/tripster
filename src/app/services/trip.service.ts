@@ -103,7 +103,6 @@ export class TripService {
           ].duration.value
       );
       this.trip.destination.arrival = previousDeparture.toString();
-      this.trip.destination.departure = previousDeparture.toString();
       this.updateTimeline();
       this.updateTrip(this.trip).subscribe();
     }
@@ -245,13 +244,13 @@ export class TripService {
   mapZoomIn() {
     const interValZoom = setInterval(() => {
       if (this.mapZoom <= 15) {
-        this.mapZoom = this.mapZoom + 1 ;           
+        this.mapZoom = this.mapZoom + 1 ;
           }
           else
           {
             clearInterval(interValZoom);
           }
-      
+
   }, 10);
   }
   hidePlaceMarker() {
