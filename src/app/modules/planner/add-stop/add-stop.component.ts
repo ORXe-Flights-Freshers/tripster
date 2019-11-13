@@ -19,7 +19,7 @@ export class AddStopComponent implements OnInit {
   arrivalDate: Date;
   departureDate: Date;
   arrivalTime = '00:00 am';
-  departureTime = '11:00 am';
+  departureTime = '00:00 am';
   duplicatePlace: boolean;
   invalidTimeError: boolean;
   invalidPlace: boolean;
@@ -36,6 +36,10 @@ export class AddStopComponent implements OnInit {
       this.tripService.getPreviousLocation().departure
     );
     this.departureDate = new Date(this.arrivalDate);
+    this.departureTime =  this.departureDate.getHours().toString() +
+    ':' +
+    this.departureDate.getMinutes().toString() +
+    ' am';
   }
 
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
@@ -115,6 +119,25 @@ export class AddStopComponent implements OnInit {
 
   getMinDate() {
     return new Date(this.arrivalDate);
+  }
+  getMinTime() {
+    if ( this.isDepartureDateMore()) {
+      return new Date((new Date(this.arrivalDate)).setHours(0 , 0));
+    }
+    return new Date(this.arrivalDate);
+  }
+
+  isDepartureDateMore(): boolean {
+    if (this.departureDate.getFullYear() > this.arrivalDate.getFullYear() ) {
+      return true;
+    }
+    if (this.departureDate.getMonth() > this.arrivalDate.getMonth() ) {
+      return true;
+    }
+    if (this.departureDate.getDate() > this.arrivalDate.getDate()  ) {
+      return true;
+    }
+    return false;
   }
 
   handleArrivalDateSet(date) {
