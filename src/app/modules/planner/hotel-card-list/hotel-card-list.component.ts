@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Stop } from 'src/app/models/Stop';
-import { TripService } from 'src/app/services/trip.service';
-import { Hotel } from 'src/app/models/Hotel';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Stop } from '@models/Stop';
+import { TripService } from '@services/trip.service';
+import { Hotel } from '@models/Hotel';
 
 interface HotelResult {
   hotelId: string;

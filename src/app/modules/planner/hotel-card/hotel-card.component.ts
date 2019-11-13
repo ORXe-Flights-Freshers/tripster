@@ -4,8 +4,8 @@ import {
   MatDialog,
   MatDialogConfig
 } from '@angular/material/dialog';
-import { Hotel } from 'src/app/models/Hotel';
-import { TripService } from 'src/app/services/trip.service';
+import { Hotel } from '@models/Hotel';
+import { TripService } from '@services/trip.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

@@ -2,11 +2,12 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {
   MatDialogRef
 } from '@angular/material/dialog';
-import { TimePickerThemeService } from '../../../services/TimePickerTheme.service';
-import { TripService } from 'src/app/services/trip.service';
+
+import { TimePickerThemeService } from '@services/TimePickerTheme.service';
+import { TripService } from '@services/trip.service';
 import { HttpClient } from '@angular/common/http';
-import { Time } from '../../../models/Time';
-import { Stop } from 'src/app/models/Stop';
+import { Time } from '@models/Time';
+import { Stop } from '@models/Stop';
 @Component({
   selector: 'app-add-stop',
   templateUrl: './add-stop.component.html',

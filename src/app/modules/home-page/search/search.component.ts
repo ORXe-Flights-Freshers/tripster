@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Time } from '../../../models/Time';
-import { TripService } from 'src/app/services/trip.service';
+import { Time } from '@models/Time';
+import { TripService } from '@services/trip.service';
 import { Router } from '@angular/router';
-import { Trip } from 'src/app/models/Trip';
-import {TimePickerThemeService} from '../../../services/TimePickerTheme.service';
+import { Trip } from '@models/Trip';
+import {TimePickerThemeService} from '@services/TimePickerTheme.service';
 
 @Component({
   selector: 'app-search',

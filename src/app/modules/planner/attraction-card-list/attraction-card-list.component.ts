@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Stop } from 'src/app/models/Stop';
-import { Attraction } from 'src/app/models/Attraction';
-import { TripService } from 'src/app/services/trip.service';
+import { Stop } from '@models/Stop';
+import { Attraction } from '@models/Attraction';
+import { TripService } from '@services/trip.service';
 
 
 interface AttractionResult {
