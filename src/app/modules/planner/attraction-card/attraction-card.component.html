@@ -1,4 +1,4 @@
-<div class="card" (mouseover)="tripService.showPlaceMarker(attractionData)" (mouseout)="tripService.hidePlaceMarker()">
+<div class="card" (click)="tripService.showPlaceMarker(attractionData)">
   <div class="image">
     <img [src]=attractionData.imageUrl />
   </div>
@@ -8,6 +8,11 @@
     </div>
     <div class="facilities">
       {{ attractionData.description }}
+    </div>
+    <div class="rating">
+      <strong>Rating: </strong>
+      {{ attractionData.rating }}
+      <span class="fa fa-star"></span>
     </div>
   </div>
   <div class="add-btn" (click)='openAttractionDialog(attractionData)'>

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { Attraction } from '@models/Attraction';
 import { TripService } from '@services/trip.service';
+import { MatSliderChange } from '@angular/material';
 
 
 interface AttractionResult {
@@ -28,6 +29,8 @@ export class AttractionCardListComponent implements OnInit {
   chosenCity: string;
   displayLoader: boolean;
   placeService: google.maps.places.PlacesService;
+  stop:Stop;
+  radius:number=2;
 
   constructor(
     private httpService: HttpClient,
@@ -45,17 +48,18 @@ export class AttractionCardListComponent implements OnInit {
   }
   attractionByStop(stop: Stop) {
     this.displayLoader = true;
+    this.stop=stop;
     this.placeService = new google.maps.places.PlacesService(
       document.createElement('div')
     );
+    this.arrAttractions = [];
     this.placeService.nearbySearch(
       {
         location: { lat: stop.location.latitude, lng: stop.location.longitude },
-        radius: 2000,
+        radius: this.radius*1000,
         type: 'tourist_attraction'
       },
-      placeResults => {
-        this.arrAttractions = [];
+      (placeResults,status,pagination) => {
         placeResults.forEach(placeResult => {
           this.arrAttractions.push({
             name: placeResult.name,
@@ -76,6 +80,8 @@ export class AttractionCardListComponent implements OnInit {
         this.chosenCity = stop.name;
         this.displayLoader = false;
         this.changeDetectorRef.detectChanges();
+        if(pagination.hasNextPage)
+          pagination.nextPage();
       }
     );
   }
@@ -97,6 +103,12 @@ export class AttractionCardListComponent implements OnInit {
         departure: ''
       };
       return attractionData;
+    }
+    
+    handleRadiusChange(radiusSliderChange:MatSliderChange)
+    {
+      this.radius = radiusSliderChange.value;
+      this.attractionByStop(this.stop);
     }
   }
 
