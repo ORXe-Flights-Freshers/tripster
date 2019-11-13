@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import { Trip } from '@models/Trip';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
 import { Stop } from '@models/Stop';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Place } from '@models/Place';
 
 @Injectable({
@@ -11,11 +10,9 @@ import { Place } from '@models/Place';
 })
 export class TripService {
   trip: Trip;
-  // tripSubject = new Subject<Trip>();
   waypoints = [];
   waypointsInfo = [];
   placeMarker;
-  // waypointLocation:location{lat:number,lng:number}[];
 
   directionResult: google.maps.DirectionsResult;
 
@@ -28,7 +25,6 @@ export class TripService {
 
   createTrip(trip: Trip) {
     this.trip = trip;
-    this.displayTimeline = true;
 
     // this.tripSubject.next(trip);
     // console.log("trip.service", trip);
@@ -37,7 +33,7 @@ export class TripService {
   }
   getTrip(tripId) {
     console.log(tripId);
-    this.displayTimeline = false;
+
     this.http.get('http://3.14.69.62:5001/api/trip/' + tripId).subscribe(
       data => {
         this.trip = data as Trip;
@@ -70,7 +66,6 @@ export class TripService {
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     this.directionResult = directionResult;
-    this.displayTimeline = false;
 
     if (this.trip.stops.length !== 0) {
       this.trip.stops.forEach((stop, index) => {
@@ -123,7 +118,6 @@ export class TripService {
   }
 
   addStopToTrip(stop): string {
-    this.displayTimeline = false;
     this.trip.stops.push(stop);
     // this.tripSubject.next(this.trip);
     this.updateWaypoints();
@@ -134,9 +128,6 @@ export class TripService {
    }
 
   addHotelToTrip(hotelData, stopIdOfHotel) {
-
-    this.displayTimeline = false;
-
     if (stopIdOfHotel === this.trip.destination.stopId) {
       this.trip.destination.hotels.push(hotelData);
     } else {
@@ -273,7 +264,6 @@ export class TripService {
 
   removeStopFromTrip(stopId: string): string {
     const stops = [];
-    this.displayTimeline = false;
 
     this.trip.stops.forEach((stop: Stop) => {
       if (stop.stopId !== stopId) {
@@ -294,8 +284,6 @@ export class TripService {
   }
 
   deletePlaceFromStop(stopId: string, placeId: string, placeType: string) {
-    this.displayTimeline = false;
-
     for (const stop of [this.trip.source, ...this.trip.stops, this.trip.destination]) {
       if (stop.stopId === stopId) {
         if (placeType === 'hotel') {
@@ -325,6 +313,7 @@ export class TripService {
   }
 
   updateTimeline(): void {
+    this.displayTimeline = false;
     setTimeout(() => {
       this.displayTimeline = true;
     }, this.timelinePauseTime);
