@@ -18,13 +18,13 @@
   <div class="date-field">
     <mat-form-field class="date-input-field" appearance="outline">
       <mat-label>Date</mat-label>
-
+      {{tempDate}}
       <input
         placeholder="Trip Date"
         matInput
         [matDatepicker]="arrivalDatepicker"
         (dateChange)="handleArrivalDateSet($event)"
-        [value]="arrivalDate"
+        [value]="tempDate"
         [min]="getMinDate()"
         [max]="getMaxDate()"
         (focus)="arrivalDatepicker.open()"
@@ -46,6 +46,7 @@
         matInput
         [ngxTimepicker]="arrivalTimePicker"
         [format]="12"
+        [min]="minArrivalTime | date: 'h:mm a'"
         [value]="arrivalDate | date: 'h:mm a'"
         readonly
       />
@@ -105,10 +106,10 @@
 
 <div id="buttons-block">
     <div id="bottom-error-block">
-      <p id="stop-error" *ngIf="invalidMoreArrivalTimeError">* Departure time must be  more than arrival</p>
-      <p id="stop-error" *ngIf="invalidLessArrivalTimeError">* Arrival time can not be less than arrival of Stop</p>
+      <p id="attraction-error" *ngIf="invalidMoreArrivalTimeError">* Departure time must be  more than arrival</p>
+      <p id="attraction-error" *ngIf="invalidLessArrivalTimeError">* Arrival time can not be less than arrival of Stop</p>
       <!-- <p id="stop-error" *ngIf="invalidMoreArrivalTimeErrorDepart">* Arrival time must be less than departue</p> -->
-      <p id="stop-error" *ngIf="invalidDepartureTimeError">* Departure time must be  less than stop departure.</p>
+      <p id="attraction-error" *ngIf="invalidDepartureTimeError">* Departure time must be  less than stop departure.</p>
     </div>
     <div id="bottom-button-block">
         <button mat-button (click)="closeAttractionDialog()">CANCEL</button>

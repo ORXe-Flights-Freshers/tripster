@@ -27,6 +27,7 @@ export class AddHotelDetailsComponent implements OnInit {
   invalidArrivalTimeError: boolean;
   invalidSameTimeError: boolean;
   minTime: Date;
+  maxTime: Date;
 
   constructor(
     public dialogRef: MatDialogRef<AddHotelDetailsComponent>,
@@ -48,6 +49,7 @@ export class AddHotelDetailsComponent implements OnInit {
     ':' +  this.departureDate.getMinutes().toString() + ' am';
     this.maxDepartureDate = new Date(this.getMaxDate()); // departure of stop
     this.minTime = this.getMinTime();
+    this.maxTime = this.getMaxTime();
   }
 
   handleArrivalTimeSet(time: string) {
@@ -81,19 +83,9 @@ export class AddHotelDetailsComponent implements OnInit {
 
   getMinTime(): Date {
     if ( this.isDepartureDateMore()) { // enables timepicker
-       if (this.isDepartureDateSame()) {
-         return this.maxDepartureDate;
-       }
        return new Date((new Date(this.arrivalDate)).setHours(0 , 0));
     }
     return new Date(this.arrivalDate);
-  }
-
-  isDepartureDateSame(): boolean { //compare with maxDepartureDate
-    if (this.departureDate.getDate() === this.maxDepartureDate.getDate()  ) {
-      return true;
-    }
-    return false;
   }
 
   isDepartureDateMore(): boolean {
@@ -110,6 +102,21 @@ export class AddHotelDetailsComponent implements OnInit {
 
   }
 
+  getMaxTime(): Date {
+    if (this.isDepartureDateSame()) {
+      return this.maxDepartureDate;
+    }
+    return new Date((new Date(this.maxDepartureDate)).setHours(23 , 59));
+  }
+
+  isDepartureDateSame(): boolean { // compare with maxDepartureDate
+    if (this.departureDate.getDate() === this.maxDepartureDate.getDate()  ) {
+      return true;
+    }
+    return false;
+  }
+
+
   handleArrivalDateSet(date: HTMLInputElement) {
     console.log(this.arrivalDate);
 
@@ -120,6 +127,7 @@ export class AddHotelDetailsComponent implements OnInit {
     this.departureDate.setHours(newDepartureTime.hours);
     this.departureDate.setMinutes(newDepartureTime.minutes);
     this.minTime = this.getMinTime();
+    this.maxTime = this.getMaxTime();
     this.validateDateTime();
   }
 

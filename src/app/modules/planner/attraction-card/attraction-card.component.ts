@@ -6,6 +6,7 @@ import {
 import { Attraction } from '@models/Attraction';
 import { TripService } from '@services/trip.service';
 import { AddAttractionDetailsComponent } from '../add-attraction-details/add-attraction-details.component';
+import { AddStopComponent } from '../add-stop/add-stop.component';
 
 @Component({
   selector: 'app-attraction-card',
@@ -27,12 +28,12 @@ export class AttractionCardComponent implements OnInit {
   openAttractionDialog(attractionData): void {
 
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
+    dialogConfig.autoFocus = false;
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
 
     dialogConfig.data = {attractionData, stopIdOfAttraction: this.stopIdOfAttraction} ;
-    const dialogRef = this.dialog.open(AddAttractionDetailsComponent, dialogConfig);
+    const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
 
     dialogRef.afterClosed()
       .subscribe(placeFromDialog => {
