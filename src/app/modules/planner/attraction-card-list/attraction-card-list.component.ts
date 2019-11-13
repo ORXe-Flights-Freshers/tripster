@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { Attraction } from '@models/Attraction';
 import { TripService } from '@services/trip.service';
+import { MatSliderChange } from '@angular/material';
 
 
 interface AttractionResult {
