@@ -44,7 +44,7 @@
       [stopIdOfAttraction]="stopIdOfAttraction"
       *ngFor="let attraction of arrAttractions"
       [attractionData]="getAttractionData(attraction)"
-
        ></app-attraction-card>
   </div>
+  <mat-slider [value]="radius" (change)="handleRadiusChange($event)" thumbLabel tickInterval="1" class="slider" min="1" max="5" step="1" value="1"></mat-slider>
 </div>

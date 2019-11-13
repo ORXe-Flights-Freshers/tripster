@@ -24,7 +24,7 @@ export class TripService {
   timelinePauseTime = 100;
 
   constructor(private http: HttpClient,
-              private route: Router
+              private route: Router,
   ) {}
 
   createTrip(trip: Trip) {
@@ -296,8 +296,10 @@ export class TripService {
   }
 
   showPlaceMarker(place: Place) {
-    this.placeMarker = place;
     this.mapZoomIn();
+    setTimeout(() => {
+      this.placeMarker = place;
+    }, 100);
   }
   mapZoomIn() {
     const interValZoom = setInterval(() => {
@@ -309,7 +311,7 @@ export class TripService {
             clearInterval(interValZoom);
           }
       
-  }, 100);
+  }, 10);
   }
 
   hidePlaceMarker() {
