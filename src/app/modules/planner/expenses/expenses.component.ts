@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { TripService } from 'src/app/services/trip.service';
+import { TripService } from '@services/trip.service';
 
 @Component({
   selector: 'app-expenses',

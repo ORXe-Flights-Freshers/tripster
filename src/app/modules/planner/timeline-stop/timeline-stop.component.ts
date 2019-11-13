@@ -7,11 +7,11 @@ import {
   ViewChild
 } from '@angular/core';
 import { HelperCanvas } from './helper-functions';
-import {Stop} from '../../../models/Stop';
-import {TripService} from '../../../services/trip.service';
-import {Hotel} from '../../../models/Hotel';
-import {Attraction} from '../../../models/Attraction';
-import {UtilityService} from '../../../services/utility.service';
+import {Stop} from '@models/Stop';
+import {TripService} from '@services/trip.service';
+import {Hotel} from '@models/Hotel';
+import {Attraction} from '@models/Attraction';
+import {UtilityService} from '@services/utility.service';
 
 interface TimelinePlace {
   id: string;
