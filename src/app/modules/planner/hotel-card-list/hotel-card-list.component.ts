@@ -3,7 +3,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { TripService } from '@services/trip.service';
 import { Hotel } from '@models/Hotel';
-import { MatSliderChange } from '@angular/material';
 
 interface HotelResult {
   hotelId: string;
@@ -119,9 +118,9 @@ export class HotelCardListComponent implements OnInit {
     };
     return hotelData;
   }
-  handleRadiusChange(radiusSliderChange:MatSliderChange)
-    {
-      this.radius = radiusSliderChange.value;
-      this.hotelByStop(this.stop);
-    }
+
+  handleRadiusChange(radiusSliderChange: Event) {
+    this.radius = +(radiusSliderChange.target as HTMLInputElement).value;
+    this.hotelByStop(this.stop);
+  }
 }

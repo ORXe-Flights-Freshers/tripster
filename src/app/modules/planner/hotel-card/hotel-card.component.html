@@ -1,4 +1,4 @@
-<div class="card" (click)="tripService.showPlaceMarker(hotelData)">
+<div class="card">
   <div class="image">
     <img [src]=hotelData.imageUrl />
   </div>
@@ -9,13 +9,19 @@
     <div class="facilities">
       {{ hotelData.description }}
     </div>
-    <div class="rating">
+    <div class="hotel-rating">
       <strong>Rating: </strong>
       {{ hotelData.rating }}
       <span class="fa fa-star"></span>
     </div>
   </div>
-  <div class="add-btn" (click)="openHotelDialog(hotelData)">
+  <div
+    class="locate-on-map"
+    (click)="tripService.showPlaceMarker(hotelData)"
+  >
+    <img src="assets/icons/location_searching.svg" alt="Locate on map">
+  </div>
+  <div class="add-btn-hotel" (click)="openHotelDialog(hotelData)">
     Add
   </div>
 </div>

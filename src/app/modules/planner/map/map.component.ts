@@ -1,31 +1,28 @@
-import { Component, OnInit, SimpleChange } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TripService } from '@services/trip.service';
-import { InfoWindow } from '@agm/core/services/google-maps-types';
-import {AgmInfoWindow, AgmCoreModule, AgmMap} from '@agm/core';
+import {AgmInfoWindow, AgmMap} from '@agm/core';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit {
+export class MapComponent {
   isLoading: boolean;
-  map: google.maps.Map
-  placeIconUrl:string="http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+  map: google.maps.Map;
+  placeIconUrl = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
 
   constructor(public tripService: TripService) {}
   markerOptions;
-  minZoom=4;
-  maxZoom=16;
+  minZoom = 4;
+  maxZoom = 16;
   stopIconUrl = 'http://maps.gstatic.com/mapfiles/markers2/icon_green.png';
 
-  mapReady(event)
-  {
-    this.map=event;
+  mapReady(event) {
+    this.map = event;
     this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('center'));
   }
 
-  ngOnInit() {}
   showPlaceInfoWindow(placeInfoWindow: AgmInfoWindow) {
     placeInfoWindow.open();
   }
@@ -33,12 +30,11 @@ export class MapComponent implements OnInit {
   hidePlaceInfoWindow(placeInfoWindow: AgmInfoWindow) {
     placeInfoWindow.close();
   }
-  handleZoomChange(zoom:number){
+  handleZoomChange(zoom: number) {
     this.tripService.mapZoom = zoom;
   }
-  showRoute(agmMap:AgmMap)
-  {
-    console.log("dsfd");
+  showRoute(agmMap: AgmMap) {
+    console.log('dsfd');
     agmMap.triggerResize(true);
   }
 }

@@ -10,7 +10,7 @@
   height: 110px;
   border: 1px solid rgba(0, 0, 0, 0.4);
   margin-top: 2%;
-  margin-left: 1%;
+  margin-left: 2%;
   position: absolute;
 }
 .image img {
@@ -21,7 +21,8 @@
 
 .text-body {
   position: absolute;
-  margin-left: 35%;
+  margin-top: 1%;
+  margin-left: 34%;
   width: 200px;
   height: 100%;
 }
@@ -43,7 +44,21 @@
   color: rgba(0, 0, 0, 0.6);
 }
 
-.add-btn {
+.locate-on-map {
+  position: absolute;
+  font-size: 30px;
+  right: 6%;
+  transition: 100ms ease-in-out;
+}
+
+.locate-on-map:hover {
+  background-color: #eeeeee;
+  cursor: pointer;
+  padding: 5px;
+  right: 5%;
+}
+
+.add-btn-attraction {
   background-color: white;
   position: absolute;
   padding: 2% 4%;
@@ -52,16 +67,19 @@
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
-  margin-left: 80%;
-  margin-top: 90px;
+  margin-left: 84%;
+  margin-top: 80px;
 }
-.add-btn:hover {
+
+.add-btn-attraction:hover {
   color: white;
   background-color: black;
   transition-duration: 0.2s;
   cursor: pointer;
 }
-.rating {
+
+.attraction-rating {
   position: absolute;
   font-size: 14px;
+  bottom: 15%;
 }

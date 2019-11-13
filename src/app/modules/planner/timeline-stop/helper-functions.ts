@@ -1,7 +1,7 @@
 export class HelperCanvas {
   canvas =  null;
   canvasContext = null;
-  fontFamily = 'Courier New';
+  fontFamily = 'Arial';
   resolution = 1;
 
   constructor(canvas: HTMLCanvasElement) {
