@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { TripService } from '@services/trip.service';
 import { Hotel } from '@models/Hotel';
+import { MatSliderChange } from '@angular/material';
 
 interface HotelResult {
   hotelId: string;
@@ -30,6 +31,8 @@ export class HotelCardListComponent implements OnInit {
   stopIdOfHotel: string;
   chosenCity: string;
   displayLoader: boolean;
+  radius: number = 2;
+  stop: Stop;
 
   constructor(
     private httpService: HttpClient,
@@ -48,6 +51,7 @@ export class HotelCardListComponent implements OnInit {
 
   hotelByStop(stop: Stop) {
     this.displayLoader = true;
+    this.stop = stop;
     this.httpService
       .get('https://tripster-tavisca.firebaseio.com/hotels-api-ip.json')
       .subscribe(hotelsApiDetails => {
@@ -75,7 +79,9 @@ export class HotelCardListComponent implements OnInit {
             hotelsApiUrl +
               stop.location.latitude +
               '/' +
-              stop.location.longitude
+              stop.location.longitude +
+              '/' +
+              this.radius
           )
           .subscribe(
             (data: { hotels: [] }) => {
@@ -113,4 +119,9 @@ export class HotelCardListComponent implements OnInit {
     };
     return hotelData;
   }
+  handleRadiusChange(radiusSliderChange:MatSliderChange)
+    {
+      this.radius = radiusSliderChange.value;
+      this.hotelByStop(this.stop);
+    }
 }

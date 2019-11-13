@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Trip } from '@models/Trip';
 import { HttpClient } from '@angular/common/http';
 import { Stop } from '@models/Stop';
@@ -13,6 +13,7 @@ export class TripService {
   waypoints = [];
   waypointsInfo = [];
   placeMarker;
+  mapZoom = 9;
 
   directionResult: google.maps.DirectionsResult;
 
@@ -20,7 +21,7 @@ export class TripService {
   timelinePauseTime = 200;
 
   constructor(private http: HttpClient,
-              private route: Router
+              private route: Router,
   ) {}
 
   createTrip(trip: Trip) {
@@ -223,8 +224,19 @@ export class TripService {
   }
 
   showPlaceMarker(place: Place) {
+    this.mapZoomIn();
     this.placeMarker = place;
   }
+  mapZoomIn() {
+    const interValZoom = setInterval(() => {
+      if (this.mapZoom > 15) {
+        clearInterval(interValZoom);
+        return;
+      }
+      this.mapZoom = this.mapZoom + 1 ;
+    }, 10);
+  }
+
   hidePlaceMarker() {
     this.placeMarker = undefined;
   }
