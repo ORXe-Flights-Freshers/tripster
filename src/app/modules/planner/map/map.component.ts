@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TripService } from 'src/app/services/trip.service';
-import { InfoWindow } from '@agm/core/services/google-maps-types';
-import {AgmInfoWindow} from '@agm/core';
+import { AgmInfoWindow } from '@agm/core';
 
 @Component({
   selector: 'app-map',
