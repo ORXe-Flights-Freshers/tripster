@@ -45,6 +45,7 @@
             style="width: 100%"
             [ngxTimepicker]="endTime"
             [format]="12"
+            [min]="getMinTime() | date: 'h:mm a'"
             [value]="getMinDate() | date: 'h:mm a'"
             readonly
           />
@@ -89,6 +90,6 @@
     <p style="color: red;" *ngIf="invalidDepartureDateTimeError">
         Time can't be less than current time.
     </p>
-    
+
   </mat-card>
 </form>
