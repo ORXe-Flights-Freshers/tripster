@@ -3,8 +3,8 @@
     <mat-spinner class="spinner"></mat-spinner>
   </div>
 
-  <agm-map [fitBounds]="true" *ngIf="!isLoading" [latitude]="tripService?.placemarker?.location.latitude"
-  [longitude]="tripService?.placemarker?.location.longitude" [minZoom]="minZoom" [maxZoom]="maxZoom" [zoom]="tripService?.mapZoom" (zoomChange)="handleZoomChange($event)">
+  <agm-map [fitBounds]="true" *ngIf="!isLoading" [latitude]="tripService?.placeMarker?.location.latitude"
+  [longitude]="tripService?.placeMarker?.location.longitude" [minZoom]="minZoom" [maxZoom]="maxZoom" [zoom]="tripService?.mapZoom" (zoomChange)="handleZoomChange($event)">
     <agm-marker
       *ngIf="tripService?.trip?.source"
       [agmFitBounds]="true"
