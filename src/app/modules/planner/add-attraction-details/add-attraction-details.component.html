@@ -18,13 +18,12 @@
   <div class="date-field">
     <mat-form-field class="date-input-field" appearance="outline">
       <mat-label>Date</mat-label>
-      {{tempDate}}
       <input
         placeholder="Trip Date"
         matInput
         [matDatepicker]="arrivalDatepicker"
         (dateChange)="handleArrivalDateSet($event)"
-        [value]="tempDate"
+        [value]="arrivalDate"
         [min]="getMinDate()"
         [max]="getMaxDate()"
         (focus)="arrivalDatepicker.open()"

@@ -103,9 +103,9 @@ export class AddHotelDetailsComponent implements OnInit {
   }
 
   getMaxTime(): Date {
-    if (this.isDepartureDateSame()) {
-      return this.maxDepartureDate;
-    }
+    // if (this.isDepartureDateSame()) {
+    //   return this.maxDepartureDate;
+    // }
     return new Date((new Date(this.maxDepartureDate)).setHours(23 , 59));
   }
 
