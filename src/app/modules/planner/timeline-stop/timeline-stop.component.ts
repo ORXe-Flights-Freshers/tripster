@@ -192,19 +192,11 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
       outlineRectWidth, 20, 10, this.currentTheme.color
     );
 
-    if (this.stopType === 'stop') {
-      this.helperCanvas.writeText(
-        this.stop.name, 40, this.stopLabelYCoordinate + 3,
-        fontSize, this.currentTheme.color,
-        'bold ' + fontSize + 'px ' + this.helperCanvas.fontFamily
-      );
-    } else {
-      this.helperCanvas.writeText(
-        this.stop.name, 40, this.stopLabelYCoordinate + 3,
-        fontSize, this.currentTheme.color,
-        'bold ' + fontSize + 'px ' + this.helperCanvas.fontFamily
-      );
-    }
+    this.helperCanvas.writeText(
+      this.stop.name, 40, this.stopLabelYCoordinate + 3,
+      fontSize, this.currentTheme.color,
+      'bold ' + fontSize + 'px ' + this.helperCanvas.fontFamily
+    );
   }
 
   renderStopMarkerConnectorLine() {
@@ -313,8 +305,12 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
         40, yCoordinate - 10, 180, 40, '#ccc'
       );
 
+      const placeName = place.name.length > 20 ?
+        place.name.substring(0, 20) + '...' :
+        place.name;
+
       this.helperCanvas.writeText(
-        place.name,
+        placeName,
         80,
         yCoordinate + 12.5,
         7,
