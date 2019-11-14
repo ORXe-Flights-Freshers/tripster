@@ -73,6 +73,7 @@
 
 .locate-on-map {
   position: absolute;
+  width: 25px;
   font-size: 30px;
   right: 6%;
   transition: 100ms ease-in-out;
