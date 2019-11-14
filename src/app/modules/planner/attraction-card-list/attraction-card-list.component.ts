@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { Attraction } from '@models/Attraction';
@@ -8,15 +8,15 @@ import { MatSearchBarComponent } from 'ng-mat-search-bar/src/app/ng-mat-search-b
 
 
 interface AttractionResult {
-  name: string;
   attractionId: string;
+  name: string;
   description: string;
-  rating: number;
   imageUrl: string;
   location: {
     lat: number,
     lng: number
   };
+  rating: number;
 }
 
 @Component({
@@ -33,7 +33,8 @@ export class AttractionCardListComponent implements OnInit {
   stop: Stop;
   radius = 2;
   search: FormControl = new FormControl('');
-  searchQuery="";
+  searchQuery = '';
+  dummyAttr = [1, 2, 3, 4];
 
   constructor(
     private httpService: HttpClient,
@@ -48,9 +49,7 @@ export class AttractionCardListComponent implements OnInit {
     } else {
       this.attractionByStop(this.tripService.trip.stops[0]);
     }
-    this.search.valueChanges.subscribe(val =>{
-      this.searchPlace(val);
-    })
+    this.search.valueChanges.subscribe(val => this.searchPlace(val));
   }
   attractionByStop(stop: Stop) {
     this.displayLoader = true;
@@ -59,15 +58,17 @@ export class AttractionCardListComponent implements OnInit {
       document.createElement('div')
     );
     this.arrAttractions = [];
+    const attractions = [];
     this.placeService.nearbySearch(
       {
         location: { lat: stop.location.latitude, lng: stop.location.longitude },
-        radius: this.radius * 1000,
+        radius: +this.radius * 1000,
         type: 'tourist_attraction'
       },
-      (placeResults, status, pagination) => {
-        placeResults.forEach(placeResult => {
-          this.arrAttractions.push({
+      (placeResults, status, pagination) => { 
+          console.log('triggered');
+          placeResults.forEach(placeResult => {
+          const attractionData = {
             name: placeResult.name,
             placeId: placeResult.place_id,
             description: placeResult.vicinity,
@@ -82,25 +83,24 @@ export class AttractionCardListComponent implements OnInit {
             }) : 'http://lorempixel.com/200/200/nature/?id=' + Math.random(),
             arrival: '',
             departure: ''
+          };
+          attractions.push(attractionData);
           });
-        });
-        this.stopIdOfAttraction = stop.stopId;
-        this.chosenCity = stop.name;
-        
-        if (pagination.hasNextPage) {
-          pagination.nextPage();
-        }
-        else{
-          this.displayLoader=false;
-        }
-        this.changeDetectorRef.detectChanges();
+          console.log(this.arrAttractions);
+          this.arrAttractions = attractions;
+          this.displayLoader = false;
+          this.stopIdOfAttraction = stop.stopId;
+          this.chosenCity = stop.name;
+          if (pagination.hasNextPage) {
+            pagination.nextPage();
+          }
+          // this.changeDetectorRef.detectChanges();
+        })
+       
       }
-    );
-  }
 
 
   getAttractionData(attractionDataApi: AttractionResult) {
-
       const attractionData: Attraction = {
         placeId: attractionDataApi.attractionId,
         name: attractionDataApi.name,
@@ -117,21 +117,16 @@ export class AttractionCardListComponent implements OnInit {
       return attractionData;
     }
 
-    handleRadiusChange(radiusSliderChange: Event) {
-      this.radius = +(radiusSliderChange.target as HTMLInputElement).value;
+    handleRadiusChange(event: Event) {
+      this.radius = +(event.target as HTMLInputElement).value;
+      console.log(`Radius: ${this.radius}`);
       this.attractionByStop(this.stop);
     }
-    searchPlace(searchQuery:string)
-    {
+    searchPlace(searchQuery: string) {
       this.searchQuery = searchQuery;
     }
-    handleSearchBarOpen()
-    {
-      this.search.setValue("");
-    }
-    getAttractions()
-    {
-      return this.arrAttractions.filter(a => {return a.name.toLowerCase().includes(this.searchQuery.toLowerCase())})
+    handleSearchBarOpen() {
+      this.search.setValue('');
     }
   }
 

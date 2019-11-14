@@ -2,13 +2,11 @@
   <div class="loader" *ngIf="displayLoader">
     <mat-spinner class="spinner"></mat-spinner>
   </div>
-
   <div class="header">
     <span class="number-of-attractions-info bold">
       <span *ngIf="chosenCity; else noLocationSelected">
         <span class="bolder">
-          <!-- {{ arrAttractions ? arrAttractions.length.toString() : "0" }} -->
-          {{getAttractions().length}}
+          {{(arrAttractions|search:'name':searchQuery).length}}
         </span>
         attractions found near {{ chosenCity }}
       </span>
@@ -41,11 +39,13 @@
       {{ tripService.trip.destination.name }}
     </button>
   </div>
-
   <div class="attractions-list">
+      <!-- <div *ngFor="let attraction of arrAttractions">
+        <app-dummy-attraction></app-dummy-attraction>
+      </div> -->
       <app-attraction-card
       [stopIdOfAttraction]="stopIdOfAttraction"
-      *ngFor="let attraction of arrAttractions"
+      *ngFor="let attraction of arrAttractions|search:'name':searchQuery"
       [attractionData]="attraction"
        ></app-attraction-card>
   </div>

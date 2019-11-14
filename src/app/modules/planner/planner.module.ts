@@ -20,6 +20,8 @@ import { ExpensesComponent } from './expenses/expenses.component';
 import { ShareTripComponent } from './share-trip/share-trip.component';
 import { AddAttractionDetailsComponent } from './add-attraction-details/add-attraction-details.component';
 import { TimelineStopComponent } from './timeline-stop/timeline-stop.component';
+import { SearchPipe } from './pipe/search.pipe';
+import { DummyAttractionComponent } from './dummy-attraction/dummy-attraction.component';
 
 const routes: Routes = [
   {
@@ -46,7 +48,9 @@ const routes: Routes = [
     ExpensesComponent,
     ShareTripComponent,
     AddAttractionDetailsComponent,
-    TimelineStopComponent
+    TimelineStopComponent,
+    SearchPipe,
+    DummyAttractionComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

@@ -26,11 +26,11 @@ interface HotelResult {
   styleUrls: ['./hotel-card-list.component.css']
 })
 export class HotelCardListComponent implements OnInit {
-  arrHotels: HotelResult[];
+  arrHotels: Hotel[] = [];
   stopIdOfHotel: string;
   chosenCity: string;
   displayLoader: boolean;
-  radius: number = 2;
+  radius = 2;
   stop: Stop;
 
   constructor(
@@ -86,9 +86,11 @@ export class HotelCardListComponent implements OnInit {
             (data: { hotels: [] }) => {
               this.chosenCity = stop.name;
               this.stopIdOfHotel = stop.stopId;
-              this.arrHotels = data.hotels;
-              // console.log(this.arrHotels);
-              //  console.log(this.arrBirds[1]);
+              this.arrHotels = [];
+
+              for (const hotelData of data.hotels) {
+                this.arrHotels.push(this.getHotelData(hotelData));
+              }
               this.displayLoader = false;
             },
             (err: HttpErrorResponse) => {
@@ -99,6 +101,7 @@ export class HotelCardListComponent implements OnInit {
   }
 
   getHotelData(hotelDataApi: HotelResult) {
+  //  console.log("here");
     const hotelData: Hotel = {
       placeId: hotelDataApi.hotelId,
       name: hotelDataApi.name,

@@ -24,6 +24,7 @@
         [value]="arrivalDate"
         [matDatepicker]="arrivalDatepicker"
         (dateChange)="handleArrivalDateSet($event)"
+        [value]="arrivalDate"
         [min]="getMinDate()"
         [max]="getMaxDate()"
         (click)="toggleDatepicker(arrivalDatepicker)"
