@@ -7,7 +7,8 @@
     <span class="number-of-attractions-info bold">
       <span *ngIf="chosenCity; else noLocationSelected">
         <span class="bolder">
-          {{ arrAttractions ? arrAttractions.length.toString() : "0" }}
+          <!-- {{ arrAttractions ? arrAttractions.length.toString() : "0" }} -->
+          {{getAttractions().length}}
         </span>
         attractions found near {{ chosenCity }}
       </span>
@@ -15,7 +16,9 @@
         Choose a location to view attractions there
       </ng-template>
     </span>
-    <div class="filter-btn bolder">Filter</div>
+    <div class="filter-btn bolder">
+    <mat-search-bar (onOpen)="handleSearchBarOpen()" [formControl]="search" name="search"></mat-search-bar>
+    </div>
   </div>
 
   <div class="list-of-stops">
@@ -43,7 +46,7 @@
       <app-attraction-card
       [stopIdOfAttraction]="stopIdOfAttraction"
       *ngFor="let attraction of arrAttractions"
-      [attractionData]="getAttractionData(attraction)"
+      [attractionData]="attraction"
        ></app-attraction-card>
   </div>
 

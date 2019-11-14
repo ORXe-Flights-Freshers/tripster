@@ -25,16 +25,15 @@ export class AttractionCardComponent implements OnInit {
     // console.log(this.imageUrl);
   }
 
-  openAttractionDialog(attractionData): void {
+  openAttractionDialog(attractionData: Attraction): void {
 
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = false;
+    dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
 
     dialogConfig.data = {attractionData, stopIdOfAttraction: this.stopIdOfAttraction} ;
-    const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
-
+    const dialogRef = this.dialog.open(AddAttractionDetailsComponent, dialogConfig);
     dialogRef.afterClosed()
       .subscribe(placeFromDialog => {
         this.tripService.displayTimeline = false;

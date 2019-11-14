@@ -1,2 +1,4 @@
 import { Place } from './Place';
-export interface Attraction extends Place {}
+import { Location } from './Location';
+export interface Attraction extends Place {
+}
