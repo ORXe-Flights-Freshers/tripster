@@ -2,12 +2,11 @@
   <div class="loader" *ngIf="displayLoader">
     <mat-spinner class="spinner"></mat-spinner>
   </div>
-
   <div class="header">
     <span class="number-of-attractions-info bold">
       <span *ngIf="chosenCity; else noLocationSelected">
         <span class="bolder">
-          {{ arrAttractions ? arrAttractions.length.toString() : "0" }}
+          {{(arrAttractions|search:'name':searchQuery).length}}
         </span>
         attractions found near {{ chosenCity }}
       </span>
@@ -15,7 +14,9 @@
         Choose a location to view attractions there
       </ng-template>
     </span>
-    <div class="filter-btn bolder">Filter</div>
+    <div class="filter-btn bolder">
+    <mat-search-bar (onOpen)="handleSearchBarOpen()" [formControl]="search" name="search"></mat-search-bar>
+    </div>
   </div>
 
   <div class="list-of-stops">
@@ -38,11 +39,13 @@
       {{ tripService.trip.destination.name }}
     </button>
   </div>
-
   <div class="attractions-list">
+      <!-- <div *ngFor="let attraction of arrAttractions">
+        <app-dummy-attraction></app-dummy-attraction>
+      </div> -->
       <app-attraction-card
       [stopIdOfAttraction]="stopIdOfAttraction"
-      *ngFor="let attraction of arrAttractions"
+      *ngFor="let attraction of arrAttractions|search:'name':searchQuery"
       [attractionData]="attraction"
        ></app-attraction-card>
   </div>

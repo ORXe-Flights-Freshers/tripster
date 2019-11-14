@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { Time } from '@models/Time';
 import { Attraction } from '@models/Attraction';
 import {NavigatorService} from '@services/navigator.service';
+import { MatDatepicker } from '@angular/material';
 
 @Component({
   selector: 'app-add-attraction-details',
@@ -153,6 +154,21 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.attractionData.departure = this.departureDate.toString();
 
     this.dialogRef.close(this.attractionData);
+  }
+  toggleDatepicker(datepicker)
+  {
+    console.log(datepicker);
+      if(datepicker.opened)
+        {datepicker.close();
+        }
+      else
+        {datepicker.open();
+        }
+  }
+  toggleTimePicker()
+  {
+    console.log("sbjd,jds");
+    window.resizeBy(100,100);
   }
 
 }

@@ -12,6 +12,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule, MatProgressSpinnerModule } from '@angular/material';
 import {MatSliderModule} from '@angular/material/slider';
+import { NgMatSearchBarModule } from 'ng-mat-search-bar';
+
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import {MatSliderModule} from '@angular/material/slider';
     MatSnackBarModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatSliderModule
+    MatSliderModule,
+    NgMatSearchBarModule
   ]
 })
 export class AppMaterialModule {}
