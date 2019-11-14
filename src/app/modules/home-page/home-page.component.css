@@ -16,7 +16,7 @@ img {
 }
 
 .img-background {
-  background-color: black;
+  background-color: var(--main-theme-color);
 }
 
 @media screen and (max-width: 1300px) and (min-width: 600px) {

@@ -105,7 +105,7 @@ ul.extras li:hover {
 
   .extras {
     position: absolute;
-    background-color: #0B1240;
+    background-color: var(--main-theme-color);
 
     left: 0;
     top: 60px;
@@ -128,7 +128,7 @@ ul.extras li:hover {
   }
 
   .extras li:hover {
-    color: #0B1240;
+    color: var(--main-theme-color);
 
     text-decoration: underline;
     background-color: white;

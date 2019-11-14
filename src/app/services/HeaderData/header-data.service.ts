@@ -20,14 +20,14 @@ export class HeaderDataService {
   }
 
   customizeHeaderForPlannerPage() {
-    this.backgroundColor = '#0B1240';
+    this.backgroundColor = 'var(--main-theme-color)';
     this.links = [
       { name: 'Sign in', url: '/signin' },
     ];
   }
 
   customizeHeaderForNotFoundPage() {
-    this.backgroundColor = '#0B1240';
+    this.backgroundColor = 'var(--main-theme-color)';
     this.links = [
       { name: 'Back', url: '/' },
     ];

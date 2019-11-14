@@ -181,14 +181,14 @@ export class TripService {
         });
       } else {
         this.getPlacesInOrder(stop).forEach((place: Place) => {
-          const { latitude, longitude } = place.location;
-          waypointsLocations.push({
-            location: {
-              lat: latitude,
-              lng: longitude
-            }
-          });
-          waypointsInfo.push({name: place.name});
+              const { latitude, longitude } = place.location;
+              waypointsLocations.push({
+                location: {
+                  lat: latitude,
+                  lng: longitude
+                }
+              });
+              waypointsInfo.push({name: place.name});
         });
      }
     }
