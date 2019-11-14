@@ -155,20 +155,13 @@ export class AddAttractionDetailsComponent implements OnInit {
 
     this.dialogRef.close(this.attractionData);
   }
-  toggleDatepicker(datepicker)
-  {
+  toggleDatepicker(datepicker) {
     console.log(datepicker);
-      if(datepicker.opened)
-        {datepicker.close();
-        }
-      else
-        {datepicker.open();
-        }
-  }
-  toggleTimePicker()
-  {
-    console.log("sbjd,jds");
-    window.resizeBy(100,100);
+    if (datepicker.opened) {
+        datepicker.close();
+    } else {
+      datepicker.open();
+    }
   }
 
 }
