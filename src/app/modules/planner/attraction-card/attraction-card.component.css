@@ -41,6 +41,10 @@
   margin-top: 2%;
   font-size: 13px;
   font-weight: 400;
+
+  height: 55px;
+  overflow: auto;
+
   color: rgba(0, 0, 0, 0.6);
 }
 

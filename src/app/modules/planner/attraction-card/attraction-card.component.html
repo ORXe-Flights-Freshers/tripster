@@ -1,6 +1,6 @@
 <div class="card">
   <div class="image">
-    <img [src]=attractionData.imageUrl alt="Attraction image"/>
+    <img [src]="attractionData.imageUrl" alt=" Image not available"/>
   </div>
   <div class="text-body">
     <div class="heading">
@@ -11,8 +11,13 @@
     </div>
     <div class="attraction-rating">
       <strong>Rating: </strong>
-      {{ attractionData.rating }}
-      <span class="fa fa-star"></span>
+      <span *ngIf="attractionData.rating; else ratingNotAvailableTemplate">
+        {{ attractionData.rating ? attractionData.rating : 0 }}
+        <span class="fa fa-star"></span>
+      </span>
+      <ng-template #ratingNotAvailableTemplate>
+        Not available
+      </ng-template>
     </div>
   </div>
   <div
