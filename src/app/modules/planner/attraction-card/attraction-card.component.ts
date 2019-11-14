@@ -33,7 +33,7 @@ export class AttractionCardComponent implements OnInit {
     dialogConfig.height = '510px';
 
     dialogConfig.data = {attractionData, stopIdOfAttraction: this.stopIdOfAttraction} ;
-    const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
+    const dialogRef = this.dialog.open(AddAttractionDetailsComponent, dialogConfig);
 
     dialogRef.afterClosed()
       .subscribe(placeFromDialog => {
