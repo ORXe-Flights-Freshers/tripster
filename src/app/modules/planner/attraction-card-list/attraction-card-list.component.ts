@@ -6,15 +6,15 @@ import { TripService } from '@services/trip.service';
 
 
 interface AttractionResult {
-  name: string;
   attractionId: string;
+  name: string;
   description: string;
-  rating: number;
   imageUrl: string;
   location: {
     lat: number,
     lng: number
   };
+  rating: number;
 }
 
 @Component({
@@ -55,7 +55,7 @@ export class AttractionCardListComponent implements OnInit {
     this.placeService.nearbySearch(
       {
         location: { lat: stop.location.latitude, lng: stop.location.longitude },
-        radius: this.radius * 1000,
+        radius: +this.radius * 1000,
         type: 'tourist_attraction'
       },
       (placeResults, status, pagination) => {
@@ -72,7 +72,7 @@ export class AttractionCardListComponent implements OnInit {
             imageUrl: placeResult.photos ? placeResult.photos[0].getUrl({
               maxHeight: 200,
               maxWidth: 200
-            }) : 'http://lorempixel.com/200/200/nature/?id=' + Math.random()
+            }) : ''
           });
           this.arrAttractions.push(attractionData);
         });
@@ -106,8 +106,9 @@ export class AttractionCardListComponent implements OnInit {
       return attractionData;
     }
 
-    handleRadiusChange(radiusSliderChange: Event) {
-      this.radius = +(radiusSliderChange.target as HTMLInputElement).value;
+    handleRadiusChange(event: Event) {
+      this.radius = +(event.target as HTMLInputElement).value;
+      console.log(`Radius: ${this.radius}`);
       this.attractionByStop(this.stop);
     }
   }
