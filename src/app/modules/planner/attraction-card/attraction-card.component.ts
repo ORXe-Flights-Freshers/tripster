@@ -24,10 +24,9 @@ export class AttractionCardComponent implements OnInit {
   }
 
 
-  openAttractionDialog(attractionData): void {
-    console.log(attractionData);
+  openAttractionDialog(attractionData: Attraction): void {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = false;
+    dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
 
