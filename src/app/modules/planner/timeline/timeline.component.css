@@ -32,7 +32,7 @@ mat-card {
   letter-spacing: 1px;
 
   color: white;
-  background-color: black;
+  background-color: var(--main-theme-color);
 
   outline: none;
 }

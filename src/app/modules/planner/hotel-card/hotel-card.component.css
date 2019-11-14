@@ -73,7 +73,7 @@
 
 .add-btn-hotel:hover {
   color: white;
-  background-color: black;
+  background-color: var(--main-theme-color);
   transition-duration: 0.2s;
   cursor: pointer;
 }
