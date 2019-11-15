@@ -42,7 +42,12 @@ export class AddHotelDetailsComponent implements OnInit {
   }
   ngOnInit() {
     this.arrivalDate = new Date(this.getMinDate());
-    this.departureDate = new Date(this.getMaxDate());
+    const stop = this.tripService.getStopByStopId(this.stopIdOfHotel);
+    if (stop.stopId === this.tripService.trip.destination.stopId) {
+      this.departureDate = new Date(this.arrivalDate);
+    } else {
+      this.departureDate = new Date(this.getMaxDate());
+    }
     this.arrivalTime = this.arrivalDate.getHours().toString() +
     ':' +  this.arrivalDate.getMinutes().toString() + ' am';
     this.departureTime = this.departureDate.getHours().toString() +
