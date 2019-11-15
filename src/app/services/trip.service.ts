@@ -163,7 +163,11 @@ export class TripService {
             }
             stop.attractions.splice(index, 0, attractionData);
           }
-
+          const stopTime = (new Date(stop.departure)).getTime();
+          const attractionTime = (new Date(attractionData.departure)).getTime();
+          if (stopTime < attractionTime) {
+             this.addTimetoTrip(( attractionTime - stopTime), stop.stopId);
+            }
           break;
         }
       }
