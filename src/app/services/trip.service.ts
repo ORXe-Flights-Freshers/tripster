@@ -98,7 +98,7 @@ export class TripService {
       );
       const newArrivalTime = (new Date(previousDeparture)).getTime();
       const oldArrivalTime = (new Date( this.trip.destination.arrival)).getTime();
-      if (newArrivalTime != oldArrivalTime) {
+      if (newArrivalTime !== oldArrivalTime) {
         console.log(this.trip);
         console.log(newArrivalTime - oldArrivalTime);
         this.addTimeToDestinationIteneraries(( newArrivalTime - oldArrivalTime));
@@ -232,7 +232,7 @@ export class TripService {
         return new Date(place1.arrival) < new Date(place2.arrival) ? -1 : 1;
       });
   }
-  addTimetoTrip(timeToAdd, changeStopId){
+  addTimetoTrip(timeToAdd, changeStopId) {
     let toAdd = false;
     const firstStop = this.getStopByStopId(changeStopId);
     firstStop.departure = this.getNewTime(firstStop.departure, timeToAdd);
