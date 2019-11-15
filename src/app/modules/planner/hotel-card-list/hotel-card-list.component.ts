@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { TripService } from '@services/trip.service';
@@ -31,7 +31,10 @@ export class HotelCardListComponent implements OnInit {
   chosenCity: string;
   displayLoader: boolean;
   radius = 2;
+  maxRadius = 5;
   stop: Stop;
+
+  @ViewChild('noHotelsFound', { static: false }) noHotelsFoundElement: ElementRef;
 
   constructor(
     private httpService: HttpClient,
@@ -50,6 +53,7 @@ export class HotelCardListComponent implements OnInit {
 
   hotelByStop(stop: Stop) {
     this.displayLoader = true;
+    (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = 'Searching...';
     this.stop = stop;
     this.httpService
       .get('https://tripster-tavisca.firebaseio.com/hotels-api-ip.json')
@@ -92,6 +96,29 @@ export class HotelCardListComponent implements OnInit {
                 this.arrHotels.push(this.getHotelData(hotelData));
               }
               this.displayLoader = false;
+              if (this.arrHotels.length === 0) {
+                let displayText = `No hotels found at ${stop.name}. `;
+
+                if (this.radius !== this.maxRadius) {
+                  displayText += 'Increasing the radius may help.';
+                } else {
+                  displayText += 'Please check for other stops.';
+                }
+
+                (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = displayText;
+                if (!(this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                  .classList.contains('no-hotels-found')) {
+                  (this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                    .classList.add('no-hotels-found');
+                }
+              } else {
+                (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = '';
+                if ((this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                  .classList.contains('no-hotels-found')) {
+                  (this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                    .classList.remove('no-hotels-found');
+                }
+              }
             },
             (err: HttpErrorResponse) => {
               console.log(err.message);
