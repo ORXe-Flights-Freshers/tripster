@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { TripService } from '@services/trip.service';
 import { Hotel } from '@models/Hotel';
+import { FormControl } from '@angular/forms';
 
 interface HotelResult {
   hotelId: string;
@@ -33,6 +34,8 @@ export class HotelCardListComponent implements OnInit {
   radius = 2;
   maxRadius = 5;
   stop: Stop;
+  search: FormControl = new FormControl('');
+  searchQuery = '';
 
   @ViewChild('noHotelsFound', { static: false }) noHotelsFoundElement: ElementRef;
 
@@ -49,6 +52,7 @@ export class HotelCardListComponent implements OnInit {
     } else {
       this.hotelByStop(this.tripService.trip.stops[0]);
     }
+    this.search.valueChanges.subscribe(val => this.searchPlace(val));
   }
 
   hotelByStop(stop: Stop) {
@@ -157,5 +161,11 @@ export class HotelCardListComponent implements OnInit {
   handleRadiusChange(radiusSliderChange: Event) {
     this.radius = +(radiusSliderChange.target as HTMLInputElement).value;
     this.hotelByStop(this.stop);
+  }
+  searchPlace(searchQuery: string) {
+    this.searchQuery = searchQuery;
+  }
+  handleSearchBarOpen() {
+    this.search.setValue('');
   }
 }

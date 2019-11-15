@@ -10,7 +10,7 @@
               *ngIf="chosenCity; else noLocationSelected"
           >
               <span class="bolder">
-                  {{ arrHotels ? (arrHotels.length).toString() : '0' }}
+                {{(arrHotels|search:'name':searchQuery).length}}
               </span>
               hotels found near {{ chosenCity }}
           </span>
@@ -19,7 +19,12 @@
           </ng-template>
 
       </span>
-    <div class="filter-btn bolder">Filter</div>
+    <div class="filter-btn bolder">
+      <mat-search-bar
+      (onOpen)="handleSearchBarOpen()"
+      [formControl]="search"
+    ></mat-search-bar>
+    </div>
   </div>
 
   <div class="list-of-stops">
@@ -48,7 +53,7 @@
       <div class="no-hotels-found" #noHotelsFound></div>
       <app-hotel-card
           [stopIdOfHotel]="stopIdOfHotel"
-          *ngFor="let hotelData of arrHotels"
+          *ngFor="let hotelData of arrHotels|search:'name':searchQuery"
           [hotelData]="hotelData"
       ></app-hotel-card>
   </div>
