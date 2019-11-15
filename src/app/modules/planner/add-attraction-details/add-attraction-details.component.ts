@@ -29,8 +29,7 @@ export class AddAttractionDetailsComponent implements OnInit {
   invalidMoreArrivalTimeError: boolean;
   invalidLessArrivalTimeError: boolean;
   minArrivalTime: Date;
-  tempDate = '11/12/2019';
-  // invalidMoreArrivalTimeErrorDepart: boolean;
+
   constructor(
     public dialogRef: MatDialogRef<AddAttractionDetailsComponent>,
     public tripService: TripService,
@@ -141,11 +140,11 @@ export class AddAttractionDetailsComponent implements OnInit {
   }
 
   closeAttractionDialog() {
-    this.tripService.updateTimeline();
     this.dialogRef.close();
   }
 
   addAttraction() {
+    this.tripService.displayTimeline = false;
     this.navigatorService.activeTab = 'timeline';
     this.attractionData.arrival = this.arrivalDate.toString();
     this.attractionData.departure = this.departureDate.toString();

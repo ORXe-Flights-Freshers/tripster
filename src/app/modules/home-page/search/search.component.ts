@@ -112,11 +112,11 @@ export class SearchComponent implements OnInit {
     this.tripDate.setHours(time.hours);
     this.tripDate.setMinutes(time.minutes);
     const trip = this.generateTrip();
-    this.tripService.displayTimeline = false;
 
     console.log(trip);
 
     this.tripService.createTrip(trip).subscribe(data => {
+      this.tripService.displayTimeline = true;
       this.router.navigate(['/', 'planner', (data as Trip).id]).then();
     });
   }

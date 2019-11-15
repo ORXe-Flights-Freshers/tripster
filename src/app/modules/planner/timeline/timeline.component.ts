@@ -19,7 +19,9 @@ export class TimelineComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.tripService.displayTimeline = true;
+  }
 
   openStopDialog(): void {
     const dialogConfig = new MatDialogConfig();

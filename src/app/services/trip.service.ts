@@ -18,7 +18,6 @@ export class TripService {
   directionResult: google.maps.DirectionsResult;
 
   displayTimeline = false;
-  timelinePauseTime = 200;
 
   constructor(private http: HttpClient,
               private route: Router,
@@ -36,10 +35,10 @@ export class TripService {
         this.trip = data as Trip;
 
         this.updateWaypoints();
-        this.updateTimeline();
+        this.displayTimeline = true;
       },
       error => {
-        this.route.navigate(['/', 'not-found']);
+        this.route.navigate(['/', 'not-found']).then();
       }
     );
   }
@@ -96,7 +95,6 @@ export class TripService {
           ].duration.value
       );
       this.trip.destination.arrival = previousDeparture.toString();
-      this.updateTimeline();
       this.updateTrip(this.trip).subscribe();
     }
 
@@ -126,7 +124,7 @@ export class TripService {
         const hotelTime = (new Date(hotelData.departure)).getTime();
         if (stopTime < hotelTime) {
           console.log(this.trip);
-          this.addTimetoTrip(( hotelTime - stopTime), stop.stopId);
+          this.addTimeToTrip(( hotelTime - stopTime), stop.stopId);
           console.log(this.trip);
         }
         break;
@@ -206,7 +204,6 @@ export class TripService {
 
     this.waypoints = waypointsLocations;
     this.waypointsInfo = waypointsInfo;
-    this.updateTimeline();
   }
 
   getPlacesInOrder(stop: Stop) {
@@ -217,7 +214,7 @@ export class TripService {
         return new Date(place1.arrival) < new Date(place2.arrival) ? -1 : 1;
       });
   }
-  addTimetoTrip(timeToAdd, changeStopId){
+  addTimeToTrip(timeToAdd, changeStopId) {
     let toAdd = false;
     const firstStop = this.getStopByStopId(changeStopId);
     firstStop.departure = this.getNewTime(firstStop.departure, timeToAdd);
@@ -294,7 +291,6 @@ export class TripService {
 
     this.trip.stops = stops;
 
-    this.updateTimeline();
     this.updateWaypoints();
     this.updateTrip(this.trip).subscribe();
     return 'success';
@@ -305,6 +301,7 @@ export class TripService {
   }
 
   deletePlaceFromStop(stopId: string, placeId: string, placeType: string) {
+    this.displayTimeline = false;
     for (const stop of [this.trip.source, ...this.trip.stops, this.trip.destination]) {
       if (stop.stopId === stopId) {
         if (placeType === 'hotel') {
@@ -328,16 +325,9 @@ export class TripService {
       }
     }
 
-    this.updateTimeline();
     this.updateWaypoints();
     this.updateTrip(this.trip).subscribe();
-  }
-
-  updateTimeline(): void {
-    this.displayTimeline = false;
-    setTimeout(() => {
-      this.displayTimeline = true;
-    }, this.timelinePauseTime);
+    this.displayTimeline = true;
   }
 
   getRandomUrl(): string {

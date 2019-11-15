@@ -36,8 +36,6 @@ export class AttractionCardComponent {
 
     dialogRef.afterClosed()
       .subscribe(placeFromDialog => {
-        this.tripService.displayTimeline = false;
-
         if (placeFromDialog) {
           this.tripService.addAttractionToTrip(placeFromDialog, this.stopIdOfAttraction);
           // this.openSnackBar('Attraction Added Successfully', 'OK');

@@ -6,7 +6,7 @@
   />
   <div class="timeline-body">
     <span
-      *ngIf="tripService?.displayTimeline"
+      *ngIf="tripService?.displayTimeline && tripService?.trip"
     >
       <app-timeline-stop
         [stop]="tripService?.trip?.source"
