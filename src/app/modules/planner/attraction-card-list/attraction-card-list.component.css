@@ -77,6 +77,11 @@
   outline: none;
 }
 
+.no-attractions-found {
+  width: 90%;
+  margin: 20px auto auto;
+}
+
 .attractions-list {
   height: 305px;
   overflow-y: auto;

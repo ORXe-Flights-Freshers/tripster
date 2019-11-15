@@ -77,6 +77,11 @@
   outline: none;
 }
 
+.no-hotels-found {
+  width: 90%;
+  margin: 20px auto auto;
+}
+
 .hotels-list {
   height: 305px;
   overflow-y: auto;

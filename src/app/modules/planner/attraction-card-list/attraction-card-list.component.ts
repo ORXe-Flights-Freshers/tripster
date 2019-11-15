@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, NgZone, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { Attraction } from '@models/Attraction';
@@ -24,7 +24,7 @@ interface AttractionResult {
   templateUrl: './attraction-card-list.component.html',
   styleUrls: ['./attraction-card-list.component.css']
 })
-export class AttractionCardListComponent implements OnInit {
+export class AttractionCardListComponent implements OnInit, AfterViewInit {
   arrAttractions: Attraction[] = [];
   stopIdOfAttraction: string;
   chosenCity: string;
@@ -32,9 +32,11 @@ export class AttractionCardListComponent implements OnInit {
   placeService: google.maps.places.PlacesService;
   stop: Stop;
   radius = 2;
+  maxRadius = 10;
   search: FormControl = new FormControl('');
   searchQuery = '';
-  dummyAttr = [1, 2, 3, 4];
+
+  @ViewChild('noAttractionsFound', { static: false }) noAttractionsFoundElement: ElementRef;
 
   constructor(
     private httpService: HttpClient,
@@ -51,8 +53,14 @@ export class AttractionCardListComponent implements OnInit {
     }
     this.search.valueChanges.subscribe(val => this.searchPlace(val));
   }
+
+  ngAfterViewInit() {
+
+  }
+
   attractionByStop(stop: Stop) {
     this.displayLoader = true;
+    (this.noAttractionsFoundElement.nativeElement as HTMLDivElement).innerText = 'Searching...';
     this.stop = stop;
     this.placeService = new google.maps.places.PlacesService(
       document.createElement('div')
@@ -65,7 +73,7 @@ export class AttractionCardListComponent implements OnInit {
         radius: +this.radius * 1000,
         type: 'tourist_attraction'
       },
-      (placeResults, status, pagination) => { 
+      (placeResults, status, pagination) => {
           console.log('triggered');
           placeResults.forEach(placeResult => {
           const attractionData = {
@@ -91,12 +99,34 @@ export class AttractionCardListComponent implements OnInit {
           this.displayLoader = false;
           this.stopIdOfAttraction = stop.stopId;
           this.chosenCity = stop.name;
+          if (this.arrAttractions.length === 0) {
+            let displayText = `No attractions found at ${stop.name}. `;
+
+            if (this.radius !== this.maxRadius) {
+              displayText += 'Increasing the radius may help.';
+            } else {
+              displayText += 'Please check for other stops.';
+            }
+
+            (this.noAttractionsFoundElement.nativeElement as HTMLDivElement).innerText = displayText;
+            if (!(this.noAttractionsFoundElement.nativeElement as HTMLDivElement)
+              .classList.contains('no-attractions-found')) {
+              (this.noAttractionsFoundElement.nativeElement as HTMLDivElement)
+                .classList.add('no-attractions-found');
+            }
+          } else {
+            (this.noAttractionsFoundElement.nativeElement as HTMLDivElement).innerText = '';
+            if ((this.noAttractionsFoundElement.nativeElement as HTMLDivElement)
+              .classList.contains('no-attractions-found')) {
+              (this.noAttractionsFoundElement.nativeElement as HTMLDivElement)
+                .classList.remove('no-attractions-found');
+            }
+          }
           if (pagination.hasNextPage) {
             pagination.nextPage();
           }
-          // this.changeDetectorRef.detectChanges();
-        })
-       
+        });
+
       }
 
 
