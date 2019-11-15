@@ -47,6 +47,7 @@
         [ngxTimepicker]="arrivalTimePicker"
         [format]="12"
         [min]="minArrivalTime | date: 'h:mm a'"
+        [max]="maxArrivalTime | date: 'h:mm a'"
         [value]="arrivalDate | date: 'h:mm a'"
         readonly
       />
