@@ -53,7 +53,6 @@ export class HotelCardListComponent implements OnInit {
 
   hotelByStop(stop: Stop) {
     this.displayLoader = true;
-    (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = 'Searching...';
     this.stop = stop;
     this.httpService
       .get('https://tripster-tavisca.firebaseio.com/hotels-api-ip.json')

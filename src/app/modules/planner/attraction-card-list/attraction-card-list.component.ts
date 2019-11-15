@@ -60,7 +60,6 @@ export class AttractionCardListComponent implements OnInit, AfterViewInit {
 
   attractionByStop(stop: Stop) {
     this.displayLoader = true;
-    (this.noAttractionsFoundElement.nativeElement as HTMLDivElement).innerText = 'Searching...';
     this.stop = stop;
     this.placeService = new google.maps.places.PlacesService(
       document.createElement('div')
