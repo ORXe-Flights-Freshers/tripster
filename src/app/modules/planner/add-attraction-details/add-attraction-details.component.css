@@ -27,7 +27,7 @@
 }
 
 .mat-fab.mat-primary, .mat-flat-button.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
-  background-color: black;
+  background-color: var(--main-theme-color);
 }
 
 .mat-form-field {
@@ -45,7 +45,7 @@
   .flex-container {
       display: flex;
       flex-direction: column;
-      min-width: 100x;
+      min-width: 100px;
     }
     .flex-container > div {
 
@@ -98,7 +98,7 @@ width:50%;
 /* #buttons-block:disabled{
 color: white;
 } */
-#stop-error{
+#attraction-error{
 color: red;
 text-align: left;
 float: left;

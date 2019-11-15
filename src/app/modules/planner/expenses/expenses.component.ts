@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { TripService } from '@services/trip.service';
+import {UtilityService} from '@services/utility.service';
 
 @Component({
   selector: 'app-expenses',
@@ -13,7 +14,8 @@ export class ExpensesComponent implements OnInit {
   @ViewChild('price', { static: false }) priceElement: ElementRef;
   @ViewChild('mileage', { static: false }) mileageElement: ElementRef;
 
-  constructor(public tripService: TripService) { }
+  constructor(public tripService: TripService,
+              public utilityService: UtilityService) { }
 
   ngOnInit() {
     this.mileageOfCar = this.tripService.trip.mileage;
@@ -21,18 +23,16 @@ export class ExpensesComponent implements OnInit {
 
   onPriceInput(event: Event) {
     const currentValue = (event.target as HTMLInputElement).value;
-    const acceptablePattern = /^[1-9.]+[0-9.]*$/;
 
-    if (acceptablePattern.test(currentValue) === false) {
+    if (this.utilityService.isValidPrice(currentValue) === false) {
       (this.priceElement.nativeElement as HTMLInputElement).value = '';
     }
   }
 
   onMileageInput(event: Event) {
     const currentValue = (event.target as HTMLInputElement).value;
-    const acceptablePattern = /^[1-9.]+[0-9.]*$/;
 
-    if (acceptablePattern.test(currentValue) === false) {
+    if (this.utilityService.isValidPrice(currentValue) === false) {
       (this.mileageElement.nativeElement as HTMLInputElement).value = '';
     }
   }

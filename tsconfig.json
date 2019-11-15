@@ -5,8 +5,7 @@
     "paths": {
       "@services/*": ["app/services/*"],
       "@models/*": ["app/models/*"],
-      "@planner/*": ["app/modules/planner/*"],
-      // "@add-attraction-details/*":["app/modules/planner/add-attraction-details/*"],
+      // "@planner/*": ["app/modules/planner/*"],
       "@environments/*": ["environments/*"]
     },
     "outDir": "./dist/out-tsc",

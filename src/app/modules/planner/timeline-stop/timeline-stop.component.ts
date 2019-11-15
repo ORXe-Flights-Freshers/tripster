@@ -172,11 +172,11 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
       +this.helperCanvas.canvasContext.font.split('px')[0];
     let fontSize = 11;
 
-    const outlineRectWidth = ((fontSize * textWidth) / currentFontSize) + 30;
-
     if (this.stopType === 'stop') {
       fontSize = 10;
     }
+
+    const outlineRectWidth = (fontSize * (textWidth + 18)) / currentFontSize;
 
     if (!this.places) {
       this.stopLabelYCoordinate = (this.mapped.height / 2);
@@ -192,19 +192,11 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
       outlineRectWidth, 20, 10, this.currentTheme.color
     );
 
-    if (this.stopType === 'stop') {
-      this.helperCanvas.writeText(
-        this.stop.name, 40, this.stopLabelYCoordinate + 2.5,
-        fontSize, this.currentTheme.color,
-        'bold ' + fontSize + 'px ' + this.helperCanvas.fontFamily
-      );
-    } else {
-      this.helperCanvas.writeText(
-        this.stop.name, 40, this.stopLabelYCoordinate + 2.5,
-        fontSize, this.currentTheme.color,
-        'bold ' + fontSize + 'px ' + this.helperCanvas.fontFamily
-      );
-    }
+    this.helperCanvas.writeText(
+      this.stop.name, 40, this.stopLabelYCoordinate + 3,
+      fontSize, this.currentTheme.color,
+      'bold ' + fontSize + 'px ' + this.helperCanvas.fontFamily
+    );
   }
 
   renderStopMarkerConnectorLine() {
@@ -283,7 +275,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
 
     const displayDate = this.stopType === 'source' ?
       this.utilityService.formatDateTime(aDate) :
-      this.utilityService.formatDateTime(dDate);
+      this.utilityService.formatDateTime(aDate);
 
     dateXCoordinate = this.stop.name.length > 12 ? 160 : 140;
 
@@ -313,11 +305,15 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
         40, yCoordinate - 10, 180, 40, '#ccc'
       );
 
+      const placeName = place.name.length > 20 ?
+        place.name.substring(0, 20) + '...' :
+        place.name;
+
       this.helperCanvas.writeText(
-        place.name,
+        placeName,
         80,
         yCoordinate + 12.5,
-        8,
+        7,
         this.currentTheme.color,
         'bold 10px ' + this.helperCanvas.fontFamily
       );

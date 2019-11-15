@@ -3,8 +3,14 @@
     <mat-spinner class="spinner"></mat-spinner>
   </div>
 
-  <agm-map [fitBounds]="true" *ngIf="!isLoading" [latitude]="tripService?.placeMarker?.location.latitude"
-  [longitude]="tripService?.placeMarker?.location.longitude" [minZoom]="minZoom" [maxZoom]="maxZoom" [zoom]="tripService?.mapZoom" (zoomChange)="handleZoomChange($event)">
+  <agm-map #map [fitBounds]="true" *ngIf="!isLoading" [latitude]="tripService?.placeMarker?.location.latitude"
+  [longitude]="tripService?.placeMarker?.location.longitude" (mapReady)="mapReady($event)" [minZoom]="minZoom" [maxZoom]="maxZoom" [zoom]="tripService?.mapZoom" (zoomChange)="handleZoomChange($event)">
+    <button
+      id="center"
+      (click)="showRoute(map)"
+    >
+      <mat-icon class="btn-icon">center_focus_strong</mat-icon>
+    </button>
     <agm-marker
       *ngIf="tripService?.trip?.source"
       [agmFitBounds]="true"
@@ -27,6 +33,7 @@
   </agm-marker>
     <agm-marker
       *ngFor="let stop of tripService?.waypoints;let i = index"
+      [agmFitBounds]="true"
       [latitude]="stop.location.lat"
       [longitude]="stop.location.lng"
       [iconUrl]="stopIconUrl"
@@ -40,9 +47,9 @@
       *ngIf="tripService?.placeMarker"
       [latitude]="tripService?.placeMarker?.location.latitude"
       [longitude]="tripService?.placeMarker?.location.longitude"
-      [iconUrl]="stopIconUrl"
+      [iconUrl]="placeIconUrl"
     >
-    <agm-info-window [isOpen]="true">{{tripService?.placeMarker.name}}</agm-info-window>
+    <agm-info-window [isOpen]="true" (infoWindowClose)="tripService?.hidePlaceMarker()">{{tripService?.placeMarker?.name}}</agm-info-window>
     </agm-marker>
     <agm-direction
       *ngIf="tripService?.trip?.source && tripService?.trip?.destination"

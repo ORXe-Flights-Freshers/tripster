@@ -4,6 +4,8 @@
   border: 1px solid rgba(30, 30, 30, 0.1);
   border-radius: 20px;
   background-color: white;
+
+  overflow: hidden;
 }
 
 .loader {
@@ -68,15 +70,20 @@
   transition-duration: 0.2s;
 
   color: rgba(255, 255, 255, 0.9);
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: var(--main-theme-color);
 }
 
 .list-of-stops button:focus {
   outline: none;
 }
 
+.no-hotels-found {
+  width: 90%;
+  margin: 20px auto auto;
+}
+
 .hotels-list {
-  height: 320px;
+  height: 305px;
   overflow-y: auto;
 }
 
@@ -91,7 +98,14 @@
 .bolder {
   font-weight: bolder;
 }
-.slider{
+
+.footer {
+  height: 40px;
   width:100%;
+
+  background-color: #f4f4f4;
 }
 
+.footer .slider {
+  margin: 1% auto auto 5%;
+}

@@ -26,7 +26,6 @@
         (dateChange)="handleArrivalDateSet($event)"
         [value]="arrivalDate"
         [min]="getMinDate()"
-        [max]="getMaxDate()"
         (focus)="arrivalDatepicker.open()"
         disabled
         readonly
@@ -74,7 +73,6 @@
         [value]="departureDate"
         (focus)="departureDatepicker.open()"
         [min]="getMinDate()"
-        [max]="getMaxDate()"
         readonly
       />
       <mat-datepicker-toggle
@@ -92,6 +90,8 @@
         matInput
         [ngxTimepicker]="departureTimePicker"
         [format]="12"
+        [min]="minTime | date: 'h:mm a'"
+        [max]="maxTime | date: 'h:mm a'"
         [value]="departureDate | date: 'h:mm a'"
         readonly
       />
@@ -107,9 +107,9 @@
 
 <div id="buttons-block">
     <div id="bottom-error-block">
-      <p id="stop-error" *ngIf="invalidArrivalTimeError">* Departure time must be  more than arrival</p>
-      <p id="stop-error" *ngIf="invalidDepartureTimeError">* Departure time must be  less than stop departure.</p>
-      <p id="stop-error" *ngIf="invalidSameTimeError">* Arrival and departure can't be same.</p>
+      <p id="hotel-error" *ngIf="invalidArrivalTimeError">* Departure time must be  more than arrival</p>
+      <p id="hotel-error" *ngIf="invalidDepartureTimeError">* Departure time is more than stop departure.Adding will affect the whole trip.</p>
+      <p id="hotel-error" *ngIf="invalidSameTimeError">* Arrival and departure can't be same.</p>
     </div>
     <div id="bottom-button-block">
         <button mat-button (click)="closeHotelDialog()">CANCEL</button>
@@ -117,7 +117,7 @@
           mat-raised-button
           (click)="addHotel()"
           color="primary"
-          [disabled]="invalidDepartureTimeError || invalidArrivalTimeError || invalidSameTimeError"
+          [disabled]="invalidArrivalTimeError || invalidSameTimeError"
         >
           ADD
         </button>

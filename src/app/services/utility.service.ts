@@ -8,8 +8,6 @@ export class UtilityService {
   constructor() { }
 
   formatDateTime(dateObject: Date): string {
-    console.log('**************************************');
-    console.log(dateObject);
     const date = dateObject.toLocaleDateString();
 
     let hours = dateObject.getHours();
@@ -21,9 +19,11 @@ export class UtilityService {
     }
 
     const hoursString = hours.toString().padStart(2, '0');
-
-    console.log(`${date}, ${hoursString}:${minutes} ${amPm}`);
-    console.log('**************************************');
     return `${date}, ${hoursString}:${minutes} ${amPm}`;
+  }
+
+  isValidPrice(price: string) {
+    const acceptablePattern = /^[1-9.]+[0-9.]*$/;
+    return acceptablePattern.test(price);
   }
 }

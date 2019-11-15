@@ -45,12 +45,26 @@
   </div>
 
   <div class="hotels-list">
+      <div class="no-hotels-found" #noHotelsFound></div>
       <app-hotel-card
           [stopIdOfHotel]="stopIdOfHotel"
-          *ngFor="let a of arrHotels"
-          [hotelData]="getHotelData(a)"
-
+          *ngFor="let hotelData of arrHotels"
+          [hotelData]="hotelData"
       ></app-hotel-card>
   </div>
-  <mat-slider [value]="radius" (change)="handleRadiusChange($event)" thumbLabel tickInterval="1" class="slider" min="1" max="5" step="1" value="1"></mat-slider>
+
+  <div class="footer">
+    <input
+      id="radius"
+      type="range"
+      [value]="radius"
+      (change)="handleRadiusChange($event)"
+      class="slider"
+      min="1"
+      [max]="maxRadius"
+      step="1"/>
+    <label for="radius">
+      {{ radius }} kilometers from center of city
+    </label>
+  </div>
 </div>

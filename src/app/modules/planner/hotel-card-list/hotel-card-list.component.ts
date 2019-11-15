@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { TripService } from '@services/trip.service';
 import { Hotel } from '@models/Hotel';
-import { MatSliderChange } from '@angular/material';
 
 interface HotelResult {
   hotelId: string;
@@ -27,12 +26,15 @@ interface HotelResult {
   styleUrls: ['./hotel-card-list.component.css']
 })
 export class HotelCardListComponent implements OnInit {
-  arrHotels: HotelResult[];
+  arrHotels: Hotel[] = [];
   stopIdOfHotel: string;
   chosenCity: string;
   displayLoader: boolean;
-  radius: number = 2;
+  radius = 2;
+  maxRadius = 5;
   stop: Stop;
+
+  @ViewChild('noHotelsFound', { static: false }) noHotelsFoundElement: ElementRef;
 
   constructor(
     private httpService: HttpClient,
@@ -51,10 +53,12 @@ export class HotelCardListComponent implements OnInit {
 
   hotelByStop(stop: Stop) {
     this.displayLoader = true;
+    (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = 'Searching...';
     this.stop = stop;
     this.httpService
       .get('https://tripster-tavisca.firebaseio.com/hotels-api-ip.json')
-      .subscribe(hotelsApiDetails => {
+      .subscribe(
+        hotelsApiDetails => {
         const hotelsApiEndpoint: {
           [ipObj: string]: { [ip: string]: string };
         } = {};
@@ -87,19 +91,50 @@ export class HotelCardListComponent implements OnInit {
             (data: { hotels: [] }) => {
               this.chosenCity = stop.name;
               this.stopIdOfHotel = stop.stopId;
-              this.arrHotels = data.hotels;
-              // console.log(this.arrHotels);
-              //  console.log(this.arrBirds[1]);
+              this.arrHotels = [];
+
+              for (const hotelData of data.hotels) {
+                this.arrHotels.push(this.getHotelData(hotelData));
+              }
               this.displayLoader = false;
+              if (this.arrHotels.length === 0) {
+                let displayText = `No hotels found at ${stop.name}. `;
+
+                if (this.radius !== this.maxRadius) {
+                  displayText += 'Increasing the radius may help.';
+                } else {
+                  displayText += 'Please check for other stops.';
+                }
+
+                (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = displayText;
+                if (!(this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                  .classList.contains('no-hotels-found')) {
+                  (this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                    .classList.add('no-hotels-found');
+                }
+              } else {
+                (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = '';
+                if ((this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                  .classList.contains('no-hotels-found')) {
+                  (this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                    .classList.remove('no-hotels-found');
+                }
+              }
             },
-            (err: HttpErrorResponse) => {
-              console.log(err.message);
+            (error: HttpErrorResponse) => {
+              (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = error.message;
+              this.displayLoader = false;
             }
           );
-      });
+      },
+        (error: HttpErrorResponse) => {
+          (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = error.message;
+          this.displayLoader = false;
+        });
   }
 
   getHotelData(hotelDataApi: HotelResult) {
+  //  console.log("here");
     const hotelData: Hotel = {
       placeId: hotelDataApi.hotelId,
       name: hotelDataApi.name,
@@ -119,9 +154,9 @@ export class HotelCardListComponent implements OnInit {
     };
     return hotelData;
   }
-  handleRadiusChange(radiusSliderChange:MatSliderChange)
-    {
-      this.radius = radiusSliderChange.value;
-      this.hotelByStop(this.stop);
-    }
+
+  handleRadiusChange(radiusSliderChange: Event) {
+    this.radius = +(radiusSliderChange.target as HTMLInputElement).value;
+    this.hotelByStop(this.stop);
+  }
 }

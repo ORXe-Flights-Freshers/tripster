@@ -17,11 +17,13 @@ export class SearchComponent implements OnInit {
   sourceValid: boolean;
   destinationValid: boolean;
   isDuplicatePlace: boolean;
+  currentDate = new Date(Date.now());
   tripDate: Date = new Date(Date.now());
   tripTime = this.tripDate.getHours().toString() +
     ':' +  this.tripDate.getMinutes().toString() + ' am';
   vehicleMileage = 22;
   invalidDepartureDateTimeError: boolean;
+  minTime: Date;
 
   searchForm = new FormGroup({
     mileage: new FormControl(this.vehicleMileage, [
@@ -34,7 +36,9 @@ export class SearchComponent implements OnInit {
               public timePickerThemeService: TimePickerThemeService,
               private changeDetectRef: ChangeDetectorRef) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.minTime = this.getMinTime();
+  }
 
   handleInvalidSource(event) {
     this.sourceValid = event.isValid;
@@ -59,6 +63,7 @@ export class SearchComponent implements OnInit {
   handleDateSet(date) {
     this.tripDate = new Date(date.value);
     this.setTripDateTime();
+    this.minTime = this.getMinTime();
     this.validateDateTime();
   }
   validateDateTime() {
@@ -75,6 +80,27 @@ export class SearchComponent implements OnInit {
   getMinDate() {
     return new Date(Date.now());
   }
+
+  getMinTime() {
+    if ( this.isDepartureDateMore()) {
+      return new Date((new Date(this.currentDate)).setHours(0 , 0));
+    }
+    return new Date(this.currentDate);
+  }
+
+  isDepartureDateMore(): boolean {
+    if (this.tripDate.getFullYear() > this.currentDate.getFullYear() ) {
+      return true;
+    }
+    if (this.tripDate.getMonth() > this.currentDate.getMonth() ) {
+      return true;
+    }
+    if (this.tripDate.getDate() > this.currentDate.getDate()  ) {
+      return true;
+    }
+    return false;
+  }
+
   checkForDuplicatePlace() {
     if (this.origin === undefined || this.destination === undefined) {
       return;
@@ -139,7 +165,7 @@ export class SearchComponent implements OnInit {
         // @ts-ignore
         arrival: this.tripDate.toString(),
         // @ts-ignore
-        departure: this.tripDate.toString(),
+        departure: 'Mon Nov 13 2090 11:37:09 GMT+0530 (India Standard Time)',
         hotels: [],
         attractions: []
       },

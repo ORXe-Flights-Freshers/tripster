@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { Time } from '@models/Time';
 import { Attraction } from '@models/Attraction';
 import {NavigatorService} from '@services/navigator.service';
+import { MatDatepicker } from '@angular/material';
 
 @Component({
   selector: 'app-add-attraction-details',
@@ -20,13 +21,15 @@ export class AddAttractionDetailsComponent implements OnInit {
   stopIdOfAttraction: string;
   arrivalDate: Date;
   departureDate: Date;
-  minArrivalDate: Date;
-  maxDepartureDate: Date;
+  stopArrivalDate: Date;
+  stopDepartureDate: Date;
   arrivalTime = '00:00 am';
   departureTime = '00:00 am' ;
   invalidDepartureTimeError: boolean;
   invalidMoreArrivalTimeError: boolean;
   invalidLessArrivalTimeError: boolean;
+  minArrivalTime: Date;
+  tempDate = '11/12/2019';
   // invalidMoreArrivalTimeErrorDepart: boolean;
   constructor(
     public dialogRef: MatDialogRef<AddAttractionDetailsComponent>,
@@ -42,13 +45,19 @@ export class AddAttractionDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.arrivalDate = new Date(this.getMinDate());
-    this.departureDate = new Date(this.getMaxDate());
+    const stop = this.tripService.getStopByStopId(this.stopIdOfAttraction);
+    if (stop.stopId === this.tripService.trip.destination.stopId) {
+      this.departureDate = new Date(this.arrivalDate);
+    } else {
+      this.departureDate = new Date(this.getMaxDate());
+    }
     this.departureTime = this.departureDate.getHours().toString() +
         ':' +  this.departureDate.getMinutes().toString() + ' am';
     this.arrivalTime = this.arrivalDate.getHours().toString() +
         ':' +  this.arrivalDate.getMinutes().toString() + ' am';
-    this.maxDepartureDate = new Date(this.getMaxDate());
-    this.minArrivalDate = new Date(this.getMinDate());
+    this.stopDepartureDate = new Date(this.getMaxDate());
+    this.stopArrivalDate = new Date(this.getMinDate());
+    this.minArrivalTime = this.getMinArrivalTime();
   }
 
   handleArrivalTimeSet(time: string) {
@@ -65,24 +74,25 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.departureDate.setMinutes(newDepartureTime.minutes);
     this.validateDateTime();
   }
-  getMinDate() {
+  getMinDate(): Date {
     return new Date(
       this.tripService.getStopByStopId(this.stopIdOfAttraction).arrival
     );
   }
-  getMaxDate() {
+  getMaxDate(): Date {
     return new Date(
       this.tripService.getStopByStopId(this.stopIdOfAttraction).departure
     );
   }
-  handleArrivalDateSet(date) {
+  handleArrivalDateSet(date: HTMLInputElement) {
     this.arrivalDate = new Date(date.value);
     const newArrivalTime = Time.parseTimeStringToTime(this.arrivalTime);
     this.arrivalDate.setHours(newArrivalTime.hours);
     this.arrivalDate.setMinutes(newArrivalTime.minutes);
+    this.minArrivalTime = this.getMinArrivalTime();
     this.validateDateTime();
   }
-  handleDepartureDateSet(date) {
+  handleDepartureDateSet(date: HTMLInputElement) {
     this.departureDate = new Date(date.value);
     const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDepartureTime.hours);
@@ -92,8 +102,50 @@ export class AddAttractionDetailsComponent implements OnInit {
 
   validateDateTime() {
     this.invalidMoreArrivalTimeError = this.departureDate < this.arrivalDate;
-    this.invalidDepartureTimeError = this.departureDate > this.maxDepartureDate;
-    this.invalidLessArrivalTimeError = this.arrivalDate.getTime() < this.minArrivalDate.getTime();
+    this.invalidDepartureTimeError = this.departureDate > this.stopDepartureDate;
+    this.invalidLessArrivalTimeError = this.arrivalDate.getTime() < this.stopArrivalDate.getTime();
+  }
+
+  getMinArrivalTime(): Date {
+    if ( this.isArrivalDateMore()) { // enables timepicker
+      return new Date((new Date(this.arrivalDate)).setHours(0 , 0));
+   }
+    return new Date(this.arrivalDate);
+  }
+
+  isArrivalDateMore(): boolean {
+    if (this.arrivalDate.getFullYear() > this.stopArrivalDate.getFullYear() ) {
+      return true;
+    }
+    if (this.arrivalDate.getMonth() > this.stopArrivalDate.getMonth() ) {
+      return true;
+    }
+    if (this.arrivalDate.getDate() > this.stopArrivalDate.getDate()  ) {
+      return true;
+    }
+    return false;
+
+  }
+
+  getMinDepartureTime(): Date {
+    if ( this.isDepartureDateMore()) { // enables timepicker
+      return new Date((new Date(this.departureDate)).setHours(0 , 0));
+   }
+    return new Date(this.departureDate);
+  }
+
+  isDepartureDateMore(): boolean {
+    if (this.arrivalDate.getFullYear() > this.stopArrivalDate.getFullYear() ) {
+      return true;
+    }
+    if (this.arrivalDate.getMonth() > this.stopArrivalDate.getMonth() ) {
+      return true;
+    }
+    if (this.arrivalDate.getDate() > this.stopArrivalDate.getDate()  ) {
+      return true;
+    }
+    return false;
+
   }
 
   closeAttractionDialog() {
@@ -107,6 +159,14 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.attractionData.departure = this.departureDate.toString();
 
     this.dialogRef.close(this.attractionData);
+  }
+  toggleDatepicker(datepicker) {
+    console.log(datepicker);
+    if (datepicker.opened) {
+        datepicker.close();
+    } else {
+      datepicker.open();
+    }
   }
 
 }

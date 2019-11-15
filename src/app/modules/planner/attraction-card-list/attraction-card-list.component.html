@@ -2,12 +2,11 @@
   <div class="loader" *ngIf="displayLoader">
     <mat-spinner class="spinner"></mat-spinner>
   </div>
-
   <div class="header">
     <span class="number-of-attractions-info bold">
       <span *ngIf="chosenCity; else noLocationSelected">
         <span class="bolder">
-          {{ arrAttractions ? arrAttractions.length.toString() : "0" }}
+          {{(arrAttractions|search:'name':searchQuery).length}}
         </span>
         attractions found near {{ chosenCity }}
       </span>
@@ -15,7 +14,12 @@
         Choose a location to view attractions there
       </ng-template>
     </span>
-    <div class="filter-btn bolder">Filter</div>
+    <div class="filter-btn bolder">
+    <mat-search-bar
+      (onOpen)="handleSearchBarOpen()"
+      [formControl]="search"
+    ></mat-search-bar>
+    </div>
   </div>
 
   <div class="list-of-stops">
@@ -38,13 +42,27 @@
       {{ tripService.trip.destination.name }}
     </button>
   </div>
-
   <div class="attractions-list">
+      <div class="no-attractions-found" #noAttractionsFound></div>
       <app-attraction-card
-      [stopIdOfAttraction]="stopIdOfAttraction"
-      *ngFor="let attraction of arrAttractions"
-      [attractionData]="getAttractionData(attraction)"
+        [stopIdOfAttraction]="stopIdOfAttraction"
+        *ngFor="let attraction of arrAttractions|search:'name':searchQuery"
+        [attractionData]="attraction"
        ></app-attraction-card>
   </div>
-  <mat-slider [value]="radius" (change)="handleRadiusChange($event)" thumbLabel tickInterval="1" class="slider" min="1" max="5" step="1" value="1"></mat-slider>
+
+  <div class="footer">
+    <input
+      id="radius"
+      type="range"
+      [value]="radius"
+      (change)="handleRadiusChange($event)"
+      class="slider"
+      min="1"
+      [max]="maxRadius"
+      step="1"/>
+    <label for="radius">
+      {{ radius }} kilometers from center of city
+    </label>
+  </div>
 </div>

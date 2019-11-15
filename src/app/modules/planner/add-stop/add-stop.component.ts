@@ -19,10 +19,11 @@ export class AddStopComponent implements OnInit {
   arrivalDate: Date;
   departureDate: Date;
   arrivalTime = '00:00 am';
-  departureTime = '11:00 am';
+  departureTime = '00:00 am';
   duplicatePlace: boolean;
   invalidTimeError: boolean;
   invalidPlace: boolean;
+  minTime: Date;
   constructor(
     public dialogRef: MatDialogRef<AddStopComponent>,
     public tripService: TripService,
@@ -36,6 +37,11 @@ export class AddStopComponent implements OnInit {
       this.tripService.getPreviousLocation().departure
     );
     this.departureDate = new Date(this.arrivalDate);
+    this.departureTime =  this.departureDate.getHours().toString() +
+    ':' +
+    this.departureDate.getMinutes().toString() +
+    ' am';
+    this.minTime = this.getMinTime();
   }
 
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
@@ -77,10 +83,6 @@ export class AddStopComponent implements OnInit {
     );
 
     function callback(response, status) {
-      //   console.log(response);
-      // this.timeTaken=response.rows[0].elements[0].duration.value;
-      // console.log(previousLocationDeparture);
-      // console.log(self.arrivalDate);
       self.arrivalDate.setTime(
         previousLocationDeparture.getTime() +
           response.rows[0].elements[0].duration.value * 1000
@@ -95,6 +97,7 @@ export class AddStopComponent implements OnInit {
         self.departureDate.getMinutes().toString() +
         ' am';
       self.changeDetectorRef.detectChanges();
+      self.minTime = self.getMinTime();
     }
   }
 
@@ -116,6 +119,25 @@ export class AddStopComponent implements OnInit {
   getMinDate() {
     return new Date(this.arrivalDate);
   }
+  getMinTime() {
+    if ( this.isDepartureDateMore()) {
+      return new Date((new Date(this.arrivalDate)).setHours(0 , 0));
+    }
+    return new Date(this.arrivalDate);
+  }
+
+  isDepartureDateMore(): boolean {
+    if (this.departureDate.getFullYear() > this.arrivalDate.getFullYear() ) {
+      return true;
+    }
+    if (this.departureDate.getMonth() > this.arrivalDate.getMonth() ) {
+      return true;
+    }
+    if (this.departureDate.getDate() > this.arrivalDate.getDate()  ) {
+      return true;
+    }
+    return false;
+  }
 
   handleArrivalDateSet(date) {
     console.log(this.arrivalDate);
@@ -126,7 +148,7 @@ export class AddStopComponent implements OnInit {
     const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDepartureTime.hours);
     this.departureDate.setMinutes(newDepartureTime.minutes);
-
+    this.minTime = this.getMinTime();
     this.validateDateTime();
   }
 
