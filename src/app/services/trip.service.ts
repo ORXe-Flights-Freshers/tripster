@@ -227,7 +227,61 @@ export class TripService {
       });
   }
 
+  addTimetoTrip(timeToAdd, changeStopId){
+    let toAdd = false;
+    const firstStop = this.getStopByStopId(changeStopId);
+    firstStop.departure = this.getNewTime(firstStop.departure, timeToAdd);
+    for (const stop of [...this.trip.stops, this.trip.destination]) {
 
+      if (toAdd) {
+          stop.arrival = this.getNewTime(stop.arrival, timeToAdd);
+          stop.departure = this.getNewTime(stop.departure, timeToAdd);
+          const arrayToManipulate = [...stop.attractions, ...stop.hotels];
+          this.addTimeToArray(arrayToManipulate, timeToAdd);
+      }
+      if (changeStopId === stop.stopId && !toAdd) {
+          toAdd = true;
+        }
+  }
+}
+  addTimeToArray(arrayToManipulate, timeToAdd) {
+    arrayToManipulate.forEach(element => {
+      element.arrival = this.getNewTime(element.arrival, timeToAdd);
+      element.departure = this.getNewTime(element.departure, timeToAdd);
+    });
+  }
+  getNewTime(oldTime, timeToAdd): string {
+    const timeInMilli = new Date(oldTime).getTime();
+    return new Date(timeInMilli + timeToAdd).toString();
+  }
+  getTimeBetweenStops(): string [] {
+    const timeBetweenStops = [];
+    let timeToCalculate ;
+    if ( this.trip.stops.length > 0 ) {
+    timeToCalculate = new Date(this.trip.stops[0].arrival).getMilliseconds() - new Date(this.trip.source.departure).getMilliseconds();
+    timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+    for (let index = 1 ; index < this.trip.stops.length ; ++index){
+      timeToCalculate = new Date(this.trip.stops[index].arrival).getMilliseconds() -
+      new Date(this.trip.stops[index - 1].departure).getMilliseconds();
+      timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+    }
+    timeToCalculate = new Date(this.trip.stops[this.trip.stops.length - 1].arrival).getMilliseconds() -
+                  new Date(this.trip.source.departure).getMilliseconds();
+    timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+    }
+    else {
+    timeToCalculate = new Date(this.trip.destination.arrival).getMilliseconds() - new Date(this.trip.source.departure).getMilliseconds();
+    timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+    }
+    console.log(timeBetweenStops);
+    return timeBetweenStops;
+  }
+  convertMiliSecondsToDays(miliSeconds): string {
+    const days = miliSeconds / 8640000;
+    const hours = (miliSeconds - (8640000 * days)) / 360000;
+    const minutes = (miliSeconds - (8640000 * days) - (360000 * hours)) / 6000;
+    return days + ' d ' + hours + ' h ' + minutes + ' m ';
+  }
   getStopByStopId(stopId): Stop {
     const { source, destination } = this.trip;
     for (const stop of [source, destination, ...this.trip.stops]) {
@@ -245,13 +299,13 @@ export class TripService {
   mapZoomIn() {
     const interValZoom = setInterval(() => {
       if (this.mapZoom <= 15) {
-        this.mapZoom = this.mapZoom + 1 ;           
+        this.mapZoom = this.mapZoom + 1 ;
           }
           else
           {
             clearInterval(interValZoom);
           }
-      
+
   }, 10);
   }
   hidePlaceMarker() {
