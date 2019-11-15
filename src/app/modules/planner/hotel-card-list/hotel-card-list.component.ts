@@ -57,7 +57,8 @@ export class HotelCardListComponent implements OnInit {
     this.stop = stop;
     this.httpService
       .get('https://tripster-tavisca.firebaseio.com/hotels-api-ip.json')
-      .subscribe(hotelsApiDetails => {
+      .subscribe(
+        hotelsApiDetails => {
         const hotelsApiEndpoint: {
           [ipObj: string]: { [ip: string]: string };
         } = {};
@@ -120,11 +121,16 @@ export class HotelCardListComponent implements OnInit {
                 }
               }
             },
-            (err: HttpErrorResponse) => {
-              console.log(err.message);
+            (error: HttpErrorResponse) => {
+              (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = error.message;
+              this.displayLoader = false;
             }
           );
-      });
+      },
+        (error: HttpErrorResponse) => {
+          (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = error.message;
+          this.displayLoader = false;
+        });
   }
 
   getHotelData(hotelDataApi: HotelResult) {
