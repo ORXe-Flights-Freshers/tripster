@@ -45,7 +45,12 @@ export class AddAttractionDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.arrivalDate = new Date(this.getMinDate());
-    this.departureDate = new Date(this.getMaxDate());
+    const stop = this.tripService.getStopByStopId(this.stopIdOfAttraction);
+    if (stop.stopId === this.tripService.trip.destination.stopId) {
+      this.departureDate = new Date(this.arrivalDate);
+    } else {
+      this.departureDate = new Date(this.getMaxDate());
+    }
     this.departureTime = this.departureDate.getHours().toString() +
         ':' +  this.departureDate.getMinutes().toString() + ' am';
     this.arrivalTime = this.arrivalDate.getHours().toString() +
@@ -155,20 +160,13 @@ export class AddAttractionDetailsComponent implements OnInit {
 
     this.dialogRef.close(this.attractionData);
   }
-  toggleDatepicker(datepicker)
-  {
+  toggleDatepicker(datepicker) {
     console.log(datepicker);
-      if(datepicker.opened)
-        {datepicker.close();
-        }
-      else
-        {datepicker.open();
-        }
-  }
-  toggleTimePicker()
-  {
-    console.log("sbjd,jds");
-    window.resizeBy(100,100);
+    if (datepicker.opened) {
+        datepicker.close();
+    } else {
+      datepicker.open();
+    }
   }
 
 }
