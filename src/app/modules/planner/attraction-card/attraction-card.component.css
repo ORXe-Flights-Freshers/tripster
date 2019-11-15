@@ -19,6 +19,12 @@
   height: 100%;
 }
 
+.details {
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
 .text-body {
   position: absolute;
   margin-top: 1%;
@@ -34,6 +40,23 @@
   font-weight: 500;
   line-height: 1.1;
   color: rgba(0, 0, 0, 0.8);
+
+  height: 20px;
+  width: 200px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.heading-details {
+  position: absolute;
+  width: fit-content;
+  margin-left: 170px;
+  margin-top: 40px;
+
+  padding: 5px 10px;
+
+  background-color: var(--main-theme-color);
+  color: white;
 }
 
 .facilities {
@@ -41,11 +64,16 @@
   margin-top: 2%;
   font-size: 13px;
   font-weight: 400;
+
+  height: 55px;
+  overflow: auto;
+
   color: rgba(0, 0, 0, 0.6);
 }
 
 .locate-on-map {
   position: absolute;
+  width: 25px;
   font-size: 30px;
   right: 6%;
   transition: 100ms ease-in-out;
@@ -73,7 +101,7 @@
 
 .add-btn-attraction:hover {
   color: white;
-  background-color: black;
+  background-color: var(--main-theme-color);
   transition-duration: 0.2s;
   cursor: pointer;
 }

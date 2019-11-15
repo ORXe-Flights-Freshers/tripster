@@ -61,7 +61,7 @@ export class TripService {
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     this.directionResult = directionResult;
-
+    console.log(directionResult);
     if (this.trip.stops.length !== 0) {
       this.trip.stops.forEach((stop, index) => {
         let previousDeparture;
@@ -92,9 +92,18 @@ export class TripService {
       previousDeparture.setSeconds(
         previousDeparture.getSeconds() +
         directionResult.routes[0].legs[
-        directionResult.routes[0].legs.length - 1
+          0
+        // directionResult.routes[0].legs.length - 1
           ].duration.value
       );
+      const newArrivalTime = (new Date(previousDeparture)).getTime();
+      const oldArrivalTime = (new Date( this.trip.destination.arrival)).getTime();
+      if (newArrivalTime != oldArrivalTime) {
+        console.log(this.trip);
+        console.log(newArrivalTime - oldArrivalTime);
+        this.addTimeToDestinationIteneraries(( newArrivalTime - oldArrivalTime));
+        console.log(this.trip);
+      }
       this.trip.destination.arrival = previousDeparture.toString();
       this.updateTimeline();
       this.updateTrip(this.trip).subscribe();
@@ -140,6 +149,8 @@ export class TripService {
   addAttractionToTrip(attractionData, stopIdOfAttraction) {
      if (stopIdOfAttraction === this.trip.destination.stopId) {
       this.trip.destination.attractions.push(attractionData);
+      console.log(attractionData);
+      console.log(this.trip.destination);
     } else {
       for (const stop of this.trip.stops) {
         if (stopIdOfAttraction === stop.stopId) {
@@ -163,7 +174,7 @@ export class TripService {
   }
 
 
-  updateWaypoints() {
+   updateWaypoints() {
     const waypointsLocations = [];
     const waypointsInfo = [];
 
@@ -181,14 +192,14 @@ export class TripService {
         });
       } else {
         this.getPlacesInOrder(stop).forEach((place: Place) => {
-          const { latitude, longitude } = place.location;
-          waypointsLocations.push({
-            location: {
-              lat: latitude,
-              lng: longitude
-            }
-          });
-          waypointsInfo.push({name: place.name});
+              const { latitude, longitude } = place.location;
+              waypointsLocations.push({
+                location: {
+                  lat: latitude,
+                  lng: longitude
+                }
+              });
+              waypointsInfo.push({name: place.name});
         });
      }
     }
@@ -242,6 +253,13 @@ export class TripService {
   getNewTime(oldTime, timeToAdd): string {
     const timeInMilli = new Date(oldTime).getTime();
     return new Date(timeInMilli + timeToAdd).toString();
+  }
+
+  addTimeToDestinationIteneraries(timeToAdd: number) {
+      for (const place of [...this.trip.destination.attractions, ...this.trip.destination.hotels]) {
+            place.arrival = this.getNewTime(place.arrival, timeToAdd);
+            place.departure = this.getNewTime(place.departure, timeToAdd);
+      }
   }
 
   getStopByStopId(stopId): Stop {

@@ -70,11 +70,16 @@
   transition-duration: 0.2s;
 
   color: rgba(255, 255, 255, 0.9);
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: var(--main-theme-color);
 }
 
 .list-of-stops button:focus {
   outline: none;
+}
+
+.no-hotels-found {
+  width: 90%;
+  margin: 20px auto auto;
 }
 
 .hotels-list {

@@ -68,8 +68,8 @@
 .btn:hover,
 .btn-active {
   cursor: pointer;
-  color: rgb(11, 18, 64);
-  border-bottom: 5px solid rgb(11, 18, 64);
+  color: var(--main-theme-color);
+  border-bottom: 5px solid var(--main-theme-color);
 }
 
 .btn * {

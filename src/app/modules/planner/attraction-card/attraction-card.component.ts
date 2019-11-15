@@ -1,4 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component, ElementRef,
+  Input, ViewChild
+} from '@angular/core';
 import {
   MatDialog,
   MatDialogConfig
@@ -12,22 +16,18 @@ import { AddAttractionDetailsComponent } from '../add-attraction-details/add-att
   templateUrl: './attraction-card.component.html',
   styleUrls: ['./attraction-card.component.css']
 })
-export class AttractionCardComponent implements OnInit {
+export class AttractionCardComponent {
   @Input() stopIdOfAttraction: string;
   @Input() attractionData: Attraction;
+
+  @ViewChild('headingDetails', { static: false }) headingDetails: ElementRef;
+
   constructor(public tripService: TripService,
-              public dialog: MatDialog
-  ) {}
+              public dialog: MatDialog) {}
 
-  ngOnInit() {
-    // console.log(this.imageUrl);
-  }
-
-
-  openAttractionDialog(attractionData): void {
-    console.log(attractionData);
+  openAttractionDialog(attractionData: Attraction): void {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = false;
+    dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
 
@@ -43,6 +43,19 @@ export class AttractionCardComponent implements OnInit {
           // this.openSnackBar('Attraction Added Successfully', 'OK');
         }
       });
-}
+  }
 
+  onHeadingOver() {
+    (this.headingDetails.nativeElement as HTMLDivElement).innerText = this.attractionData.name;
+    if (!(this.headingDetails.nativeElement as HTMLDivElement).classList.contains('heading-details')) {
+      (this.headingDetails.nativeElement as HTMLDivElement).classList.add('heading-details');
+    }
+  }
+
+  onHeadingOut() {
+    (this.headingDetails.nativeElement as HTMLDivElement).innerText = '';
+    if ((this.headingDetails.nativeElement as HTMLDivElement).classList.contains('heading-details')) {
+      (this.headingDetails.nativeElement as HTMLDivElement).classList.remove('heading-details');
+    }
+  }
 }

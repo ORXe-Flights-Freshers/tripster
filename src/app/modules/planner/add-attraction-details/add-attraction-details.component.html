@@ -21,19 +21,20 @@
       <input
         placeholder="Trip Date"
         matInput
+        [value]="arrivalDate"
         [matDatepicker]="arrivalDatepicker"
         (dateChange)="handleArrivalDateSet($event)"
         [value]="arrivalDate"
         [min]="getMinDate()"
         [max]="getMaxDate()"
-        (focus)="arrivalDatepicker.open()"
+        (click)="toggleDatepicker(arrivalDatepicker)"
         readonly
       />
 
-      <mat-datepicker-toggle
+      <!-- <mat-datepicker-toggle
         matSuffix
         [for]="arrivalDatepicker"
-      ></mat-datepicker-toggle>
+      ></mat-datepicker-toggle> -->
       <mat-datepicker #arrivalDatepicker></mat-datepicker>
     </mat-form-field>
   </div>
@@ -61,7 +62,7 @@
 <p>Departure</p>
 
 <div id="departure-block" class="flex-container">
-  <div class="date-field">
+  <div class="date-field" (click)="toggleDatepicker(departureDatepicker)">
     <mat-form-field class="date-input-field" appearance="outline">
       <mat-label>Date</mat-label>
       <input
@@ -70,15 +71,14 @@
         [matDatepicker]="departureDatepicker"
         (dateChange)="handleDepartureDateSet($event)"
         [value]="departureDate"
-        (focus)="departureDatepicker.open()"
         [min]="getMinDate()"
         [max]="getMaxDate()"
         readonly
       />
-      <mat-datepicker-toggle
+      <!-- <mat-datepicker-toggle
         matSuffix
         [for]="departureDatepicker"
-      ></mat-datepicker-toggle>
+      ></mat-datepicker-toggle> -->
       <mat-datepicker #departureDatepicker></mat-datepicker>
     </mat-form-field>
   </div>

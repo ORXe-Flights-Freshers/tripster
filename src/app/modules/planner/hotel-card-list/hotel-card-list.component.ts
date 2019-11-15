@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { TripService } from '@services/trip.service';
@@ -30,8 +30,11 @@ export class HotelCardListComponent implements OnInit {
   stopIdOfHotel: string;
   chosenCity: string;
   displayLoader: boolean;
-  radius: number = 2;
+  radius = 2;
+  maxRadius = 5;
   stop: Stop;
+
+  @ViewChild('noHotelsFound', { static: false }) noHotelsFoundElement: ElementRef;
 
   constructor(
     private httpService: HttpClient,
@@ -53,7 +56,8 @@ export class HotelCardListComponent implements OnInit {
     this.stop = stop;
     this.httpService
       .get('https://tripster-tavisca.firebaseio.com/hotels-api-ip.json')
-      .subscribe(hotelsApiDetails => {
+      .subscribe(
+        hotelsApiDetails => {
         const hotelsApiEndpoint: {
           [ipObj: string]: { [ip: string]: string };
         } = {};
@@ -65,18 +69,17 @@ export class HotelCardListComponent implements OnInit {
 
         console.log(hotelsApiEndpoint.ipObj.ip);
 
-      //  Production Data Link
+        // Production Data Link
         const hotelsApiUrl = 'http://' + hotelsApiEndpoint.ipObj.ip + '/api/hotels/';
 
-        // // Mock Data Link
+        // Mock Data Link
         // const hotelsApiUrl = 'https://hotel-mock.s3.us-east-2.amazonaws.com/hotel.json';
         // const hotelsApiUrl =
         // 'http://172.16.5.159:5000/api/hotels/';
 
         this.httpService
           .get(
-            hotelsApiUrl
-             +
+            hotelsApiUrl +
               stop.location.latitude +
               '/' +
               stop.location.longitude +
@@ -87,16 +90,46 @@ export class HotelCardListComponent implements OnInit {
             (data: { hotels: [] }) => {
               this.chosenCity = stop.name;
               this.stopIdOfHotel = stop.stopId;
+              this.arrHotels = [];
+
               for (const hotelData of data.hotels) {
                 this.arrHotels.push(this.getHotelData(hotelData));
               }
               this.displayLoader = false;
+              if (this.arrHotels.length === 0) {
+                let displayText = `No hotels found at ${stop.name}. `;
+
+                if (this.radius !== this.maxRadius) {
+                  displayText += 'Increasing the radius may help.';
+                } else {
+                  displayText += 'Please check for other stops.';
+                }
+
+                (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = displayText;
+                if (!(this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                  .classList.contains('no-hotels-found')) {
+                  (this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                    .classList.add('no-hotels-found');
+                }
+              } else {
+                (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = '';
+                if ((this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                  .classList.contains('no-hotels-found')) {
+                  (this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                    .classList.remove('no-hotels-found');
+                }
+              }
             },
-            (err: HttpErrorResponse) => {
-              console.log(err.message);
+            (error: HttpErrorResponse) => {
+              (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = error.message;
+              this.displayLoader = false;
             }
           );
-      });
+      },
+        (error: HttpErrorResponse) => {
+          (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = error.message;
+          this.displayLoader = false;
+        });
   }
 
   getHotelData(hotelDataApi: HotelResult) {

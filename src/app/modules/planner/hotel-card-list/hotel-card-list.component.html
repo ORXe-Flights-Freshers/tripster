@@ -45,6 +45,7 @@
   </div>
 
   <div class="hotels-list">
+      <div class="no-hotels-found" #noHotelsFound></div>
       <app-hotel-card
           [stopIdOfHotel]="stopIdOfHotel"
           *ngFor="let hotelData of arrHotels"
@@ -60,7 +61,7 @@
       (change)="handleRadiusChange($event)"
       class="slider"
       min="1"
-      max="5"
+      [max]="maxRadius"
       step="1"/>
     <label for="radius">
       {{ radius }} kilometers from center of city

@@ -1,10 +1,23 @@
 <div class="card">
   <div class="image">
-    <img [src]=hotelData.imageUrl />
+    <img [src]=hotelData.imageUrl alt=" Image not available"/>
   </div>
+
+  <div class="details">
+    <div
+        #headingDetails
+    >
+    </div>
+  </div>
+
   <div class="text-body">
-    <div class="heading">
-      {{ hotelData.name }}
+    <div
+      class="heading"
+      (mouseover)="onHeadingOver()"
+      (mouseout)="onHeadingOut()"
+    >
+      {{ hotelData.name.length > 17 ?
+        hotelData.name.substring(0, 17) + '...' : hotelData.name}}
     </div>
     <div class="facilities">
       {{ hotelData.description }}

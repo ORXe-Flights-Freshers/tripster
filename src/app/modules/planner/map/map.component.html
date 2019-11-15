@@ -5,7 +5,12 @@
 
   <agm-map #map [fitBounds]="true" *ngIf="!isLoading" [latitude]="tripService?.placeMarker?.location.latitude"
   [longitude]="tripService?.placeMarker?.location.longitude" (mapReady)="mapReady($event)" [minZoom]="minZoom" [maxZoom]="maxZoom" [zoom]="tripService?.mapZoom" (zoomChange)="handleZoomChange($event)">
-    <button id="center" (click)="showRoute(map)">center</button>
+    <button
+      id="center"
+      (click)="showRoute(map)"
+    >
+      <mat-icon class="btn-icon">center_focus_strong</mat-icon>
+    </button>
     <agm-marker
       *ngIf="tripService?.trip?.source"
       [agmFitBounds]="true"
@@ -28,6 +33,7 @@
   </agm-marker>
     <agm-marker
       *ngFor="let stop of tripService?.waypoints;let i = index"
+      [agmFitBounds]="true"
       [latitude]="stop.location.lat"
       [longitude]="stop.location.lng"
       [iconUrl]="stopIconUrl"

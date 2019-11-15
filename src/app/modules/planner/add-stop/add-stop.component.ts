@@ -153,7 +153,7 @@ export class AddStopComponent implements OnInit {
   }
 
   validateDateTime() {
-    this.invalidTimeError = this.departureDate < this.arrivalDate;
+    this.invalidTimeError = this.departureDate <= this.arrivalDate;
   }
 
   closeDialog() {
