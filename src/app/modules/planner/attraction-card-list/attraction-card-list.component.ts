@@ -126,9 +126,6 @@ export class AttractionCardListComponent implements OnInit, AfterViewInit {
             }
             this.pagination = pagination;
           });
-          // if (pagination.hasNextPage) {
-          //   pagination.nextPage();
-          // }
         });
 
       }
