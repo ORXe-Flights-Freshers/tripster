@@ -29,7 +29,9 @@ export class AddAttractionDetailsComponent implements OnInit {
   invalidMoreArrivalTimeError: boolean;
   invalidLessArrivalTimeError: boolean;
   minArrivalTime: Date;
-  tempDate = '11/12/2019';
+  maxArrivalTime: Date;
+  minDepartureTime: Date;
+
   // invalidMoreArrivalTimeErrorDepart: boolean;
   constructor(
     public dialogRef: MatDialogRef<AddAttractionDetailsComponent>,
@@ -47,7 +49,7 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.arrivalDate = new Date(this.getMinDate());
     const stop = this.tripService.getStopByStopId(this.stopIdOfAttraction);
     if (stop.stopId === this.tripService.trip.destination.stopId) {
-      this.departureDate = new Date(this.arrivalDate);
+      this.departureDate = new Date(this.arrivalDate.getTime() + 60000);
     } else {
       this.departureDate = new Date(this.getMaxDate());
     }
@@ -58,7 +60,10 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.stopDepartureDate = new Date(this.getMaxDate());
     this.stopArrivalDate = new Date(this.getMinDate());
     this.minArrivalTime = this.getMinArrivalTime();
+    this.maxArrivalTime = this.getMaxArrivalTime();
+    this.minDepartureTime = this.getMinDepartureTime();
   }
+
 
   handleArrivalTimeSet(time: string) {
     this.arrivalTime = time;
@@ -90,6 +95,7 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.arrivalDate.setHours(newArrivalTime.hours);
     this.arrivalDate.setMinutes(newArrivalTime.minutes);
     this.minArrivalTime = this.getMinArrivalTime();
+    this.maxArrivalTime = this.getMaxArrivalTime();
     this.validateDateTime();
   }
   handleDepartureDateSet(date: HTMLInputElement) {
@@ -97,6 +103,8 @@ export class AddAttractionDetailsComponent implements OnInit {
     const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDepartureTime.hours);
     this.departureDate.setMinutes(newDepartureTime.minutes);
+    this.minDepartureTime = this.getMinDepartureTime();
+    this.maxArrivalTime = this.getMaxArrivalTime();
     this.validateDateTime();
   }
 
@@ -110,7 +118,7 @@ export class AddAttractionDetailsComponent implements OnInit {
     if ( this.isArrivalDateMore()) { // enables timepicker
       return new Date((new Date(this.arrivalDate)).setHours(0 , 0));
    }
-    return new Date(this.arrivalDate);
+    return new Date(this.arrivalDate.getTime());
   }
 
   isArrivalDateMore(): boolean {
@@ -127,26 +135,48 @@ export class AddAttractionDetailsComponent implements OnInit {
 
   }
 
-  getMinDepartureTime(): Date {
-    if ( this.isDepartureDateMore()) { // enables timepicker
-      return new Date((new Date(this.departureDate)).setHours(0 , 0));
+  getMaxArrivalTime(): Date {
+    if ( this.isArrivalDateLess()) { // enables timepicker
+      return new Date((new Date(this.departureDate)).setHours(23 , 59));
    }
     return new Date(this.departureDate);
   }
 
+  isArrivalDateLess(): boolean {
+    if (this.arrivalDate.getFullYear() < this.departureDate.getFullYear() ) {
+      return true;
+    }
+    if (this.arrivalDate.getMonth() < this.departureDate.getMonth() ) {
+      return true;
+    }
+    if (this.arrivalDate.getDate() < this.departureDate.getDate()  ) {
+      return true;
+    }
+    return false;
+  }
+
+
+  getMinDepartureTime(): Date {
+    if ( this.isDepartureDateMore()) { // enables timepicker
+      return new Date((new Date(this.departureDate)).setHours(0 , 0));
+   }
+    return new Date(this.arrivalDate.getTime() + 60000);
+  }
+
   isDepartureDateMore(): boolean {
-    if (this.arrivalDate.getFullYear() > this.stopArrivalDate.getFullYear() ) {
+    if (this.departureDate.getFullYear() > this.arrivalDate.getFullYear() ) {
       return true;
     }
-    if (this.arrivalDate.getMonth() > this.stopArrivalDate.getMonth() ) {
+    if (this.departureDate.getMonth() > this.arrivalDate.getMonth() ) {
       return true;
     }
-    if (this.arrivalDate.getDate() > this.stopArrivalDate.getDate()  ) {
+    if (this.departureDate.getDate() > this.arrivalDate.getDate()  ) {
       return true;
     }
     return false;
 
   }
+
 
   closeAttractionDialog() {
     this.tripService.updateTimeline();

@@ -47,6 +47,7 @@
         [ngxTimepicker]="arrivalTimePicker"
         [format]="12"
         [min]="minArrivalTime | date: 'h:mm a'"
+        [max]="maxArrivalTime | date: 'h:mm a'"
         [value]="arrivalDate | date: 'h:mm a'"
         readonly
       />
@@ -91,6 +92,7 @@
         [ngxTimepicker]="departureTimePicker"
         [format]="12"
         [value]="departureDate | date: 'h:mm a'"
+        [min]="minDepartureTime | date: 'h:mm a'"
         readonly
       />
     </mat-form-field>
@@ -108,7 +110,7 @@
       <p id="attraction-error" *ngIf="invalidMoreArrivalTimeError">* Departure time must be  more than arrival</p>
       <p id="attraction-error" *ngIf="invalidLessArrivalTimeError">* Arrival time can not be less than arrival of Stop</p>
       <!-- <p id="stop-error" *ngIf="invalidMoreArrivalTimeErrorDepart">* Arrival time must be less than departue</p> -->
-      <p id="attraction-error" *ngIf="invalidDepartureTimeError">* Departure time must be  less than stop departure.</p>
+      <p id="attraction-error" *ngIf="invalidDepartureTimeError">* Departure time is more than stop departure.Adding will affect the whole trip..</p>
     </div>
     <div id="bottom-button-block">
         <button mat-button (click)="closeAttractionDialog()">CANCEL</button>
@@ -116,7 +118,7 @@
           mat-raised-button
           (click)="addAttraction()"
           color="primary"
-          [disabled]="invalidDepartureTimeError || invalidMoreArrivalTimeError || invalidLessArrivalTimeError "
+          [disabled]="invalidMoreArrivalTimeError || invalidLessArrivalTimeError "
         >
           ADD
         </button>
