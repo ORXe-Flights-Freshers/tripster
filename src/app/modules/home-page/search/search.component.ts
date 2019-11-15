@@ -95,22 +95,15 @@ export class SearchComponent implements OnInit {
     if (this.tripDate.getMonth() > this.currentDate.getMonth() ) {
       return true;
     }
-    if (this.tripDate.getDate() > this.currentDate.getDate()  ) {
-      return true;
-    }
-    return false;
+    return this.tripDate.getDate() > this.currentDate.getDate();
+
   }
 
   checkForDuplicatePlace() {
     if (this.origin === undefined || this.destination === undefined) {
       return;
     }
-    if (this.origin.place_id === this.destination.place_id) {
-      console.log('matched');
-      this.isDuplicatePlace = true;
-    } else {
-      this.isDuplicatePlace = false;
-    }
+    this.isDuplicatePlace = this.origin.place_id === this.destination.place_id;
     this.changeDetectRef.detectChanges();
   }
 
@@ -122,18 +115,10 @@ export class SearchComponent implements OnInit {
     this.tripService.displayTimeline = false;
 
     console.log(trip);
+
     this.tripService.createTrip(trip).subscribe(data => {
-      console.log(data);
-      this.tripService.updateTimeline();
-      // this.tripService.trip = data as Trip;
-      // @ts-ignore
-      this.router.navigate(['/', 'planner', (data as Trip).id]);
-      // console.log(data);
-      console.log(new Date((data as Trip).destination.arrival));
+      this.router.navigate(['/', 'planner', (data as Trip).id]).then();
     });
-    // this.tripService.trip = trip;
-    // this.router.navigate(["/", "planner", 123]);
-    // console.log(this.tripDate);
   }
 
   generateTrip(): Trip {
@@ -144,12 +129,9 @@ export class SearchComponent implements OnInit {
           latitude: this.origin.geometry.location.lat(),
           longitude: this.origin.geometry.location.lng()
         },
-        // @ts-ignore
         stopId: this.origin.place_id,
         name: this.origin.name,
-        // @ts-ignore
         arrival: this.tripDate.toString(),
-        // @ts-ignore
         departure: this.tripDate.toString(),
         hotels: [],
         attractions: []
@@ -159,12 +141,9 @@ export class SearchComponent implements OnInit {
           latitude: this.destination.geometry.location.lat(),
           longitude: this.destination.geometry.location.lng()
         },
-        // @ts-ignore
         stopId: this.destination.place_id,
         name: this.destination.name,
-        // @ts-ignore
         arrival: this.tripDate.toString(),
-        // @ts-ignore
         departure: 'Mon Nov 13 2090 11:37:09 GMT+0530 (India Standard Time)',
         hotels: [],
         attractions: []
