@@ -98,7 +98,7 @@ width:50%;
 /* #buttons-block:disabled{
 color: white;
 } */
-#attraction-error{
+.attraction-error{
 color: red;
 text-align: left;
 float: left;

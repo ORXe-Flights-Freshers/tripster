@@ -30,13 +30,12 @@
       class="all-images"
     >
       <div
-        *ngFor="let place of places; let i = index"
+        *ngFor="let place of places"
         class="places-image-holder"
       >
-        <!--    Can use place.id instead of index-->
         <img
-          [src]="tripService?.getRandomUrl()"
-          alt="image can't be loaded"
+          [src]="place.imageUrl"
+          alt="place image"
           style="height: 49px; width: 49px;"
         >
       </div>

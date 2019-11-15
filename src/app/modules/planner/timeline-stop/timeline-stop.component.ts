@@ -17,6 +17,7 @@ interface TimelinePlace {
   id: string;
   name: string;
   type: string;
+  imageUrl: string;
   arrivalTime: Date;
   departureTime: Date;
 }
@@ -89,6 +90,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
         id: hotel.placeId,
         name: hotel.name,
         type: 'hotel',
+        imageUrl: hotel.imageUrl,
         arrivalTime: new Date(hotel.arrival),
         departureTime: new Date(hotel.departure)
       });
@@ -99,6 +101,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
         id: attraction.placeId,
         name: attraction.name,
         type: 'attraction',
+        imageUrl: attraction.imageUrl,
         arrivalTime: new Date(attraction.arrival),
         departureTime: new Date(attraction.departure)
       });

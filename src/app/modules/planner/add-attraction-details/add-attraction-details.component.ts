@@ -8,8 +8,8 @@ import { TripService } from '@services/trip.service';
 import { HttpClient } from '@angular/common/http';
 import { Time } from '@models/Time';
 import { Attraction } from '@models/Attraction';
-import {NavigatorService} from '@services/navigator.service';
-import { MatDatepicker } from '@angular/material';
+import { NavigatorService } from '@services/navigator.service';
+import { MatDatepickerInputEvent } from '@angular/material';
 
 @Component({
   selector: 'app-add-attraction-details',
@@ -84,7 +84,7 @@ export class AddAttractionDetailsComponent implements OnInit {
       this.tripService.getStopByStopId(this.stopIdOfAttraction).departure
     );
   }
-  handleArrivalDateSet(date: HTMLInputElement) {
+  handleArrivalDateSet(date: MatDatepickerInputEvent<Date>) {
     this.arrivalDate = new Date(date.value);
     const newArrivalTime = Time.parseTimeStringToTime(this.arrivalTime);
     this.arrivalDate.setHours(newArrivalTime.hours);
@@ -92,7 +92,7 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.minArrivalTime = this.getMinArrivalTime();
     this.validateDateTime();
   }
-  handleDepartureDateSet(date: HTMLInputElement) {
+  handleDepartureDateSet(date: MatDatepickerInputEvent<Date>) {
     this.departureDate = new Date(date.value);
     const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDepartureTime.hours);
@@ -120,11 +120,7 @@ export class AddAttractionDetailsComponent implements OnInit {
     if (this.arrivalDate.getMonth() > this.stopArrivalDate.getMonth() ) {
       return true;
     }
-    if (this.arrivalDate.getDate() > this.stopArrivalDate.getDate()  ) {
-      return true;
-    }
-    return false;
-
+    return this.arrivalDate.getDate() > this.stopArrivalDate.getDate();
   }
 
   getMinDepartureTime(): Date {
@@ -141,11 +137,7 @@ export class AddAttractionDetailsComponent implements OnInit {
     if (this.arrivalDate.getMonth() > this.stopArrivalDate.getMonth() ) {
       return true;
     }
-    if (this.arrivalDate.getDate() > this.stopArrivalDate.getDate()  ) {
-      return true;
-    }
-    return false;
-
+    return this.arrivalDate.getDate() > this.stopArrivalDate.getDate();
   }
 
   closeAttractionDialog() {
