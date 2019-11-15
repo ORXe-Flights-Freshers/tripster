@@ -91,6 +91,7 @@
         [ngxTimepicker]="departureTimePicker"
         [format]="12"
         [value]="departureDate | date: 'h:mm a'"
+        [min]="minDepartureTime | date: 'h:mm a'"
         readonly
       />
     </mat-form-field>
