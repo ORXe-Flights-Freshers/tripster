@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { Router } from '@angular/router';
 import { Place } from '@models/Place';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class TripService {
   waypointsInfo = [];
   placeMarker;
   mapZoom = 9;
+
+  stopSubject = new Subject<Stop>();
 
   directionResult: google.maps.DirectionsResult;
 
@@ -120,12 +123,11 @@ export class TripService {
     for (const stop of [...this.trip.stops, this.trip.destination]) {
       if (stopIdOfHotel === stop.stopId) {
         stop.hotels.push(hotelData);
+        this.stopSubject.next(stop);
         const stopTime = (new Date(stop.departure)).getTime();
         const hotelTime = (new Date(hotelData.departure)).getTime();
         if (stopTime < hotelTime) {
-          console.log(this.trip);
           this.addTimeToTrip(( hotelTime - stopTime), stop.stopId);
-          console.log(this.trip);
         }
         break;
       }
@@ -136,28 +138,16 @@ export class TripService {
   }
 
   addAttractionToTrip(attractionData, stopIdOfAttraction) {
-     if (stopIdOfAttraction === this.trip.destination.stopId) {
-      this.trip.destination.attractions.push(attractionData);
-    } else {
-      for (const stop of this.trip.stops) {
-        if (stopIdOfAttraction === stop.stopId) {
-          if (stop.attractions.length === 0) {
-             stop.attractions.push(attractionData);
-          } else {
-            let index = 0;
-            while (index < stop.attractions.length && stop.attractions[index].arrival > attractionData.arrival) {
-             index++;
-            }
-            stop.attractions.splice(index, 0, attractionData);
-          }
-
-          break;
-        }
+    for (const stop of [...this.trip.stops, this.trip.destination]) {
+      if (stopIdOfAttraction === stop.stopId) {
+        stop.attractions.push(attractionData);
+        this.stopSubject.next(stop);
+        break;
       }
     }
 
-     this.updateWaypoints();
-     this.updateTrip(this.trip).subscribe(response => {});
+    this.updateWaypoints();
+    this.updateTrip(this.trip).subscribe(response => {});
   }
 
 
@@ -321,6 +311,7 @@ export class TripService {
           }
           stop.attractions = attractions;
         }
+        this.stopSubject.next(stop);
         break;
       }
     }

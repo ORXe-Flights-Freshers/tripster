@@ -2,7 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Input,
+  Input, OnDestroy,
   OnInit,
   ViewChild
 } from '@angular/core';
@@ -12,6 +12,7 @@ import {TripService} from '@services/trip.service';
 import {Hotel} from '@models/Hotel';
 import {Attraction} from '@models/Attraction';
 import {UtilityService} from '@services/utility.service';
+import {Subscription} from 'rxjs';
 
 interface TimelinePlace {
   id: string;
@@ -27,11 +28,20 @@ interface TimelinePlace {
   templateUrl: './timeline-stop.component.html',
   styleUrls: ['./timeline-stop.component.css']
 })
-export class TimelineStopComponent implements OnInit, AfterViewInit {
+export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy {
+  static canvasDefaultHeight = 90;
+
+  get DefaultCanvasHeight() {
+    return TimelineStopComponent.canvasDefaultHeight;
+  }
+
   @Input() stop: Stop;
   @Input() stopType = 'stop';
 
   @ViewChild('stop', { static: false }) canvasTemplate: ElementRef;
+
+  stopSubscription: Subscription;
+  initialWidth = 0;
 
   arrivalDate: Date;
   departureDate: Date;
@@ -80,9 +90,20 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.updateDates();
+    this.buildPlaces();
+  }
+
+  ngOnDestroy() {
+    this.stopSubscription.unsubscribe();
+  }
+
+  updateDates() {
     this.arrivalDate = new Date(this.stop.arrival);
     this.departureDate = new Date(this.stop.departure);
+  }
 
+  buildPlaces() {
     this.places = [];
 
     this.stop.hotels.forEach((hotel: Hotel) => {
@@ -111,7 +132,8 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
       return place1.arrivalTime < place2.arrivalTime ? -1 : 1;
     });
 
-    this.places.forEach((item, index) => {
+    this.buttons.deletePlaces = [];
+    this.places.forEach(() => {
       this.buttons.deletePlaces.push(false);
     });
   }
@@ -129,25 +151,41 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.initializeCanvas();
+    this.startRendering();
+    this.renderStopSeparatorLines();
+
+    this.stopSubscription = this.tripService.stopSubject.subscribe((stop: Stop) => {
+      if (this.stop.stopId === stop.stopId) {
+        this.stop = stop;
+        this.updateDates();
+        this.buildPlaces();
+        this.initializeCanvas();
+        this.startRendering();
+        this.renderStopSeparatorLines();
+      }
+    });
+  }
+
+  initializeCanvas() {
     this.canvasElement = (this.canvasTemplate.nativeElement as HTMLCanvasElement);
 
     if (this.places) {
-      this.canvasElement.height +=
-        this.placesHeightOffset * this.places.length;
+      this.canvasElement.height =
+        this.DefaultCanvasHeight + (this.placesHeightOffset * this.places.length);
     }
 
     this.helperCanvas = new HelperCanvas(this.canvasElement);
 
+    if (this.initialWidth === 0) {
+      this.initialWidth = this.canvasElement.width / this.helperCanvas.resolution - 1;
+    }
+
     this.mapped = {
-      width: this.canvasElement.width / this.helperCanvas.resolution - 1,
+      width: this.initialWidth,
       height: this.canvasElement.height / this.helperCanvas.resolution - 1
     };
-
-    this.startRendering();
-
-    this.helperCanvas.drawLine(0, this.mapped.height,
-      this.mapped.width, this.mapped.height,
-      2, this.currentTheme.stopSeparatorColor);
+    console.log(this.mapped.width);
   }
 
   startRendering() {
@@ -298,6 +336,12 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
       displayDate, dateXCoordinate,
       this.stopLabelYCoordinate + 2, dateFontSize, this.currentTheme.color
     );
+  }
+
+  renderStopSeparatorLines() {
+    this.helperCanvas.drawLine(0, this.mapped.height,
+      this.mapped.width, this.mapped.height,
+      2, this.currentTheme.stopSeparatorColor);
   }
 
   renderPlaces() {
