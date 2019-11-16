@@ -20,9 +20,7 @@ export class TimelineComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
-    this.tripService.displayTimeline = true;
-  }
+  ngOnInit() {}
 
   openStopDialog(): void {
     const dialogConfig = new MatDialogConfig();

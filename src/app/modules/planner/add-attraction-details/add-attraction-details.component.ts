@@ -146,7 +146,6 @@ export class AddAttractionDetailsComponent implements OnInit {
   }
 
   addAttraction() {
-    this.tripService.displayTimeline = false;
     this.navigatorService.activeTab = 'timeline';
     this.attractionData.arrival = this.arrivalDate.toString();
     this.attractionData.departure = this.departureDate.toString();
