@@ -10,7 +10,9 @@ export class Time {
     const time = new Time();
 
     time.hours = hours;
-    if (timeString.includes('PM') && hours !== 12) { time.hours += 12; }
+    if (timeString.includes('PM') && hours !== 12) {
+      time.hours += 12;
+    }
 
     time.minutes = minutes;
     return time;

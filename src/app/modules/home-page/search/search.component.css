@@ -6,12 +6,15 @@
   padding-left: 0;
   padding-right: 0;
 }
+
 .input-field {
   margin-left: 1.5%;
 }
+
 .timepicker {
   width: 30px;
 }
+
 .button {
   position: absolute;
   margin-top: 0.3%;

@@ -1,4 +1,4 @@
-import { Place } from './Place';
+import {Place} from './Place';
 import {Location} from './Location';
 
 export interface Hotel extends Place {

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TimelineStopComponent } from './timeline-stop.component';
+import {TimelineStopComponent} from './timeline-stop.component';
 
 describe('TimelineStopComponent', () => {
   let component: TimelineStopComponent;
@@ -8,9 +8,9 @@ describe('TimelineStopComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimelineStopComponent ]
+      declarations: [TimelineStopComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

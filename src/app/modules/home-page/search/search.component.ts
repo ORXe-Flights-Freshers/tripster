@@ -1,9 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Time } from '@models/Time';
-import { TripService } from '@services/trip.service';
-import { Router } from '@angular/router';
-import { Trip } from '@models/Trip';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Time} from '@models/Time';
+import {TripService} from '@services/trip.service';
+import {Router} from '@angular/router';
+import {Trip} from '@models/Trip';
 import {TimePickerThemeService} from '@services/TimePickerTheme.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
   currentDate = new Date(Date.now());
   tripDate: Date = new Date(Date.now());
   tripTime = this.tripDate.getHours().toString() +
-    ':' +  this.tripDate.getMinutes().toString() + ' am';
+    ':' + this.tripDate.getMinutes().toString() + ' am';
   vehicleMileage = 22;
   invalidDepartureDateTimeError: boolean;
   minTime: Date;
@@ -34,7 +34,8 @@ export class SearchComponent implements OnInit {
   constructor(private tripService: TripService,
               private router: Router,
               public timePickerThemeService: TimePickerThemeService,
-              private changeDetectRef: ChangeDetectorRef) {}
+              private changeDetectRef: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
     this.minTime = this.getMinTime();
@@ -43,17 +44,21 @@ export class SearchComponent implements OnInit {
   handleInvalidSource(event) {
     this.sourceValid = event.isValid;
   }
+
   handleInvalidDestination(event) {
     this.destinationValid = event.isValid;
   }
+
   handleSourceChange(place: google.maps.places.PlaceResult) {
     this.origin = place;
     this.checkForDuplicatePlace();
   }
+
   handleDestinationChange(place: google.maps.places.PlaceResult) {
     this.destination = place;
     this.checkForDuplicatePlace();
   }
+
   handleTimeSet(time: string) {
     this.tripTime = time;
     this.setTripDateTime();
@@ -66,33 +71,36 @@ export class SearchComponent implements OnInit {
     this.minTime = this.getMinTime();
     this.validateDateTime();
   }
+
   validateDateTime() {
     this.invalidDepartureDateTimeError = this.tripDate.getTime() < new Date(Date.now()).setSeconds(0);
     console.log(this.invalidDepartureDateTimeError);
     console.log(this.tripDate);
 
   }
+
   setTripDateTime() {
     const newTripTime = Time.parseTimeStringToTime(this.tripTime);
     this.tripDate.setHours(newTripTime.hours);
     this.tripDate.setMinutes(newTripTime.minutes);
   }
+
   getMinDate() {
     return new Date(Date.now());
   }
 
   getMinTime() {
-    if ( this.isDepartureDateMore()) {
-      return new Date((new Date(this.currentDate)).setHours(0 , 0));
+    if (this.isDepartureDateMore()) {
+      return new Date((new Date(this.currentDate)).setHours(0, 0));
     }
     return new Date(this.currentDate);
   }
 
   isDepartureDateMore(): boolean {
-    if (this.tripDate.getFullYear() > this.currentDate.getFullYear() ) {
+    if (this.tripDate.getFullYear() > this.currentDate.getFullYear()) {
       return true;
     }
-    if (this.tripDate.getMonth() > this.currentDate.getMonth() ) {
+    if (this.tripDate.getMonth() > this.currentDate.getMonth()) {
       return true;
     }
     return this.tripDate.getDate() > this.currentDate.getDate();

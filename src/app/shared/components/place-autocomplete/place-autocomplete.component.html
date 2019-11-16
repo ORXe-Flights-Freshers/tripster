@@ -31,9 +31,9 @@
     <mat-error *ngIf="!validPlace"> {{errorMessage}} </mat-error>
   </mat-form-field>
   <mat-autocomplete
-    #auto="matAutocomplete"
-    (optionSelected)="onPlaceSelected($event.option.value)"
-    [displayWith]="predictionDescriptionMapper"
+      #auto="matAutocomplete"
+      (optionSelected)="onPlaceSelected($event.option.value)"
+      [displayWith]="predictionDescriptionMapper"
   >
     <mat-option *ngFor="let prediction of predictions" [value]="prediction">
       {{ prediction.description }}

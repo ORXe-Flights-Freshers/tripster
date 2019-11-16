@@ -21,7 +21,7 @@
   </div>
 
   <div class="places-photos"
-    [ngStyle]="{
+       [ngStyle]="{
       height: '' + places.length * 85 + 'px'
     }"
   >
@@ -42,7 +42,7 @@
   </div>
 
   <div class="places-delete"
-    [ngStyle]="{
+       [ngStyle]="{
       height: '' + places.length * 85 + 'px'
     }"
   >
@@ -67,13 +67,6 @@
     </div>
   </div>
 
-  <canvas
-    class="body"
-    [height]="DefaultCanvasHeight"
-    #stop
-  >
-    Sorry, the timeline can't be displayed.
-    Your device doesn't support canvas rendering.
-  </canvas>
+  <div #canvasContainer></div>
 
 </div>

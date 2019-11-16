@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddStopComponent } from './add-stop.component';
+import {AddStopComponent} from './add-stop.component';
 
 describe('AddStopComponent', () => {
   let component: AddStopComponent;
@@ -8,9 +8,9 @@ describe('AddStopComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddStopComponent ]
+      declarations: [AddStopComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

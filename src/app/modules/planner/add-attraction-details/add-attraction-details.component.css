@@ -1,27 +1,32 @@
-.date-input-field{
-  width:40%;
-  height:100%;
-  float:left;
+.date-input-field {
+  width: 40%;
+  height: 100%;
+  float: left;
 }
-.date-field{
-  width:40%;
-  height:100%;
-  float:left;
+
+.date-field {
+  width: 40%;
+  height: 100%;
+  float: left;
 }
-.time-field{
-  width:40%;
-  height:100%;
+
+.time-field {
+  width: 40%;
+  height: 100%;
 }
-#add-attraction-details-header{
-  width:100%;
-  height:50px;
+
+#add-attraction-details-header {
+  width: 100%;
+  height: 50px;
 }
-#header-text{
+
+#header-text {
   width: 50%;
   float: left;
   margin: auto;
 }
-#header-button{
+
+#header-button {
   float: right;
   margin-left: 40%;
 }
@@ -34,7 +39,6 @@
   display: inline-block;
   position: relative;
   text-align: left;
-  width: -webkit-fill-available;
 }
 
 .timepicker {
@@ -43,65 +47,73 @@
 
 @media only screen and (max-width: 490px) {
   .flex-container {
-      display: flex;
-      flex-direction: column;
-      min-width: 100px;
-    }
-    .flex-container > div {
+    display: flex;
+    flex-direction: column;
+    min-width: 100px;
+  }
 
-      width:80%;
-      /*margin: 10px;*/
-    }
+  .flex-container > div {
+
+    width: 80%;
+    /*margin: 10px;*/
+  }
 }
+
 @media only screen and (min-width: 490px) {
   .flex-container {
-      display: flex;
-      flex-direction: row;
-    }
-    .flex-container > div {
-      width: 45%;
-      /*margin: 10px;*/
-    }
+    display: flex;
+    flex-direction: row;
+  }
+
+  .flex-container > div {
+    width: 45%;
+    /*margin: 10px;*/
+  }
 }
 
 .flex-container-header {
   display: flex;
   flex-direction: row;
 }
+
 .flex-container-header > div {
   width: 40%;
   margin: 10px;
 }
 
 
-p{
+p {
   margin-bottom: 5px;
 }
-mat-dialog-content{
+
+mat-dialog-content {
   overflow: hidden;
 }
 
-hr{
-margin-top: 0px;
+hr {
+  margin-top: 0;
 }
 
 #buttons-block {
-text-align: end;
+  text-align: end;
 }
-#bottom-button-block{
-width:50%;
-float: right;
+
+#bottom-button-block {
+  width: 50%;
+  float: right;
 }
-#bottom-error-block{
-width:50%;
+
+#bottom-error-block {
+  width: 50%;
 }
+
 /* #buttons-block:disabled{
 color: white;
 } */
-.attraction-error{
-color: red;
-text-align: left;
-float: left;
-margin-top: 3%;
-font-size: 13px;
+.attraction-error {
+  color: red;
+  text-align: left;
+  float: left;
+  margin-top: 3%;
+  font-size: 13px;
 }

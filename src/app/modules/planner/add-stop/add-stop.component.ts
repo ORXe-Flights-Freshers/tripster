@@ -1,13 +1,12 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import {
-  MatDialogRef
-} from '@angular/material/dialog';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
 
-import { TimePickerThemeService } from '@services/TimePickerTheme.service';
-import { TripService } from '@services/trip.service';
-import { HttpClient } from '@angular/common/http';
-import { Time } from '@models/Time';
-import { Stop } from '@models/Stop';
+import {TimePickerThemeService} from '@services/TimePickerTheme.service';
+import {TripService} from '@services/trip.service';
+import {HttpClient} from '@angular/common/http';
+import {Time} from '@models/Time';
+import {Stop} from '@models/Stop';
+
 @Component({
   selector: 'app-add-stop',
   templateUrl: './add-stop.component.html',
@@ -24,23 +23,25 @@ export class AddStopComponent implements OnInit {
   invalidTimeError: boolean;
   invalidPlace: boolean;
   minTime: Date;
+
   constructor(
     public dialogRef: MatDialogRef<AddStopComponent>,
     public tripService: TripService,
     private http: HttpClient,
     public timePickerThemeService: TimePickerThemeService,
     private changeDetectorRef: ChangeDetectorRef
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.arrivalDate = new Date(
       this.tripService.getPreviousLocation().departure
     );
     this.departureDate = new Date(this.arrivalDate);
-    this.departureTime =  this.departureDate.getHours().toString() +
-    ':' +
-    this.departureDate.getMinutes().toString() +
-    ' am';
+    this.departureTime = this.departureDate.getHours().toString() +
+      ':' +
+      this.departureDate.getMinutes().toString() +
+      ' am';
     this.minTime = this.getMinTime();
   }
 
@@ -85,7 +86,7 @@ export class AddStopComponent implements OnInit {
     function callback(response, status) {
       self.arrivalDate.setTime(
         previousLocationDeparture.getTime() +
-          response.rows[0].elements[0].duration.value * 1000
+        response.rows[0].elements[0].duration.value * 1000
       );
       console.log(self.arrivalDate);
       self.arrivalDate = new Date(self.arrivalDate);
@@ -119,21 +120,22 @@ export class AddStopComponent implements OnInit {
   getMinDate() {
     return new Date(this.arrivalDate);
   }
+
   getMinTime() {
-    if ( this.isDepartureDateMore()) {
-      return new Date((new Date(this.arrivalDate)).setHours(0 , 0));
+    if (this.isDepartureDateMore()) {
+      return new Date((new Date(this.arrivalDate)).setHours(0, 0));
     }
     return new Date(this.arrivalDate);
   }
 
   isDepartureDateMore(): boolean {
-    if (this.departureDate.getFullYear() > this.arrivalDate.getFullYear() ) {
+    if (this.departureDate.getFullYear() > this.arrivalDate.getFullYear()) {
       return true;
     }
-    if (this.departureDate.getMonth() > this.arrivalDate.getMonth() ) {
+    if (this.departureDate.getMonth() > this.arrivalDate.getMonth()) {
       return true;
     }
-    if (this.departureDate.getDate() > this.arrivalDate.getDate()  ) {
+    if (this.departureDate.getDate() > this.arrivalDate.getDate()) {
       return true;
     }
     return false;
