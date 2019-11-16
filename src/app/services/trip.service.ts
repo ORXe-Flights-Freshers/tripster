@@ -139,8 +139,7 @@ export class TripService {
     }
 
     this.updateWaypoints();
-    this.updateTrip(this.trip).subscribe(response => {
-    });
+    this.updateTrip(this.trip).subscribe();
   }
 
   addAttractionToTrip(attractionData, stopIdOfAttraction) {
@@ -153,8 +152,7 @@ export class TripService {
     }
 
     this.updateWaypoints();
-    this.updateTrip(this.trip).subscribe(response => {
-    });
+    this.updateTrip(this.trip).subscribe();
   }
 
 
