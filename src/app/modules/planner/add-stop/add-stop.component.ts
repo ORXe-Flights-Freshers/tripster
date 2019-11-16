@@ -37,11 +37,11 @@ export class AddStopComponent implements OnInit {
     this.arrivalDate = new Date(
       this.tripService.getPreviousLocation().departure
     );
-    this.departureDate = new Date(this.arrivalDate);
-    this.departureTime = this.departureDate.getHours().toString() +
-      ':' +
-      this.departureDate.getMinutes().toString() +
-      ' am';
+    this.departureDate = new Date(this.arrivalDate.getTime() + 60000);
+    this.departureTime =  this.departureDate.getHours().toString() +
+    ':' +
+    this.departureDate.getMinutes().toString() +
+    ' am';
     this.minTime = this.getMinTime();
   }
 
@@ -91,7 +91,7 @@ export class AddStopComponent implements OnInit {
       console.log(self.arrivalDate);
       self.arrivalDate = new Date(self.arrivalDate);
       self.handleArrivalTimeSet(self.arrivalDate);
-      self.departureDate = new Date(self.arrivalDate);
+      self.departureDate = new Date(self.arrivalDate.getTime() + 60000);
       self.departureTime =
         self.departureDate.getHours().toString() +
         ':' +
@@ -135,10 +135,7 @@ export class AddStopComponent implements OnInit {
     if (this.departureDate.getMonth() > this.arrivalDate.getMonth()) {
       return true;
     }
-    if (this.departureDate.getDate() > this.arrivalDate.getDate()) {
-      return true;
-    }
-    return false;
+    return this.departureDate.getDate() > this.arrivalDate.getDate();
   }
 
   handleArrivalDateSet(date) {
@@ -155,7 +152,7 @@ export class AddStopComponent implements OnInit {
   }
 
   validateDateTime() {
-    this.invalidTimeError = this.departureDate < this.arrivalDate;
+    this.invalidTimeError = this.departureDate <= this.arrivalDate;
   }
 
   closeDialog() {

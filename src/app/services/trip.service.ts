@@ -31,7 +31,6 @@ export class TripService {
   }
 
   getTrip(tripId) {
-    console.log(`trip-id: ${tripId}`);
 
     this.http.get('http://3.14.69.62:5001/api/trip/' + tripId).subscribe(
       data => {
@@ -63,7 +62,6 @@ export class TripService {
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     this.directionResult = directionResult;
-
     if (this.trip.stops.length !== 0) {
       this.trip.stops.forEach((stop, index) => {
         let previousDeparture;
@@ -94,9 +92,15 @@ export class TripService {
       previousDeparture.setSeconds(
         previousDeparture.getSeconds() +
         directionResult.routes[0].legs[
-        directionResult.routes[0].legs.length - 1
+          0
+        // directionResult.routes[0].legs.length - 1
           ].duration.value
       );
+      const newArrivalTime = (new Date(previousDeparture)).getTime();
+      const oldArrivalTime = (new Date( this.trip.destination.arrival)).getTime();
+      if (newArrivalTime !== oldArrivalTime) {
+        this.addTimeToDestinationItineraries(( newArrivalTime - oldArrivalTime));
+      }
       this.trip.destination.arrival = previousDeparture.toString();
       this.updateTrip(this.trip).subscribe();
     }
@@ -153,7 +157,7 @@ export class TripService {
   }
 
 
-  updateWaypoints() {
+   updateWaypoints() {
     const waypointsLocations = [];
     const waypointsInfo = [];
 
@@ -234,6 +238,13 @@ export class TripService {
   getNewTime(oldTime, timeToAdd): string {
     const timeInMilli = new Date(oldTime).getTime();
     return new Date(timeInMilli + timeToAdd).toString();
+  }
+
+  addTimeToDestinationItineraries(timeToAdd: number) {
+      for (const place of [...this.trip.destination.attractions, ...this.trip.destination.hotels]) {
+            place.arrival = this.getNewTime(place.arrival, timeToAdd);
+            place.departure = this.getNewTime(place.departure, timeToAdd);
+      }
   }
 
   getStopByStopId(stopId): Stop {

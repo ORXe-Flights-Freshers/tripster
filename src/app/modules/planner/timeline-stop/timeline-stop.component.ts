@@ -183,7 +183,6 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy {
       width: this.canvasElement.width / this.helperCanvas.resolution - 1,
       height: this.canvasElement.height / this.helperCanvas.resolution - 1
     };
-    console.log(this.mapped.width);
   }
 
   startRendering() {
