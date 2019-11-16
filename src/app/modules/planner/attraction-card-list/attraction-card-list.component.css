@@ -81,6 +81,10 @@
   width: 90%;
   margin: 20px auto auto;
 }
+.no-attractions-found-with-search {
+  width: 90%;
+  margin: 20px auto auto;
+}
 
 .attractions-list {
   height: 305px;
@@ -124,4 +128,7 @@
   background-color: var(--main-theme-color);
   transition-duration: 0.2s;
   cursor: pointer;
+}
+.search-bar{
+
 }
