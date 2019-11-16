@@ -1,12 +1,9 @@
-import {Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
-import { AddHotelDetailsComponent } from '../add-hotel-details/add-hotel-details.component';
-import {
-  MatDialog,
-  MatDialogConfig
-} from '@angular/material/dialog';
-import { Hotel } from '@models/Hotel';
-import { TripService } from '@services/trip.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {AddHotelDetailsComponent} from '../add-hotel-details/add-hotel-details.component';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {Hotel} from '@models/Hotel';
+import {TripService} from '@services/trip.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-hotel-card',
@@ -17,15 +14,16 @@ export class HotelCardComponent implements OnInit {
   @Input() stopIdOfHotel: string;
   @Input() hotelData: Hotel;
   @Input() imageUrl =
-  'https://images.wallpaperscraft.com/image/room_style_hotel_bed_70002_1920x1080.jpg';
+    'https://images.wallpaperscraft.com/image/room_style_hotel_bed_70002_1920x1080.jpg';
 
-  @ViewChild('headingDetails', { static: false }) headingDetails: ElementRef;
+  @ViewChild('headingDetails', {static: false}) headingDetails: ElementRef;
 
-  constructor( public tripService: TripService, public dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(public tripService: TripService, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.imageUrl = 'http://lorempixel.com/200/200/city/?id=' + Math.random();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   openHotelDialog(hotelData): void {
 
@@ -34,7 +32,7 @@ export class HotelCardComponent implements OnInit {
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
 
-    dialogConfig.data = {hotelData, stopIdOfHotel: this.stopIdOfHotel} ;
+    dialogConfig.data = {hotelData, stopIdOfHotel: this.stopIdOfHotel};
     const dialogRef = this.dialog.open(AddHotelDetailsComponent, dialogConfig);
 
     dialogRef.afterClosed()

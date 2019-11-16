@@ -15,10 +15,10 @@
       </ng-template>
     </span>
     <div class="filter-btn bolder">
-    <mat-search-bar
-      (onOpen)="handleSearchBarOpen()"
-      [formControl]="search"
-    ></mat-search-bar>
+      <mat-search-bar
+        (onOpen)="handleSearchBarOpen()"
+        [formControl]="search"
+      ></mat-search-bar>
     </div>
   </div>
 
@@ -43,13 +43,13 @@
     </button>
   </div>
   <div class="attractions-list">
-      <div class="no-attractions-found" #noAttractionsFound></div>
-      <app-attraction-card
-        [stopIdOfAttraction]="stopIdOfAttraction"
-        *ngFor="let attraction of arrAttractions|search:'name':searchQuery"
-        [attractionData]="attraction"
-       ></app-attraction-card>
-       <button class="load-more-btn-attraction" *ngIf="arrAttractions.length > 0 && pagination?.hasNextPage" #loadMoreBtn (click)="loadMoreAttractions(loadMoreBtn)">Load More</button>
+    <div class="no-attractions-found" #noAttractionsFound></div>
+    <app-attraction-card
+      [stopIdOfAttraction]="stopIdOfAttraction"
+      *ngFor="let attraction of arrAttractions|search:'name':searchQuery"
+      [attractionData]="attraction"
+    ></app-attraction-card>
+    <button class="load-more-btn-attraction" *ngIf="arrAttractions.length > 0 && pagination?.hasNextPage" #loadMoreBtn (click)="loadMoreAttractions(loadMoreBtn)">Load More</button>
   </div>
 
   <div class="footer">

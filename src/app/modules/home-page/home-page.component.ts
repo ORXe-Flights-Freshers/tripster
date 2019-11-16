@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HeaderDataService} from '../../services/HeaderData/header-data.service';
 
 @Component({

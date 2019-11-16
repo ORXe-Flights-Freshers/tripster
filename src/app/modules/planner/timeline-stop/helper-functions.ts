@@ -1,5 +1,5 @@
 export class HelperCanvas {
-  canvas =  null;
+  canvas = null;
   canvasContext = null;
   fontFamily = 'Arial';
   resolution = 1;

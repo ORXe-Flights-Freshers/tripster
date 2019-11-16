@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { TripService } from '@services/trip.service';
+import {TripService} from '@services/trip.service';
 import {UtilityService} from '@services/utility.service';
 
 @Component({
@@ -11,11 +11,12 @@ export class ExpensesComponent implements OnInit {
   mileageOfCar: number;
   fuelCostPerLiter = 80;
 
-  @ViewChild('price', { static: false }) priceElement: ElementRef;
-  @ViewChild('mileage', { static: false }) mileageElement: ElementRef;
+  @ViewChild('price', {static: false}) priceElement: ElementRef;
+  @ViewChild('mileage', {static: false}) mileageElement: ElementRef;
 
   constructor(public tripService: TripService,
-              public utilityService: UtilityService) { }
+              public utilityService: UtilityService) {
+  }
 
   ngOnInit() {
     this.mileageOfCar = this.tripService.trip.mileage;
@@ -38,15 +39,16 @@ export class ExpensesComponent implements OnInit {
   }
 
   getDistance() {
-     return this.tripService.directionResult ? Math.round(this.tripService.calculateTotalDistance()) : 0  ;
+    return this.tripService.directionResult ? Math.round(this.tripService.calculateTotalDistance()) : 0;
   }
+
   getFuelConsumption() {
     const totalFuel = this.tripService.trip ? this.getDistance() / this.mileageOfCar : 0;
-    return Math.round(totalFuel) ;
+    return Math.round(totalFuel);
   }
 
   getFuelCost() {
-    const fuelCost = this.getFuelConsumption() * this.fuelCostPerLiter ;
-    return Math.round(fuelCost) ;
+    const fuelCost = this.getFuelConsumption() * this.fuelCostPerLiter;
+    return Math.round(fuelCost);
   }
 }

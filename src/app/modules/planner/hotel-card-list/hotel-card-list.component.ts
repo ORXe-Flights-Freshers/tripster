@@ -37,7 +37,7 @@ export class HotelCardListComponent implements OnInit {
   search: FormControl = new FormControl('');
   searchQuery = '';
 
-  @ViewChild('noHotelsFound', { static: false }) noHotelsFoundElement: ElementRef;
+  @ViewChild('noHotelsFound', {static: false}) noHotelsFoundElement: ElementRef;
 
   constructor(
     private httpService: HttpClient,
@@ -62,74 +62,74 @@ export class HotelCardListComponent implements OnInit {
       .get('https://tripster-tavisca.firebaseio.com/hotels-api-ip.json')
       .subscribe(
         hotelsApiDetails => {
-        const hotelsApiEndpoint: {
-          [ipObj: string]: { [ip: string]: string };
-        } = {};
-        for (const key in hotelsApiDetails) {
-          if (hotelsApiDetails.hasOwnProperty(key)) {
-            hotelsApiEndpoint.ipObj = hotelsApiDetails[key];
+          const hotelsApiEndpoint: {
+            [ipObj: string]: { [ip: string]: string };
+          } = {};
+          for (const key in hotelsApiDetails) {
+            if (hotelsApiDetails.hasOwnProperty(key)) {
+              hotelsApiEndpoint.ipObj = hotelsApiDetails[key];
+            }
           }
-        }
 
-        console.log(hotelsApiEndpoint.ipObj.ip);
+          console.log(hotelsApiEndpoint.ipObj.ip);
 
-        // Production Data Link
-        const hotelsApiUrl = 'http://' + hotelsApiEndpoint.ipObj.ip + '/api/hotels/';
+          // Production Data Link
+          const hotelsApiUrl = 'http://' + hotelsApiEndpoint.ipObj.ip + '/api/hotels/';
 
-        // Mock Data Link
-        // const hotelsApiUrl = 'https://hotel-mock.s3.us-east-2.amazonaws.com/hotel.json';
-        // const hotelsApiUrl =
-        // 'http://172.16.5.159:5000/api/hotels/';
+          // Mock Data Link
+          // const hotelsApiUrl = 'https://hotel-mock.s3.us-east-2.amazonaws.com/hotel.json';
+          // const hotelsApiUrl =
+          // 'http://172.16.5.159:5000/api/hotels/';
 
-        this.httpService
-          .get(
-            hotelsApiUrl +
+          this.httpService
+            .get(
+              hotelsApiUrl +
               stop.location.latitude +
               '/' +
               stop.location.longitude +
               '/' +
               this.radius
-          )
-          .subscribe(
-            (data: { hotels: [] }) => {
-              this.chosenCity = stop.name;
-              this.stopIdOfHotel = stop.stopId;
-              this.arrHotels = [];
+            )
+            .subscribe(
+              (data: { hotels: [] }) => {
+                this.chosenCity = stop.name;
+                this.stopIdOfHotel = stop.stopId;
+                this.arrHotels = [];
 
-              for (const hotelData of data.hotels) {
-                this.arrHotels.push(this.getHotelData(hotelData));
-              }
-              this.displayLoader = false;
-              if (this.arrHotels.length === 0) {
-                let displayText = `No hotels found at ${stop.name}. `;
+                for (const hotelData of data.hotels) {
+                  this.arrHotels.push(this.getHotelData(hotelData));
+                }
+                this.displayLoader = false;
+                if (this.arrHotels.length === 0) {
+                  let displayText = `No hotels found at ${stop.name}. `;
 
-                if (this.radius !== this.maxRadius) {
-                  displayText += 'Increasing the radius may help.';
+                  if (this.radius !== this.maxRadius) {
+                    displayText += 'Increasing the radius may help.';
+                  } else {
+                    displayText += 'Please check for other stops.';
+                  }
+
+                  (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = displayText;
+                  if (!(this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                    .classList.contains('no-hotels-found')) {
+                    (this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                      .classList.add('no-hotels-found');
+                  }
                 } else {
-                  displayText += 'Please check for other stops.';
+                  (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = '';
+                  if ((this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                    .classList.contains('no-hotels-found')) {
+                    (this.noHotelsFoundElement.nativeElement as HTMLDivElement)
+                      .classList.remove('no-hotels-found');
+                  }
                 }
-
-                (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = displayText;
-                if (!(this.noHotelsFoundElement.nativeElement as HTMLDivElement)
-                  .classList.contains('no-hotels-found')) {
-                  (this.noHotelsFoundElement.nativeElement as HTMLDivElement)
-                    .classList.add('no-hotels-found');
-                }
-              } else {
-                (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = '';
-                if ((this.noHotelsFoundElement.nativeElement as HTMLDivElement)
-                  .classList.contains('no-hotels-found')) {
-                  (this.noHotelsFoundElement.nativeElement as HTMLDivElement)
-                    .classList.remove('no-hotels-found');
-                }
+              },
+              (error: HttpErrorResponse) => {
+                (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = error.message;
+                this.displayLoader = false;
               }
-            },
-            (error: HttpErrorResponse) => {
-              (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = error.message;
-              this.displayLoader = false;
-            }
-          );
-      },
+            );
+        },
         (error: HttpErrorResponse) => {
           (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = error.message;
           this.displayLoader = false;
@@ -137,7 +137,7 @@ export class HotelCardListComponent implements OnInit {
   }
 
   getHotelData(hotelDataApi: HotelResult) {
-  //  console.log("here");
+    //  console.log("here");
     const hotelData: Hotel = {
       placeId: hotelDataApi.hotelId,
       name: hotelDataApi.name,

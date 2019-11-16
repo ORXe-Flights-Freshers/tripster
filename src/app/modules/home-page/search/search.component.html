@@ -68,7 +68,7 @@
         Go
       </button>
     </span>
-    <hr />
+    <hr/>
     <mat-form-field class="mileage input-field" appearance="outline">
       <mat-label>Mileage of your vehicle (in kms)</mat-label>
       <input
@@ -78,17 +78,19 @@
         (change)="onMileageChange($event)"
       />
       <mat-error *ngIf="searchForm.controls['mileage'].errors?.required"
-        >Mileage is required</mat-error
+      >Mileage is required
+      </mat-error
       >
       <mat-error *ngIf="searchForm.controls['mileage'].errors?.pattern"
-        >Mileage should be in the range 10-999</mat-error
+      >Mileage should be in the range 10-999
+      </mat-error
       >
     </mat-form-field>
     <p style="color: red;" *ngIf="isDuplicatePlace">
       Source and Destination cannot be same
     </p>
     <p style="color: red;" *ngIf="invalidDepartureDateTimeError">
-        Time can't be less than current time.
+      Time can't be less than current time.
     </p>
 
   </mat-card>

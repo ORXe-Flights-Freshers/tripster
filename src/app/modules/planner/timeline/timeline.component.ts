@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { TripService } from '@services/trip.service';
-import { AddStopComponent } from '../add-stop/add-stop.component';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {TripService} from '@services/trip.service';
+import {AddStopComponent} from '../add-stop/add-stop.component';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { ShareTripComponent } from '../share-trip/share-trip.component';
-import {Trip} from '@models/Trip';
+import {ShareTripComponent} from '../share-trip/share-trip.component';
+
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
@@ -17,7 +17,8 @@ export class TimelineComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+  }
 
   ngOnInit() {}
 
@@ -39,6 +40,7 @@ export class TimelineComponent implements OnInit {
       }
     });
   }
+
   openShareTripDialog(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
@@ -55,8 +57,8 @@ export class TimelineComponent implements OnInit {
   }
 
   addStop(stop): boolean {
-   const responseMessage = this.tripService.addStopToTrip(stop);
-   return responseMessage === 'success';
+    const responseMessage = this.tripService.addStopToTrip(stop);
+    return responseMessage === 'success';
   }
 
   getNavigationUrl() {

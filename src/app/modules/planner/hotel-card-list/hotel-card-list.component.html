@@ -7,7 +7,7 @@
   <div class="header">
       <span class="number-of-hotels-info bold">
           <span
-              *ngIf="chosenCity; else noLocationSelected"
+            *ngIf="chosenCity; else noLocationSelected"
           >
               <span class="bolder">
                 {{(arrHotels|search:'name':searchQuery).length}}
@@ -30,32 +30,32 @@
   <div class="list-of-stops">
 
     <button
-        *ngFor="let stop of tripService?.trip?.stops"
-        (click)="hotelByStop(stop)"
-        [ngClass]="{
+      *ngFor="let stop of tripService?.trip?.stops"
+      (click)="hotelByStop(stop)"
+      [ngClass]="{
           active: stop.name === chosenCity
         }"
     >
-        {{ stop.name }}
+      {{ stop.name }}
     </button>
     <button
-        *ngIf="tripService?.trip?.destination"
-        (click)="hotelByStop(tripService?.trip?.destination)"
-        [ngClass]="{
+      *ngIf="tripService?.trip?.destination"
+      (click)="hotelByStop(tripService?.trip?.destination)"
+      [ngClass]="{
           active: tripService.trip.destination.name === chosenCity
         }"
     >
-        {{ tripService.trip.destination.name }}
+      {{ tripService.trip.destination.name }}
     </button>
   </div>
 
   <div class="hotels-list">
-      <div class="no-hotels-found" #noHotelsFound></div>
-      <app-hotel-card
-          [stopIdOfHotel]="stopIdOfHotel"
-          *ngFor="let hotelData of arrHotels|search:'name':searchQuery"
-          [hotelData]="hotelData"
-      ></app-hotel-card>
+    <div class="no-hotels-found" #noHotelsFound></div>
+    <app-hotel-card
+      [stopIdOfHotel]="stopIdOfHotel"
+      *ngFor="let hotelData of arrHotels|search:'name':searchQuery"
+      [hotelData]="hotelData"
+    ></app-hotel-card>
   </div>
 
   <div class="footer">
