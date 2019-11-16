@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Trip} from '@models/Trip';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Stop} from '@models/Stop';
 import {Router} from '@angular/router';
 import {Place} from '@models/Place';
 import {Subject} from 'rxjs';
+import {LoggerService} from '@services/logger.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class TripService {
 
   constructor(private http: HttpClient,
               private route: Router,
-  ) {
+              private loggerService: LoggerService) {
   }
 
   createTrip(trip: Trip) {
@@ -31,14 +32,14 @@ export class TripService {
   }
 
   getTrip(tripId) {
-
-    this.http.get('http://3.14.69.62:5001/api/trip/' + tripId).subscribe(
-      data => {
-        this.trip = data as Trip;
-
+    this.http.get('http://3.14.69.62:5001/api/trip/' + tripId)
+      .subscribe(
+      (trip: Trip) => {
+        this.trip = trip;
         this.updateWaypoints();
       },
-      error => {
+      (error: HttpErrorResponse) => {
+        this.loggerService.error(error);
         this.route.navigate(['/', 'not-found']).then();
       }
     );
