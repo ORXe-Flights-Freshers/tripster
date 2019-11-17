@@ -1,11 +1,22 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {HelperCanvas} from './helper-functions';
-import {Stop} from '@models/Stop';
-import {TripService} from '@services/trip.service';
-import {Hotel} from '@models/Hotel';
-import {Attraction} from '@models/Attraction';
-import {UtilityService} from '@services/utility.service';
-import {Subscription} from 'rxjs';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import { HelperCanvas } from './helper-functions';
+import { Subscription } from 'rxjs';
+
+import { TripService } from '@services/trip.service';
+import { UtilityService } from '@services/utility.service';
+
+import { Hotel } from '@models/Hotel';
+import { Stop } from '@models/Stop';
+import { Location } from '@models/Location';
+import { Attraction } from '@models/Attraction';
 
 interface TimelinePlace {
   id: string;
@@ -14,6 +25,7 @@ interface TimelinePlace {
   imageUrl: string;
   arrivalTime: Date;
   departureTime: Date;
+  location: Location;
 }
 
 @Component({
@@ -105,7 +117,8 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy {
         type: 'hotel',
         imageUrl: hotel.imageUrl,
         arrivalTime: new Date(hotel.arrival),
-        departureTime: new Date(hotel.departure)
+        departureTime: new Date(hotel.departure),
+        location: hotel.location
       });
     });
 
@@ -116,7 +129,8 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy {
         type: 'attraction',
         imageUrl: attraction.imageUrl,
         arrivalTime: new Date(attraction.arrival),
-        departureTime: new Date(attraction.departure)
+        departureTime: new Date(attraction.departure),
+        location: attraction.location
       });
     });
 
