@@ -14,13 +14,15 @@
         Choose a location to view attractions there
       </ng-template>
     </span>
-    <div class="filter-btn bolder">
+    <div class="sort">Sort By</div>
+    <div class="search">
       <mat-search-bar class="search-bar"
         (onOpen)="handleSearchBarOpen()"
         [formControl]="search"
         [placeholder]="Search"
       ></mat-search-bar>
     </div>
+    
   </div>
 
   <div class="list-of-stops">

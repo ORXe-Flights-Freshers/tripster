@@ -34,11 +34,15 @@
   font-size: 14px;
 }
 
-.filter-btn {
+.search {
   float: right;
   margin-top: 15px;
   margin-right: 7px;
-
+}
+.sort {
+  float: right;
+  margin-top: 15px;
+  margin-right: 7px;
   text-transform: uppercase;
 }
 
@@ -128,7 +132,4 @@
   background-color: var(--main-theme-color);
   transition-duration: 0.2s;
   cursor: pointer;
-}
-.search-bar{
-
 }
