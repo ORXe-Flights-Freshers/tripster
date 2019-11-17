@@ -15,9 +15,8 @@
   margin-bottom: -4px;
 }
 
-.buttons,
-.places-photos,
-.places-delete {
+.stop-buttons,
+.places-holder {
   position: absolute;
   z-index: 1;
 
@@ -36,34 +35,28 @@
   cursor: pointer;
 }
 
-.places-delete,
-.places-photos {
-  /*background-color: rgba(255, 255, 0, 0.3);*/
-  margin-top: 125px;
+.places-holder {
+  margin-top: 127px;
 }
 
-.all-buttons {
-  margin-top: 25px;
+.each-place {
+  /*border: 1px solid black;*/
 }
 
-.places-delete-holder {
-  margin-left: 90%;
-  margin-bottom: 44px;
-}
+.place-delete {
+  position: absolute;
+  width: fit-content;
 
-.places-delete-holder:hover {
+  right: 30px;
+  margin-top: 20px;
+
   cursor: pointer;
 }
 
-.places-photos {
-  /*background-color: rgba(255, 255, 0, 0.3);*/
-}
+.place-image {
+  position: absolute;
+  width: fit-content;
 
-.all-images {
-  margin-top: 10px;
-  margin-left: 70px;
-}
-
-.places-image-holder {
-  margin-bottom: 19px;
+  left: 72px;
+  margin-top: 8px;
 }
