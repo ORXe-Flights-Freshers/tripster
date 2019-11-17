@@ -170,7 +170,8 @@ export class TripService {
           }
         });
         waypointsInfo.push({
-          name: stop.name
+          name: stop.name,
+          placeId: stop.stopId
         });
       } else {
         this.getPlacesInOrder(stop).forEach((place: Place) => {
@@ -178,10 +179,10 @@ export class TripService {
           waypointsLocations.push({
             location: {
               lat: latitude,
-              lng: longitude
+              Slng: longitude
             }
           });
-          waypointsInfo.push({name: place.name});
+          waypointsInfo.push({name: place.name, placeId: place.placeId});
         });
       }
     }
@@ -194,7 +195,7 @@ export class TripService {
           lng: place.location.longitude
         }
       });
-      waypointsInfo.push({name: place.name});
+      waypointsInfo.push({name: place.name, placeId: place.placeId});
     }
 
     this.waypoints = waypointsLocations;

@@ -12,13 +12,14 @@
     >
       <mat-icon class="btn-icon">center_focus_strong</mat-icon>
     </button>
-    <agm-marker
+      <agm-marker
       *ngIf="tripService?.trip?.source"
       [agmFitBounds]="true"
       [latitude]="tripService?.trip?.source.location.latitude"
       [longitude]="tripService?.trip?.source.location.longitude"
       (mouseOver)="showPlaceInfoWindow(sourcePlaceInfoWindow)"
       (mouseOut)="hidePlaceInfoWindow(sourcePlaceInfoWindow)"
+      (markerClick)="openPlaceLink(tripService?.trip?.source.stopId,tripService?.trip?.source.name)"
     >
       <agm-info-window #sourcePlaceInfoWindow>{{tripService?.trip?.source.name}}</agm-info-window>
     </agm-marker>
@@ -29,6 +30,7 @@
       [longitude]="tripService?.trip?.destination.location.longitude"
       (mouseOver)="showPlaceInfoWindow(destinationPlaceInfoWindow)"
       (mouseOut)="hidePlaceInfoWindow(destinationPlaceInfoWindow)"
+      (markerClick)="openPlaceLink(tripService?.trip?.destination.stopId,tripService?.trip?.destination.name)"
     >
       <agm-info-window #destinationPlaceInfoWindow>{{tripService?.trip?.destination.name}}</agm-info-window>
     </agm-marker>
@@ -40,6 +42,7 @@
       [iconUrl]="stopIconUrl"
       (mouseOver)="showPlaceInfoWindow(placeInfoWindow)"
       (mouseOut)="hidePlaceInfoWindow(placeInfoWindow)"
+      (markerClick)="openPlaceLink(tripService?.waypointsInfo[i].placeId,tripService?.waypointsInfo[i].name)"
     >
       <agm-info-window #placeInfoWindow>{{tripService?.waypointsInfo[i].name}}</agm-info-window>
     </agm-marker>
@@ -49,6 +52,7 @@
       [latitude]="tripService?.placeMarker?.location.latitude"
       [longitude]="tripService?.placeMarker?.location.longitude"
       [iconUrl]="placeIconUrl"
+      (markerClick)="openPlaceLink(tripService?.placeMarker.placeId,tripService?.placeMarker.name)"
     >
       <agm-info-window [isOpen]="true"
                        (infoWindowClose)="tripService?.hidePlaceMarker()">{{tripService?.placeMarker?.name}}</agm-info-window>

@@ -41,4 +41,12 @@ export class MapComponent {
     console.log('dsfd');
     agmMap.triggerResize(true);
   }
+  openPlaceLink(placeId, placeName) {
+    const link = document.createElement('a');
+    link.target = '_blank';
+    link.href = 'https://www.google.com/maps/search/?api=1&query=' + placeName + '&query_place_id=' + placeId;
+    link.setAttribute('visibility', 'hidden');
+    link.click();
+    link.remove();
+  }
 }
