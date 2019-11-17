@@ -52,6 +52,10 @@
           (click)="deletePlace(place.id, place.type)"
         ></i>
       </div>
+      <div class="place-details"
+        (click)="tripService.showPlaceMarker(place)"
+      >
+      </div>
     </div>
   </div>
 

@@ -40,6 +40,7 @@
 }
 
 .each-place {
+  /* Just for reference */
   /*border: 1px solid black;*/
 }
 
@@ -59,4 +60,20 @@
 
   left: 72px;
   margin-top: 8px;
+}
+
+.place-details {
+  position: absolute;
+  width: 289px;
+  height: 65px;
+
+  left: 63px;
+
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.place-details:hover {
+  border-color: var(--main-theme-color);
+  background-color: rgba(167, 167, 167, 0.2);
 }
