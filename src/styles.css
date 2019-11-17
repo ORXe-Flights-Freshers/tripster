@@ -21,6 +21,9 @@ body {
 .timepicker-overlay {
   z-index: 10000000 !important;
 }
+.mat-search_field {
+  max-width: 90px;
+}
 
 .timepicker-backdrop-overlay {
   z-index: 10000000 !important;

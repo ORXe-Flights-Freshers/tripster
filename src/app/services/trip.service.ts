@@ -179,7 +179,7 @@ export class TripService {
           waypointsLocations.push({
             location: {
               lat: latitude,
-              Slng: longitude
+              lng: longitude
             }
           });
           waypointsInfo.push({name: place.name, placeId: place.placeId});

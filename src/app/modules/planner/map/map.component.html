@@ -3,7 +3,7 @@
     <mat-spinner class="spinner"></mat-spinner>
   </div>
 
-  <agm-map #map [fitBounds]="true" *ngIf="!isLoading" [latitude]="tripService?.placeMarker?.location.latitude"
+  <agm-map #map [styles]="style" [fitBounds]="true" *ngIf="!isLoading" [latitude]="tripService?.placeMarker?.location.latitude"
            [longitude]="tripService?.placeMarker?.location.longitude" (mapReady)="mapReady($event)" [minZoom]="minZoom"
            [maxZoom]="maxZoom" [zoom]="tripService?.mapZoom" (zoomChange)="handleZoomChange($event)">
     <button

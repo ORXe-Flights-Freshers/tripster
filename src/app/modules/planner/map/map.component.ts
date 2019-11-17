@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {TripService} from '@services/trip.service';
 import {AgmInfoWindow, AgmMap} from '@agm/core';
+import { mapStyle } from './mapStyle';
 
 @Component({
   selector: 'app-map',
@@ -8,17 +9,18 @@ import {AgmInfoWindow, AgmMap} from '@agm/core';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent {
-  isLoading: boolean;
-  map: google.maps.Map;
-  placeIconUrl = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
 
   constructor(public tripService: TripService) {
   }
+  isLoading: boolean;
+  map: google.maps.Map;
+  placeIconUrl = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
 
   markerOptions;
   minZoom = 4;
   maxZoom = 16;
   stopIconUrl = 'http://maps.gstatic.com/mapfiles/markers2/icon_green.png';
+  style = mapStyle;
 
   mapReady(event) {
     this.map = event;
