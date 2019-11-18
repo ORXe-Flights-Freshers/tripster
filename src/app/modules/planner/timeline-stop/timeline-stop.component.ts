@@ -5,7 +5,8 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild,
+  OnChanges
 } from '@angular/core';
 import { HelperCanvas } from './helper-functions';
 import { Subscription } from 'rxjs';
@@ -33,7 +34,8 @@ interface TimelinePlace {
   templateUrl: './timeline-stop.component.html',
   styleUrls: ['./timeline-stop.component.css']
 })
-export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+
   static canvasDefaultHeight = 90;
 
   get DefaultCanvasHeight() {
@@ -100,6 +102,14 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.stopSubscription.unsubscribe();
+  }
+
+  ngOnChanges(changes: import('@angular/core').SimpleChanges): void {
+    // this.updateDates();
+    // this.buildPlaces();
+    // this.buildCanvas();
+    // this.initializeCanvas();
+    // this.startRendering();
   }
 
   updateDates() {
@@ -257,7 +267,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy {
       this.stopLabelYCoordinate = this.mapped.height / 2;
     }
 
-    const dashParams = [3, 2];
+    const dashParams = [3, 3];
 
     if (this.stopType !== 'source') {
       this.helperCanvas.drawDashedLine(
@@ -353,7 +363,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy {
   renderStopSeparatorLines() {
     this.helperCanvas.drawLine(0, this.mapped.height,
       this.mapped.width, this.mapped.height,
-      2, this.currentTheme.stopSeparatorColor);
+      1, this.currentTheme.stopSeparatorColor);
   }
 
   renderPlaces() {

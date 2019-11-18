@@ -20,7 +20,6 @@ export class AddStopComponent implements OnInit {
   arrivalTime = '00:00 am';
   departureTime = '00:00 am';
   duplicatePlace: boolean;
-  invalidTimeError: boolean;
   invalidPlace: boolean;
   minTime: Date;
 
@@ -48,11 +47,9 @@ export class AddStopComponent implements OnInit {
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
     this.stopCity = place;
     const previousLocation = this.tripService.getPreviousLocation();
-    console.log('stop city is', this.stopCity.place_id);
-    console.log('previous stop is ', previousLocation.stopId);
+
     if (this.stopCity.place_id === previousLocation.stopId ||
       this.stopCity.place_id === this.tripService.trip.destination.stopId) {
-      console.log('same stop found!!');
       this.duplicatePlace = true;
       this.changeDetectorRef.detectChanges();
       return;
@@ -71,24 +68,21 @@ export class AddStopComponent implements OnInit {
     const self = this;
     const distanceMatrixService = new google.maps.DistanceMatrixService();
 
-    distanceMatrixService.getDistanceMatrix(
-      {
-        origins: [startPoint],
-        destinations: [endPoint],
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.METRIC,
-        avoidHighways: false,
-        avoidTolls: false
-      },
-      callback
-    );
+    distanceMatrixService.getDistanceMatrix({
+      origins: [startPoint],
+      destinations: [endPoint],
+      travelMode: google.maps.TravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.METRIC,
+      avoidHighways: false,
+      avoidTolls: false
+    }, callback);
 
     function callback(response, status) {
       self.arrivalDate.setTime(
         previousLocationDeparture.getTime() +
         response.rows[0].elements[0].duration.value * 1000
       );
-      console.log(self.arrivalDate);
+
       self.arrivalDate = new Date(self.arrivalDate);
       self.handleArrivalTimeSet(self.arrivalDate);
       self.departureDate = new Date(self.arrivalDate.getTime() + 60000);
@@ -105,7 +99,6 @@ export class AddStopComponent implements OnInit {
   handleArrivalTimeSet(date) {
     this.arrivalTime =
       date.getHours().toString() + ':' + date.getMinutes().toString() + ' am';
-    console.log(this.arrivalTime);
   }
 
   handleDepartureTimeSet(time: string) {
@@ -113,8 +106,6 @@ export class AddStopComponent implements OnInit {
     const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDepartureTime.hours);
     this.departureDate.setMinutes(newDepartureTime.minutes);
-
-    this.validateDateTime();
   }
 
   getMinDate() {
@@ -139,7 +130,7 @@ export class AddStopComponent implements OnInit {
   }
 
   handleArrivalDateSet(date) {
-    console.log(this.arrivalDate);
+
   }
 
   handleDepartureDateSet(date) {
@@ -148,11 +139,6 @@ export class AddStopComponent implements OnInit {
     this.departureDate.setHours(newDepartureTime.hours);
     this.departureDate.setMinutes(newDepartureTime.minutes);
     this.minTime = this.getMinTime();
-    this.validateDateTime();
-  }
-
-  validateDateTime() {
-    this.invalidTimeError = this.departureDate <= this.arrivalDate;
   }
 
   closeDialog() {
@@ -172,7 +158,7 @@ export class AddStopComponent implements OnInit {
       hotels: [],
       attractions: []
     };
-    console.log(stop);
+
     this.dialogRef.close(stop);
   }
 }
