@@ -10,7 +10,10 @@
     >
       <div
         class="duration"
-        *ngFor="let duration of durationBetweenStops"
+        *ngFor="let duration of durationBetweenStops; let i = index"
+        [ngStyle]="{
+          marginTop: durationsMarginTop[i].toString() + 'px'
+        }"
       >
       {{ duration }}
       </div>
