@@ -30,8 +30,7 @@ export class FilterComponent implements OnInit {
   closeDialog() {
     this.dialogRef.close();
   }
-  addFilter(attractionType: string) {
-    console.log(this.attractionType);
+  addFilter() {
     this.dialogRef.close(this.attractionType);
   }
   setAttractionType(event: MatSelectChange) {
