@@ -12,6 +12,7 @@ import {ShareTripComponent} from '../share-trip/share-trip.component';
   styleUrls: ['./timeline.component.css']
 })
 export class TimelineComponent implements OnInit {
+  durationBetweenStops: string[];
   constructor(
     public tripService: TripService,
     public dialog: MatDialog,
@@ -20,7 +21,11 @@ export class TimelineComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.tripService.durationSubject.subscribe((durationBetweenStops: string[]) => {
+      this.durationBetweenStops = durationBetweenStops;
+    });
+  }
 
   openStopDialog(): void {
     const dialogConfig = new MatDialogConfig();
@@ -31,7 +36,6 @@ export class TimelineComponent implements OnInit {
     const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(stopFromDialog => {
-      console.log(stopFromDialog);
       if (stopFromDialog) {
         const responseStatus = this.addStop(stopFromDialog);
         if (responseStatus) {
