@@ -13,18 +13,45 @@ import {ShareTripComponent} from '../share-trip/share-trip.component';
 })
 export class TimelineComponent implements OnInit {
   durationBetweenStops: string[];
+  durationsMarginTop: number[];
+
   constructor(
     public tripService: TripService,
     public dialog: MatDialog,
     private router: Router,
-    private snackBar: MatSnackBar
-  ) {
+    private snackBar: MatSnackBar) {
+      this.durationsMarginTop = [130, ];
   }
 
   ngOnInit() {
     this.tripService.durationSubject.subscribe((durationBetweenStops: string[]) => {
       this.durationBetweenStops = durationBetweenStops;
     });
+
+    this.tripService.stopSubject.subscribe(stop => {
+      this.durationsMarginTop = [130, ];
+
+      this.tripService.trip.stops.forEach((stop, index) => {
+        this.durationsMarginTop.push(150 + this.getNumberOfPlacesAtStop(index + 1) * 76);
+      });
+    });
+  }
+
+  getNumberOfPlacesAtStop(index: number) {
+    if (!this.tripService.trip) {
+      return 0;
+    }
+
+    if (!this.tripService.trip.stops) {
+      return 0;
+    }
+
+    const stop = this.tripService.trip.stops[index - 1];
+
+    if (!stop) {
+      return 0;
+    }
+    return stop.hotels.length + stop.attractions.length;
   }
 
   openStopDialog(): void {

@@ -292,7 +292,6 @@ export class TripService {
     return timeBetweenStops;
   }
   convertMiliSecondsToDays(milliSeconds): string {
-    console.log('Here: ' + milliSeconds);
     const days = Math.floor(milliSeconds / (86400 * 1000));
     const hours = Math.floor((milliSeconds - (86400 * 1000 * days)) / (3600 * 1000));
     const minutes = Math.floor((milliSeconds - (86400 * 1000 * days) - (3600 * 1000 * hours)) / (60 * 1000));
