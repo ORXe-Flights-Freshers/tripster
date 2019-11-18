@@ -5,7 +5,8 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild,
+  OnChanges
 } from '@angular/core';
 import { HelperCanvas } from './helper-functions';
 import { Subscription } from 'rxjs';
@@ -33,7 +34,8 @@ interface TimelinePlace {
   templateUrl: './timeline-stop.component.html',
   styleUrls: ['./timeline-stop.component.css']
 })
-export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+
   static canvasDefaultHeight = 90;
 
   get DefaultCanvasHeight() {
@@ -100,6 +102,14 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.stopSubscription.unsubscribe();
+  }
+
+  ngOnChanges(changes: import('@angular/core').SimpleChanges): void {
+    // this.updateDates();
+    // this.buildPlaces();
+    // this.buildCanvas();
+    // this.initializeCanvas();
+    // this.startRendering();
   }
 
   updateDates() {

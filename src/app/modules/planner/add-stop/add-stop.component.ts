@@ -20,7 +20,6 @@ export class AddStopComponent implements OnInit {
   arrivalTime = '00:00 am';
   departureTime = '00:00 am';
   duplicatePlace: boolean;
-  invalidTimeError: boolean;
   invalidPlace: boolean;
   minTime: Date;
 
@@ -107,8 +106,6 @@ export class AddStopComponent implements OnInit {
     const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDepartureTime.hours);
     this.departureDate.setMinutes(newDepartureTime.minutes);
-
-    this.validateDateTime();
   }
 
   getMinDate() {
@@ -142,11 +139,6 @@ export class AddStopComponent implements OnInit {
     this.departureDate.setHours(newDepartureTime.hours);
     this.departureDate.setMinutes(newDepartureTime.minutes);
     this.minTime = this.getMinTime();
-    this.validateDateTime();
-  }
-
-  validateDateTime() {
-    this.invalidTimeError = this.departureDate <= this.arrivalDate;
   }
 
   closeDialog() {

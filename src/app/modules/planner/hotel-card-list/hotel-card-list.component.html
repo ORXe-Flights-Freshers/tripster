@@ -51,6 +51,7 @@
 
   <div class="hotels-list">
     <div class="no-hotels-found" #noHotelsFound></div>
+    <div class="no-hotels-found-with-search" *ngIf="arrHotels.length > 0 && (arrHotels|search:'name':searchQuery).length === 0">No attractions with given search query found</div>
     <app-hotel-card
       [stopIdOfHotel]="stopIdOfHotel"
       *ngFor="let hotelData of arrHotels|search:'name':searchQuery"

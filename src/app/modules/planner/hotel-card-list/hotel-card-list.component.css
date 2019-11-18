@@ -81,6 +81,10 @@
   width: 90%;
   margin: 20px auto auto;
 }
+.no-hotels-found-with-search {
+  width: 90%;
+  margin: 20px auto auto;
+}
 
 .hotels-list {
   height: 305px;

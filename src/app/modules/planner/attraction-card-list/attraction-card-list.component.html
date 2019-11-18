@@ -14,12 +14,15 @@
         Choose a location to view attractions there
       </ng-template>
     </span>
-    <div class="filter-btn bolder">
-      <mat-search-bar
+    <div class="sort">
+    </div>
+    <div class="search">
+      <mat-search-bar class="search-bar"
         (onOpen)="handleSearchBarOpen()"
         [formControl]="search"
       ></mat-search-bar>
     </div>
+    
   </div>
 
   <div class="list-of-stops">
@@ -44,6 +47,7 @@
   </div>
   <div class="attractions-list">
     <div class="no-attractions-found" #noAttractionsFound></div>
+    <div class="no-attractions-found-with-search" *ngIf="arrAttractions.length > 0 && (arrAttractions|search:'name':searchQuery).length === 0">No attractions with given search query found</div>
     <app-attraction-card
       [stopIdOfAttraction]="stopIdOfAttraction"
       *ngFor="let attraction of arrAttractions|search:'name':searchQuery"

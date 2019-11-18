@@ -63,6 +63,9 @@
     width: 80%;
     /*margin: 10px;*/
   }
+  #bottom-button-block {
+    float: right;
+  }
 }
 
 @media only screen and (min-width: 490px) {
@@ -74,6 +77,10 @@
   .flex-container > div {
     width: 45%;
     /*margin: 10px;*/
+  }
+  #bottom-button-block {
+    width: 50%;
+    float: right;
   }
 }
 
@@ -102,11 +109,6 @@ hr {
 
 #buttons-block {
   text-align: end;
-}
-
-#bottom-button-block {
-  width: 50%;
-  float: right;
 }
 
 #bottom-error-block {
