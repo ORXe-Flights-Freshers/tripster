@@ -31,7 +31,6 @@ export class TimelineComponent implements OnInit {
     const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(stopFromDialog => {
-      console.log(stopFromDialog);
       if (stopFromDialog) {
         const responseStatus = this.addStop(stopFromDialog);
         if (responseStatus) {
