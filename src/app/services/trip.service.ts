@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { Router } from '@angular/router';
 import { Place } from '@models/Place';
+import { Attraction } from '@models/Attraction';
+import { Hotel } from '@models/Hotel';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +30,7 @@ export class TripService {
     this.trip = trip;
     return this.http.post('http://3.14.69.62:5001/api/trip', trip);
   }
-  getTrip(tripId) {
+  getTrip(tripId: string) {
     console.log(`trip-id: ${tripId}`);
 
     this.http.get('http://3.14.69.62:5001/api/trip/' + tripId).subscribe(
@@ -43,7 +45,7 @@ export class TripService {
       }
     );
   }
-  calculateTotalDistance() {
+  calculateTotalDistance(): number {
     if (!this.directionResult || !this.directionResult.routes) {
       return 0;
     }
@@ -127,7 +129,7 @@ export class TripService {
     return 'success';
    }
 
-  addHotelToTrip(hotelData, stopIdOfHotel) {
+  addHotelToTrip(hotelData: Hotel, stopIdOfHotel) {
     for (const stop of [...this.trip.stops, this.trip.destination]) {
       if (stopIdOfHotel === stop.stopId) {
         stop.hotels.push(hotelData);
@@ -146,7 +148,7 @@ export class TripService {
     this.updateTrip(this.trip).subscribe(response => {});
   }
 
-  addAttractionToTrip(attractionData, stopIdOfAttraction) {
+  addAttractionToTrip(attractionData: Attraction, stopIdOfAttraction) {
      if (stopIdOfAttraction === this.trip.destination.stopId) {
       this.trip.destination.attractions.push(attractionData);
       console.log(attractionData);
@@ -232,7 +234,8 @@ export class TripService {
         return new Date(place1.arrival) < new Date(place2.arrival) ? -1 : 1;
       });
   }
-  addTimetoTrip(timeToAdd, changeStopId){
+
+  addTimetoTrip(timeToAdd, changeStopId) {
     let toAdd = false;
     const firstStop = this.getStopByStopId(changeStopId);
     firstStop.departure = this.getNewTime(firstStop.departure, timeToAdd);
@@ -266,7 +269,7 @@ export class TripService {
       }
   }
 
-  getStopByStopId(stopId): Stop {
+  getStopByStopId(stopId: string): Stop {
     const { source, destination } = this.trip;
     for (const stop of [source, destination, ...this.trip.stops]) {
       if (stopId === stop.stopId) {
