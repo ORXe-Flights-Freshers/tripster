@@ -22,9 +22,9 @@ export class MapComponent {
   stopIconUrl = 'http://maps.gstatic.com/mapfiles/markers2/icon_green.png';
   style = mapStyle;
 
-  mapReady(event) {
-    this.map = event;
-    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('center'));
+  mapReady(map: google.maps.Map) {
+    this.tripService.map = map;
+    this.tripService.map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('center'));
   }
 
   showPlaceInfoWindow(placeInfoWindow: AgmInfoWindow) {

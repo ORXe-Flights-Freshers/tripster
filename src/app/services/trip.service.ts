@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {Place} from '@models/Place';
 import {Subject} from 'rxjs';
 import {LoggerService} from '@services/logger.service';
+import { LayoutAlignDirective } from '@angular/flex-layout';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class TripService {
   stopSubject = new Subject<Stop>();
 
   directionResult: google.maps.DirectionsResult;
+  map: google.maps.Map;
 
   constructor(private http: HttpClient,
               private route: Router,
@@ -260,6 +262,7 @@ export class TripService {
   showPlaceMarker(place: Place) {
     this.mapZoomIn();
     this.placeMarker = place;
+    this.map.panTo({lat: place.location.latitude, lng: place.location.longitude});
   }
 
   mapZoomIn() {
@@ -269,7 +272,7 @@ export class TripService {
         return;
       }
       this.mapZoom = this.mapZoom + 1;
-    }, 10);
+    }, 100);
   }
 
   hidePlaceMarker() {
