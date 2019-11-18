@@ -293,10 +293,13 @@ export class TripService {
   }
   convertMiliSecondsToDays(milliSeconds): string {
     console.log('Here: ' + milliSeconds);
-    const days = Math.floor(milliSeconds / (86400 * 1000));
-    const hours = Math.floor((milliSeconds - (86400 * 1000 * days)) / (3600 * 1000));
-    const minutes = Math.floor((milliSeconds - (86400 * 1000 * days) - (3600 * 1000 * hours)) / (60 * 1000));
-    return days + ' d ' + hours + ' h ' + minutes + ' m ';
+    const hours = Math.floor( milliSeconds / (3600 * 1000));
+    const minutes = Math.floor((milliSeconds - (3600 * 1000 * hours)) / (60 * 1000));
+    if(hours === 0){
+      return  minutes + ' m ';
+    } else {
+      return  hours + ' h ' + minutes + ' m ';
+    }
   }
 
   addTimeToDestinationItineraries(timeToAdd: number) {
