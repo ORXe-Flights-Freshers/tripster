@@ -83,6 +83,7 @@ export class TripService {
           );
           this.trip.stops[index].arrival = previousDeparture.toString();
         }
+        this.stopSubject.next(stop);
       });
     }
 
@@ -104,6 +105,7 @@ export class TripService {
       }
       this.trip.destination.arrival = previousDeparture.toString();
       this.updateTrip(this.trip).subscribe();
+      this.stopSubject.next(this.trip.destination);
     }
 
   }
