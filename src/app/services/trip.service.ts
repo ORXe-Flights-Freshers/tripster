@@ -240,6 +240,34 @@ export class TripService {
     const timeInMilli = new Date(oldTime).getTime();
     return new Date(timeInMilli + timeToAdd).toString();
   }
+  getTimeBetweenStops(): string [] {
+    const timeBetweenStops = [];
+    let timeToCalculate ;
+    if ( this.trip.stops.length > 0 ) {
+    timeToCalculate = new Date(this.trip.stops[0].arrival).getMilliseconds() - new Date(this.trip.source.departure).getMilliseconds();
+    timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+    for (let index = 1 ; index < this.trip.stops.length ; ++index){
+      timeToCalculate = new Date(this.trip.stops[index].arrival).getMilliseconds() -
+      new Date(this.trip.stops[index - 1].departure).getMilliseconds();
+      timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+    }
+    timeToCalculate = new Date(this.trip.stops[this.trip.stops.length - 1].arrival).getMilliseconds() -
+                  new Date(this.trip.source.departure).getMilliseconds();
+    timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+    }
+    else {
+    timeToCalculate = new Date(this.trip.destination.arrival).getMilliseconds() - new Date(this.trip.source.departure).getMilliseconds();
+    timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+    }
+    console.log(timeBetweenStops);
+    return timeBetweenStops;
+  }
+  convertMiliSecondsToDays(miliSeconds): string {
+    const days = miliSeconds / 8640000;
+    const hours = (miliSeconds - (8640000 * days)) / 360000;
+    const minutes = (miliSeconds - (8640000 * days) - (360000 * hours)) / 6000;
+    return days + ' d ' + hours + ' h ' + minutes + ' m ';
+  }
 
   addTimeToDestinationItineraries(timeToAdd: number) {
       for (const place of [...this.trip.destination.attractions, ...this.trip.destination.hotels]) {
