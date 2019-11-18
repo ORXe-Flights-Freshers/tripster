@@ -5,7 +5,7 @@
   </button>
 </div>
 
-<hr />
+<hr/>
 
 <div id="attraction-name">
   <h3>{{ attractionData.name }}</h3>
@@ -103,14 +103,14 @@
     ></ngx-material-timepicker>
   </div>
 </div>
-<br />
+<br/>
 
 <div id="buttons-block">
     <div id="bottom-error-block">
-      <p id="attraction-error" *ngIf="invalidMoreArrivalTimeError">* Departure time must be  more than arrival</p>
-      <p id="attraction-error" *ngIf="invalidLessArrivalTimeError">* Arrival time can not be less than arrival of Stop</p>
-      <!-- <p id="stop-error" *ngIf="invalidMoreArrivalTimeErrorDepart">* Arrival time must be less than departue</p> -->
-      <p id="attraction-error" *ngIf="invalidDepartureTimeError">* Departure time is more than stop departure.Adding will affect the whole trip..</p>
+      <p class="attraction-error" *ngIf="invalidMoreArrivalTimeError">* Departure time must be  more than arrival</p>
+      <p class="attraction-error" *ngIf="invalidLessArrivalTimeError">* Arrival time can not be less than arrival of Stop</p>
+      <!-- <p class="stop-error" *ngIf="invalidMoreArrivalTimeErrorDepart">* Arrival time must be less than departue</p> -->
+      <p class="attraction-error" *ngIf="invalidDepartureTimeError">* Departure time is more than stop departure.Adding will affect the whole trip..</p>
     </div>
     <div id="bottom-button-block">
         <button mat-button (click)="closeAttractionDialog()">CANCEL</button>
@@ -123,8 +123,5 @@
           ADD
         </button>
     </div>
-
-
-
-  </div>
+</div>
 

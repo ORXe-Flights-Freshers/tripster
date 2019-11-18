@@ -1,24 +1,9 @@
-import {Component, OnInit, ChangeDetectorRef, NgZone, ViewChild, ElementRef, AfterViewInit, ApplicationRef} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Stop } from '@models/Stop';
 import { Attraction } from '@models/Attraction';
 import { TripService } from '@services/trip.service';
 import { FormControl } from '@angular/forms';
-import { MatSearchBarComponent } from 'ng-mat-search-bar/src/app/ng-mat-search-bar/mat-search-bar/mat-search-bar.component';
-import { MatButton } from '@angular/material';
-
-
-interface AttractionResult {
-  attractionId: string;
-  name: string;
-  description: string;
-  imageUrl: string;
-  location: {
-    lat: number,
-    lng: number
-  };
-  rating: number;
-}
 
 @Component({
   selector: 'app-attraction-card-list',
@@ -38,7 +23,7 @@ export class AttractionCardListComponent implements OnInit, AfterViewInit {
   searchQuery = '';
   pagination: google.maps.places.PlaceSearchPagination;
 
-  @ViewChild('noAttractionsFound', { static: false }) noAttractionsFoundElement: ElementRef;
+  @ViewChild('noAttractionsFound', {static: false}) noAttractionsFoundElement: ElementRef;
 
   constructor(
     private httpService: HttpClient,
@@ -48,6 +33,7 @@ export class AttractionCardListComponent implements OnInit, AfterViewInit {
   ) {
     this.displayLoader = false;
   }
+
   ngOnInit() {
     if (this.tripService.trip.stops.length === 0) {
       this.attractionByStop(this.tripService.trip.destination);
@@ -71,7 +57,7 @@ export class AttractionCardListComponent implements OnInit, AfterViewInit {
     const attractions = [];
     this.placeService.nearbySearch(
       {
-        location: { lat: stop.location.latitude, lng: stop.location.longitude },
+        location: {lat: stop.location.latitude, lng: stop.location.longitude},
         radius: +this.radius * 1000,
         type: 'tourist_attraction'
       },
@@ -126,43 +112,39 @@ export class AttractionCardListComponent implements OnInit, AfterViewInit {
             }
             this.pagination = pagination;
           });
-          // if (pagination.hasNextPage) {
-          //   pagination.nextPage();
-          // }
         });
 
-      }
-
-  getAttractionData(attractionDataApi: AttractionResult) {
-      const attractionData: Attraction = {
-        placeId: attractionDataApi.attractionId,
-        name: attractionDataApi.name,
-        description: attractionDataApi.description,
-        location: {
-          latitude: attractionDataApi.location.lat,
-          longitude: attractionDataApi.location.lng
-        },
-        rating: attractionDataApi.rating,
-        imageUrl: attractionDataApi.imageUrl ,
-        arrival: '',
-        departure: ''
-      };
-      return attractionData;
-    }
-
-    handleRadiusChange(event: Event) {
-      this.radius = +(event.target as HTMLInputElement).value;
-      console.log(`Radius: ${this.radius}`);
-      this.attractionByStop(this.stop);
-    }
-    searchPlace(searchQuery: string) {
-      this.searchQuery = searchQuery;
-    }
-    handleSearchBarOpen() {
-      this.search.setValue('');
-    }
-    loadMoreAttractions(loadMoreBtn) {
-      this.pagination.nextPage();
-    }
   }
+
+  getAttractionData(attractionDataApi) {
+    const attractionData: Attraction = {
+      placeId: attractionDataApi.attractionId,
+      name: attractionDataApi.name,
+      description: attractionDataApi.description,
+      location: {
+        latitude: attractionDataApi.location.lat,
+        longitude: attractionDataApi.location.lng
+      },
+      rating: attractionDataApi.rating,
+      imageUrl: attractionDataApi.imageUrl,
+      arrival: '',
+      departure: ''
+    };
+    return attractionData;
+  }
+
+  handleRadiusChange(event: Event) {
+    this.radius = +(event.target as HTMLInputElement).value;
+    this.attractionByStop(this.stop);
+  }
+  searchPlace(searchQuery: string) {
+    this.searchQuery = searchQuery;
+  }
+  handleSearchBarOpen() {
+    this.search.setValue('');
+  }
+  loadMoreAttractions(loadMoreBtn) {
+    this.pagination.nextPage();
+  }
+}
 

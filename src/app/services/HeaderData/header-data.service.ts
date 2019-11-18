@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -14,22 +14,22 @@ export class HeaderDataService {
   customizeHeaderForHomePage() {
     this.backgroundColor = 'transparent';
     this.links = [
-      { name: 'Sign up', url: '/signup' },
-      { name: 'Sign in', url: '/signin' }
+      {name: 'Sign up', url: '/signup'},
+      {name: 'Sign in', url: '/signin'}
     ];
   }
 
   customizeHeaderForPlannerPage() {
     this.backgroundColor = 'var(--main-theme-color)';
     this.links = [
-      { name: 'Sign in', url: '/signin' },
+      {name: 'Sign in', url: '/signin'},
     ];
   }
 
   customizeHeaderForNotFoundPage() {
     this.backgroundColor = 'var(--main-theme-color)';
     this.links = [
-      { name: 'Back', url: '/' },
+      {name: 'Back', url: '/'},
     ];
   }
 }

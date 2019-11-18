@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="buttons">
+  <div class="stop-buttons">
     <div
       class="edit-delete"
       [ngStyle]="{
@@ -20,39 +20,25 @@
     </div>
   </div>
 
-  <div
-    class="places-photos"
-    [ngStyle]="{
-      height: '' + places.length * 85 + 'px'
+  <div class="places-holder"
+       [ngStyle]="{
+      height: '' + places.length * 78 + 'px'
     }"
   >
-    <div
-      class="all-images"
+    <div class="each-place"
+      [ngStyle]="{
+        height: '72px'
+      }"
+      *ngFor="let place of places; let i = index"
     >
-      <div
-        *ngFor="let place of places; let i = index"
-        class="places-image-holder"
-      >
-        <!--    Can use place.id instead of index-->
+      <div class="place-image">
         <img
-          [src]="tripService?.getRandomUrl()"
-          alt="image can't be loaded"
+          [src]="place.imageUrl"
+          alt="place image"
           style="height: 49px; width: 49px;"
         >
       </div>
-    </div>
-  </div>
-
-  <div
-    class="places-delete"
-    [ngStyle]="{
-      height: '' + places.length * 85 + 'px'
-    }"
-  >
-    <div class="all-buttons">
-      <div
-        *ngFor="let place of places; let i = index"
-        class="places-delete-holder"
+      <div class="place-delete"
         [ngStyle]="{
           color: ( (buttons.deleteHover && stopType === 'stop')
                   || buttons.deletePlaces[i]) ?
@@ -61,22 +47,18 @@
         (mouseover)="buttons.deletePlaces[i]=true"
         (mouseleave)="buttons.deletePlaces[i]=false"
       >
-        <!--    Can use place.id instead of index-->
         <i
           class="fa fa-trash fa-lg"
           (click)="deletePlace(place.id, place.type)"
         ></i>
       </div>
+      <div class="place-details"
+        (click)="tripService.showPlaceMarker(place)"
+      >
+      </div>
     </div>
   </div>
 
-  <canvas
-    class="body"
-    height="90"
-    #stop
-  >
-    Sorry, the timeline can't be displayed.
-    Your device doesn't support canvas rendering.
-  </canvas>
+  <div #canvasContainer></div>
 
 </div>

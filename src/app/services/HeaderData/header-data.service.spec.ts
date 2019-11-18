@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { HeaderDataService } from './header-data.service';
+import {HeaderDataService} from './header-data.service';
 
 describe('HeaderLinksService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

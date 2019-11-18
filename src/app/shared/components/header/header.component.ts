@@ -12,8 +12,8 @@ import {HeaderDataService} from '../../../services/HeaderData/header-data.servic
 export class HeaderComponent {
   private windowWidth;
 
-  @ViewChild('extras', { static: false }) extras: ElementRef;
-  @ViewChild('burger', { static: false }) burger: ElementRef;
+  @ViewChild('extras', {static: false}) extras: ElementRef;
+  @ViewChild('burger', {static: false}) burger: ElementRef;
 
   @HostListener('document:click', ['$event']) navLinksToggle(event: Event) {
     const {target} = event;

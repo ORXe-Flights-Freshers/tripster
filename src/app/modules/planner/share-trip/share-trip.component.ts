@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef, MatSnackBar, MatButton } from '@angular/material';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {MatButton, MatDialogRef, MatSnackBar} from '@angular/material';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-share-trip',
@@ -12,7 +12,9 @@ import { Router } from '@angular/router';
 export class ShareTripComponent implements OnInit {
 
   constructor(private snackBar: MatSnackBar, public dialogRef: MatDialogRef<ShareTripComponent>,
-              private http: HttpClient, private router: Router) { }
+              private http: HttpClient, private router: Router) {
+  }
+
   email: string;
 
   shareTripForm = new FormGroup({

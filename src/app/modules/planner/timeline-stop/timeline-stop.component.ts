@@ -3,22 +3,29 @@ import {
   Component,
   ElementRef,
   Input,
+  OnDestroy,
   OnInit,
   ViewChild
 } from '@angular/core';
 import { HelperCanvas } from './helper-functions';
-import {Stop} from '@models/Stop';
-import {TripService} from '@services/trip.service';
-import {Hotel} from '@models/Hotel';
-import {Attraction} from '@models/Attraction';
-import {UtilityService} from '@services/utility.service';
+import { Subscription } from 'rxjs';
+
+import { TripService } from '@services/trip.service';
+import { UtilityService } from '@services/utility.service';
+
+import { Hotel } from '@models/Hotel';
+import { Stop } from '@models/Stop';
+import { Location } from '@models/Location';
+import { Attraction } from '@models/Attraction';
 
 interface TimelinePlace {
   id: string;
   name: string;
   type: string;
+  imageUrl: string;
   arrivalTime: Date;
   departureTime: Date;
+  location: Location;
 }
 
 @Component({
@@ -26,11 +33,19 @@ interface TimelinePlace {
   templateUrl: './timeline-stop.component.html',
   styleUrls: ['./timeline-stop.component.css']
 })
-export class TimelineStopComponent implements OnInit, AfterViewInit {
+export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy {
+  static canvasDefaultHeight = 90;
+
+  get DefaultCanvasHeight() {
+    return TimelineStopComponent.canvasDefaultHeight;
+  }
+
   @Input() stop: Stop;
   @Input() stopType = 'stop';
 
-  @ViewChild('stop', { static: false }) canvasTemplate: ElementRef;
+  @ViewChild('canvasContainer', {static: false}) canvasContainerTemplate: ElementRef<HTMLDivElement>;
+
+  stopSubscription: Subscription;
 
   arrivalDate: Date;
   departureDate: Date;
@@ -79,9 +94,20 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.updateDates();
+    this.buildPlaces();
+  }
+
+  ngOnDestroy() {
+    this.stopSubscription.unsubscribe();
+  }
+
+  updateDates() {
     this.arrivalDate = new Date(this.stop.arrival);
     this.departureDate = new Date(this.stop.departure);
+  }
 
+  buildPlaces() {
     this.places = [];
 
     this.stop.hotels.forEach((hotel: Hotel) => {
@@ -89,8 +115,10 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
         id: hotel.placeId,
         name: hotel.name,
         type: 'hotel',
+        imageUrl: hotel.imageUrl,
         arrivalTime: new Date(hotel.arrival),
-        departureTime: new Date(hotel.departure)
+        departureTime: new Date(hotel.departure),
+        location: hotel.location
       });
     });
 
@@ -99,8 +127,10 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
         id: attraction.placeId,
         name: attraction.name,
         type: 'attraction',
+        imageUrl: attraction.imageUrl,
         arrivalTime: new Date(attraction.arrival),
-        departureTime: new Date(attraction.departure)
+        departureTime: new Date(attraction.departure),
+        location: attraction.location
       });
     });
 
@@ -108,9 +138,21 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
       return place1.arrivalTime < place2.arrivalTime ? -1 : 1;
     });
 
-    this.places.forEach((item, index) => {
+    this.buttons.deletePlaces = [];
+    this.places.forEach(() => {
       this.buttons.deletePlaces.push(false);
     });
+  }
+
+  buildCanvas() {
+    this.canvasContainerTemplate.nativeElement.innerHTML = '';
+    const canvas = document.createElement('canvas') as HTMLCanvasElement;
+    canvas.classList.add('body');
+    canvas.height = this.DefaultCanvasHeight;
+    canvas.innerText = 'Sorry, the timeline can\'t be displayed.\n' +
+      '      Your device doesn\'t support canvas rendering.';
+    this.canvasElement = canvas;
+    this.canvasContainerTemplate.nativeElement.appendChild(canvas);
   }
 
   editOrRemoveStop() {
@@ -126,11 +168,27 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.canvasElement = (this.canvasTemplate.nativeElement as HTMLCanvasElement);
+    this.buildCanvas();
 
+    this.initializeCanvas();
+    this.startRendering();
+
+    this.stopSubscription = this.tripService.stopSubject.subscribe((stop: Stop) => {
+      if (this.stop.stopId === stop.stopId) {
+        this.stop = stop;
+        this.updateDates();
+        this.buildPlaces();
+        this.buildCanvas();
+        this.initializeCanvas();
+        this.startRendering();
+      }
+    });
+  }
+
+  initializeCanvas() {
     if (this.places) {
-      this.canvasElement.height +=
-        this.placesHeightOffset * this.places.length;
+      this.canvasElement.height =
+        this.DefaultCanvasHeight + (this.placesHeightOffset * this.places.length);
     }
 
     this.helperCanvas = new HelperCanvas(this.canvasElement);
@@ -139,12 +197,6 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
       width: this.canvasElement.width / this.helperCanvas.resolution - 1,
       height: this.canvasElement.height / this.helperCanvas.resolution - 1
     };
-
-    this.startRendering();
-
-    this.helperCanvas.drawLine(0, this.mapped.height,
-      this.mapped.width, this.mapped.height,
-      2, this.currentTheme.stopSeparatorColor);
   }
 
   startRendering() {
@@ -157,6 +209,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
     if (this.places) {
       this.renderPlaces();
     }
+    this.renderStopSeparatorLines();
   }
 
   renderBackground() {
@@ -295,6 +348,12 @@ export class TimelineStopComponent implements OnInit, AfterViewInit {
       displayDate, dateXCoordinate,
       this.stopLabelYCoordinate + 2, dateFontSize, this.currentTheme.color
     );
+  }
+
+  renderStopSeparatorLines() {
+    this.helperCanvas.drawLine(0, this.mapped.height,
+      this.mapped.width, this.mapped.height,
+      2, this.currentTheme.stopSeparatorColor);
   }
 
   renderPlaces() {

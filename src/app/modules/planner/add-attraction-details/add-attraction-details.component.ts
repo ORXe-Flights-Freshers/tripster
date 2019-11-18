@@ -1,15 +1,12 @@
-import { Component, OnInit , Inject} from '@angular/core';
-import {
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material/dialog';
-import { TimePickerThemeService } from '@services/TimePickerTheme.service';
-import { TripService } from '@services/trip.service';
-import { HttpClient } from '@angular/common/http';
-import { Time } from '@models/Time';
-import { Attraction } from '@models/Attraction';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {TimePickerThemeService} from '@services/TimePickerTheme.service';
+import {TripService} from '@services/trip.service';
+import {HttpClient} from '@angular/common/http';
+import {Time} from '@models/Time';
+import {Attraction} from '@models/Attraction';
 import {NavigatorService} from '@services/navigator.service';
-import { MatDatepicker } from '@angular/material';
+import {MatDatepickerInputEvent} from '@angular/material';
 
 @Component({
   selector: 'app-add-attraction-details',
@@ -24,7 +21,7 @@ export class AddAttractionDetailsComponent implements OnInit {
   stopArrivalDate: Date;
   stopDepartureDate: Date;
   arrivalTime = '00:00 am';
-  departureTime = '00:00 am' ;
+  departureTime = '00:00 am';
   invalidDepartureTimeError: boolean;
   invalidMoreArrivalTimeError: boolean;
   invalidLessArrivalTimeError: boolean;
@@ -32,7 +29,6 @@ export class AddAttractionDetailsComponent implements OnInit {
   maxArrivalTime: Date;
   minDepartureTime: Date;
 
-  // invalidMoreArrivalTimeErrorDepart: boolean;
   constructor(
     public dialogRef: MatDialogRef<AddAttractionDetailsComponent>,
     public tripService: TripService,
@@ -41,8 +37,8 @@ export class AddAttractionDetailsComponent implements OnInit {
     public timePickerThemeService: TimePickerThemeService,
     @Inject(MAT_DIALOG_DATA) data
   ) {
-      this.attractionData = data.attractionData;
-      this.stopIdOfAttraction = data.stopIdOfAttraction;
+    this.attractionData = data.attractionData;
+    this.stopIdOfAttraction = data.stopIdOfAttraction;
   }
 
   ngOnInit() {
@@ -54,9 +50,9 @@ export class AddAttractionDetailsComponent implements OnInit {
       this.departureDate = new Date(this.getMaxDate());
     }
     this.departureTime = this.departureDate.getHours().toString() +
-        ':' +  this.departureDate.getMinutes().toString() + ' am';
+      ':' + this.departureDate.getMinutes().toString() + ' am';
     this.arrivalTime = this.arrivalDate.getHours().toString() +
-        ':' +  this.arrivalDate.getMinutes().toString() + ' am';
+      ':' + this.arrivalDate.getMinutes().toString() + ' am';
     this.stopDepartureDate = new Date(this.getMaxDate());
     this.stopArrivalDate = new Date(this.getMinDate());
     this.minArrivalTime = this.getMinArrivalTime();
@@ -72,6 +68,7 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.arrivalDate.setMinutes(newArrivalTime.minutes);
     this.validateDateTime();
   }
+
   handleDepartureTimeSet(time: string) {
     this.departureTime = time;
     const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
@@ -79,17 +76,20 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.departureDate.setMinutes(newDepartureTime.minutes);
     this.validateDateTime();
   }
+
   getMinDate(): Date {
     return new Date(
       this.tripService.getStopByStopId(this.stopIdOfAttraction).arrival
     );
   }
+
   getMaxDate(): Date {
     return new Date(
       this.tripService.getStopByStopId(this.stopIdOfAttraction).departure
     );
   }
-  handleArrivalDateSet(date: HTMLInputElement) {
+
+  handleArrivalDateSet(date: MatDatepickerInputEvent<Date>) {
     this.arrivalDate = new Date(date.value);
     const newArrivalTime = Time.parseTimeStringToTime(this.arrivalTime);
     this.arrivalDate.setHours(newArrivalTime.hours);
@@ -98,7 +98,8 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.maxArrivalTime = this.getMaxArrivalTime();
     this.validateDateTime();
   }
-  handleDepartureDateSet(date: HTMLInputElement) {
+
+  handleDepartureDateSet(date: MatDatepickerInputEvent<Date>) {
     this.departureDate = new Date(date.value);
     const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
     this.departureDate.setHours(newDepartureTime.hours);
@@ -115,24 +116,20 @@ export class AddAttractionDetailsComponent implements OnInit {
   }
 
   getMinArrivalTime(): Date {
-    if ( this.isArrivalDateMore()) { // enables timepicker
-      return new Date((new Date(this.arrivalDate)).setHours(0 , 0));
-   }
+    if (this.isArrivalDateMore()) { // enables timePicker
+      return new Date((new Date(this.arrivalDate)).setHours(0, 0));
+    }
     return new Date(this.arrivalDate.getTime());
   }
 
   isArrivalDateMore(): boolean {
-    if (this.arrivalDate.getFullYear() > this.stopArrivalDate.getFullYear() ) {
+    if (this.arrivalDate.getFullYear() > this.stopArrivalDate.getFullYear()) {
       return true;
     }
-    if (this.arrivalDate.getMonth() > this.stopArrivalDate.getMonth() ) {
+    if (this.arrivalDate.getMonth() > this.stopArrivalDate.getMonth()) {
       return true;
     }
-    if (this.arrivalDate.getDate() > this.stopArrivalDate.getDate()  ) {
-      return true;
-    }
-    return false;
-
+    return this.arrivalDate.getDate() > this.stopArrivalDate.getDate();
   }
 
   getMaxArrivalTime(): Date {
@@ -149,10 +146,7 @@ export class AddAttractionDetailsComponent implements OnInit {
     if (this.arrivalDate.getMonth() < this.departureDate.getMonth() ) {
       return true;
     }
-    if (this.arrivalDate.getDate() < this.departureDate.getDate()  ) {
-      return true;
-    }
-    return false;
+    return this.arrivalDate.getDate() < this.departureDate.getDate();
   }
 
 
@@ -170,16 +164,11 @@ export class AddAttractionDetailsComponent implements OnInit {
     if (this.departureDate.getMonth() > this.arrivalDate.getMonth() ) {
       return true;
     }
-    if (this.departureDate.getDate() > this.arrivalDate.getDate()  ) {
-      return true;
-    }
-    return false;
-
+    return this.departureDate.getDate() > this.arrivalDate.getDate();
   }
 
 
   closeAttractionDialog() {
-    this.tripService.updateTimeline();
     this.dialogRef.close();
   }
 
@@ -190,10 +179,11 @@ export class AddAttractionDetailsComponent implements OnInit {
 
     this.dialogRef.close(this.attractionData);
   }
+
   toggleDatepicker(datepicker) {
     console.log(datepicker);
     if (datepicker.opened) {
-        datepicker.close();
+      datepicker.close();
     } else {
       datepicker.open();
     }

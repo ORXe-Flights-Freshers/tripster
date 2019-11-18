@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilityService {
 
-  constructor() { }
+  constructor() {
+  }
 
   formatDateTime(dateObject: Date): string {
     const date = dateObject.toLocaleDateString();

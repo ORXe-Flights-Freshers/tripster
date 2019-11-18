@@ -1,16 +1,8 @@
-import {
-  Component,
-  OnInit,
-  NgZone,
-  Output,
-  EventEmitter,
-  Input,
-  ViewChild,
-  ElementRef
-} from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MapsAPILoader } from '@agm/core';
-import { InputErrorStateMatcher } from './ErrorMatcher';
+import {Component, EventEmitter, Input, NgZone, OnInit, Output, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MapsAPILoader} from '@agm/core';
+import {InputErrorStateMatcher} from './ErrorMatcher';
+
 @Component({
   selector: 'app-place-autocomplete',
   templateUrl: './place-autocomplete.component.html',
@@ -18,7 +10,9 @@ import { InputErrorStateMatcher } from './ErrorMatcher';
 })
 export class PlaceAutocompleteComponent implements OnInit {
 
-  constructor(private ngZone: NgZone, private mapsAPILoader: MapsAPILoader) {}
+  constructor(private ngZone: NgZone, private mapsAPILoader: MapsAPILoader) {
+  }
+
   public searchControl: FormControl;
   predictions: google.maps.places.AutocompletePrediction[];
   sessionToken: google.maps.places.AutocompleteSessionToken;
@@ -34,30 +28,32 @@ export class PlaceAutocompleteComponent implements OnInit {
   ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
   @Input() autoCompleteOptions: google.maps.places.AutocompleteOptions = {
     types: ['(cities)'],
-    componentRestrictions: { country: 'IN' }
+    componentRestrictions: {country: 'IN'}
   };
 
   @Input() placeholder: string;
-  @ViewChild('place', {static : false})  placeInputFormField;
+  @ViewChild('place', {static: false}) placeInputFormField;
 
   @Output() IsValid = new EventEmitter();
   @Output() placeChange = new EventEmitter();
 
   predictionDescriptionMapper = (prediction) => {
-    if (prediction) { return prediction.description; }
-  }
+    if (prediction) {
+      return prediction.description;
+    }
+  };
 
   public KeyPress = (event) => {
     this.inputPlaceFromUser = event.target.value;
     this.validPlace = false;
     this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
-    this.IsValid.emit({ isValid: false });
+    this.IsValid.emit({isValid: false});
     if (this.inputPlaceFromUser.length < 3) {
       this.errorMessage = 'Please type at least 3 characters';
     } else {
       this.errorMessage = 'Select from list';
     }
-  }
+  };
 
   ngOnInit() {
     this.searchControl = new FormControl();
@@ -77,6 +73,7 @@ export class PlaceAutocompleteComponent implements OnInit {
       );
     });
   }
+
   getPredictions(query: string) {
     // console.log(this.sessionToken);
     // this.autocompleteService = new google.maps.places.AutocompleteService();
@@ -88,11 +85,12 @@ export class PlaceAutocompleteComponent implements OnInit {
         input: query,
         sessionToken: this.sessionToken,
         types: ['(cities)'],
-        componentRestrictions: { country: 'IN' }
+        componentRestrictions: {country: 'IN'}
       },
       (predictions, status) => this.setPredictions(predictions, status)
     );
   }
+
   setPredictions(
     predictions: google.maps.places.AutocompletePrediction[],
     status: google.maps.places.PlacesServiceStatus
@@ -101,7 +99,7 @@ export class PlaceAutocompleteComponent implements OnInit {
       this.predictions = [];
       if (status !== google.maps.places.PlacesServiceStatus.OK) {
         // alert(status);
-         // console.log(status);
+        // console.log(status);
         return;
       }
       // console.log(predictions);
@@ -111,6 +109,7 @@ export class PlaceAutocompleteComponent implements OnInit {
       });
     });
   }
+
   onPlaceSelected(prediction: google.maps.places.AutocompletePrediction) {
     // console.log(option);
     const request = {
@@ -137,7 +136,7 @@ export class PlaceAutocompleteComponent implements OnInit {
       this.validPlace = true;
       if (this.validPlace === true) {
         this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
-        this.IsValid.emit({ isValid: true });
+        this.IsValid.emit({isValid: true});
         this.placeInputFormField.nativeElement.blur();
       }
       this.placeChange.emit(place);
