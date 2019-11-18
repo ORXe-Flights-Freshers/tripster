@@ -6,6 +6,8 @@ import {Router} from '@angular/router';
 import {Place} from '@models/Place';
 import {Subject} from 'rxjs';
 import {LoggerService} from '@services/logger.service';
+import { Attraction } from '@models/Attraction';
+import { Hotel } from '@models/Hotel';
 import { LayoutAlignDirective } from '@angular/flex-layout';
 
 @Injectable({
@@ -33,7 +35,7 @@ export class TripService {
     return this.http.post('http://3.14.69.62:5001/api/trip', trip);
   }
 
-  getTrip(tripId) {
+  getTrip(tripId: string) {
     this.http.get('http://3.14.69.62:5001/api/trip/' + tripId)
       .subscribe(
       (trip: Trip) => {
@@ -47,7 +49,7 @@ export class TripService {
     );
   }
 
-  calculateTotalDistance() {
+  calculateTotalDistance(): number {
     if (!this.directionResult || !this.directionResult.routes) {
       return 0;
     }
@@ -85,18 +87,19 @@ export class TripService {
           );
           this.trip.stops[index].arrival = previousDeparture.toString();
         }
+        this.stopSubject.next(stop);
       });
     }
 
     {
       const previousLocation = this.getPreviousLocation();
       const previousDeparture = new Date(previousLocation.departure);
-
+      const attractionsInDestination = this.trip.destination.attractions.length;
       previousDeparture.setSeconds(
         previousDeparture.getSeconds() +
         directionResult.routes[0].legs[
-          0
-        // directionResult.routes[0].legs.length - 1
+        //  0
+        directionResult.routes[0].legs.length - 1- attractionsInDestination
           ].duration.value
       );
       const newArrivalTime = (new Date(previousDeparture)).getTime();
@@ -105,6 +108,7 @@ export class TripService {
         this.addTimeToDestinationItineraries(( newArrivalTime - oldArrivalTime));
       }
       this.trip.destination.arrival = previousDeparture.toString();
+      this.stopSubject.next(this.trip.destination);
       this.updateTrip(this.trip).subscribe();
     }
 
@@ -126,7 +130,7 @@ export class TripService {
     return 'success';
   }
 
-  addHotelToTrip(hotelData, stopIdOfHotel) {
+  addHotelToTrip(hotelData: Hotel, stopIdOfHotel) {
     for (const stop of [...this.trip.stops, this.trip.destination]) {
       if (stopIdOfHotel === stop.stopId) {
         stop.hotels.push(hotelData);
@@ -144,17 +148,33 @@ export class TripService {
     this.updateTrip(this.trip).subscribe();
   }
 
-  addAttractionToTrip(attractionData, stopIdOfAttraction) {
-    for (const stop of [...this.trip.stops, this.trip.destination]) {
-      if (stopIdOfAttraction === stop.stopId) {
-        stop.attractions.push(attractionData);
-        this.stopSubject.next(stop);
-        break;
+  addAttractionToTrip(attractionData: Attraction, stopIdOfAttraction) {
+     if (stopIdOfAttraction === this.trip.destination.stopId) {
+      this.trip.destination.attractions.push(attractionData);
+    } else {
+      for (const stop of this.trip.stops) {
+        if (stopIdOfAttraction === stop.stopId) {
+          if (stop.attractions.length === 0) {
+             stop.attractions.push(attractionData);
+          } else {
+            let index = 0;
+            while (index < stop.attractions.length && stop.attractions[index].arrival > attractionData.arrival) {
+             index++;
+            }
+            stop.attractions.splice(index, 0, attractionData);
+          }
+          const stopTime = (new Date(stop.departure)).getTime();
+          const attractionTime = (new Date(attractionData.departure)).getTime();
+          if (stopTime < attractionTime) {
+             this.addTimeToTrip(( attractionTime - stopTime), stop.stopId);
+            }
+          break;
+        }
       }
     }
 
-    this.updateWaypoints();
-    this.updateTrip(this.trip).subscribe();
+     this.updateWaypoints();
+     this.updateTrip(this.trip).subscribe();
   }
 
 
@@ -241,6 +261,7 @@ export class TripService {
     const timeInMilli = new Date(oldTime).getTime();
     return new Date(timeInMilli + timeToAdd).toString();
   }
+
   getTimeBetweenStops(): string [] {
     const timeBetweenStops = [];
     let timeToCalculate ;
@@ -255,8 +276,7 @@ export class TripService {
     timeToCalculate = new Date(this.trip.stops[this.trip.stops.length - 1].arrival).getMilliseconds() -
                   new Date(this.trip.source.departure).getMilliseconds();
     timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
-    }
-    else {
+    } else {
     timeToCalculate = new Date(this.trip.destination.arrival).getMilliseconds() - new Date(this.trip.source.departure).getMilliseconds();
     timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
     }
