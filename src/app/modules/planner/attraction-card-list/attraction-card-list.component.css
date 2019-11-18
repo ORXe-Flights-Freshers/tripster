@@ -101,11 +101,27 @@
 
 .footer {
   height: 40px;
-  width:100%;
+  width: 100%;
 
   background-color: #f4f4f4;
 }
 
 .footer .slider {
   margin: 1% auto auto 5%;
+}
+.load-more-btn-attraction {
+  background-color: white;
+  position: relative;
+  padding: 2% 4%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.load-more-btn-attraction:hover {
+  color: white;
+  background-color: var(--main-theme-color);
+  transition-duration: 0.2s;
+  cursor: pointer;
 }

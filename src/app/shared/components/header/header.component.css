@@ -90,7 +90,7 @@ ul.extras li:hover {
   }
 }
 
-@media screen and (max-width: 615px){
+@media screen and (max-width: 615px) {
   .nav-bar {
     height: 60px;
   }

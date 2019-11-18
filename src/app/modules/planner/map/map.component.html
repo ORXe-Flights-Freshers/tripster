@@ -4,7 +4,8 @@
   </div>
 
   <agm-map #map [fitBounds]="true" *ngIf="!isLoading" [latitude]="tripService?.placeMarker?.location.latitude"
-  [longitude]="tripService?.placeMarker?.location.longitude" (mapReady)="mapReady($event)" [minZoom]="minZoom" [maxZoom]="maxZoom" [zoom]="tripService?.mapZoom" (zoomChange)="handleZoomChange($event)">
+           [longitude]="tripService?.placeMarker?.location.longitude" (mapReady)="mapReady($event)" [minZoom]="minZoom"
+           [maxZoom]="maxZoom" [zoom]="tripService?.mapZoom" (zoomChange)="handleZoomChange($event)">
     <button
       id="center"
       (click)="showRoute(map)"
@@ -19,8 +20,8 @@
       (mouseOver)="showPlaceInfoWindow(sourcePlaceInfoWindow)"
       (mouseOut)="hidePlaceInfoWindow(sourcePlaceInfoWindow)"
     >
-    <agm-info-window #sourcePlaceInfoWindow>{{tripService?.trip?.source.name}}</agm-info-window>
-  </agm-marker>
+      <agm-info-window #sourcePlaceInfoWindow>{{tripService?.trip?.source.name}}</agm-info-window>
+    </agm-marker>
     <agm-marker
       *ngIf="tripService?.trip?.destination"
       [agmFitBounds]="true"
@@ -29,8 +30,8 @@
       (mouseOver)="showPlaceInfoWindow(destinationPlaceInfoWindow)"
       (mouseOut)="hidePlaceInfoWindow(destinationPlaceInfoWindow)"
     >
-    <agm-info-window #destinationPlaceInfoWindow>{{tripService?.trip?.destination.name}}</agm-info-window>
-  </agm-marker>
+      <agm-info-window #destinationPlaceInfoWindow>{{tripService?.trip?.destination.name}}</agm-info-window>
+    </agm-marker>
     <agm-marker
       *ngFor="let stop of tripService?.waypoints;let i = index"
       [agmFitBounds]="true"
@@ -40,7 +41,7 @@
       (mouseOver)="showPlaceInfoWindow(placeInfoWindow)"
       (mouseOut)="hidePlaceInfoWindow(placeInfoWindow)"
     >
-    <agm-info-window #placeInfoWindow>{{tripService?.waypointsInfo[i].name}}</agm-info-window>
+      <agm-info-window #placeInfoWindow>{{tripService?.waypointsInfo[i].name}}</agm-info-window>
     </agm-marker>
 
     <agm-marker
@@ -49,7 +50,8 @@
       [longitude]="tripService?.placeMarker?.location.longitude"
       [iconUrl]="placeIconUrl"
     >
-    <agm-info-window [isOpen]="true" (infoWindowClose)="tripService?.hidePlaceMarker()">{{tripService?.placeMarker?.name}}</agm-info-window>
+      <agm-info-window [isOpen]="true"
+                       (infoWindowClose)="tripService?.hidePlaceMarker()">{{tripService?.placeMarker?.name}}</agm-info-window>
     </agm-marker>
     <agm-direction
       *ngIf="tripService?.trip?.source && tripService?.trip?.destination"

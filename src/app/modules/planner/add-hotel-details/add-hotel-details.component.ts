@@ -1,13 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import {
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material/dialog';
-import { TimePickerThemeService } from '@services/TimePickerTheme.service';
-import { TripService } from '@services/trip.service';
-import { HttpClient } from '@angular/common/http';
-import { Time } from '@models/Time';
-import { Hotel } from '@models/Hotel';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {TimePickerThemeService} from '@services/TimePickerTheme.service';
+import {TripService} from '@services/trip.service';
+import {HttpClient} from '@angular/common/http';
+import {Time} from '@models/Time';
+import {Hotel} from '@models/Hotel';
 import {NavigatorService} from '@services/navigator.service';
 
 @Component({
@@ -22,7 +19,7 @@ export class AddHotelDetailsComponent implements OnInit {
   departureDate: Date;
   maxDepartureDate: Date;
   arrivalTime = '00:00 am';
-  departureTime = '00:00 am' ;
+  departureTime = '00:00 am';
   invalidDepartureTimeError: boolean;
   invalidArrivalTimeError: boolean;
   invalidSameTimeError: boolean;
@@ -40,6 +37,7 @@ export class AddHotelDetailsComponent implements OnInit {
     this.hotelData = data.hotelData;
     this.stopIdOfHotel = data.stopIdOfHotel;
   }
+
   ngOnInit() {
     this.arrivalDate = new Date(this.getMinDate());
     const stop = this.tripService.getStopByStopId(this.stopIdOfHotel);
@@ -49,9 +47,9 @@ export class AddHotelDetailsComponent implements OnInit {
       this.departureDate = new Date(this.getMaxDate());
     }
     this.arrivalTime = this.arrivalDate.getHours().toString() +
-    ':' +  this.arrivalDate.getMinutes().toString() + ' am';
+      ':' + this.arrivalDate.getMinutes().toString() + ' am';
     this.departureTime = this.departureDate.getHours().toString() +
-    ':' +  this.departureDate.getMinutes().toString() + ' am';
+      ':' + this.departureDate.getMinutes().toString() + ' am';
     this.maxDepartureDate = new Date(this.getMaxDate()); // departure of stop
     this.minTime = this.getMinTime();
     this.maxTime = this.getMaxTime();
@@ -65,6 +63,7 @@ export class AddHotelDetailsComponent implements OnInit {
     this.arrivalDate.setMinutes(newArrivalTime.minutes);
 
   }
+
   handleDepartureTimeSet(time: string) {
     this.departureTime = time;
     const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
@@ -72,6 +71,7 @@ export class AddHotelDetailsComponent implements OnInit {
     this.departureDate.setMinutes(newDepartureTime.minutes);
     this.validateDateTime();
   }
+
   getMinDate(): Date {
     const stop = this.tripService.getStopByStopId(this.stopIdOfHotel);
     if (stop.hotels.length === 0) {
@@ -80,6 +80,7 @@ export class AddHotelDetailsComponent implements OnInit {
       return new Date(stop.hotels[stop.hotels.length - 1].departure);
     }
   }
+
   getMaxDate(): Date {
     return new Date(
       this.tripService.getStopByStopId(this.stopIdOfHotel).departure
@@ -87,20 +88,20 @@ export class AddHotelDetailsComponent implements OnInit {
   }
 
   getMinTime(): Date {
-    if ( this.isDepartureDateMore()) { // enables timepicker
-       return new Date((new Date(this.arrivalDate)).setHours(0 , 0));
+    if (this.isDepartureDateMore()) { // enables timepicker
+      return new Date((new Date(this.arrivalDate)).setHours(0, 0));
     }
     return new Date(this.arrivalDate);
   }
 
   isDepartureDateMore(): boolean {
-    if (this.departureDate.getFullYear() > this.arrivalDate.getFullYear() ) {
+    if (this.departureDate.getFullYear() > this.arrivalDate.getFullYear()) {
       return true;
     }
-    if (this.departureDate.getMonth() > this.arrivalDate.getMonth() ) {
+    if (this.departureDate.getMonth() > this.arrivalDate.getMonth()) {
       return true;
     }
-    if (this.departureDate.getDate() > this.arrivalDate.getDate()  ) {
+    if (this.departureDate.getDate() > this.arrivalDate.getDate()) {
       return true;
     }
     return false;
@@ -111,11 +112,11 @@ export class AddHotelDetailsComponent implements OnInit {
     // if (this.isDepartureDateSame()) {
     //   return this.maxDepartureDate;
     // }
-    return new Date((new Date(this.maxDepartureDate)).setHours(23 , 59));
+    return new Date((new Date(this.maxDepartureDate)).setHours(23, 59));
   }
 
   isDepartureDateSame(): boolean { // compare with maxDepartureDate
-    if (this.departureDate.getDate() === this.maxDepartureDate.getDate()  ) {
+    if (this.departureDate.getDate() === this.maxDepartureDate.getDate()) {
       return true;
     }
     return false;
@@ -126,6 +127,7 @@ export class AddHotelDetailsComponent implements OnInit {
     console.log(this.arrivalDate);
 
   }
+
   handleDepartureDateSet(date: HTMLInputElement) {
     this.departureDate = new Date(date.value);
     const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);

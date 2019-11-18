@@ -6,7 +6,7 @@
   />
   <div class="timeline-body">
     <span
-      *ngIf="tripService?.displayTimeline"
+      *ngIf="tripService?.trip"
     >
       <app-timeline-stop
         [stop]="tripService?.trip?.source"
@@ -32,10 +32,10 @@
 
     <ul>
       <li>
-          <button class="btn-footer" (click)="openShareTripDialog()">
-            <span class="fa fa-share-alt"></span>
-            Share trip
-          </button>
+        <button class="btn-footer" (click)="openShareTripDialog()">
+          <span class="fa fa-share-alt"></span>
+          Share trip
+        </button>
       </li>
       <li>
         <a href="{{ getNavigationUrl() }}" target="_blank">

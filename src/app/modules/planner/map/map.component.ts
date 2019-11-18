@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { TripService } from '@services/trip.service';
+import {Component} from '@angular/core';
+import {TripService} from '@services/trip.service';
 import {AgmInfoWindow, AgmMap} from '@agm/core';
 
 @Component({
@@ -12,7 +12,9 @@ export class MapComponent {
   map: google.maps.Map;
   placeIconUrl = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
 
-  constructor(public tripService: TripService) {}
+  constructor(public tripService: TripService) {
+  }
+
   markerOptions;
   minZoom = 4;
   maxZoom = 16;
@@ -30,9 +32,11 @@ export class MapComponent {
   hidePlaceInfoWindow(placeInfoWindow: AgmInfoWindow) {
     placeInfoWindow.close();
   }
+
   handleZoomChange(zoom: number) {
     this.tripService.mapZoom = zoom;
   }
+
   showRoute(agmMap: AgmMap) {
     console.log('dsfd');
     agmMap.triggerResize(true);
