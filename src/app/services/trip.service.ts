@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {Place} from '@models/Place';
 import {Subject} from 'rxjs';
 import {LoggerService} from '@services/logger.service';
+import { LayoutAlignDirective } from '@angular/flex-layout';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class TripService {
   stopSubject = new Subject<Stop>();
 
   directionResult: google.maps.DirectionsResult;
+  map: google.maps.Map;
 
   constructor(private http: HttpClient,
               private route: Router,
@@ -170,7 +172,8 @@ export class TripService {
           }
         });
         waypointsInfo.push({
-          name: stop.name
+          name: stop.name,
+          placeId: stop.stopId
         });
       } else {
         this.getPlacesInOrder(stop).forEach((place: Place) => {
@@ -181,7 +184,7 @@ export class TripService {
               lng: longitude
             }
           });
-          waypointsInfo.push({name: place.name});
+          waypointsInfo.push({name: place.name, placeId: place.placeId});
         });
       }
     }
@@ -194,7 +197,7 @@ export class TripService {
           lng: place.location.longitude
         }
       });
-      waypointsInfo.push({name: place.name});
+      waypointsInfo.push({name: place.name, placeId: place.placeId});
     }
 
     this.waypoints = waypointsLocations;
@@ -287,6 +290,7 @@ export class TripService {
   showPlaceMarker(place: Place) {
     this.mapZoomIn();
     this.placeMarker = place;
+    this.map.panTo({lat: place.location.latitude, lng: place.location.longitude});
   }
 
   mapZoomIn() {
@@ -296,7 +300,7 @@ export class TripService {
         return;
       }
       this.mapZoom = this.mapZoom + 1;
-    }, 10);
+    }, 100);
   }
 
   hidePlaceMarker() {
