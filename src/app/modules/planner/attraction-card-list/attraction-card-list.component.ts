@@ -4,13 +4,15 @@ import { Stop } from '@models/Stop';
 import { Attraction } from '@models/Attraction';
 import { TripService } from '@services/trip.service';
 import { FormControl } from '@angular/forms';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { FilterComponent } from '@planner/filter/filter.component';
 
 @Component({
   selector: 'app-attraction-card-list',
   templateUrl: './attraction-card-list.component.html',
   styleUrls: ['./attraction-card-list.component.css']
 })
-export class AttractionCardListComponent implements OnInit, AfterViewInit {
+export class AttractionCardListComponent implements OnInit {
   arrAttractions: Attraction[] = [];
   stopIdOfAttraction: string;
   chosenCity: string;
@@ -22,6 +24,7 @@ export class AttractionCardListComponent implements OnInit, AfterViewInit {
   search: FormControl = new FormControl('');
   searchQuery = '';
   pagination: google.maps.places.PlaceSearchPagination;
+  attractionType = 'tourist_attraction';
 
   @ViewChild('noAttractionsFound', {static: false}) noAttractionsFoundElement: ElementRef;
 
@@ -29,7 +32,8 @@ export class AttractionCardListComponent implements OnInit, AfterViewInit {
     private httpService: HttpClient,
     public tripService: TripService,
     private changeDetectorRef: ChangeDetectorRef,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    public dialog: MatDialog
   ) {
     this.displayLoader = false;
   }
@@ -41,10 +45,6 @@ export class AttractionCardListComponent implements OnInit, AfterViewInit {
       this.attractionByStop(this.tripService.trip.stops[0]);
     }
     this.search.valueChanges.subscribe(val => this.searchPlace(val));
-  }
-
-  ngAfterViewInit() {
-
   }
 
   attractionByStop(stop: Stop) {
@@ -59,7 +59,7 @@ export class AttractionCardListComponent implements OnInit, AfterViewInit {
       {
         location: {lat: stop.location.latitude, lng: stop.location.longitude},
         radius: +this.radius * 1000,
-        type: 'tourist_attraction'
+        type: this.attractionType
       },
       (placeResults, status, pagination) => {
           placeResults.forEach(placeResult => {
@@ -145,6 +145,23 @@ export class AttractionCardListComponent implements OnInit, AfterViewInit {
   }
   loadMoreAttractions(loadMoreBtn) {
     this.pagination.nextPage();
+  }
+  openFilterDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '450px';
+    dialogConfig.height = '250px';
+
+    dialogConfig.data = {attractionType: this.attractionType};
+    const dialogRef = this.dialog.open(FilterComponent, dialogConfig);
+
+    dialogRef.afterClosed()
+      .subscribe(attractionType => {
+        if (attractionType) {
+          this.attractionType = attractionType;
+          this.attractionByStop(this.stop);
+        }
+      });
   }
 }
 
