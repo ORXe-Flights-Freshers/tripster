@@ -13,6 +13,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatIconModule, MatProgressSpinnerModule} from '@angular/material';
 import {MatSliderModule} from '@angular/material/slider';
 import {NgMatSearchBarModule} from 'ng-mat-search-bar';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {NgMatSearchBarModule} from 'ng-mat-search-bar';
     MatIconModule,
     MatProgressSpinnerModule,
     MatSliderModule,
-    NgMatSearchBarModule
+    NgMatSearchBarModule,
+    MatSelectModule
   ]
 })
 export class AppMaterialModule {

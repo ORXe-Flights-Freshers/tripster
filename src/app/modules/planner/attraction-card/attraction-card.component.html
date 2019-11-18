@@ -11,7 +11,8 @@
   </div>
 
   <div class="text-body">
-    <div
+    <a class="place-link" href="https://www.google.com/maps/search/?api=1&query={{attractionData.name}}&query_place_id={{attractionData.placeId}}" target="_blank">
+      <div
       class="heading"
       (mouseover)="onHeadingOver()"
       (mouseout)="onHeadingOut()"
@@ -19,6 +20,7 @@
       {{ attractionData.name.length > 17 ?
         attractionData.name.substring(0, 17) + '...' : attractionData.name}}
     </div>
+  </a>
     <div class="facilities">
       {{ attractionData.description }}
     </div>

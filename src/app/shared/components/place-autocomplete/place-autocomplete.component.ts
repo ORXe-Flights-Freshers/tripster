@@ -41,7 +41,7 @@ export class PlaceAutocompleteComponent implements OnInit {
     if (prediction) {
       return prediction.description;
     }
-  };
+  }
 
   public KeyPress = (event) => {
     this.inputPlaceFromUser = event.target.value;
@@ -53,7 +53,7 @@ export class PlaceAutocompleteComponent implements OnInit {
     } else {
       this.errorMessage = 'Select from list';
     }
-  };
+  }
 
   ngOnInit() {
     this.searchControl = new FormControl();

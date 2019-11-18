@@ -8,6 +8,7 @@ import {Subject} from 'rxjs';
 import {LoggerService} from '@services/logger.service';
 import { Attraction } from '@models/Attraction';
 import { Hotel } from '@models/Hotel';
+import { LayoutAlignDirective } from '@angular/flex-layout';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class TripService {
   stopSubject = new Subject<Stop>();
 
   directionResult: google.maps.DirectionsResult;
+  map: google.maps.Map;
 
   constructor(private http: HttpClient,
               private route: Router,
@@ -85,18 +87,19 @@ export class TripService {
           );
           this.trip.stops[index].arrival = previousDeparture.toString();
         }
+        this.stopSubject.next(stop);
       });
     }
 
     {
       const previousLocation = this.getPreviousLocation();
       const previousDeparture = new Date(previousLocation.departure);
-
+      const attractionsInDestination = this.trip.destination.attractions.length;
       previousDeparture.setSeconds(
         previousDeparture.getSeconds() +
         directionResult.routes[0].legs[
-          0
-        // directionResult.routes[0].legs.length - 1
+        //  0
+        directionResult.routes[0].legs.length - 1- attractionsInDestination
           ].duration.value
       );
       const newArrivalTime = (new Date(previousDeparture)).getTime();
@@ -105,6 +108,7 @@ export class TripService {
         this.addTimeToDestinationItineraries(( newArrivalTime - oldArrivalTime));
       }
       this.trip.destination.arrival = previousDeparture.toString();
+      this.stopSubject.next(this.trip.destination);
       this.updateTrip(this.trip).subscribe();
     }
 
@@ -188,7 +192,8 @@ export class TripService {
           }
         });
         waypointsInfo.push({
-          name: stop.name
+          name: stop.name,
+          placeId: stop.stopId
         });
       } else {
         this.getPlacesInOrder(stop).forEach((place: Place) => {
@@ -199,7 +204,7 @@ export class TripService {
               lng: longitude
             }
           });
-          waypointsInfo.push({name: place.name});
+          waypointsInfo.push({name: place.name, placeId: place.placeId});
         });
       }
     }
@@ -212,7 +217,7 @@ export class TripService {
           lng: place.location.longitude
         }
       });
-      waypointsInfo.push({name: place.name});
+      waypointsInfo.push({name: place.name, placeId: place.placeId});
     }
 
     this.waypoints = waypointsLocations;
@@ -305,6 +310,7 @@ export class TripService {
   showPlaceMarker(place: Place) {
     this.mapZoomIn();
     this.placeMarker = place;
+    this.map.panTo({lat: place.location.latitude, lng: place.location.longitude});
   }
 
   mapZoomIn() {
@@ -314,7 +320,7 @@ export class TripService {
         return;
       }
       this.mapZoom = this.mapZoom + 1;
-    }, 10);
+    }, 100);
   }
 
   hidePlaceMarker() {
