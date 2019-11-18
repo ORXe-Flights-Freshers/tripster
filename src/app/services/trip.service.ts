@@ -17,6 +17,7 @@ export class TripService {
   placeMarker;
   mapZoom = 9;
 
+  durationSubject = new Subject<string[]>();
   stopSubject = new Subject<Stop>();
 
   directionResult: google.maps.DirectionsResult;
@@ -90,13 +91,13 @@ export class TripService {
     {
       const previousLocation = this.getPreviousLocation();
       const previousDeparture = new Date(previousLocation.departure);
+      const attractionsInDestination = this.trip.destination.attractions.length;
 
       previousDeparture.setSeconds(
         previousDeparture.getSeconds() +
         directionResult.routes[0].legs[
-          0
-        // directionResult.routes[0].legs.length - 1
-          ].duration.value
+          directionResult.routes[0].legs.length - 1 - attractionsInDestination
+        ].duration.value
       );
       const newArrivalTime = (new Date(previousDeparture)).getTime();
       const oldArrivalTime = (new Date( this.trip.destination.arrival)).getTime();
@@ -107,7 +108,7 @@ export class TripService {
       this.updateTrip(this.trip).subscribe();
       this.stopSubject.next(this.trip.destination);
     }
-
+    this.durationSubject.next(this.getTimeBetweenStops());
   }
 
   getPreviousLocation(): Stop {
@@ -241,31 +242,31 @@ export class TripService {
     return new Date(timeInMilli + timeToAdd).toString();
   }
   getTimeBetweenStops(): string [] {
-    const timeBetweenStops = [];
-    let timeToCalculate ;
+    const timeBetweenStops: string[] = [];
+    let timeToCalculate: number;
     if ( this.trip.stops.length > 0 ) {
-    timeToCalculate = new Date(this.trip.stops[0].arrival).getMilliseconds() - new Date(this.trip.source.departure).getMilliseconds();
-    timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
-    for (let index = 1 ; index < this.trip.stops.length ; ++index){
-      timeToCalculate = new Date(this.trip.stops[index].arrival).getMilliseconds() -
-      new Date(this.trip.stops[index - 1].departure).getMilliseconds();
+      timeToCalculate = new Date(this.trip.stops[0].arrival) - new Date(this.trip.source.departure);
+      timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+
+      for (let index = 1 ; index < this.trip.stops.length ; ++index){
+        timeToCalculate = new Date(this.trip.stops[index].arrival) -
+        new Date(this.trip.stops[index - 1].departure);
+        timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+      }
+      timeToCalculate = new Date(this.trip.destination.arrival) -
+       new Date(this.trip.stops[this.trip.stops.length - 1].arrival);
+      timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+    } else {
+      timeToCalculate = new Date(this.trip.destination.arrival) - new Date(this.trip.source.departure);
       timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
     }
-    timeToCalculate = new Date(this.trip.stops[this.trip.stops.length - 1].arrival).getMilliseconds() -
-                  new Date(this.trip.source.departure).getMilliseconds();
-    timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
-    }
-    else {
-    timeToCalculate = new Date(this.trip.destination.arrival).getMilliseconds() - new Date(this.trip.source.departure).getMilliseconds();
-    timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
-    }
-    console.log(timeBetweenStops);
     return timeBetweenStops;
   }
-  convertMiliSecondsToDays(miliSeconds): string {
-    const days = miliSeconds / 8640000;
-    const hours = (miliSeconds - (8640000 * days)) / 360000;
-    const minutes = (miliSeconds - (8640000 * days) - (360000 * hours)) / 6000;
+  convertMiliSecondsToDays(milliSeconds): string {
+    console.log('Here: ' + milliSeconds);
+    const days = Math.floor(milliSeconds / (86400 * 1000));
+    const hours = Math.floor((milliSeconds - (86400 * 1000 * days)) / (3600 * 1000));
+    const minutes = Math.floor((milliSeconds - (86400 * 1000 * days) - (3600 * 1000 * hours)) / (60 * 1000));
     return days + ' d ' + hours + ' h ' + minutes + ' m ';
   }
 
