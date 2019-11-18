@@ -7,7 +7,7 @@
   <mat-label>Type of Attraction</mat-label>
   <mat-select [value]="attractionType" (selectionChange)="setAttractionType($event)">
     <mat-option *ngFor="let attractionType of attractionTypes" [value]="attractionType">
-      {{attractionType | titlecase}}
+      {{attractionType.replace('_', ' ') | titlecase}}
     </mat-option>
   </mat-select>
 </mat-form-field>

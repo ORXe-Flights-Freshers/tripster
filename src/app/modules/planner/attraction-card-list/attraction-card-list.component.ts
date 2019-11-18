@@ -150,7 +150,7 @@ export class AttractionCardListComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = '450px';
-    dialogConfig.height = '250px';
+    dialogConfig.height = '230px';
 
     dialogConfig.data = {attractionType: this.attractionType};
     const dialogRef = this.dialog.open(FilterComponent, dialogConfig);
