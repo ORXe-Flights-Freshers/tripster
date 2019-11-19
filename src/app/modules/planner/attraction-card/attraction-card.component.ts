@@ -3,6 +3,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {Attraction} from '@models/Attraction';
 import {TripService} from '@services/trip.service';
 import {AddAttractionDetailsComponent} from '../add-attraction-details/add-attraction-details.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-attraction-card',
@@ -16,7 +17,7 @@ export class AttractionCardComponent {
   @ViewChild('headingDetails', {static: false}) headingDetails: ElementRef;
 
   constructor(public tripService: TripService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog, private snackBar: MatSnackBar) {
   }
 
   openAttractionDialog(attractionData: Attraction): void {
@@ -32,9 +33,15 @@ export class AttractionCardComponent {
       .subscribe(placeFromDialog => {
         if (placeFromDialog) {
           this.tripService.addAttractionToTrip(placeFromDialog, this.stopIdOfAttraction);
-          // this.openSnackBar('Attraction Added Successfully', 'OK');
+          this.openSnackBar('Attraction Added Successfully', 'OK');
         }
       });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 
   onHeadingOver() {
