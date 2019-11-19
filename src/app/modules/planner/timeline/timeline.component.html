@@ -7,12 +7,13 @@
   <div class="timeline-body">
     <div
       class="duration-between-stops-container"
+      *ngIf="durationsMarginTop.length > 1"
     >
       <div
         class="duration"
         *ngFor="let duration of durationBetweenStops; let i = index"
         [ngStyle]="{
-          marginTop: durationsMarginTop[i].toString() + 'px'
+          marginTop: durationsMarginTop[i]?.toString() + 'px'
         }"
       >
       {{ duration }}

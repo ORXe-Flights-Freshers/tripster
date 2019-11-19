@@ -20,9 +20,7 @@
         placeholder="Trip Date"
         matInput
         [matDatepicker]="arrivalDatepicker"
-        (dateChange)="handleArrivalDateSet($event)"
         [value]="arrivalDate"
-        (focus)="arrivalDatepicker.open()"
         disabled
       />
       <mat-datepicker-toggle
@@ -45,7 +43,6 @@
       />
     </mat-form-field>
     <ngx-material-timepicker
-      (timeSet)="handleArrivalTimeSet($event)"
       #arrivalTimePicker
       [theme]="timePickerThemeService.darkTheme"
     ></ngx-material-timepicker>
@@ -101,14 +98,14 @@
   <div id="bottom-error-block">
     <p id="stop-error" *ngIf="duplicatePlace">* Stop cannot be same </p>
     <p id="stop-error" *ngIf="invalidPlace">* Enter valid place</p>
+    <p id="stop-error" *ngIf="invalidTime">* Departure time must be more than Arrival.</p>
   </div>
   <div id="bottom-button-block">
     <button mat-button (click)="closeDialog()">CANCEL</button>
     <button
-      mat-raised-button
+      class="add-btn"
       (click)="addStop()"
-      color="primary"
-      [disabled]="duplicatePlace || invalidPlace"
+      [disabled]="duplicatePlace || invalidPlace || invalidTime"
     >
       ADD
     </button>

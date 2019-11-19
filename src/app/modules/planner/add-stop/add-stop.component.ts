@@ -21,6 +21,7 @@ export class AddStopComponent implements OnInit {
   departureTime = '00:00 am';
   duplicatePlace: boolean;
   invalidPlace: boolean;
+  invalidTime: boolean;
   minTime: Date;
 
   constructor(
@@ -34,7 +35,7 @@ export class AddStopComponent implements OnInit {
 
   ngOnInit() {
     this.arrivalDate = new Date(
-      this.tripService.getPreviousLocation().departure
+      this.tripService.getPreviousLocationOfDestination().departure
     );
     this.departureDate = new Date(this.arrivalDate.getTime() + 60000);
     this.departureTime =  this.departureDate.getHours().toString() +
@@ -46,8 +47,7 @@ export class AddStopComponent implements OnInit {
 
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
     this.stopCity = place;
-    const previousLocation = this.tripService.getPreviousLocation();
-
+    const previousLocation = this.tripService.getPreviousLocationOfDestination();
     if (this.stopCity.place_id === previousLocation.stopId ||
       this.stopCity.place_id === this.tripService.trip.destination.stopId) {
       this.duplicatePlace = true;
@@ -78,9 +78,9 @@ export class AddStopComponent implements OnInit {
     }, callback);
 
     function callback(response, status) {
-      self.arrivalDate.setTime(
-        previousLocationDeparture.getTime() +
-        response.rows[0].elements[0].duration.value * 1000
+      self.arrivalDate.setSeconds(
+        previousLocationDeparture.getSeconds() +
+        response.rows[0].elements[0].duration.value
       );
 
       self.arrivalDate = new Date(self.arrivalDate);
@@ -139,6 +139,14 @@ export class AddStopComponent implements OnInit {
     this.departureDate.setHours(newDepartureTime.hours);
     this.departureDate.setMinutes(newDepartureTime.minutes);
     this.minTime = this.getMinTime();
+    this.invalidTime = this.validateTime();
+  }
+
+  validateTime(): boolean {
+    if (this.departureDate < this.arrivalDate) {
+      return true;
+    }
+    return false;
   }
 
   closeDialog() {
