@@ -34,7 +34,7 @@ export class AddStopComponent implements OnInit {
 
   ngOnInit() {
     this.arrivalDate = new Date(
-      this.tripService.getPreviousLocation().departure
+      this.tripService.getPreviousLocationOfDestination().departure
     );
     this.departureDate = new Date(this.arrivalDate.getTime() + 60000);
     this.departureTime =  this.departureDate.getHours().toString() +
@@ -46,12 +46,9 @@ export class AddStopComponent implements OnInit {
 
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
     this.stopCity = place;
-    const previousLocation = this.tripService.getPreviousLocation();
-    console.log('stop city is', this.stopCity.place_id);
-    console.log('previous stop is ', previousLocation.stopId);
+    const previousLocation = this.tripService.getPreviousLocationOfDestination();
     if (this.stopCity.place_id === previousLocation.stopId ||
       this.stopCity.place_id === this.tripService.trip.destination.stopId) {
-      console.log('same stop found!!');
       this.duplicatePlace = true;
       this.changeDetectorRef.detectChanges();
       return;
@@ -83,9 +80,9 @@ export class AddStopComponent implements OnInit {
     );
 
     function callback(response, status) {
-      self.arrivalDate.setTime(
-        previousLocationDeparture.getTime() +
-        response.rows[0].elements[0].duration.value * 1000
+      self.arrivalDate.setSeconds(
+        previousLocationDeparture.getSeconds() +
+        response.rows[0].elements[0].duration.value
       );
       console.log(self.arrivalDate);
       self.arrivalDate = new Date(self.arrivalDate);

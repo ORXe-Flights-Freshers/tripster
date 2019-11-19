@@ -19,7 +19,6 @@ export class HotelCardComponent implements OnInit {
   @ViewChild('headingDetails', {static: false}) headingDetails: ElementRef;
 
   constructor(public tripService: TripService, public dialog: MatDialog, private snackBar: MatSnackBar) {
-    this.imageUrl = 'http://lorempixel.com/200/200/city/?id=' + Math.random();
   }
 
   ngOnInit() {

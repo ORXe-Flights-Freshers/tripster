@@ -23,10 +23,7 @@
         placeholder="Trip Date"
         matInput
         [matDatepicker]="arrivalDatepicker"
-        (dateChange)="handleArrivalDateSet($event)"
         [value]="arrivalDate"
-        [min]="getMinDate()"
-        (focus)="arrivalDatepicker.open()"
         disabled
         readonly
       />
@@ -52,7 +49,6 @@
       />
     </mat-form-field>
     <ngx-material-timepicker
-      (timeSet)="handleArrivalTimeSet($event)"
       #arrivalTimePicker
       [theme]="timePickerThemeService.darkTheme"
     ></ngx-material-timepicker>
