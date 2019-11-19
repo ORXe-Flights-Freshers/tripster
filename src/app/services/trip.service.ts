@@ -71,6 +71,7 @@ export class TripService {
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     // this.getDirectionResult();
     this.directionResult = directionResult;
+    this.durationSubject.next(this.getTimeBetweenStops());
   }
 
   updateTimelineTime() {
