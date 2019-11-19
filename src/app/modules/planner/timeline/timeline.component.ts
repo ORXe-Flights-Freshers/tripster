@@ -32,7 +32,7 @@ export class TimelineComponent implements OnInit {
       this.durationsMarginTop = [130, ];
 
       this.tripService.trip.stops.forEach((stop, index) => {
-        this.durationsMarginTop.push(150 + this.getNumberOfPlacesAtStop(index + 1) * 76);
+        this.durationsMarginTop.push(137 + this.getNumberOfPlacesAtStop(index) * 76);
       });
     });
   }
@@ -46,7 +46,7 @@ export class TimelineComponent implements OnInit {
       return 0;
     }
 
-    const stop = this.tripService.trip.stops[index - 1];
+    const stop = this.tripService.trip.stops[index];
 
     if (!stop) {
       return 0;

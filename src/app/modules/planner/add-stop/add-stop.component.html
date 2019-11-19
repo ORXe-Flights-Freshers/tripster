@@ -105,7 +105,7 @@
     <button
       class="add-btn"
       (click)="addStop()"
-      [disabled]="duplicatePlace || invalidPlace"
+      [disabled]="duplicatePlace || invalidPlace || invalidTime"
     >
       ADD
     </button>
