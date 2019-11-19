@@ -115,9 +115,8 @@
   <div id="bottom-button-block">
     <button mat-button (click)="closeHotelDialog()">CANCEL</button>
     <button
-      mat-raised-button
+      class="add-btn"
       (click)="addHotel()"
-      color="primary"
       [disabled]="invalidArrivalTimeError || invalidSameTimeError"
     >
       ADD

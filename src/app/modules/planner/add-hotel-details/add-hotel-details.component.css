@@ -121,3 +121,14 @@ hr {
   margin-top: 3%;
   font-size: 13px;
 }
+
+.add-btn:hover:enabled {
+  background-color: var(--main-theme-color);
+  color: white;
+  cursor: pointer;
+}
+
+.add-btn:disabled {
+  background-color: white;
+  color: grey;
+}
