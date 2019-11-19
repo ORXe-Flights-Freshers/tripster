@@ -125,3 +125,24 @@ hr {
   margin-top: 3%;
   font-size: 13px;
 }
+
+.add-btn {
+  width: 65px;
+  height: 35px;
+
+  background-color: var(--main-theme-color);
+  color: white;
+
+  border: 1px solid rgb(214, 201, 201);
+  border-radius: 5px;
+  box-shadow: 0.5px 0.5px 0.5px rgb(146, 144, 144);
+}
+
+.add-btn:hover:enabled {
+  cursor: pointer;
+}
+
+.add-btn:disabled {
+  background-color: rgb(189, 184, 184);
+  color: rgb(126, 124, 124);
+}

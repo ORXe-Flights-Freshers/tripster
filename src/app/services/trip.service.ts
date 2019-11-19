@@ -71,6 +71,7 @@ export class TripService {
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     // this.getDirectionResult();
     this.directionResult = directionResult;
+    this.durationSubject.next(this.getTimeBetweenStops());
   }
 
   updateTimelineTime() {
@@ -307,7 +308,7 @@ export class TripService {
       // @ts-ignore
       timeToCalculate = new Date(this.trip.destination.arrival) -
        // @ts-ignore
-       new Date(this.trip.stops[this.trip.stops.length - 1].arrival);
+       new Date(this.trip.stops[this.trip.stops.length - 1].departure);
       timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
     } else {
       // @ts-ignore
