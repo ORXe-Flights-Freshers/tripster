@@ -122,6 +122,7 @@ export class TripService {
       }
 
     });
+    this.durationSubject.next(this.getTimeBetweenStops());
   }
 
   getPreviousLocationOfDestination(): Stop {
