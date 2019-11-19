@@ -48,8 +48,8 @@ export class PlaceAutocompleteComponent implements OnInit {
     this.validPlace = false;
     this.ErrorMatcher = new InputErrorStateMatcher(!this.validPlace);
     this.IsValid.emit({isValid: false});
-    if (this.inputPlaceFromUser.length < 3) {
-      this.errorMessage = 'Please type at least 3 characters';
+    if (this.inputPlaceFromUser.length < 1) {
+      this.errorMessage = 'Please type at least 1 character';
     } else {
       this.errorMessage = 'Select from list';
     }
@@ -59,7 +59,7 @@ export class PlaceAutocompleteComponent implements OnInit {
     this.searchControl = new FormControl();
 
     this.searchControl.valueChanges.subscribe(query => {
-      if (query.length < 3) {
+      if (query.length < 1) {
         this.predictions = [];
       } else {
         this.getPredictions(query);
