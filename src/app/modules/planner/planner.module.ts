@@ -21,6 +21,7 @@ import {ShareTripComponent} from './share-trip/share-trip.component';
 import {AddAttractionDetailsComponent} from './add-attraction-details/add-attraction-details.component';
 import {TimelineStopComponent} from './timeline-stop/timeline-stop.component';
 import {SearchPipe} from './pipe/search.pipe';
+import { FilterComponent } from './filter/filter.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,7 @@ const routes: Routes = [
     AddAttractionDetailsComponent,
     TimelineStopComponent,
     SearchPipe,
+    FilterComponent,
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -70,12 +72,14 @@ const routes: Routes = [
     AddStopComponent,
     AddHotelDetailsComponent,
     ShareTripComponent,
-    AddAttractionDetailsComponent
+    AddAttractionDetailsComponent,
+    FilterComponent
   ],
   entryComponents: [
     AddHotelDetailsComponent,
     ShareTripComponent,
-    AddAttractionDetailsComponent
+    AddAttractionDetailsComponent,
+    FilterComponent
   ]
 })
 export class PlannerModule {

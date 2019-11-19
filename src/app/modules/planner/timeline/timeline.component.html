@@ -5,6 +5,19 @@
     type="text/css"
   />
   <div class="timeline-body">
+    <div
+      class="duration-between-stops-container"
+    >
+      <div
+        class="duration"
+        *ngFor="let duration of durationBetweenStops; let i = index"
+        [ngStyle]="{
+          marginTop: durationsMarginTop[i].toString() + 'px'
+        }"
+      >
+      {{ duration }}
+      </div>
+    </div>
     <span
       *ngIf="tripService?.trip"
     >

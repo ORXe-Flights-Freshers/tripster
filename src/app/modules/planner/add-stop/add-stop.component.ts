@@ -67,24 +67,21 @@ export class AddStopComponent implements OnInit {
     const self = this;
     const distanceMatrixService = new google.maps.DistanceMatrixService();
 
-    distanceMatrixService.getDistanceMatrix(
-      {
-        origins: [startPoint],
-        destinations: [endPoint],
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.METRIC,
-        avoidHighways: false,
-        avoidTolls: false
-      },
-      callback
-    );
+    distanceMatrixService.getDistanceMatrix({
+      origins: [startPoint],
+      destinations: [endPoint],
+      travelMode: google.maps.TravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.METRIC,
+      avoidHighways: false,
+      avoidTolls: false
+    }, callback);
 
     function callback(response, status) {
       self.arrivalDate.setSeconds(
         previousLocationDeparture.getSeconds() +
         response.rows[0].elements[0].duration.value
       );
-      console.log(self.arrivalDate);
+
       self.arrivalDate = new Date(self.arrivalDate);
       self.handleArrivalTimeSet(self.arrivalDate);
       self.departureDate = new Date(self.arrivalDate.getTime() + 60000);
@@ -101,7 +98,6 @@ export class AddStopComponent implements OnInit {
   handleArrivalTimeSet(date) {
     this.arrivalTime =
       date.getHours().toString() + ':' + date.getMinutes().toString() + ' am';
-    console.log(this.arrivalTime);
   }
 
   handleDepartureTimeSet(time: string) {
@@ -133,7 +129,7 @@ export class AddStopComponent implements OnInit {
   }
 
   handleArrivalDateSet(date) {
-    console.log(this.arrivalDate);
+
   }
 
   handleDepartureDateSet(date) {
@@ -161,7 +157,7 @@ export class AddStopComponent implements OnInit {
       hotels: [],
       attractions: []
     };
-    console.log(stop);
+
     this.dialogRef.close(stop);
   }
 }
