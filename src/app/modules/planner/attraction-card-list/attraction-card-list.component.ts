@@ -143,8 +143,10 @@ export class AttractionCardListComponent implements OnInit {
   handleSearchBarOpen() {
     this.search.setValue('');
   }
-  loadMoreAttractions(loadMoreBtn) {
-    this.pagination.nextPage();
+  loadMoreAttractions() {
+    if (this.pagination.hasNextPage) {
+      this.pagination.nextPage();
+    }
   }
   openFilterDialog() {
     const dialogConfig = new MatDialogConfig();
