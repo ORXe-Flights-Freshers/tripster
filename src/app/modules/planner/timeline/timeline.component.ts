@@ -5,6 +5,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ShareTripComponent} from '../share-trip/share-trip.component';
+import { TimePickerThemeService } from '@services/TimePickerTheme.service';
 
 @Component({
   selector: 'app-timeline',
@@ -104,9 +105,14 @@ export class TimelineComponent implements OnInit {
         '&destination=' +
         this.tripService.trip.destination.name +
         '&travelmode=driving&waypoints=';
-      this.tripService.waypoints.forEach(waypoint => {
-        url += waypoint.location.lat + ',' + waypoint.location.lng + '|';
+      this.tripService.waypoints.forEach((waypoint, index) => {
+        url += this.tripService.waypointsInfo[index].name + '|';
       });
+      url += '&waypoint_place_ids=';
+      this.tripService.waypoints.forEach((waypoint, index) => {
+        url += this.tripService.waypointsInfo[index].placeId + '|';
+      });
+
     }
     return url;
   }

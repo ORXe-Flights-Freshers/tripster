@@ -143,14 +143,16 @@ export class AttractionCardListComponent implements OnInit {
   handleSearchBarOpen() {
     this.search.setValue('');
   }
-  loadMoreAttractions(loadMoreBtn) {
-    this.pagination.nextPage();
+  loadMoreAttractions() {
+    if (this.pagination.hasNextPage) {
+      this.pagination.nextPage();
+    }
   }
   openFilterDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = '450px';
-    dialogConfig.height = '250px';
+    dialogConfig.height = '230px';
 
     dialogConfig.data = {attractionType: this.attractionType};
     const dialogRef = this.dialog.open(FilterComponent, dialogConfig);
