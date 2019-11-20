@@ -20,7 +20,7 @@ export class TripService {
   placeMarker;
   mapZoom = 9;
 
-  durationSubject = new Subject<string[]>();
+  // durationSubject = new Subject<string[]>();
   stopSubject = new Subject<Stop>();
 
   directionResult: google.maps.DirectionsResult;
@@ -71,7 +71,6 @@ export class TripService {
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
     // this.getDirectionResult();
     this.directionResult = directionResult;
-    this.durationSubject.next(this.getTimeBetweenStops());
   }
 
   updateTimelineTime() {
@@ -122,7 +121,6 @@ export class TripService {
       }
 
     });
-    this.durationSubject.next(this.getTimeBetweenStops());
   }
 
   getPreviousLocationOfDestination(): Stop {

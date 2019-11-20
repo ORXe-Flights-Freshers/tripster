@@ -24,16 +24,14 @@ export class TimelineComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tripService.durationSubject.subscribe((durationBetweenStops: string[]) => {
-      this.durationBetweenStops = durationBetweenStops;
-    });
-
     this.tripService.stopSubject.subscribe(stop => {
       this.durationsMarginTop = [130, ];
+      this.durationBetweenStops = [];
 
       this.tripService.trip.stops.forEach((stop, index) => {
         this.durationsMarginTop.push(137 + this.getNumberOfPlacesAtStop(index) * 76);
       });
+      this.durationBetweenStops = this.tripService.getTimeBetweenStops();
     });
   }
 
