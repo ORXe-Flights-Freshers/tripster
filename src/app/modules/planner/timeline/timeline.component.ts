@@ -33,6 +33,7 @@ export class TimelineComponent implements OnInit {
       });
       this.durationBetweenStops = this.tripService.getTimeBetweenStops();
     });
+    this.durationBetweenStops = this.tripService.getTimeBetweenStops();
   }
 
   getNumberOfPlacesAtStop(index: number) {
