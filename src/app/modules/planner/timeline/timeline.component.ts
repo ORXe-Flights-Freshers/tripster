@@ -25,7 +25,7 @@ export class TimelineComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tripService.stopSubject.subscribe(stop => {
+    this.tripService.stopSubject.subscribe(_ => {
       this.durationsMarginTop = [130, ];
       this.durationBetweenStops = [];
 
@@ -35,6 +35,10 @@ export class TimelineComponent implements OnInit {
       this.durationBetweenStops = this.tripService.getTimeBetweenStops();
     });
     this.durationBetweenStops = this.tripService.getTimeBetweenStops();
+
+    if (this.tripService.trip) {
+      this.tripService.stopSubject.next(this.tripService.trip.source);
+    }
   }
 
   getNumberOfPlacesAtStop(index: number) {

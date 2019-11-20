@@ -256,7 +256,8 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
     );
 
     this.helperCanvas.writeText(
-      this.stop.name, 40, this.stopLabelYCoordinate + 3,
+      this.stop.name.length <= 10 ? this.stop.name : this.stop.name.substr(0, 10) + '...',
+      40, this.stopLabelYCoordinate + 3,
       fontSize, this.currentTheme.color,
       'bold ' + fontSize + 'px ' + this.helperCanvas.fontFamily
     );
