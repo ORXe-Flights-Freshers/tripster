@@ -10,13 +10,13 @@ export class FilterComponent implements OnInit {
   attractionType = 'tourist_attraction';
   attractionTypes: string[] = [
     'tourist_attraction',
-    'place_of_worship',
     'amusement_park',
      'art_gallery',
      'church',
      'hindu_temple',
      'mosque',
      'museum',
+     'place_of_worship',
      'night_club',
      'shopping_mall',
      'spa',
