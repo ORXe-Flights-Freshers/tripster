@@ -11,6 +11,18 @@ import {TimePickerThemeService} from './services/TimePickerTheme.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RatingComponent } from './planner/rating/rating.component';
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('1047010521344-45llkt5qr16ftg6m26j4priocs1ke487.apps.googleusercontent.com')
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [AppComponent, RatingComponent],
@@ -26,9 +38,15 @@ import { RatingComponent } from './planner/rating/rating.component';
     BrowserAnimationsModule,
     PlannerModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SocialLoginModule
   ],
-  providers: [TimePickerThemeService],
+  providers: [TimePickerThemeService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 // @ts-ignore
