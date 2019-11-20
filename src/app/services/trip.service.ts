@@ -290,6 +290,10 @@ export class TripService {
   }
 
   getTimeBetweenStops(): string [] {
+    if (!this.trip) {
+      return [];
+    }
+
     const timeBetweenStops: string[] = [];
     let timeToCalculate: number;
     if ( this.trip.stops.length > 0 ) {
