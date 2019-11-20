@@ -229,8 +229,9 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
   }
 
   writeStopLabel() {
+    const stopName = this.stop.name.length <= 10 ? this.stop.name : this.stop.name.substr(0, 10) + '...';
     const textWidth =
-      this.helperCanvas.canvasContext.measureText(this.stop.name).width;
+      this.helperCanvas.canvasContext.measureText(stopName).width;
     const currentFontSize =
       +this.helperCanvas.canvasContext.font.split('px')[0];
     let fontSize = 11;
@@ -256,7 +257,8 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
     );
 
     this.helperCanvas.writeText(
-      this.stop.name, 40, this.stopLabelYCoordinate + 3,
+      stopName,
+      40, this.stopLabelYCoordinate + 3,
       fontSize, this.currentTheme.color,
       'bold ' + fontSize + 'px ' + this.helperCanvas.fontFamily
     );
