@@ -75,7 +75,7 @@ export class AttractionCardListComponent implements OnInit {
             imageUrl: placeResult.photos ? placeResult.photos[0].getUrl({
               maxHeight: 200,
               maxWidth: 200
-            }) : 'http://lorempixel.com/200/200/nature/?id=' + Math.random(),
+            }) : null,
             arrival: '',
             departure: ''
           };
