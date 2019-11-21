@@ -29,3 +29,6 @@ input {
   width: 100%;
   box-sizing: border-box;
 }
+.fuel-price-info {
+  color: red;
+}

@@ -9,6 +9,7 @@ import {LoggerService} from '@services/logger.service';
 import { Attraction } from '@models/Attraction';
 import { Hotel } from '@models/Hotel';
 import { LayoutAlignDirective } from '@angular/flex-layout';
+import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,13 @@ export class TripService {
   constructor(private http: HttpClient,
               private route: Router,
               private loggerService: LoggerService) {
+  }
+
+
+
+  getFuelPrice() {
+    const city = this.trip.source.name;
+    return this.http.get('http://172.16.5.130:5001/api/fuelprice/' + city);
   }
 
   createTrip(trip: Trip) {
