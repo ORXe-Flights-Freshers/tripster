@@ -26,12 +26,16 @@
         width: getWidth()
       }"
     >
-      <li
+      <!-- <li
         *ngFor="let option of extraOptions.links"
         [routerLink]="option.url"
       >
         {{ option.name }}
-      </li>
+      </li> -->
+      <li *ngIf="loginService?.loggedIn"><img class="user-img" [src]="loginService?.user.photoUrl" alt=""></li>
+      <li *ngIf="loginService?.loggedIn">{{loginService?.user?.name}}</li>
+      <li (click)="signInWithGoogle()" *ngIf="!loginService?.loggedIn">Log in</li>
+      <li (click)="signOut()" *ngIf="loginService?.loggedIn">Log out</li>
     </ul>
 
   </div>

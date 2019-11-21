@@ -8,8 +8,7 @@ import {Subject} from 'rxjs';
 import {LoggerService} from '@services/logger.service';
 import { Attraction } from '@models/Attraction';
 import { Hotel } from '@models/Hotel';
-import { LayoutAlignDirective } from '@angular/flex-layout';
-import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -36,16 +35,16 @@ export class TripService {
 
   getFuelPrice() {
     const city = this.trip.source.name;
-    return this.http.get('http://172.16.5.130:5001/api/fuelprice/' + city);
+    return this.http.get(environment.baseUrl + ':' + environment.port + '/api/fuelprice/' + city);
   }
 
   createTrip(trip: Trip) {
     this.trip = trip;
-    return this.http.post('http://3.14.69.62:5001/api/trip', trip);
+    return this.http.post(environment.baseUrl + ':' + environment.port + '/api/trip', trip);
   }
 
   getTrip(tripId: string) {
-    this.http.get('http://3.14.69.62:5001/api/trip/' + tripId)
+    this.http.get(environment.baseUrl + ':' + environment.port + '/api/trip/' + tripId)
       .subscribe(
       (trip: Trip) => {
         this.trip = trip;
@@ -72,7 +71,7 @@ export class TripService {
 
   updateTrip(trip: Trip) {
     this.trip = trip;
-    return this.http.put('http://3.14.69.62:5001/api/trip/' + trip.id, this.trip);
+    return this.http.put(environment.baseUrl + ':' + environment.port + '/api/trip/' + trip.id, this.trip);
   }
 
 
@@ -298,6 +297,10 @@ export class TripService {
   }
 
   getTimeBetweenStops(): string [] {
+    if (!this.trip) {
+      return [];
+    }
+
     const timeBetweenStops: string[] = [];
     let timeToCalculate: number;
     if ( this.trip.stops.length > 0 ) {
