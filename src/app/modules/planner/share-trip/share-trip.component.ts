@@ -3,6 +3,7 @@ import {MatButton, MatDialogRef, MatSnackBar} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-share-trip',
@@ -23,9 +24,8 @@ export class ShareTripComponent implements OnInit {
     ])
   });
 
-  mailServerLink = 'http://3.14.69.62:10000/api/send';
+  mailServerLink = environment.baseUrl + ':' + environment.port + '/api/send';
   subject = 'Shared RoadTrip from Tripster';
-  body = 'Hey, Here is the shareable link for the roadtrip : http://3.14.69.62';
 
 
   ngOnInit() {
@@ -38,7 +38,7 @@ export class ShareTripComponent implements OnInit {
     this.http.post(this.mailServerLink, {
       to: [email],
       subject: this.subject,
-      body: this.body + this.router.url
+      body: `Hey, Here is the shareable link for the roadtrip : <a href="${environment.baseUrl}${this.router.url}">View Trip</a>`
     }).subscribe(value => {
       this.closeDialog();
       // @ts-ignore

@@ -11,6 +11,7 @@
   </div>
 
   <div class="text-body">
+    <a class="place-link" href="https://www.google.com/maps/search/?api=1&query={{hotelData.name}}&query_place_id={{hotelData.placeId}}" target="_blank">
     <div
       class="heading"
       (mouseover)="onHeadingOver()"
@@ -19,6 +20,7 @@
       {{ hotelData.name.length > 17 ?
         hotelData.name.substring(0, 17) + '...' : hotelData.name}}
     </div>
+    </a>
     <div class="facilities">
       {{ hotelData.description }}
     </div>

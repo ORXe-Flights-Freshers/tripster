@@ -10,7 +10,6 @@ import {PlannerModule} from './modules/planner/planner.module';
 import {TimePickerThemeService} from './services/TimePickerTheme.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RatingComponent } from './planner/rating/rating.component';
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 
 const config = new AuthServiceConfig([
@@ -25,7 +24,7 @@ export function provideConfig() {
 }
 
 @NgModule({
-  declarations: [AppComponent, RatingComponent],
+  declarations: [AppComponent],
   imports: [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC2LnC7a1z5MDzBjx4Us9qo9Z4Yupum03A',
