@@ -144,3 +144,7 @@ ul.extras li:hover {
 .nav-active {
   transform: translateX(0);
 }
+.user-img {
+  height: 37px;
+  margin-right: 10px;
+}

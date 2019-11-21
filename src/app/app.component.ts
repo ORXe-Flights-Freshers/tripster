@@ -33,8 +33,10 @@ export class AppComponent implements OnInit {
   }
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    console.log(document.cookie);
   }
   signOut(): void {
     this.authService.signOut();
+    console.log(document.cookie);
   }
 }
