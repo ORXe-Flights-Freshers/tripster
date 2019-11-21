@@ -8,7 +8,6 @@ import {Subject} from 'rxjs';
 import {LoggerService} from '@services/logger.service';
 import { Attraction } from '@models/Attraction';
 import { Hotel } from '@models/Hotel';
-import { LayoutAlignDirective } from '@angular/flex-layout';
 import { environment } from '@environments/environment';
 
 @Injectable({
@@ -30,6 +29,13 @@ export class TripService {
   constructor(private http: HttpClient,
               private route: Router,
               private loggerService: LoggerService) {
+  }
+
+
+
+  getFuelPrice() {
+    const city = this.trip.source.name;
+    return this.http.get(environment.baseUrl + ':' + environment.port + '/api/fuelprice/' + city);
   }
 
   createTrip(trip: Trip) {
