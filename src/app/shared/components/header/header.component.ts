@@ -34,7 +34,7 @@ export class HeaderComponent {
     this.windowWidth = (event.target as Window).innerWidth;
   }
 
-  constructor(public extraOptions: HeaderDataService, private authService: AuthService, private loginService: LoginService) {
+  constructor(public extraOptions: HeaderDataService, private authService: AuthService, public loginService: LoginService) {
     this.windowWidth = window.innerWidth;
   }
 
