@@ -6,7 +6,6 @@ import {TripService} from '@services/trip.service';
 import {Router} from '@angular/router';
 import {Trip} from '@models/Trip';
 import {TimePickerThemeService} from '@services/TimePickerTheme.service';
-import { userInfo } from 'os';
 
 @Component({
   selector: 'app-search',
