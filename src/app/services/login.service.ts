@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@models/User';
 import { take } from 'rxjs/operators';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class LoginService {
       return;
     }
 
-    this.http.get('http://172.16.5.202:5001/api/trip/userid/' + this.user.userId)
+    this.http.get(environment.baseUrl + ':' + environment.port + '/api/trip/userid/' + this.user.userId)
         .pipe(take(1))
         .subscribe((trips: Trip[]) => {
           console.log(trips);
