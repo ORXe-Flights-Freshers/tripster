@@ -1,8 +1,8 @@
 <div class="body">
   <div class="container">
-      <h2 *ngIf='loginService.loggedIn'>Your Past Trips</h2>
-      <div class="trips" *ngIf='loginService.loggedIn'>
-        <div class="trip" *ngFor="let trip of loginService.getPastTrips()">
+      <h2 *ngIf='loginService?.loggedIn'>Your Past Trips</h2>
+      <div class="trips" *ngIf='loginService?.loggedIn'>
+        <div class="trip" *ngFor="let trip of loginService?.tripsArray">
           <app-past-trip-item
             [trip]="trip"
           ></app-past-trip-item>

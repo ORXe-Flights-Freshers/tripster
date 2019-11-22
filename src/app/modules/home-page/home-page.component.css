@@ -1,3 +1,10 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
 .container {
   position: absolute;
   width: 100%;
@@ -49,4 +56,14 @@ img {
   letter-spacing: 1px;
 
   margin: 100px auto auto;
+}
+
+.popular-trips {
+  width: 80%;
+  height: 100px;
+
+  margin: auto;
+  margin-top: 100px;
+
+  border: 1px solid red;
 }

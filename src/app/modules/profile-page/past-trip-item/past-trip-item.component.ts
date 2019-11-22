@@ -21,6 +21,13 @@ export class PastTripItemComponent implements OnInit {
   constructor(public utilityService: UtilityService) { }
 
   ngOnInit() {
+    this.source = this.trip.source.name;
+    this.destination = this.trip.destination.name;
+
+    this.numberOfStops = this.trip.stops.length;
+
+    this.departureDate = new Date(this.trip.source.departure);
+    this.arrivalDate = new Date(this.trip.destination.arrival);
   }
 
   getDepartureDate() {
