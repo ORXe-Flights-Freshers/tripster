@@ -27,16 +27,6 @@ export class AppComponent implements OnInit {
         this.loginService.user = null;
         this.loginService.loggedIn = false;
       }
-      console.log(socialUser);
-      console.log(this.loginService.user);
     });
-  }
-  signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    console.log(document.cookie);
-  }
-  signOut(): void {
-    this.authService.signOut();
-    console.log(document.cookie);
   }
 }

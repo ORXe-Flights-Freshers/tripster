@@ -9,4 +9,8 @@ export class LoginService {
   user: User;
 
   constructor() { }
+
+  getPastTrips() {
+
+  }
 }
