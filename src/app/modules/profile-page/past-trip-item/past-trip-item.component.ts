@@ -1,5 +1,6 @@
 import { UtilityService } from '@services/utility.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Trip } from '@models/Trip';
 
 @Component({
   selector: 'app-past-trip-item',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./past-trip-item.component.css']
 })
 export class PastTripItemComponent implements OnInit {
+  @Input() trip: Trip;
 
   source = 'Source';
   destination = 'Destination';

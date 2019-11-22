@@ -1,3 +1,5 @@
+import { Trip } from '@models/Trip';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@models/User';
 
@@ -8,9 +10,10 @@ export class LoginService {
   loggedIn: boolean;
   user: User;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getPastTrips() {
-
+  getPastTrips(): Trip[] {
+    return [];
+    // this.http.get('http://172.16.5.202:5001/api/')
   }
 }
