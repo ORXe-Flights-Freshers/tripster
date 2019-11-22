@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://3.14.69.62',
+  // baseUrl: 'http://3.14.69.62',
+  baseUrl: 'http://172.16.5.202',
   port: 5001
 };
 
