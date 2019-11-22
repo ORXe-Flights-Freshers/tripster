@@ -1,5 +1,25 @@
 <div class="container">
 
+  <!-- <div class="stop-details">
+    <div
+      *ngIf="stopNameBoxWidth"
+      class="stop-hover"
+      [ngStyle]="{
+        width: stopNameBoxWidth * helperCanvas.resolution + 'px',
+        borderRadius: helperCanvas.resolution * 10 + 'px'
+      }"
+      (mouseenter)="displayStopNamePopUp=true"
+      (mouseleave)="displayStopNamePopUp=false"
+    >
+    </div>
+    <div
+      *ngIf="displayStopNamePopUp"
+      class="show-stop-name"
+    >
+      {{ stop.name }}
+    </div>
+  </div> -->
+
   <div class="stop-buttons">
     <div
       class="edit-delete"

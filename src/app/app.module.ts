@@ -27,7 +27,7 @@ export function provideConfig() {
   declarations: [AppComponent],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyC2LnC7a1z5MDzBjx4Us9qo9Z4Yupum03A',
+      apiKey: 'AIzaSyATWrZ3otWySP2zS374U2Jot6o5wX34jeE',
       libraries: ['places']
     }),
     HttpClientModule,
