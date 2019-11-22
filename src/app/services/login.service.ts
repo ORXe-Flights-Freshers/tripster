@@ -1,7 +1,7 @@
 import { Trip } from '@models/Trip';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@models/User';
+import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 
@@ -12,8 +12,13 @@ export class LoginService {
   loggedIn: boolean;
   user: User;
   tripsArray: Trip[];
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
+  saveUser(user: User) {
+    this.http
+      .post(environment.baseUrl + ':' + environment.port + '/api/user', user)
+      .subscribe();
+  }
 
   setPastTrips(): Trip[] {
     if (!this.loggedIn) {
@@ -21,11 +26,18 @@ export class LoginService {
       return;
     }
 
-    this.http.get(environment.baseUrl + ':' + environment.port + '/api/trip/userid/' + this.user.userId)
-        .pipe(take(1))
-        .subscribe((trips: Trip[]) => {
-          console.log(trips);
-          this.tripsArray = trips;
-        });
+    this.http
+      .get(
+        environment.baseUrl +
+          ':' +
+          environment.port +
+          '/api/trip/userid/' +
+          this.user.userId
+      )
+      .pipe(take(1))
+      .subscribe((trips: Trip[]) => {
+        console.log(trips);
+        this.tripsArray = trips;
+      });
   }
 }

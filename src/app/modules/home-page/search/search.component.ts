@@ -10,7 +10,7 @@ import {TimePickerThemeService} from '@services/TimePickerTheme.service';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
   origin: google.maps.places.PlaceResult;
@@ -20,16 +20,19 @@ export class SearchComponent implements OnInit {
   isDuplicatePlace: boolean;
   currentDate = new Date(Date.now());
   tripDate: Date = new Date(Date.now());
-  tripTime = this.tripDate.getHours().toString() +
-    ':' + this.tripDate.getMinutes().toString() + ' am';
+  tripTime =
+    this.tripDate.getHours().toString() +
+    ':' +
+    this.tripDate.getMinutes().toString() +
+    ' am';
   vehicleMileage = 22;
   invalidDepartureDateTimeError: boolean;
   minTime: Date;
 
   searchForm = new FormGroup({
     mileage: new FormControl(this.vehicleMileage, [
-      Validators.pattern('^[1-9]+[0-9]*$')
-    ])
+      Validators.pattern('^[1-9]+[0-9]*$'),
+    ]),
   });
 
   constructor(private tripService: TripService,
@@ -75,10 +78,10 @@ export class SearchComponent implements OnInit {
   }
 
   validateDateTime() {
-    this.invalidDepartureDateTimeError = this.tripDate.getTime() < new Date(Date.now()).setSeconds(0);
+    this.invalidDepartureDateTimeError =
+      this.tripDate.getTime() < new Date(Date.now()).setSeconds(0);
     console.log(this.invalidDepartureDateTimeError);
     console.log(this.tripDate);
-
   }
 
   setTripDateTime() {
@@ -93,7 +96,7 @@ export class SearchComponent implements OnInit {
 
   getMinTime() {
     if (this.isDepartureDateMore()) {
-      return new Date((new Date(this.currentDate)).setHours(0, 0));
+      return new Date(new Date(this.currentDate).setHours(0, 0));
     }
     return new Date(this.currentDate);
   }
@@ -106,7 +109,6 @@ export class SearchComponent implements OnInit {
       return true;
     }
     return this.tripDate.getDate() > this.currentDate.getDate();
-
   }
 
   checkForDuplicatePlace() {
@@ -135,29 +137,29 @@ export class SearchComponent implements OnInit {
       source: {
         location: {
           latitude: this.origin.geometry.location.lat(),
-          longitude: this.origin.geometry.location.lng()
+          longitude: this.origin.geometry.location.lng(),
         },
         stopId: this.origin.place_id,
         name: this.origin.name,
         arrival: this.tripDate.toString(),
         departure: this.tripDate.toString(),
         hotels: [],
-        attractions: []
+        attractions: [],
       },
       destination: {
         location: {
           latitude: this.destination.geometry.location.lat(),
-          longitude: this.destination.geometry.location.lng()
+          longitude: this.destination.geometry.location.lng(),
         },
         stopId: this.destination.place_id,
         name: this.destination.name,
         arrival: this.tripDate.toString(),
         departure: 'Mon Nov 13 2090 11:37:09 GMT+0530 (India Standard Time)',
         hotels: [],
-        attractions: []
+        attractions: [],
       },
       stops: [],
-      mileage: this.vehicleMileage
+      mileage: this.vehicleMileage,
     };
     return trip;
   }

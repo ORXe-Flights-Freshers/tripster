@@ -1,12 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import { AuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { Component, OnInit } from '@angular/core';
+import {
+  AuthService,
+  GoogleLoginProvider,
+  SocialUser,
+} from 'angularx-social-login';
 import { LoginService } from '@services/login.service';
 import { User } from '@models/User';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
   title = 'tripster';
@@ -20,10 +24,12 @@ export class AppComponent implements OnInit {
           name: socialUser.name,
           userId: socialUser.id,
           email: socialUser.email,
-          photoUrl: socialUser.photoUrl
+          photoUrl: socialUser.photoUrl,
+          provider: socialUser.provider,
         };
         this.loginService.user = user;
         this.loginService.loggedIn = true;
+        this.loginService.saveUser(user);
       } else {
         this.loginService.user = null;
         this.loginService.loggedIn = false;
