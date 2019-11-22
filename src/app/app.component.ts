@@ -10,7 +10,8 @@ import { User } from '@models/User';
 })
 export class AppComponent implements OnInit {
   title = 'tripster';
-  constructor(private authService: AuthService, private loginService: LoginService) {
+  constructor(private authService: AuthService,
+              private loginService: LoginService) {
   }
   ngOnInit() {
     this.authService.authState.subscribe((socialUser: SocialUser) => {
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
         this.loginService.user = null;
         this.loginService.loggedIn = false;
       }
+      this.loginService.setPastTrips();
     });
   }
 }
