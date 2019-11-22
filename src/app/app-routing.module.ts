@@ -11,6 +11,10 @@ const routes: Routes = [
     path: 'planner',
     loadChildren: './modules/planner/planner.module#PlannerModule'
   },
+  {
+    path: 'profile',
+    loadChildren: './modules/profile-page/profile-page.module#ProfilePageModule'
+  },
   {path: 'not-found', component: NotFoundComponent},
   {path: '**', redirectTo: '/not-found', pathMatch: 'full'}
 ];

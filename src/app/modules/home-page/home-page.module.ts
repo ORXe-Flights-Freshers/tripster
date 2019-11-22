@@ -7,6 +7,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material';
+import { PopularTripComponent } from './popular-trip/popular-trip.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HomePageComponent, SearchComponent],
+  declarations: [HomePageComponent, SearchComponent, PopularTripComponent],
   imports: [
     SharedModule,
     AppMaterialModule,

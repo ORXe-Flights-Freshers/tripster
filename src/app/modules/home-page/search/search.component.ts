@@ -1,11 +1,11 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Time } from '@models/Time';
-import { TripService } from '@services/trip.service';
-import { Router } from '@angular/router';
-import { Trip } from '@models/Trip';
-import { TimePickerThemeService } from '@services/TimePickerTheme.service';
 import { LoginService } from '@services/login.service';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Time} from '@models/Time';
+import {TripService} from '@services/trip.service';
+import {Router} from '@angular/router';
+import {Trip} from '@models/Trip';
+import {TimePickerThemeService} from '@services/TimePickerTheme.service';
 
 @Component({
   selector: 'app-search',
@@ -35,13 +35,12 @@ export class SearchComponent implements OnInit {
     ]),
   });
 
-  constructor(
-    private tripService: TripService,
-    private router: Router,
-    public timePickerThemeService: TimePickerThemeService,
-    private changeDetectRef: ChangeDetectorRef,
-    private loginService: LoginService
-  ) {}
+  constructor(private tripService: TripService,
+              private router: Router,
+              public timePickerThemeService: TimePickerThemeService,
+              private changeDetectRef: ChangeDetectorRef,
+              private loginService: LoginService) {
+  }
 
   ngOnInit() {
     this.minTime = this.getMinTime();

@@ -15,6 +15,7 @@
   margin: 65px auto auto;
 
   max-width: 1100px;
+  height: var(--body-height);
   width: 80%;
   box-sizing: border-box;
 }

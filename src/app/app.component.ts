@@ -14,10 +14,9 @@ import { User } from '@models/User';
 })
 export class AppComponent implements OnInit {
   title = 'tripster';
-  constructor(
-    private authService: AuthService,
-    private loginService: LoginService
-  ) {}
+  constructor(private authService: AuthService,
+              private loginService: LoginService) {
+  }
   ngOnInit() {
     this.authService.authState.subscribe((socialUser: SocialUser) => {
       if (socialUser) {
@@ -35,12 +34,7 @@ export class AppComponent implements OnInit {
         this.loginService.user = null;
         this.loginService.loggedIn = false;
       }
+      this.loginService.setPastTrips();
     });
-  }
-  signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  }
-  signOut(): void {
-    this.authService.signOut();
   }
 }

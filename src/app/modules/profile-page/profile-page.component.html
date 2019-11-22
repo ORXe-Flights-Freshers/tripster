@@ -1,0 +1,49 @@
+<div class="body">
+  <div class="background"></div>
+
+  <div class="container">
+    <div class="navigation">
+      <ul class='navigation-item-list'>
+        <li
+          class="navigation-item"
+          [ngClass]="{
+            active: navigatorService.profileActiveTab === 'dashboard'
+          }"
+          (click)="navigatorService.profileActiveTab = 'dashboard'"
+        >
+          <span class="text-content">Dashboard</span>
+        </li>
+        <li
+          class="navigation-item"
+          [ngClass]="{
+            active: navigatorService.profileActiveTab === 'past-trips'
+          }"
+          (click)="navigatorService.profileActiveTab = 'past-trips'"
+        >
+          <span class="text-content">Your Trips</span>
+        </li>
+        <!-- <li
+          class="navigation-item"
+          [ngClass]="{
+            active: navigatorService.profileActiveTab === 'delete-account'
+          }"
+          (click)="navigatorService.profileActiveTab = 'delete-account'"
+        >
+          <span class="text-content">Delete Account</span>
+        </li> -->
+      </ul>
+    </div>
+
+    <div class="profile">
+      <div *ngIf="navigatorService.profileActiveTab === 'dashboard'">
+        Dashboard works!
+      </div>
+      <div *ngIf="navigatorService.profileActiveTab === 'past-trips'">
+        <app-past-trips></app-past-trips>
+      </div>
+      <div *ngIf="navigatorService.profileActiveTab === 'delete-account'">
+        Delete account works!
+      </div>
+    </div>
+  </div>
+</div>

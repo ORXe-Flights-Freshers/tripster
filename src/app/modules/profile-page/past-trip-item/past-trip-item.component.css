@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+.body {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: white;
+
+  border: 1px solid rgb(221, 216, 216);
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+.click {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+}
+
+.click:hover {
+  background-color: rgba(218, 215, 214, 0.3);
+  cursor: pointer;
+}
+
+.body div {
+  position: absolute;
+  width: 100%;
+}
+
+.body div .from {
+  margin-left: 30px;
+  margin-top: 30px;
+
+  font-size: 20px;
+  color: rgb(129, 125, 125);
+}
+
+.body div .from-place {
+  margin-left: 30px;
+  margin-top: 60px;
+
+  font-size: 25px;
+  color: rgb(70, 64, 64);
+}
+
+.body div .departure-date {
+  width: 100%;
+
+  margin-left: 30px;
+  margin-top: 100px;
+
+  font-size: 14px;
+  color: rgb(134, 128, 128);
+}
+
+.body div .to {
+  margin-left: 500px;
+  margin-top: 30px;
+
+  font-size: 20px;
+  color: rgb(129, 125, 125);
+}
+
+.body div .to-place {
+  margin-left: 500px;
+  margin-top: 60px;
+
+  font-size: 25px;
+  color: rgb(70, 64, 64);
+}
+
+.body div .arrival-date {
+  width: 100%;
+
+  margin-left: 500px;
+  margin-top: 100px;
+
+  font-size: 14px;
+  color: rgb(134, 128, 128);
+}
+
+.body div.stops {
+  margin-left: 260px;
+  margin-top: 20px;
+
+  color: rgb(68, 67, 67);
+}

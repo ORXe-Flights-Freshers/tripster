@@ -49,6 +49,9 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
 
   stopSubscription: Subscription;
 
+  stopNameBoxWidth: number;
+  displayStopNamePopUp = false;
+
   arrivalDate: Date;
   departureDate: Date;
   helperCanvas: HelperCanvas;
@@ -240,7 +243,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
       fontSize = 10;
     }
 
-    const outlineRectWidth = (fontSize * (textWidth + 18)) / currentFontSize;
+    this.stopNameBoxWidth = (fontSize * (textWidth + 18)) / currentFontSize;
 
     if (!this.places) {
       this.stopLabelYCoordinate = (this.mapped.height / 2);
@@ -248,12 +251,12 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
 
     this.helperCanvas.drawFilledRect(
       32, this.stopLabelYCoordinate - 10,
-      outlineRectWidth, 20, this.currentTheme.backgroundColor
+      this.stopNameBoxWidth, 20, this.currentTheme.backgroundColor
     );
 
     this.helperCanvas.drawRoundedRect(
       32, this.stopLabelYCoordinate - 10,
-      outlineRectWidth, 20, 10, this.currentTheme.color
+      this.stopNameBoxWidth, 20, 10, this.currentTheme.color
     );
 
     this.helperCanvas.writeText(

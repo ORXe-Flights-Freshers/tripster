@@ -26,6 +26,13 @@ export class HeaderDataService {
     ];
   }
 
+  customizeHeaderForProfilePage() {
+    this.backgroundColor = 'var(--main-theme-color)';
+    this.links = [
+      {name: 'Log out', url: '/logout'},
+    ];
+  }
+
   customizeHeaderForNotFoundPage() {
     this.backgroundColor = 'var(--main-theme-color)';
     this.links = [
