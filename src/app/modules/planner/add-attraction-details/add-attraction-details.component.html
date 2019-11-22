@@ -73,7 +73,6 @@
         (dateChange)="handleDepartureDateSet($event)"
         [value]="departureDate"
         [min]="getMinDate()"
-        [max]="getMaxDate()"
         readonly
       />
       <mat-datepicker-toggle
@@ -115,9 +114,8 @@
     <div id="bottom-button-block">
         <button mat-button (click)="closeAttractionDialog()">CANCEL</button>
         <button
-          mat-raised-button
+          class="add-btn"
           (click)="addAttraction()"
-          color="primary"
           [disabled]="invalidMoreArrivalTimeError || invalidLessArrivalTimeError "
         >
           ADD
