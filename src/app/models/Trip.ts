@@ -6,4 +6,5 @@ export interface Trip {
   stops: Stop[];
   destination: Stop;
   mileage: number;
+  userId: string;
 }

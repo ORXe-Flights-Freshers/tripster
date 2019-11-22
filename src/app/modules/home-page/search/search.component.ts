@@ -1,3 +1,4 @@
+import { LoginService } from '@services/login.service';
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Time} from '@models/Time';
@@ -34,7 +35,8 @@ export class SearchComponent implements OnInit {
   constructor(private tripService: TripService,
               private router: Router,
               public timePickerThemeService: TimePickerThemeService,
-              private changeDetectRef: ChangeDetectorRef) {
+              private changeDetectRef: ChangeDetectorRef,
+              private loginService: LoginService) {
   }
 
   ngOnInit() {
@@ -129,6 +131,7 @@ export class SearchComponent implements OnInit {
   generateTrip(): Trip {
     let trip: Trip;
     trip = {
+      userId: this.loginService.loggedIn ? this.loginService.user.userId : '',
       source: {
         location: {
           latitude: this.origin.geometry.location.lat(),
