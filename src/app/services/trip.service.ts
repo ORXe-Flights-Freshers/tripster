@@ -304,25 +304,20 @@ export class TripService {
     const timeBetweenStops: string[] = [];
     let timeToCalculate: number;
     if ( this.trip.stops.length > 0 ) {
-      // @ts-ignore
-      timeToCalculate = new Date(this.trip.stops[0].arrival) - new Date(this.trip.source.departure);
+      // timeToCalculate = new Date(this.trip.stops[0].arrival) - new Date(this.trip.source.departure);
+      timeToCalculate = Date.parse(this.trip.stops[0].arrival) - Date.parse(this.trip.source.departure);
+
       timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
 
       for (let index = 1 ; index < this.trip.stops.length ; ++index) {
-        // @ts-ignore
-        timeToCalculate = new Date(this.trip.stops[index].arrival) -
-          // @ts-ignore
-          new Date(this.trip.stops[index - 1].departure);
+        timeToCalculate = Date.parse(this.trip.stops[index].arrival) - Date.parse(this.trip.stops[index - 1].departure);
         timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
       }
-      // @ts-ignore
-      timeToCalculate = new Date(this.trip.destination.arrival) -
-       // @ts-ignore
-       new Date(this.trip.stops[this.trip.stops.length - 1].departure);
+
+      timeToCalculate = Date.parse(this.trip.destination.arrival) - Date.parse(this.trip.stops[this.trip.stops.length - 1].departure);
       timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
     } else {
-      // @ts-ignore
-      timeToCalculate = new Date(this.trip.destination.arrival) - new Date(this.trip.source.departure);
+      timeToCalculate = Date.parse(this.trip.destination.arrival) - Date.parse(this.trip.source.departure);
       timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
     }
     return timeBetweenStops;
