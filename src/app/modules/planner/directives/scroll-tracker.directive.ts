@@ -13,7 +13,6 @@ import {Directive, HostListener, Output, EventEmitter } from '@angular/core';
       // Listen to click events in the component
       const tracker = event.target;
       const limit = tracker.scrollHeight - tracker.clientHeight;
-      console.log(event.target.scrollTop, limit);
       if (event.target.scrollTop >= limit - 1) {
         this.endOfScrollReached.emit();
       }

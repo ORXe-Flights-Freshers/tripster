@@ -25,8 +25,10 @@ export class AttractionCardListComponent implements OnInit {
   searchQuery = '';
   pagination: google.maps.places.PlaceSearchPagination;
   attractionType = 'tourist_attraction';
+  displayMoreAttractionsLoader = false;
 
-  @ViewChild('noAttractionsFound', {static: false}) noAttractionsFoundElement: ElementRef;
+  @ViewChild('noAttractionsFound', { static: false })
+  noAttractionsFoundElement: ElementRef;
 
   constructor(
     private httpService: HttpClient,
@@ -57,12 +59,12 @@ export class AttractionCardListComponent implements OnInit {
     const attractions = [];
     this.placeService.nearbySearch(
       {
-        location: {lat: stop.location.latitude, lng: stop.location.longitude},
+        location: { lat: stop.location.latitude, lng: stop.location.longitude },
         radius: +this.radius * 1000,
         type: this.attractionType
       },
       (placeResults, status, pagination) => {
-          placeResults.forEach(placeResult => {
+        placeResults.forEach(placeResult => {
           const attractionData = {
             name: placeResult.name,
             placeId: placeResult.place_id,
@@ -72,48 +74,65 @@ export class AttractionCardListComponent implements OnInit {
               latitude: placeResult.geometry.location.lat(),
               longitude: placeResult.geometry.location.lng()
             },
-            imageUrl: placeResult.photos ? placeResult.photos[0].getUrl({
-              maxHeight: 200,
-              maxWidth: 200
-            }) : null,
+            imageUrl: placeResult.photos
+              ? placeResult.photos[0].getUrl({
+                  maxHeight: 200,
+                  maxWidth: 200
+                })
+              : null,
             arrival: '',
             departure: ''
           };
           attractions.push(attractionData);
-          });
-          // console.log(this.arrAttractions);
-          this.ngZone.run(() => {
-            this.arrAttractions = attractions;
-            this.displayLoader = false;
-            this.stopIdOfAttraction = stop.stopId;
-            this.chosenCity = stop.name;
-            if (this.arrAttractions.length === 0) {
-              let displayText = `No attractions found at ${stop.name}. `;
-
-              if (this.radius !== this.maxRadius) {
-                displayText += 'Increasing the radius may help.';
-              } else {
-                displayText += 'Please check for other stops.';
-              }
-
-              (this.noAttractionsFoundElement.nativeElement as HTMLDivElement).innerText = displayText;
-              if (!(this.noAttractionsFoundElement.nativeElement as HTMLDivElement)
-                .classList.contains('no-attractions-found')) {
-                (this.noAttractionsFoundElement.nativeElement as HTMLDivElement)
-                  .classList.add('no-attractions-found');
-              }
-            } else {
-              (this.noAttractionsFoundElement.nativeElement as HTMLDivElement).innerText = '';
-              if ((this.noAttractionsFoundElement.nativeElement as HTMLDivElement)
-                .classList.contains('no-attractions-found')) {
-                (this.noAttractionsFoundElement.nativeElement as HTMLDivElement)
-                  .classList.remove('no-attractions-found');
-              }
-            }
-            this.pagination = pagination;
-          });
         });
+        // console.log(this.arrAttractions);
+        this.ngZone.run(() => {
+          this.arrAttractions = attractions;
+          this.stopIdOfAttraction = stop.stopId;
+          this.chosenCity = stop.name;
+          if (this.arrAttractions.length === 0) {
+            let displayText = `No attractions found at ${stop.name}. `;
 
+            if (this.radius !== this.maxRadius) {
+              displayText += 'Increasing the radius may help.';
+            } else {
+              displayText += 'Please check for other stops.';
+            }
+
+            (this.noAttractionsFoundElement
+              .nativeElement as HTMLDivElement).innerText = displayText;
+            if (
+              !(this.noAttractionsFoundElement
+                .nativeElement as HTMLDivElement).classList.contains(
+                'no-attractions-found'
+              )
+            ) {
+              (this.noAttractionsFoundElement
+                .nativeElement as HTMLDivElement).classList.add(
+                'no-attractions-found'
+              );
+            }
+          } else {
+            (this.noAttractionsFoundElement
+              .nativeElement as HTMLDivElement).innerText = '';
+            if (
+              (this.noAttractionsFoundElement
+                .nativeElement as HTMLDivElement).classList.contains(
+                'no-attractions-found'
+              )
+            ) {
+              (this.noAttractionsFoundElement
+                .nativeElement as HTMLDivElement).classList.remove(
+                'no-attractions-found'
+              );
+            }
+          }
+          this.pagination = pagination;
+          this.displayLoader = false;
+          this.displayMoreAttractionsLoader = false;
+        });
+      }
+    );
   }
 
   getAttractionData(attractionDataApi) {
@@ -144,7 +163,8 @@ export class AttractionCardListComponent implements OnInit {
     this.search.setValue('');
   }
   loadMoreAttractions() {
-    if (this.pagination.hasNextPage) {
+    if (this.pagination.hasNextPage && this.displayMoreAttractionsLoader === false) {
+      this.displayMoreAttractionsLoader = true;
       this.pagination.nextPage();
     }
   }
@@ -154,16 +174,15 @@ export class AttractionCardListComponent implements OnInit {
     dialogConfig.width = '450px';
     dialogConfig.height = '230px';
 
-    dialogConfig.data = {attractionType: this.attractionType};
+    dialogConfig.data = { attractionType: this.attractionType };
     const dialogRef = this.dialog.open(FilterComponent, dialogConfig);
 
-    dialogRef.afterClosed()
-      .subscribe(attractionType => {
-        if (attractionType) {
-          this.attractionType = attractionType;
-          this.attractionByStop(this.stop);
-        }
-      });
+    dialogRef.afterClosed().subscribe(attractionType => {
+      if (attractionType) {
+        this.attractionType = attractionType;
+        this.attractionByStop(this.stop);
+      }
+    });
   }
 }
 
