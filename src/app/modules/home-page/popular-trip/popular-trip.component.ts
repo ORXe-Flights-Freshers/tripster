@@ -21,13 +21,12 @@ export class PopularTripComponent implements OnInit {
 
   ngOnInit() {
 
-    // this.imageUrl = this.popularTripService.getPlaceImageUrl(this.lat, this.lng);
     this.source = this.popularTrip.source.name;
     this.destination = this.popularTrip.destination.name;
   }
 
   onClick() {
-    this.popularTripService.popularTripSubject.next(this.popularTrip);
+    this.popularTripService.setPopularTrip(this.popularTrip);
   }
 
 }
