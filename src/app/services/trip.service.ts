@@ -386,13 +386,15 @@ export class TripService {
     }
   }
 
-  removeStopFromTrip(stopId: string): string {
+  removeStopFromTrip(stopIncoming: Stop): string {
     const stops = [];
 
     this.trip.stops.forEach((stop: Stop) => {
-      if (stop.stopId !== stopId) {
-        stops.push(stop);
-      }
+      if (!(stop.stopId === stopIncoming.stopId &&
+          stop.arrival === stopIncoming.arrival &&
+          stop.departure === stopIncoming.departure)) {
+            stops.push(stop);
+          }
     });
 
     this.trip.stops = stops;
@@ -407,31 +409,22 @@ export class TripService {
     console.log(`Edited ${sourceOrDestination}...`);
   }
 
-  deletePlaceFromStop(stopId: string, placeId: string, placeType: string) {
-    for (const stop of [this.trip.source, ...this.trip.stops, this.trip.destination]) {
-      if (stop.stopId === stopId) {
-        if (placeType === 'hotel') {
-          const hotels = [];
-          for (const hotel of stop.hotels) {
-            if (hotel.placeId !== placeId) {
-              hotels.push(hotel);
-            }
-          }
-          stop.hotels = hotels;
-        } else if (placeType === 'attraction') {
-          const attractions = [];
-          for (const attraction of stop.attractions) {
-            if (attraction.placeId !== placeId) {
-              attractions.push(attraction);
-            }
-          }
-          stop.attractions = attractions;
-        }
-        this.stopSubject.next(stop);
-        break;
-      }
+  deletePlaceFromStop(stop: Stop, place, placeType: string) {
+    if (placeType === 'hotel') {
+      stop.hotels = stop.hotels.filter(hotel => {
+        return !(hotel.placeId === place.id &&
+                hotel.arrival === place.arrivalTime.toString() &&
+                hotel.departure === place.departureTime.toString());
+      });
+    } else if (placeType === 'attraction') {
+      stop.attractions = stop.attractions.filter(attraction => {
+        return !(attraction.placeId === place.id &&
+                attraction.arrival === place.arrivalTime.toString() &&
+                attraction.departure === place.departureTime.toString());
+      });
     }
 
+    this.stopSubject.next(stop);
     this.updateWaypoints();
     this.updateTrip(this.trip).subscribe();
   }

@@ -170,14 +170,14 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
 
   editOrRemoveStop() {
     if (this.stopType === 'stop') {
-      this.tripService.removeStopFromTrip(this.stop.stopId);
+      this.tripService.removeStopFromTrip(this.stop);
     } else {
       this.tripService.editSourceOrDestination(this.stop, this.stopType);
     }
   }
 
   deletePlace(placeId: string, placeType: string) {
-    this.tripService.deletePlaceFromStop(this.stop.stopId, placeId, placeType);
+    this.tripService.deletePlaceFromStop(this.stop, placeId, placeType);
   }
 
   ngAfterViewInit() {

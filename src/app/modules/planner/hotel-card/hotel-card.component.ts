@@ -36,9 +36,7 @@ export class HotelCardComponent implements OnInit {
 
     dialogRef.afterClosed()
       .subscribe(placeFromDialog => {
-        console.log(placeFromDialog);
         if (placeFromDialog) {
-          console.log(placeFromDialog);
           this.tripService.addHotelToTrip(placeFromDialog, this.stopIdOfHotel);
           this.openSnackBar('Hotel Added Successfully', 'OK');
         }
