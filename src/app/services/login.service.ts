@@ -36,7 +36,6 @@ export class LoginService {
       )
       .pipe(take(1))
       .subscribe((trips: Trip[]) => {
-        console.log(trips);
         this.tripsArray = trips;
       });
   }

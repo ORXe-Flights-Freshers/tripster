@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
         this.loginService.user = user;
         this.loginService.loggedIn = true;
         this.loginService.saveUser(user);
+        // console.log(socialUser);
       } else {
         this.loginService.user = null;
         this.loginService.loggedIn = false;

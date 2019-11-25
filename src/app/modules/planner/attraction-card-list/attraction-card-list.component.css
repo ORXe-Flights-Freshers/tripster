@@ -132,3 +132,6 @@
   transition-duration: 0.2s;
   cursor: pointer;
 }
+.more-attractions-loader{
+    margin-left: 47%;
+}
