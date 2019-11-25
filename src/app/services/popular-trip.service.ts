@@ -9,8 +9,4 @@ export class PopularTripService {
   placeService: google.maps.places.PlacesService;
 
   constructor(private http: HttpClient) { }
-
-  getPlaceImageUrl(lat: number, lng: number): string {
-    return '';
-  }
 }
