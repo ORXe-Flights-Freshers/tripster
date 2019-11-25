@@ -129,10 +129,6 @@ export class AddStopComponent implements OnInit {
     return this.departureDate.getDate() > this.arrivalDate.getDate();
   }
 
-  handleArrivalDateSet(date) {
-
-  }
-
   handleDepartureDateSet(date) {
     this.departureDate = new Date(date.value);
     const newDepartureTime = Time.parseTimeStringToTime(this.departureTime);
