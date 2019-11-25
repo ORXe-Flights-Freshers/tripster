@@ -22,6 +22,7 @@ import {AddAttractionDetailsComponent} from './add-attraction-details/add-attrac
 import {TimelineStopComponent} from './timeline-stop/timeline-stop.component';
 import {SearchPipe} from './pipe/search.pipe';
 import { FilterComponent } from './filter/filter.component';
+import { ScrollTrackerDirective } from './directives/scroll-tracker.directive';
 
 const routes: Routes = [
   {
@@ -51,6 +52,7 @@ const routes: Routes = [
     TimelineStopComponent,
     SearchPipe,
     FilterComponent,
+    ScrollTrackerDirective
   ],
   imports: [
     AgmCoreModule.forRoot({

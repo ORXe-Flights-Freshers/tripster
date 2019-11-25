@@ -7,12 +7,13 @@
   <div class="timeline-body">
     <div
       class="duration-between-stops-container"
+
     >
       <div
         class="duration"
         *ngFor="let duration of durationBetweenStops; let i = index"
         [ngStyle]="{
-          marginTop: durationsMarginTop[i].toString() + 'px'
+          marginTop: durationsMarginTop[i]?.toString() + 'px'
         }"
       >
       {{ duration }}
@@ -53,7 +54,7 @@
       <li>
         <a href="{{ getNavigationUrl() }}" target="_blank">
           <button class="btn-footer">
-            <i class="fa  fa-map"></i>
+            <i class="fa fa-map"></i>
             Navigate
           </button>
         </a>

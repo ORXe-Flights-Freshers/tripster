@@ -7,5 +7,12 @@
   <div class="info">
     <h1 class="tagline">Plan your trip like never before</h1>
   </div>
-  <app-search></app-search>
+  <app-search [popularTrip]="popularTrip" [source]="source"></app-search>
+
+  <button (click)="getPopularTrips()">Get popular Trips</button>
+
+  <div *ngFor="let trip of popularTrips">
+  <button (click)="setPopularTripToTrip(trip)"> {{ trip?.source?.name }} -> {{ trip?.destination?.name }} </button>
+  </div>
+
 </div>

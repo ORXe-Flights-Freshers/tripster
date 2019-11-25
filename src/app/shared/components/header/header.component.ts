@@ -1,5 +1,7 @@
 import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import {HeaderDataService} from '../../../services/HeaderData/header-data.service';
+import { AuthService, GoogleLoginProvider } from 'angularx-social-login';
+import { LoginService } from '@services/login.service';
 
 @Component({
   selector: 'app-header',
@@ -32,7 +34,7 @@ export class HeaderComponent {
     this.windowWidth = (event.target as Window).innerWidth;
   }
 
-  constructor(public extraOptions: HeaderDataService) {
+  constructor(public extraOptions: HeaderDataService, private authService: AuthService, public loginService: LoginService) {
     this.windowWidth = window.innerWidth;
   }
 
@@ -66,5 +68,11 @@ export class HeaderComponent {
     }
 
     return '40%';
+  }
+  signInWithGoogle() {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+  signOut() {
+    this.authService.signOut(true);
   }
 }

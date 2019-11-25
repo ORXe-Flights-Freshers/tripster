@@ -49,6 +49,9 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
 
   stopSubscription: Subscription;
 
+  stopNameBoxWidth: number;
+  displayStopNamePopUp = false;
+
   arrivalDate: Date;
   departureDate: Date;
   helperCanvas: HelperCanvas;
@@ -229,8 +232,9 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
   }
 
   writeStopLabel() {
+    const stopName = this.stop.name.length <= 10 ? this.stop.name : this.stop.name.substr(0, 10) + '...';
     const textWidth =
-      this.helperCanvas.canvasContext.measureText(this.stop.name).width;
+      this.helperCanvas.canvasContext.measureText(stopName).width;
     const currentFontSize =
       +this.helperCanvas.canvasContext.font.split('px')[0];
     let fontSize = 11;
@@ -239,7 +243,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
       fontSize = 10;
     }
 
-    const outlineRectWidth = (fontSize * (textWidth + 18)) / currentFontSize;
+    this.stopNameBoxWidth = (fontSize * (textWidth + 18)) / currentFontSize;
 
     if (!this.places) {
       this.stopLabelYCoordinate = (this.mapped.height / 2);
@@ -247,16 +251,17 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
 
     this.helperCanvas.drawFilledRect(
       32, this.stopLabelYCoordinate - 10,
-      outlineRectWidth, 20, this.currentTheme.backgroundColor
+      this.stopNameBoxWidth, 20, this.currentTheme.backgroundColor
     );
 
     this.helperCanvas.drawRoundedRect(
       32, this.stopLabelYCoordinate - 10,
-      outlineRectWidth, 20, 10, this.currentTheme.color
+      this.stopNameBoxWidth, 20, 10, this.currentTheme.color
     );
 
     this.helperCanvas.writeText(
-      this.stop.name, 40, this.stopLabelYCoordinate + 3,
+      stopName,
+      40, this.stopLabelYCoordinate + 3,
       fontSize, this.currentTheme.color,
       'bold ' + fontSize + 'px ' + this.helperCanvas.fontFamily
     );

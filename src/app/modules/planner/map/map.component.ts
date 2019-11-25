@@ -42,6 +42,7 @@ export class MapComponent {
   showRoute(agmMap: AgmMap) {
     console.log('dsfd');
     agmMap.triggerResize(true);
+    this.tripService.hidePlaceMarker();
   }
   openPlaceLink(placeId, placeName) {
     const link = document.createElement('a');

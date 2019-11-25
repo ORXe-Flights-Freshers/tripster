@@ -75,7 +75,7 @@ export class AttractionCardListComponent implements OnInit {
             imageUrl: placeResult.photos ? placeResult.photos[0].getUrl({
               maxHeight: 200,
               maxWidth: 200
-            }) : 'http://lorempixel.com/200/200/nature/?id=' + Math.random(),
+            }) : null,
             arrival: '',
             departure: ''
           };
@@ -143,14 +143,16 @@ export class AttractionCardListComponent implements OnInit {
   handleSearchBarOpen() {
     this.search.setValue('');
   }
-  loadMoreAttractions(loadMoreBtn) {
-    this.pagination.nextPage();
+  loadMoreAttractions() {
+    if (this.pagination.hasNextPage) {
+      this.pagination.nextPage();
+    }
   }
   openFilterDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.width = '450px';
-    dialogConfig.height = '250px';
+    dialogConfig.height = '230px';
 
     dialogConfig.data = {attractionType: this.attractionType};
     const dialogRef = this.dialog.open(FilterComponent, dialogConfig);

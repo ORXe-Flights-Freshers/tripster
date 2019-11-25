@@ -2,6 +2,7 @@
 
 :root {
   --main-theme-color: black;
+  --body-height: 521px;
 }
 
 html, body {
@@ -10,7 +11,7 @@ html, body {
 
 body {
   margin: 0;
-  font-family: Roboto, "Arial", sans-serif;
+  font-family: "Arial", sans-serif;
   min-width: 350px;
 }
 

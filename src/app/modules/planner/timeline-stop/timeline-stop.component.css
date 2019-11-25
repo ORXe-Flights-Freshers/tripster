@@ -35,6 +35,28 @@
   cursor: pointer;
 }
 
+.stop-details {
+  position: absolute;
+}
+
+.stop-hover {
+  margin-left: 50px;
+  margin-top: 55px;
+
+  padding: 0;
+
+  overflow: hidden;
+  border: 1px solid red;
+  background-color: greenyellow;
+
+  height: 34px;
+  cursor: pointer;
+}
+
+.show-stop-name {
+
+}
+
 .places-holder {
   margin-top: 127px;
 }

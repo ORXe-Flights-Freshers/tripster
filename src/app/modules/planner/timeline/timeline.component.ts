@@ -5,6 +5,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ShareTripComponent} from '../share-trip/share-trip.component';
+import { TimePickerThemeService } from '@services/TimePickerTheme.service';
 
 @Component({
   selector: 'app-timeline',
@@ -24,17 +25,20 @@ export class TimelineComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tripService.durationSubject.subscribe((durationBetweenStops: string[]) => {
-      this.durationBetweenStops = durationBetweenStops;
-    });
-
-    this.tripService.stopSubject.subscribe(stop => {
+    this.tripService.stopSubject.subscribe(_ => {
       this.durationsMarginTop = [130, ];
+      this.durationBetweenStops = [];
 
       this.tripService.trip.stops.forEach((stop, index) => {
-        this.durationsMarginTop.push(150 + this.getNumberOfPlacesAtStop(index + 1) * 76);
+        this.durationsMarginTop.push(137 + this.getNumberOfPlacesAtStop(index) * 76);
       });
+      this.durationBetweenStops = this.tripService.getTimeBetweenStops();
     });
+    this.durationBetweenStops = this.tripService.getTimeBetweenStops();
+
+    if (this.tripService.trip) {
+      this.tripService.stopSubject.next(this.tripService.trip.source);
+    }
   }
 
   getNumberOfPlacesAtStop(index: number) {
@@ -46,7 +50,7 @@ export class TimelineComponent implements OnInit {
       return 0;
     }
 
-    const stop = this.tripService.trip.stops[index - 1];
+    const stop = this.tripService.trip.stops[index];
 
     if (!stop) {
       return 0;
@@ -101,9 +105,14 @@ export class TimelineComponent implements OnInit {
         '&destination=' +
         this.tripService.trip.destination.name +
         '&travelmode=driving&waypoints=';
-      this.tripService.waypoints.forEach(waypoint => {
-        url += waypoint.location.lat + ',' + waypoint.location.lng + '|';
+      this.tripService.waypoints.forEach((waypoint, index) => {
+        url += this.tripService.waypointsInfo[index].name + '|';
       });
+      url += '&waypoint_place_ids=';
+      this.tripService.waypoints.forEach((waypoint, index) => {
+        url += this.tripService.waypointsInfo[index].placeId + '|';
+      });
+
     }
     return url;
   }
