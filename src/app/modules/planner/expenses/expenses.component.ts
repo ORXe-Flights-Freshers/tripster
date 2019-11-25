@@ -21,9 +21,10 @@ export class ExpensesComponent implements OnInit {
 
   ngOnInit() {
     this.mileageOfCar = this.tripService.trip.mileage;
-    this.tripService.getFuelPrice().subscribe(fuelPrice => {
-      if (fuelPrice as number !== -1) {
-        this.fuelCostPerLiter = fuelPrice as number;
+    this.tripService.getFuelPrice().subscribe(value => {
+      const fuelPrice = value as number;
+      if (fuelPrice !== -1 && fuelPrice >= 60 && fuelPrice <= 85) {
+        this.fuelCostPerLiter = fuelPrice;
         this.fuelPriceFromSource = true;
       }
     });
