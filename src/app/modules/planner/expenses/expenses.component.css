@@ -17,6 +17,12 @@ table {
   margin-left: 5%;
 }
 
+.fuel-price-info {
+  position: absolute;
+  margin-top: 62%;
+  margin-left: 5%;
+}
+
 tr td {
   border: 1px solid var(--main-theme-color);
 }
@@ -31,4 +37,23 @@ input {
 }
 .fuel-price-info {
   color: red;
+}
+
+.loader {
+  position: absolute;
+
+  width: 100%;
+  height: 430px;
+
+  border-radius: 20px;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.more-attractions-loader {
+  position: relative;
+  margin-left: 41%;
+  margin-top: 170px;
+
+  transform: translate(-50%, -50%);
 }
