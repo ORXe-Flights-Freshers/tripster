@@ -1,1 +1,18 @@
-<p>popular-trip works!</p>
+<div
+  class="body"
+  [ngStyle]="{
+    background: 'url(' + imageUrl + ')'
+  }"
+>
+  <div class="container">
+    <div class="source">
+      {{ source }}
+    </div>
+    <div class="to">
+      To
+    </div>
+    <div class="destination">
+      {{ destination }}
+    </div>
+  </div>
+</div>
