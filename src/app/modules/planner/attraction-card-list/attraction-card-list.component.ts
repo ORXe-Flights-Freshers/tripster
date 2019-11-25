@@ -32,9 +32,7 @@ export class AttractionCardListComponent implements OnInit {
   noAttractionsFoundElement: ElementRef;
 
   constructor(
-    private httpService: HttpClient,
     public tripService: TripService,
-    private changeDetectorRef: ChangeDetectorRef,
     private ngZone: NgZone,
     public dialog: MatDialog
   ) {
