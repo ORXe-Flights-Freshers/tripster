@@ -6,6 +6,7 @@ import { TripService } from '@services/trip.service';
 import { FormControl } from '@angular/forms';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { FilterComponent } from '@planner/filter/filter.component';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-attraction-card-list',
@@ -74,12 +75,12 @@ export class AttractionCardListComponent implements OnInit {
               latitude: placeResult.geometry.location.lat(),
               longitude: placeResult.geometry.location.lng()
             },
-            imageUrl: placeResult.photos
+            imageUrl: environment.production ? placeResult.photos
               ? placeResult.photos[0].getUrl({
                   maxHeight: 200,
                   maxWidth: 200
                 })
-              : null,
+              : null : null,
             arrival: '',
             departure: ''
           };
