@@ -9,6 +9,7 @@ import {InputErrorStateMatcher} from './ErrorMatcher';
   styleUrls: ['./place-autocomplete.component.css']
 })
 export class PlaceAutocompleteComponent implements OnInit {
+  @Input() value: string;
 
   constructor(private ngZone: NgZone, private mapsAPILoader: MapsAPILoader) {
   }
