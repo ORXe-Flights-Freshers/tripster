@@ -1,6 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
 .container {
   position: absolute;
   width: 100%;
+
+  background-color: rgb(238, 238, 238);
 }
 
 img,
@@ -49,4 +58,37 @@ img {
   letter-spacing: 1px;
 
   margin: 100px auto auto;
+}
+
+.popular-trips {
+  width: 80%;
+  height: 300px;
+
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 50px;
+}
+
+.popular-trips .text {
+  font-size: 18px;
+}
+
+.popular-trips .trip-list {
+  display: inline-flex;
+  width: 100%;
+
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+.popular-trips .trip-list .trip {
+  width: 230px;
+  height: 250px;
+
+  background-color: white;
+
+  border: 1px solid rgb(199, 199, 199);
+  border-radius: 10px;
+
+  overflow: hidden;
 }

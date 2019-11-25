@@ -10,30 +10,20 @@ import { PopularTrip } from '@models/PopularTrip';
 })
 export class HomePageComponent implements OnInit {
    popularTrips: PopularTrip[];
-   popularTrip: PopularTrip;
-   source: string;
-   popularTripOrigin: google.maps.places.PlaceResult;
+
   constructor(private headerDataService: HeaderDataService,
               private tripService: TripService) {
     this.headerDataService.customizeHeaderForHomePage();
   }
 
   ngOnInit() {
+    this.getPopularTrips();
   }
 
   getPopularTrips() {
-    this.tripService.getPopularTrips(5).subscribe((data: PopularTrip[]) => {
+    this.tripService.getPopularTrips(4).subscribe((data: PopularTrip[]) => {
      this.popularTrips = data;
-     console.log(this.popularTrips);
    });
-
-  }
-
-  setPopularTripToTrip(trip: PopularTrip) {
-
-    this.popularTrip = trip;
-    this.source = trip.source.name;
-
   }
 
 }

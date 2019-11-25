@@ -13,5 +13,8 @@
 
   <div class="stops">Stops: {{ numberOfStops }}</div>
 
-  <div class="click"></div>
+  <div
+    class="click"
+    [routerLink]="['/planner', trip.id]"
+  ></div>
 </div>

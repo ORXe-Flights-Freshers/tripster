@@ -1,4 +1,4 @@
-import {Stop} from './Stop';
+import { Stop } from './Stop';
 
 export interface Trip {
   id?: string;
@@ -6,4 +6,5 @@ export interface Trip {
   stops: Stop[];
   destination: Stop;
   mileage: number;
+  userId: string;
 }
