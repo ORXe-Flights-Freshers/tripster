@@ -55,5 +55,15 @@
     </tr>
     </tbody>
   </table>
-  <span class="fuel-price-info" *ngIf="fuelPriceFromSource">*Current Fuel Price in {{tripService?.trip.source.name}} </span>
+
+  <span class="fuel-price-info" *ngIf="fuelPriceFromSource">
+    *Current Fuel Price in {{tripService?.trip.source.name}}
+  </span>
+  <span class="fuel-price-info" *ngIf="!fuelPriceFromSource && !displayLoader">
+    *Fuel Price can't be fetched for {{tripService?.trip.source.name}}
+  </span>
+
+  <div class="loader" *ngIf="displayLoader">
+    <mat-spinner class="more-attractions-loader"></mat-spinner>
+  </div>
 </div>
