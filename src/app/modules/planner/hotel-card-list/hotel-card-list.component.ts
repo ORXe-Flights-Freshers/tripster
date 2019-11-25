@@ -6,7 +6,7 @@ import { Hotel } from '@models/Hotel';
 import { FormControl } from '@angular/forms';
 
 interface HotelResult {
-  hotelId: string;
+  id: string;
   name: string;
   contact: {
     address: {
@@ -138,7 +138,7 @@ export class HotelCardListComponent implements OnInit {
 
   getHotelData(hotelDataApi: HotelResult) {
     const hotelData: Hotel = {
-      placeId: hotelDataApi.hotelId,
+      placeId: hotelDataApi.id,
       name: hotelDataApi.name,
       description:
         hotelDataApi.contact.address.line1 +
