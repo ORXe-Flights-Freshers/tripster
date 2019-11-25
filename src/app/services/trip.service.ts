@@ -43,6 +43,12 @@ export class TripService {
     return this.http.post(environment.baseUrl + ':' + environment.port + '/api/trip', trip);
   }
 
+  getPopularTrips(limit: number) {
+
+    return this.http.get(environment.baseUrl + ':' + environment.port + '/api/populartrip/' + limit);
+  }
+
+
   getTrip(tripId: string) {
     this.http.get(environment.baseUrl + ':' + environment.port + '/api/trip/' + tripId)
       .subscribe(
