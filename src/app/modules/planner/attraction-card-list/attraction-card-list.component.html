@@ -54,6 +54,9 @@
       *ngFor="let attraction of arrAttractions|search:'name':searchQuery"
       [attractionData]="attraction"
     ></app-attraction-card>
+    <div *ngIf="displayMoreAttractionsLoader">
+      <mat-spinner [diameter]="40" class="more-attractions-loader"></mat-spinner>
+    </div>
     <!-- <button class="load-more-btn-attraction" *ngIf="arrAttractions.length > 0 && pagination?.hasNextPage" #loadMoreBtn (click)="loadMoreAttractions(loadMoreBtn)">Load More</button> -->
   </div>
 
