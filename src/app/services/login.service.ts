@@ -11,6 +11,7 @@ import { environment } from '@environments/environment';
 export class LoginService {
   loggedIn: boolean;
   user: User;
+  firstName = ' ';
   tripsArray: Trip[];
   constructor(private http: HttpClient) {}
 

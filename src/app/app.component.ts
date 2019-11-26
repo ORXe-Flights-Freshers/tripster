@@ -28,11 +28,13 @@ export class AppComponent implements OnInit {
           provider: socialUser.provider,
         };
         this.loginService.user = user;
+        this.loginService.firstName = socialUser.firstName;
         this.loginService.loggedIn = true;
         this.loginService.saveUser(user);
         // console.log(socialUser);
       } else {
         this.loginService.user = null;
+        this.loginService.firstName = '';
         this.loginService.loggedIn = false;
       }
       this.loginService.setPastTrips();

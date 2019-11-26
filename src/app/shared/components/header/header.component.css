@@ -58,36 +58,23 @@ ul.extras {
   justify-content: space-between;
 }
 
+ul.extras li {
+  width: fit-content;
+  font-size: 14px;
+  margin-left: 25px;
+}
+
 ul.extras li:hover {
   cursor: pointer;
   color: #7f7f7f;
-  font-size: 1.1em;
+  font-size: 16px;
   text-decoration: underline;
   transition: 0.2s ease-in-out;
 }
 
-@media screen and (max-width: 1300px) and (min-width: 1100px) {
-  ul.extras {
-    width: 15%;
-  }
-}
-
-@media screen and (max-width: 1100px) and (min-width: 950px) {
-  ul.extras {
-    width: 18%;
-  }
-}
-
-@media screen and (max-width: 950px) and (min-width: 800px) {
-  ul.extras {
-    width: 21%;
-  }
-}
-
-@media screen and (max-width: 800px) and (min-width: 0px) {
-  ul.extras {
-    width: 30%;
-  }
+.user-img {
+  position: relative;
+  height: 18px;
 }
 
 @media screen and (max-width: 615px) {
@@ -105,6 +92,7 @@ ul.extras li:hover {
 
   .extras {
     position: absolute;
+    width: 200px;
     background-color: var(--main-theme-color);
 
     left: 0;
@@ -119,12 +107,18 @@ ul.extras li:hover {
     transition: transform 0.5s ease-in-out;
   }
 
-  .extras li {
-    padding-left: 35%;
+  ul.extras li {
+    width: 200px;
     padding-top: 10px;
+    padding-left: 35px;
 
     height: 40px;
     font-size: 20px;
+    margin: 0;
+  }
+
+  ul.extras li .text {
+    margin: auto;
   }
 
   .extras li:hover {
@@ -139,12 +133,12 @@ ul.extras li:hover {
   .project-title {
     margin-left: 30%;
   }
+
+  .user-img {
+    display: none;
+  }
 }
 
 .nav-active {
   transform: translateX(0);
-}
-.user-img {
-  height: 37px;
-  margin-right: 10px;
 }
