@@ -18,6 +18,7 @@ import { Hotel } from '@models/Hotel';
 import { Stop } from '@models/Stop';
 import { Location } from '@models/Location';
 import { Attraction } from '@models/Attraction';
+import { LoginService } from '@services/login.service';
 
 interface TimelinePlace {
   id: string;
@@ -94,7 +95,8 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
   currentTheme;
 
   constructor(public tripService: TripService,
-              public utilityService: UtilityService) {
+              public utilityService: UtilityService,
+              public loginService: LoginService) {
     this.currentTheme = this.lightTheme;
   }
 

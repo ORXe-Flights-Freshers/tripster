@@ -29,6 +29,7 @@
       (mouseover)="buttons.deleteHover=true"
       (mouseleave)="buttons.deleteHover=false"
       (click)="editOrRemoveStop()"
+      *ngIf="loginService?.canModifyTrip"
     >
       <i
         class="fa fa-lg"
@@ -66,6 +67,7 @@
         }"
         (mouseover)="buttons.deletePlaces[i]=true"
         (mouseleave)="buttons.deletePlaces[i]=false"
+        *ngIf="loginService?.canModifyTrip"
       >
         <i
           class="fa fa-trash fa-lg"

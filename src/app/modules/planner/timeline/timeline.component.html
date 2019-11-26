@@ -39,7 +39,7 @@
   </div>
 
   <div class="footer-nav">
-    <button class="add-stop" (click)="openStopDialog()">
+    <button *ngIf="loginService?.canModifyTrip" class="add-stop" (click)="openStopDialog()">
       <i class="fa fa-plus"></i>
       Add Stop
     </button>
