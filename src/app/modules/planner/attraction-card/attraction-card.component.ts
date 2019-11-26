@@ -17,7 +17,7 @@ export class AttractionCardComponent {
 
   @ViewChild('headingDetails', {static: false}) headingDetails: ElementRef;
 
-  constructor(public tripService: TripService, private loginService: LoginService,
+  constructor(public tripService: TripService, public loginService: LoginService,
               public dialog: MatDialog, private snackBar: MatSnackBar) {
   }
 

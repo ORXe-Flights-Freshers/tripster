@@ -37,20 +37,24 @@
 
 .stop-details {
   position: absolute;
+  margin-left: 50px;
 }
 
 .stop-hover {
-  margin-left: 50px;
   margin-top: 55px;
 
   padding: 0;
 
   overflow: hidden;
-  border: 1px solid red;
+  border: 1px solid blue;
   background-color: greenyellow;
 
   height: 34px;
   cursor: pointer;
+}
+
+.stop-hover:hover {
+  background-color: red;
 }
 
 .show-stop-name {
