@@ -6,7 +6,9 @@ import {
 } from 'angularx-social-login';
 import { LoginService } from '@services/login.service';
 import { User } from '@models/User';
+import {Router, NavigationEnd} from '@angular/router';
 import { TripService } from '@services/trip.service';
+declare let ga: Function;
 
 @Component({
   selector: 'app-root',
@@ -16,10 +18,21 @@ import { TripService } from '@services/trip.service';
 export class AppComponent implements OnInit {
   title = 'tripster';
   constructor(private authService: AuthService,
+              public router: Router,
               private loginService: LoginService,
               private tripService: TripService) {
   }
   ngOnInit() {
+
+    this.router.events.subscribe(event => {
+
+      if (event instanceof NavigationEnd) {
+        ga('set', 'page', event.urlAfterRedirects);
+        ga('send', 'pageview');
+
+      }
+
+    });
     this.authService.authState.subscribe((socialUser: SocialUser) => {
       if (socialUser) {
         const user: User = {
