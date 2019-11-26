@@ -1,5 +1,5 @@
 <div class="body">
-  <div class="container">
+  <div class="container" *ngIf="loginService?.pastTripsAvailable">
       <h2 *ngIf='loginService?.loggedIn'>
         Your Past Trips (Total: {{  loginService?.tripsArray?.length }})
       </h2>
@@ -13,5 +13,9 @@
       <div *ngIf='!loginService.loggedIn'>
         <h2>Please login to to view your previous trips.</h2>
       </div>
+  </div>
+
+  <div class="container-loader" *ngIf="!loginService?.pastTripsAvailable">
+      <mat-spinner class="spinner"></mat-spinner>
   </div>
 </div>
