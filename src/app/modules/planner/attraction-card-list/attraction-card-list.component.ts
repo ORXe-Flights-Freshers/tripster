@@ -78,7 +78,7 @@ export class AttractionCardListComponent implements OnInit {
                   maxHeight: 200,
                   maxWidth: 200
                 })
-              : null : null,
+              : null : 'assets\\images\\attraction.jpg',
             arrival: '',
             departure: ''
           };

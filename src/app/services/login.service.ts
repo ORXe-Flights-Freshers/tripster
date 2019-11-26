@@ -4,6 +4,7 @@ import { User } from '@models/User';
 import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { environment } from '@environments/environment';
+import { TripService } from './trip.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class LoginService {
   loggedIn: boolean;
   user: User;
   tripsArray: Trip[];
+  canModifyTrip: boolean;
   constructor(private http: HttpClient) {}
 
   saveUser(user: User) {
