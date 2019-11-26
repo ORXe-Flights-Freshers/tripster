@@ -20,7 +20,7 @@ export class HotelCardComponent implements OnInit {
   @ViewChild('headingDetails', {static: false}) headingDetails: ElementRef;
 
   constructor(public tripService: TripService,
-              private loginService: LoginService,
+              public loginService: LoginService,
               public dialog: MatDialog,
               private snackBar: MatSnackBar) {
   }
