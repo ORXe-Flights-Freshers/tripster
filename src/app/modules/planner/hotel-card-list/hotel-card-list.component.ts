@@ -125,13 +125,15 @@ export class HotelCardListComponent implements OnInit {
                 }
               },
               (error: HttpErrorResponse) => {
-                (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = error.message;
+                (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText =
+                    `Error occurred. ${error.statusText}`;
                 this.displayLoader = false;
               }
             );
         },
         (error: HttpErrorResponse) => {
-          (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText = error.message;
+          (this.noHotelsFoundElement.nativeElement as HTMLDivElement).innerText =
+              `Error occurred. ${error.statusText}`;
           this.displayLoader = false;
         });
   }
