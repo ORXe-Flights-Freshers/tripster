@@ -4,6 +4,7 @@ import {Attraction} from '@models/Attraction';
 import {TripService} from '@services/trip.service';
 import {AddAttractionDetailsComponent} from '../add-attraction-details/add-attraction-details.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginService } from '@services/login.service';
 
 @Component({
   selector: 'app-attraction-card',
@@ -16,26 +17,38 @@ export class AttractionCardComponent {
 
   @ViewChild('headingDetails', {static: false}) headingDetails: ElementRef;
 
-  constructor(public tripService: TripService,
+  constructor(public tripService: TripService, public loginService: LoginService,
               public dialog: MatDialog, private snackBar: MatSnackBar) {
   }
 
   openAttractionDialog(attractionData: Attraction): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
-    dialogConfig.height = '510px';
+    if (this.loginService.canModifyTrip) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.width = '400px';
+      dialogConfig.height = '510px';
 
-    dialogConfig.data = {attractionData, stopIdOfAttraction: this.stopIdOfAttraction};
-    const dialogRef = this.dialog.open(AddAttractionDetailsComponent, dialogConfig);
+      dialogConfig.data = {
+        attractionData,
+        stopIdOfAttraction: this.stopIdOfAttraction
+      };
+      const dialogRef = this.dialog.open(
+        AddAttractionDetailsComponent,
+        dialogConfig
+      );
 
-    dialogRef.afterClosed()
-      .subscribe(placeFromDialog => {
+      dialogRef.afterClosed().subscribe(placeFromDialog => {
         if (placeFromDialog) {
-          this.tripService.addAttractionToTrip(placeFromDialog, this.stopIdOfAttraction);
+          this.tripService.addAttractionToTrip(
+            placeFromDialog,
+            this.stopIdOfAttraction
+          );
           this.openSnackBar('Attraction Added Successfully', 'OK');
         }
       });
+    } else {
+      this.openSnackBar('You are not authorized to modify this trip', 'OK');
+    }
   }
 
   openSnackBar(message: string, action: string) {

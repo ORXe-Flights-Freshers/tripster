@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+.body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  /* border: 1px solid black; */
+}
+
+.user-exists,
+.user-not-exists {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.user-not-exists .not-logged-in-message {
+  margin-left: 10px;
+}
+
+.user-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+
+  transform: translateX(-50%);
+  margin-left: 50%;
+  margin-top: 20px;
+
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 1);
+}
+
+.user-name {
+  position: absolute;
+
+  margin-top: 20px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.user-email {
+  position: absolute;
+
+  margin-top: 50px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+
+  font-weight: 400;
+}

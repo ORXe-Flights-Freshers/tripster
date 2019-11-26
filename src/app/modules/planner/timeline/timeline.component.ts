@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ShareTripComponent} from '../share-trip/share-trip.component';
 import { TimePickerThemeService } from '@services/TimePickerTheme.service';
+import { LoginService } from '@services/login.service';
 
 @Component({
   selector: 'app-timeline',
@@ -20,7 +21,8 @@ export class TimelineComponent implements OnInit {
     public tripService: TripService,
     public dialog: MatDialog,
     private router: Router,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    public loginService: LoginService) {
       this.durationsMarginTop = [130, ];
   }
 
@@ -59,21 +61,25 @@ export class TimelineComponent implements OnInit {
   }
 
   openStopDialog(): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
-    dialogConfig.height = '510px';
+    if (this.loginService.canModifyTrip) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.width = '400px';
+      dialogConfig.height = '510px';
 
-    const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
+      const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(stopFromDialog => {
-      if (stopFromDialog) {
-        const responseStatus = this.addStop(stopFromDialog);
-        if (responseStatus) {
-          this.openSnackBar('Stop Added Succesfully', 'OK');
+      dialogRef.afterClosed().subscribe(stopFromDialog => {
+        if (stopFromDialog) {
+          const responseStatus = this.addStop(stopFromDialog);
+          if (responseStatus) {
+            this.openSnackBar('Stop Added Succesfully', 'OK');
+          }
         }
-      }
-    });
+      });
+    } else {
+      this.openSnackBar('You are not authorized to modify this trip', 'OK');
+    }
   }
 
   openShareTripDialog(): void {

@@ -6,6 +6,7 @@ import {
 } from 'angularx-social-login';
 import { LoginService } from '@services/login.service';
 import { User } from '@models/User';
+import { TripService } from '@services/trip.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ import { User } from '@models/User';
 export class AppComponent implements OnInit {
   title = 'tripster';
   constructor(private authService: AuthService,
-              private loginService: LoginService) {
+              private loginService: LoginService,
+              private tripService: TripService) {
   }
   ngOnInit() {
     this.authService.authState.subscribe((socialUser: SocialUser) => {
@@ -28,12 +30,16 @@ export class AppComponent implements OnInit {
           provider: socialUser.provider,
         };
         this.loginService.user = user;
+        this.loginService.firstName = socialUser.firstName;
         this.loginService.loggedIn = true;
         this.loginService.saveUser(user);
+        this.tripService.setCanModifyTrip();
         // console.log(socialUser);
       } else {
         this.loginService.user = null;
+        this.loginService.firstName = '';
         this.loginService.loggedIn = false;
+        this.tripService.setCanModifyTrip();
       }
       this.loginService.setPastTrips();
     });

@@ -10,14 +10,17 @@ import { UtilityService } from '@services/utility.service';
 export class ExpensesComponent implements OnInit {
   mileageOfCar: number;
   fuelCostPerLiter = 80;
-  fuelPriceFromSource = false;
+  fuelPriceFromSource;
+  displayLoader: boolean;
   @ViewChild('price', { static: false }) priceElement: ElementRef;
   @ViewChild('mileage', { static: false }) mileageElement: ElementRef;
 
   constructor(
     public tripService: TripService,
     public utilityService: UtilityService
-  ) {}
+  ) {
+    this.displayLoader = true;
+  }
 
   ngOnInit() {
     this.mileageOfCar = this.tripService.trip.mileage;
@@ -26,7 +29,10 @@ export class ExpensesComponent implements OnInit {
       if (fuelPrice !== -1 && fuelPrice >= 60 && fuelPrice <= 85) {
         this.fuelCostPerLiter = fuelPrice;
         this.fuelPriceFromSource = true;
+      } else {
+        this.fuelPriceFromSource = false;
       }
+      this.displayLoader = false;
     });
   }
 

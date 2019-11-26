@@ -4,6 +4,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {Hotel} from '@models/Hotel';
 import {TripService} from '@services/trip.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { LoginService } from '@services/login.service';
 
 @Component({
   selector: 'app-hotel-card',
@@ -18,29 +19,37 @@ export class HotelCardComponent implements OnInit {
 
   @ViewChild('headingDetails', {static: false}) headingDetails: ElementRef;
 
-  constructor(public tripService: TripService, public dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(public tripService: TripService,
+              public loginService: LoginService,
+              public dialog: MatDialog,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
   }
 
   openHotelDialog(hotelData): void {
+    if (this.loginService.canModifyTrip) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.width = '400px';
+      dialogConfig.height = '510px';
 
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
-    dialogConfig.height = '510px';
+      dialogConfig.data = { hotelData, stopIdOfHotel: this.stopIdOfHotel };
+      const dialogRef = this.dialog.open(
+        AddHotelDetailsComponent,
+        dialogConfig
+      );
 
-    dialogConfig.data = {hotelData, stopIdOfHotel: this.stopIdOfHotel};
-    const dialogRef = this.dialog.open(AddHotelDetailsComponent, dialogConfig);
-
-    dialogRef.afterClosed()
-      .subscribe(placeFromDialog => {
+      dialogRef.afterClosed().subscribe(placeFromDialog => {
         if (placeFromDialog) {
           this.tripService.addHotelToTrip(placeFromDialog, this.stopIdOfHotel);
           this.openSnackBar('Hotel Added Successfully', 'OK');
         }
       });
+    } else {
+      this.openSnackBar('You are not authorized to modify this trip', 'OK');
+    }
   }
 
   openSnackBar(message: string, action: string) {

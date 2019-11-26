@@ -37,7 +37,7 @@
     <img src="assets/icons/location_searching.svg" alt="Locate on map">
   </div>
 
-  <div class="add-btn-hotel" (click)="openHotelDialog(hotelData)">
+  <div *ngIf="loginService?.canModifyTrip" class="add-btn-hotel" (click)="openHotelDialog(hotelData)">
     Add
   </div>
 </div>

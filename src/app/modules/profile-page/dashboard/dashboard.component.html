@@ -1,0 +1,21 @@
+<div class="body">
+  <div class="user-exists" *ngIf="loginService.loggedIn">
+      <img
+        class="user-image"
+        [src]="loginService.user.photoUrl"
+        alt="user-picture"
+      >
+
+      <h3
+        class="user-name"
+      >{{ loginService.user.name }}</h3>
+
+      <h3
+        class="user-email"
+      >{{ loginService.user.email }}</h3>
+  </div>
+
+  <div class="user-not-exists" *ngIf="!loginService.loggedIn">
+    <h3 class="not-logged-in-message">Please login to view your profile.</h3>
+  </div>
+</div>
