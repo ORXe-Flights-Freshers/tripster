@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PastTripsComponent } from './past-trips/past-trips.component';
 import { PastTripItemComponent } from './past-trip-item/past-trip-item.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AppMaterialModule } from '../app-material/app-material.module';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes),
+    AppMaterialModule
   ]
 })
 export class ProfilePageModule { }

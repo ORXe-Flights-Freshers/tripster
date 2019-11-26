@@ -14,6 +14,7 @@ export class LoginService {
   user: User;
   firstName = ' ';
   tripsArray: Trip[];
+  pastTripsAvailable = true;
   canModifyTrip: boolean;
   constructor(private http: HttpClient) {}
 
@@ -29,6 +30,7 @@ export class LoginService {
       return;
     }
 
+    this.pastTripsAvailable = false;
     this.http
       .get(
         environment.baseUrl +
@@ -40,6 +42,7 @@ export class LoginService {
       .pipe(take(1))
       .subscribe((trips: Trip[]) => {
         this.tripsArray = trips;
+        this.pastTripsAvailable = true;
       });
   }
 }
