@@ -12,6 +12,7 @@ import { TripService } from './trip.service';
 export class LoginService {
   loggedIn: boolean;
   user: User;
+  firstName = ' ';
   tripsArray: Trip[];
   canModifyTrip: boolean;
   constructor(private http: HttpClient) {}

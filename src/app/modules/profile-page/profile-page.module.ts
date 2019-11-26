@@ -5,6 +5,7 @@ import { ProfilePageComponent } from './profile-page.component';
 import { Routes, RouterModule } from '@angular/router';
 import { PastTripsComponent } from './past-trips/past-trips.component';
 import { PastTripItemComponent } from './past-trip-item/past-trip-item.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ProfilePageComponent, PastTripsComponent, PastTripItemComponent],
+  declarations: [ProfilePageComponent, PastTripsComponent, PastTripItemComponent, DashboardComponent],
   imports: [
     CommonModule,
     SharedModule,

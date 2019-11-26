@@ -22,7 +22,7 @@ export class TimelineComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private snackBar: MatSnackBar,
-    private loginService: LoginService) {
+    public loginService: LoginService) {
       this.durationsMarginTop = [130, ];
   }
 

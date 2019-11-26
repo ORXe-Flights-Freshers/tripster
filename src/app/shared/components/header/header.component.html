@@ -22,20 +22,21 @@
 
     <ul class="extras"
         #extras
-        [ngStyle]="{
-        width: getWidth()
-      }"
     >
-      <!-- <li
-        *ngFor="let option of extraOptions.links"
-        [routerLink]="option.url"
+      <li
+        *ngIf="loginService?.loggedIn"
+        [routerLink]="['/profile']"
       >
-        {{ option.name }}
-      </li> -->
-      <li *ngIf="loginService?.loggedIn"><img class="user-img" [src]="loginService?.user.photoUrl" alt=""></li>
-      <li *ngIf="loginService?.loggedIn">{{loginService?.user?.name}}</li>
-      <li (click)="signInWithGoogle()" *ngIf="!loginService?.loggedIn">Log in</li>
-      <li (click)="signOut()" *ngIf="loginService?.loggedIn">Log out</li>
+        <span
+          class="user-name text"
+        >Hi, {{loginService?.firstName}}</span>
+      </li>
+      <li (click)="signInWithGoogle()" *ngIf="!loginService?.loggedIn">
+        <span class="text">Log in</span>
+      </li>
+      <li (click)="signOut()" *ngIf="loginService?.loggedIn">
+          <span class="text">Log out</span>
+      </li>
     </ul>
 
   </div>

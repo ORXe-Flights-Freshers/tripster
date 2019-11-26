@@ -8,7 +8,7 @@
         width: stopNameBoxWidth * helperCanvas.resolution + 'px',
         borderRadius: helperCanvas.resolution * 10 + 'px'
       }"
-      (mouseenter)="displayStopNamePopUp=true"
+      (mouseover)="displayStopNamePopUp=true"
       (mouseleave)="displayStopNamePopUp=false"
     >
     </div>
@@ -55,8 +55,8 @@
       <div class="place-image">
         <img
           [src]="place.imageUrl"
-          alt="place image"
-          style="height: 49px; width: 49px;"
+          alt="&nbsp;img"
+          style="height: 49px; width: 49px; font-size: 14px;"
         >
       </div>
       <div class="place-delete"

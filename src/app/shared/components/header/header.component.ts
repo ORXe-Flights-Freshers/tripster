@@ -38,37 +38,6 @@ export class HeaderComponent {
     this.windowWidth = window.innerWidth;
   }
 
-  getWidth() {
-    if (this.windowWidth < 615) {
-      return '30%';
-    }
-
-    if (this.extraOptions.links.length <= 1 && this.windowWidth > 1210) {
-      return '5%';
-    }
-
-    if (this.extraOptions.links.length <= 1 && this.windowWidth > 800) {
-      return '8%';
-    }
-
-    if (this.extraOptions.links.length <= 1 && this.windowWidth > 600) {
-      return '11%';
-    }
-
-    if (this.extraOptions.links.length === 2 && this.windowWidth > 950) {
-      return '17%';
-    }
-
-    if (this.extraOptions.links.length === 2 && this.windowWidth > 800) {
-      return '25%';
-    }
-
-    if (this.extraOptions.links.length === 2 && this.windowWidth > 615) {
-      return '29%';
-    }
-
-    return '40%';
-  }
   signInWithGoogle() {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
