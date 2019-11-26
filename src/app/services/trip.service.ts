@@ -10,6 +10,7 @@ import { Attraction } from '@models/Attraction';
 import { Hotel } from '@models/Hotel';
 import { environment } from '@environments/environment';
 import { LoginService } from './login.service';
+import { Time } from '@models/Time';
 
 @Injectable({
   providedIn: 'root'
@@ -343,39 +344,27 @@ export class TripService {
         Date.parse(this.trip.stops[0].arrival) -
         Date.parse(this.trip.source.departure);
 
-      timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+      timeBetweenStops.push(Time.convertMiliSecondsToDays(timeToCalculate));
 
       for (let index = 1; index < this.trip.stops.length; ++index) {
         timeToCalculate =
           Date.parse(this.trip.stops[index].arrival) -
           Date.parse(this.trip.stops[index - 1].departure);
-        timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+        timeBetweenStops.push(Time.convertMiliSecondsToDays(timeToCalculate));
       }
 
       timeToCalculate =
         Date.parse(this.trip.destination.arrival) -
         Date.parse(this.trip.stops[this.trip.stops.length - 1].departure);
-      timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+      timeBetweenStops.push(Time.convertMiliSecondsToDays(timeToCalculate));
     } else {
       timeToCalculate =
         Date.parse(this.trip.destination.arrival) -
         Date.parse(this.trip.source.departure);
-      timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+      timeBetweenStops.push(Time.convertMiliSecondsToDays(timeToCalculate));
     }
     return timeBetweenStops;
   }
-  convertMiliSecondsToDays(milliSeconds): string {
-    const hours = Math.floor(milliSeconds / (3600 * 1000));
-    const minutes = Math.floor(
-      (milliSeconds - 3600 * 1000 * hours) / (60 * 1000)
-    );
-    if (hours === 0) {
-      return minutes + ' m ';
-    } else {
-      return hours + ' h ' + minutes + ' m ';
-    }
-  }
-
   addTimeToDestinationItineraries(timeToAdd: number) {
     for (const place of [
       ...this.trip.destination.attractions,
