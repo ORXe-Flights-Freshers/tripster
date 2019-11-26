@@ -31,10 +31,10 @@
           class="user-name text"
         >Hi, {{loginService?.firstName}}</span>
       </li>
-      <li (click)="signInWithGoogle()" *ngIf="!loginService?.loggedIn">
+      <li (click)="loginService?.signInWithGoogle()" *ngIf="!loginService?.loggedIn">
         <span class="text">Log in</span>
       </li>
-      <li (click)="signOut()" *ngIf="loginService?.loggedIn">
+      <li (click)="loginService?.signOut()" *ngIf="loginService?.loggedIn">
           <span class="text">Log out</span>
       </li>
     </ul>
