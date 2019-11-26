@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 })
 export class NavigatorService {
   activeTab = 'timeline';
-  profileActiveTab = 'past-trips';
+  profileActiveTab = 'dashboard';
 
   constructor() {
   }
