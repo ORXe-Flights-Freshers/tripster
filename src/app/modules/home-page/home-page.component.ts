@@ -21,8 +21,8 @@ export class HomePageComponent implements OnInit {
   }
 
   getPopularTrips() {
-    this.tripService.getPopularTrips(4).subscribe((data: PopularTrip[]) => {
-     this.popularTrips = data;
+    this.tripService.getPopularTrips(4).subscribe((data) => {
+     this.popularTrips = data['popularTrips'];
    });
   }
 
