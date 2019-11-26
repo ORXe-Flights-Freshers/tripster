@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import {Trip} from '@models/Trip';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Stop} from '@models/Stop';
@@ -10,6 +10,7 @@ import { Attraction } from '@models/Attraction';
 import { Hotel } from '@models/Hotel';
 import { environment } from '@environments/environment';
 import { LoginService } from './login.service';
+import { MapsAPILoader } from '@agm/core';
 
 @Injectable({
   providedIn: 'root'
@@ -25,14 +26,20 @@ export class TripService {
   stopSubject = new Subject<Stop>();
 
   directionResult: google.maps.DirectionsResult;
+  directionService: google.maps.DirectionsService;
   map: google.maps.Map;
 
   constructor(
     private http: HttpClient,
     private route: Router,
     private loggerService: LoggerService,
-    private loginService: LoginService
-  ) {}
+    private loginService: LoginService,
+    private mapsAPILoader: MapsAPILoader
+  ) {
+    this.mapsAPILoader.load().then(() => {
+      this.directionService = new google.maps.DirectionsService();
+    });
+  }
 
   getFuelPrice() {
     const city = this.trip.source.name;
@@ -108,7 +115,6 @@ export class TripService {
   }
 
   updateTimelineTime() {
-    const directionService = new google.maps.DirectionsService();
     const request: google.maps.DirectionsRequest = {
       origin: {
         lat: this.trip.source.location.latitude,
@@ -122,7 +128,7 @@ export class TripService {
       waypoints: this.getWaypointsTimeline(),
       travelMode: google.maps.TravelMode.DRIVING
     };
-    directionService.route(request, result => {
+    this.directionService.route(request, result => {
       if (this.trip.stops.length !== 0) {
         this.trip.stops.forEach((stop, index) => {
           let previousLocation;
