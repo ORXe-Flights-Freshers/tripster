@@ -73,12 +73,12 @@ export class AttractionCardListComponent implements OnInit {
               latitude: placeResult.geometry.location.lat(),
               longitude: placeResult.geometry.location.lng()
             },
-            imageUrl: environment.production ? placeResult.photos
+            imageUrl: environment.production ? (placeResult.photos
               ? placeResult.photos[0].getUrl({
                   maxHeight: 200,
                   maxWidth: 200
                 })
-              : null : 'assets\\images\\attraction.jpg',
+              : null) : 'assets\\images\\attraction.jpg',
             arrival: '',
             departure: ''
           };

@@ -79,6 +79,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   handleSourceChange(place: google.maps.places.PlaceResult) {
     this.origin = place;
+    console.log(place);
     this.checkForDuplicatePlace();
   }
 
@@ -135,6 +136,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.origin === undefined || this.destination === undefined) {
       return;
     }
+
     this.isDuplicatePlace = this.origin.place_id === this.destination.place_id;
     this.changeDetectRef.detectChanges();
   }

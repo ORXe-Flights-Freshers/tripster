@@ -6,7 +6,8 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  OnChanges
+  OnChanges,
+  HostListener
 } from '@angular/core';
 import { HelperCanvas } from './helper-functions';
 import { Subscription } from 'rxjs';
@@ -35,7 +36,7 @@ interface TimelinePlace {
   templateUrl: './timeline-stop.component.html',
   styleUrls: ['./timeline-stop.component.css']
 })
-export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
+export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy {
 
   static canvasDefaultHeight = 90;
 
@@ -93,11 +94,14 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
   };
 
   currentTheme;
+  windowWidth: number;
 
   constructor(public tripService: TripService,
               public utilityService: UtilityService,
               public loginService: LoginService) {
     this.currentTheme = this.lightTheme;
+    this.windowWidth = window.innerWidth;
+    // console.log(`Window width: ${this.windowWidth}`);
   }
 
   ngOnInit() {
@@ -109,12 +113,16 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
     this.stopSubscription.unsubscribe();
   }
 
-  ngOnChanges(changes: import('@angular/core').SimpleChanges): void {
-    // this.updateDates();
-    // this.buildPlaces();
-    // this.buildCanvas();
-    // this.initializeCanvas();
-    // this.startRendering();
+  // Resize listener
+  @HostListener('window:resize', ['$event'])
+  onResize(event: UIEvent) {
+    this.windowWidth = window.innerWidth;
+
+    this.updateDates();
+    this.buildPlaces();
+    this.buildCanvas();
+    this.initializeCanvas();
+    this.startRendering();
   }
 
   updateDates() {
@@ -164,6 +172,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
     const canvas = document.createElement('canvas') as HTMLCanvasElement;
     canvas.classList.add('body');
     canvas.height = this.DefaultCanvasHeight;
+    // console.log(`Canvas height: ${canvas.height}`);
     canvas.innerText = 'Sorry, the timeline can\'t be displayed.\n' +
       '      Your device doesn\'t support canvas rendering.';
     this.canvasElement = canvas;
@@ -206,12 +215,25 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
         this.DefaultCanvasHeight + (this.placesHeightOffset * this.places.length);
     }
 
+    if (this.stopType !== 'stop' && this.windowWidth <= 400) {
+      // console.log('Increasing height...');
+      // this.canvasElement.height += 10;
+    }
+
     this.helperCanvas = new HelperCanvas(this.canvasElement);
 
     this.mapped = {
       width: this.canvasElement.width / this.helperCanvas.resolution - 1,
       height: this.canvasElement.height / this.helperCanvas.resolution - 1
     };
+
+    if (this.windowWidth > 620 && this.windowWidth < 1200) {
+      this.mapped.width = this.windowWidth * 0.8;
+    }
+
+    if (this.windowWidth < 530) {
+      this.mapped.width = this.windowWidth / this.helperCanvas.resolution;
+    }
   }
 
   startRendering() {
@@ -343,28 +365,48 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
       return;
     }
 
-    const displayDate = this.stopType === 'source' ?
+    let displayDate = this.stopType === 'source' ?
       this.utilityService.formatDateTime(aDate) :
       this.utilityService.formatDateTime(aDate);
 
     dateXCoordinate = this.stop.name.length > 12 ? 160 : 140;
+    let dateYCoordinate = this.stopLabelYCoordinate - 8;
 
-    this.helperCanvas.drawFilledRect(
-      dateXCoordinate - 5, this.stopLabelYCoordinate - 8,
-      90, 15,
-      this.currentTheme.sourceAndDestinationDateBackgroundColor
-    );
+    if (this.windowWidth > 400) {
+      this.helperCanvas.drawFilledRect(
+        dateXCoordinate - 5, dateYCoordinate,
+        90, 15,
+        this.currentTheme.sourceAndDestinationDateBackgroundColor
+      );
 
-    this.helperCanvas.drawOutlineRect(
-      dateXCoordinate - 5, this.stopLabelYCoordinate - 8,
-      90, 15,
-      this.currentTheme.sourceAndDestinationDateBorderColor
-    );
+      this.helperCanvas.drawOutlineRect(
+        dateXCoordinate - 5, dateYCoordinate,
+        90, 15,
+        this.currentTheme.sourceAndDestinationDateBorderColor
+      );
 
-    this.helperCanvas.writeText(
-      displayDate, dateXCoordinate,
-      this.stopLabelYCoordinate + 2, dateFontSize, this.currentTheme.color
-    );
+      this.helperCanvas.writeText(
+        displayDate, dateXCoordinate,
+        dateYCoordinate + 10, dateFontSize, this.currentTheme.color
+      );
+    } else {
+      dateYCoordinate += 20;
+      dateXCoordinate -= 105;
+
+      if (this.stopType === 'source') {
+        displayDate = 'Departure: ' + displayDate;
+        dateYCoordinate = 64;
+      } else {
+        displayDate = 'Arrival: ' + displayDate;
+        dateYCoordinate = 32;
+      }
+
+      this.helperCanvas.writeText(
+        displayDate,
+        dateXCoordinate, dateYCoordinate,
+        dateFontSize, this.currentTheme.dateColor
+      );
+    }
   }
 
   renderStopSeparatorLines() {
@@ -375,10 +417,12 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
 
   renderPlaces() {
     let yCoordinate = this.stopLabelYCoordinate + this.placesHeightOffset;
+    const containerWidth = this.windowWidth > 420 ? 180 : 120;
+    const xCoordinatePlaceName = this.windowWidth > 420 ? 80 : 45;
 
     for (const place of this.places) {
       this.helperCanvas.drawOutlineRect(
-        40, yCoordinate - 10, 180, 40, '#ccc'
+        40, yCoordinate - 10, containerWidth, 40, '#ccc'
       );
 
       const placeName = place.name.length > 20 ?
@@ -387,7 +431,7 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
 
       this.helperCanvas.writeText(
         placeName,
-        80,
+        xCoordinatePlaceName,
         yCoordinate + 12.5,
         7,
         this.currentTheme.color,
@@ -428,7 +472,8 @@ export class TimelineStopComponent implements OnInit, AfterViewInit, OnDestroy, 
     const aDate = place.arrivalTime;
     const dDate = place.departureTime;
     const dateFontSize = 7;
-    const dateXCoordinate = 80;
+
+    const dateXCoordinate = this.windowWidth > 420 ? 80 : 45;
 
     this.helperCanvas.writeText(
       'Arrival: ' + this.utilityService.formatDateTime(aDate),

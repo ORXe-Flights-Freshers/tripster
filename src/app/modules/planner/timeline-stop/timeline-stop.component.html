@@ -34,10 +34,13 @@
       <i
         class="fa fa-lg"
         [ngClass]="{
-          'fa-pencil': stopType !== 'stop',
           'fa-trash': stopType === 'stop'
         }"
       ></i>
+      <!-- [ngClass]="{
+        'fa-pencil': stopType !== 'stop',
+        'fa-trash': stopType === 'stop'
+      }" -->
     </div>
   </div>
 
@@ -52,7 +55,7 @@
       }"
       *ngFor="let place of places; let i = index"
     >
-      <div class="place-image">
+      <div class="place-image" *ngIf="windowWidth > 420">
         <img
           [src]="place.imageUrl"
           alt="&nbsp;img"
@@ -74,13 +77,17 @@
           (click)="deletePlace(place, place.type)"
         ></i>
       </div>
-      <div class="place-details"
+      <div
+        class="place-details"
+        [ngStyle]="{
+          width: (windowWidth > 420 ? 289 : 193) + 'px'
+        }"
         (click)="tripService.showPlaceMarker(place)"
       >
       </div>
     </div>
   </div>
 
-  <div #canvasContainer></div>
+  <div #canvasContainer class="canvas-container"></div>
 
 </div>

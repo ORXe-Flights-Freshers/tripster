@@ -1,8 +1,8 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {Trip} from '@models/Trip';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Stop} from '@models/Stop';
-import {Router} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {Place} from '@models/Place';
 import {Subject} from 'rxjs';
 import {LoggerService} from '@services/logger.service';
@@ -10,6 +10,7 @@ import { Attraction } from '@models/Attraction';
 import { Hotel } from '@models/Hotel';
 import { environment } from '@environments/environment';
 import { LoginService } from './login.service';
+import { Time } from '@models/Time';
 import { MapsAPILoader } from '@agm/core';
 
 @Injectable({
@@ -349,39 +350,27 @@ export class TripService {
         Date.parse(this.trip.stops[0].arrival) -
         Date.parse(this.trip.source.departure);
 
-      timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+      timeBetweenStops.push(Time.convertMiliSecondsToDays(timeToCalculate));
 
       for (let index = 1; index < this.trip.stops.length; ++index) {
         timeToCalculate =
           Date.parse(this.trip.stops[index].arrival) -
           Date.parse(this.trip.stops[index - 1].departure);
-        timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+        timeBetweenStops.push(Time.convertMiliSecondsToDays(timeToCalculate));
       }
 
       timeToCalculate =
         Date.parse(this.trip.destination.arrival) -
         Date.parse(this.trip.stops[this.trip.stops.length - 1].departure);
-      timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+      timeBetweenStops.push(Time.convertMiliSecondsToDays(timeToCalculate));
     } else {
       timeToCalculate =
         Date.parse(this.trip.destination.arrival) -
         Date.parse(this.trip.source.departure);
-      timeBetweenStops.push(this.convertMiliSecondsToDays(timeToCalculate));
+      timeBetweenStops.push(Time.convertMiliSecondsToDays(timeToCalculate));
     }
     return timeBetweenStops;
   }
-  convertMiliSecondsToDays(milliSeconds): string {
-    const hours = Math.floor(milliSeconds / (3600 * 1000));
-    const minutes = Math.floor(
-      (milliSeconds - 3600 * 1000 * hours) / (60 * 1000)
-    );
-    if (hours === 0) {
-      return minutes + ' m ';
-    } else {
-      return hours + ' h ' + minutes + ' m ';
-    }
-  }
-
   addTimeToDestinationItineraries(timeToAdd: number) {
     for (const place of [
       ...this.trip.destination.attractions,
@@ -403,6 +392,13 @@ export class TripService {
   }
 
   showPlaceMarker(place: Place) {
+    // this.route.navigate(
+    //   ['/planner', this.trip.id], {
+    //     fragment: 'google-map-fragment'
+    //   }
+    // );
+    window.location.hash = '';
+    window.location.hash = 'google-map-fragment';
     this.mapZoomIn();
     this.placeMarker = place;
     this.map.panTo({
