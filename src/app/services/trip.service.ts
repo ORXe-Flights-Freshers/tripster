@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Trip} from '@models/Trip';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Stop} from '@models/Stop';
-import {Router} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {Place} from '@models/Place';
 import {Subject} from 'rxjs';
 import {LoggerService} from '@services/logger.service';
@@ -392,6 +392,13 @@ export class TripService {
   }
 
   showPlaceMarker(place: Place) {
+    // this.route.navigate(
+    //   ['/planner', this.trip.id], {
+    //     fragment: 'google-map-fragment'
+    //   }
+    // );
+    window.location.hash = '';
+    window.location.hash = 'google-map-fragment';
     this.mapZoomIn();
     this.placeMarker = place;
     this.map.panTo({

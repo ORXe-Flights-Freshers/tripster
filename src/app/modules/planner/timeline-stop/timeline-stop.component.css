@@ -24,11 +24,22 @@
 }
 
 .edit-delete {
+  position: absolute;
   display: inline-block;
 
-  margin-left: 90%;
   margin-top: 53px;
-  right: 0;
+}
+
+@media only screen and (min-width: 600px) {
+  .edit-delete {
+    right: 40px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .edit-delete {
+    right: 25px;
+  }
 }
 
 .edit-delete:hover {
@@ -74,10 +85,22 @@
   position: absolute;
   width: fit-content;
 
-  right: 30px;
   margin-top: 20px;
 
+  z-index: 10;
   cursor: pointer;
+}
+
+@media only screen and (min-width: 600px) {
+  .place-delete {
+    right: 40px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .place-delete {
+    right: 25px;
+  }
 }
 
 .place-image {
@@ -90,7 +113,6 @@
 
 .place-details {
   position: absolute;
-  width: 289px;
   height: 65px;
 
   left: 63px;
@@ -102,4 +124,9 @@
 .place-details:hover {
   border-color: var(--main-theme-color);
   background-color: rgba(167, 167, 167, 0.2);
+}
+
+.canvas-container {
+  min-width: 320px;
+  overflow-x: hidden;
 }
