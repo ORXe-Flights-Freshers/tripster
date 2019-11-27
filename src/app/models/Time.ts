@@ -17,4 +17,15 @@ export class Time {
     time.minutes = minutes;
     return time;
   }
+    static convertMiliSecondsToDays(milliSeconds): string {
+    const hours = Math.floor(milliSeconds / (3600 * 1000));
+    const minutes = Math.floor(
+      (milliSeconds - 3600 * 1000 * hours) / (60 * 1000)
+    );
+    if (hours === 0) {
+      return minutes + ' m ';
+    } else {
+      return hours + ' h ' + minutes + ' m ';
+    }
+  }
 }
