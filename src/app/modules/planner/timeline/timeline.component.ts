@@ -16,7 +16,7 @@ import { LoginService } from '@services/login.service';
 export class TimelineComponent implements OnInit {
   durationBetweenStops: string[];
   durationsMarginTop: number[];
-
+  navigationUrl: string;
   constructor(
     public tripService: TripService,
     public dialog: MatDialog,
@@ -102,7 +102,7 @@ export class TimelineComponent implements OnInit {
     return responseMessage === 'success';
   }
 
-  getNavigationUrl() {
+  navigateToMaps() {
     let url = '';
     if (this.tripService.trip) {
       url =
@@ -120,6 +120,6 @@ export class TimelineComponent implements OnInit {
       });
 
     }
-    return url;
+    window.open(url, '_blank');
   }
 }
