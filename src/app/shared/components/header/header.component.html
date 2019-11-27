@@ -32,7 +32,7 @@
         >Hi, {{loginService?.firstName}}</span>
       </li>
       <li (click)="loginService?.signInWithGoogle()" *ngIf="!loginService?.loggedIn">
-        <span class="text">Log in</span>
+        <button class="loginBtn loginBtn--google">Login with Google</button>
       </li>
       <li (click)="loginService?.signOut()" *ngIf="loginService?.loggedIn">
           <span class="text">Log out</span>
