@@ -1,4 +1,12 @@
-.container {
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+.body {
+  position: relative;
   margin: 0;
 
   height: 430px;
@@ -8,34 +16,44 @@
   border-radius: 20px;
 }
 
-table {
+.container {
   position: absolute;
   width: 90%;
-  border-spacing: 0;
-  border-collapse: collapse;
-  margin-top: 10%;
+  height: 100%;
+
+  font-size: 16px
+}
+
+.container-content {
   margin-left: 5%;
 }
 
-.fuel-price-info {
-  position: absolute;
-  margin-top: 62%;
-  margin-left: 5%;
+.fuel-cost-container,
+.mileage-container,
+.total-distance,
+.total-fuel-consumption,
+.approximate-fuel-cost {
+  margin-top: 20px;
+  padding-bottom: 20px;
+
+  border-bottom: 1px solid rgb(153, 153, 153);
 }
 
-tr td {
-  border: 1px solid var(--main-theme-color);
-}
-
-td * {
-  padding: 5px
+.text-question {
+  font-size: 18px;
+  font-weight: 600;
 }
 
 input {
-  width: 100%;
-  box-sizing: border-box;
+  margin-left: 10px;
+  height: 25px;
+  border-radius: 5px;
 }
+
 .fuel-price-info {
+  margin-top: 15px;
+
+  font-size: 14px;
   color: red;
 }
 
@@ -50,7 +68,7 @@ input {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.more-attractions-loader {
+.spinner-loader {
   position: relative;
   margin-left: 41%;
   margin-top: 170px;
