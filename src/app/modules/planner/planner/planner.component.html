@@ -1,14 +1,14 @@
 <div class="body">
   <div class="background"></div>
 
-  <div class="container">
+  <div class="container flex-container">
     <div class="navigator">
       <div class="amenities-navbar">
         <div
           class="btn timeline"
-          (click)="navigatorService.activeTab = 'timeline'"
+          (click)="navigatorService.activeTabSubject.next('timeline')"
           [ngClass]="{
-            'btn-active': navigatorService.activeTab === 'timeline'
+            'btn-active': activeTab === 'timeline'
           }"
         >
           <mat-icon class="btn-icon">timeline</mat-icon>
@@ -17,9 +17,9 @@
         <span class="btn-separator"></span>
         <div
           class="btn hotel"
-          (click)="this.navigatorService.activeTab = 'hotel'"
+          (click)="navigatorService.activeTabSubject.next('hotel')"
           [ngClass]="{
-            'btn-active': navigatorService.activeTab === 'hotel'
+            'btn-active': activeTab === 'hotel'
           }"
         >
           <mat-icon class="btn-icon">hotel</mat-icon>
@@ -28,9 +28,9 @@
         <span class="btn-separator"></span>
         <div
           class="btn restaurant"
-          (click)="this.navigatorService.activeTab = 'attractions'"
+          (click)="navigatorService.activeTabSubject.next('attractions')"
           [ngClass]="{
-            'btn-active': navigatorService.activeTab === 'attractions'
+            'btn-active': activeTab === 'attractions'
           }"
         >
           <mat-icon class="btn-icon">attractions</mat-icon>
@@ -39,9 +39,9 @@
         <span class="btn-separator"></span>
         <div
           class="btn expenses"
-          (click)="this.navigatorService.activeTab = 'expenses'"
+          (click)="navigatorService.activeTabSubject.next('expenses')"
           [ngClass]="{
-            'btn-active': navigatorService.activeTab === 'expenses'
+            'btn-active': activeTab === 'expenses'
           }"
         >
           <mat-icon class="btn-icon">local_gas_station</mat-icon>
@@ -50,12 +50,12 @@
         <span class="btn-separator"></span>
       </div>
 
-      <app-timeline *ngIf="navigatorService.activeTab === 'timeline'"></app-timeline>
-      <app-hotel-card-list *ngIf="navigatorService.activeTab === 'hotel'"></app-hotel-card-list>
-      <app-attraction-card-list *ngIf="navigatorService.activeTab === 'attractions'"></app-attraction-card-list>
-      <app-expenses *ngIf="navigatorService.activeTab === 'expenses'"></app-expenses>
+      <app-timeline *ngIf="activeTab === 'timeline'"></app-timeline>
+      <app-hotel-card-list *ngIf="activeTab === 'hotel'"></app-hotel-card-list>
+      <app-attraction-card-list *ngIf="activeTab === 'attractions'"></app-attraction-card-list>
+      <app-expenses *ngIf="activeTab === 'expenses'"></app-expenses>
     </div>
 
-    <app-map class="map"></app-map>
+    <app-map id="google-map-fragment" class="map"></app-map>
   </div>
 </div>

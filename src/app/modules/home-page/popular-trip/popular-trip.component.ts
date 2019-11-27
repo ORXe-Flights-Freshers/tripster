@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PopularTripService } from '@services/popular-trip.service';
 import { PopularTrip } from '@models/PopularTrip';
-
+import {AnalyticsService} from '@services/analytics.service';
 
 @Component({
   selector: 'app-popular-trip',
@@ -16,7 +16,8 @@ export class PopularTripComponent implements OnInit {
   lng: number;
   imageUrl = 'https://source.unsplash.com/230x250/?nature&_tripster=' + Math.random();
 
-  constructor(private popularTripService: PopularTripService) { }
+  constructor(private popularTripService: PopularTripService,
+              public analytics: AnalyticsService) { }
   @Input() popularTrip: PopularTrip;
 
   ngOnInit() {
@@ -26,6 +27,7 @@ export class PopularTripComponent implements OnInit {
 
   onClick() {
     this.popularTripService.setPopularTrip(this.popularTrip);
+    this.analytics.eventEmitter('HomePage',  this.popularTrip.source.name + ' -> ' + this.popularTrip.destination.name, "Popular Trips", 1);
   }
 
 }

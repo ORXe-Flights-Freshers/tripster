@@ -38,6 +38,23 @@ mat-card {
   outline: none;
 }
 
+@media only screen and (max-width: 400px) {
+  .footer-nav {
+    display: block;
+
+    height: 100px;
+  }
+
+  .footer-nav .add-stop {
+    display: block;
+
+    margin: auto;
+    margin-top: 15px;
+    width: 90%;
+    border-radius: 20px;
+  }
+}
+
 .footer-nav .add-stop:hover {
   text-decoration: underline;
   cursor: pointer;
@@ -57,17 +74,30 @@ mat-card {
 
 .footer-nav ul {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
 
   margin-right: 10px;
-  width: 250px;
 
   text-decoration: none;
+}
+
+@media only screen and (max-width: 400px) {
+  .footer-nav ul {
+    justify-content: space-between;
+    position: absolute;
+
+    margin-right: 0;
+
+    width: 90%;
+    right: 5%;
+    top: 40px;
+  }
 }
 
 .footer-nav ul li {
   list-style: none;
   font-size: 16px;
+  width: fit-content;
 }
 
 .btn-footer {
@@ -100,6 +130,13 @@ mat-card {
   width: 100%;
   height: 360px;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media only screen and (max-width: 400px) {
+  .timeline-body {
+    height: 330px;
+  }
 }
 
 span {

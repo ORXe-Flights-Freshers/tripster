@@ -12,7 +12,6 @@ html, body {
 body {
   margin: 0;
   font-family: "Arial", sans-serif;
-  min-width: 350px;
 }
 
 .mat-progress-spinner circle, .mat-spinner circle {

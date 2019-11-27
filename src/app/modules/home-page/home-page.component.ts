@@ -14,6 +14,7 @@ export class HomePageComponent implements OnInit {
   constructor(private headerDataService: HeaderDataService,
               private tripService: TripService) {
     this.headerDataService.customizeHeaderForHomePage();
+    this.popularTrips = [];
   }
 
   ngOnInit() {
@@ -21,8 +22,12 @@ export class HomePageComponent implements OnInit {
   }
 
   getPopularTrips() {
-    this.tripService.getPopularTrips(4).subscribe((data) => {
-     this.popularTrips = data['popularTrips'];
+    this.tripService.getPopularTrips(4).subscribe((data: {
+        popularTrips: PopularTrip[],
+        isSuccess: boolean,
+        message: string
+      }) => {
+      this.popularTrips = data.popularTrips;
    });
   }
 

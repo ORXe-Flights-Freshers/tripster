@@ -35,12 +35,12 @@ mat-spinner {
   background-color: var(--main-theme-color);
   transition: 200ms ease-in-out;
   outline: none;
+  cursor: pointer;
 }
 
 #center:hover {
   width: 45px;
   height: 35px;
-  cursor: pointer;
 }
 
 #center .btn-icon {
