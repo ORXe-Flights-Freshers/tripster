@@ -15,7 +15,7 @@
       </ng-template>
     </span>
     <div class="filter">
-      <button mat-button (click)="openFilterDialog()">Filter</button>
+      <button class="filter-button" mat-button (click)="openFilterDialog()">Filter</button>
     </div>
     <div class="search">
       <mat-search-bar class="search-bar"
@@ -23,7 +23,7 @@
         [formControl]="search"
       ></mat-search-bar>
     </div>
-    
+
   </div>
 
   <div class="list-of-stops">
@@ -71,7 +71,7 @@
       [max]="maxRadius"
       step="1"/>
     <label for="radius">
-      {{ radius }} kilometers from center of city
+      {{ radius }} kms from city-center
     </label>
   </div>
 </div>

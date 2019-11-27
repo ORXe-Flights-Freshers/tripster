@@ -74,21 +74,19 @@ export class HotelCardListComponent implements OnInit {
           console.log(hotelsApiEndpoint.ipObj.ip);
 
           // Production Data Link
-          const hotelsApiUrl = 'http://' + hotelsApiEndpoint.ipObj.ip + '/api/hotels/';
+          // const hotelsApiUrl = 'http://' + hotelsApiEndpoint.ipObj.ip + '/api/hotels/' +
+              // stop.location.latitude +
+              // '/' +
+              // stop.location.longitude +
+              // '/' +
+              // this.radius;
 
           // Mock Data Link
-          // const hotelsApiUrl = 'https://hotel-mock.s3.us-east-2.amazonaws.com/hotel.json';
-          // const hotelsApiUrl =
-          // 'http://172.16.5.159:5000/api/hotels/';
+          const hotelsApiUrl = 'https://hotel-mock.s3.us-east-2.amazonaws.com/hotel.json';
 
           this.httpService
             .get(
-              hotelsApiUrl +
-              stop.location.latitude +
-              '/' +
-              stop.location.longitude +
-              '/' +
-              this.radius
+              hotelsApiUrl
             )
             .subscribe(
               (data: { hotels: [] }) => {
