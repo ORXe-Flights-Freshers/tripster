@@ -27,7 +27,6 @@ export class HomePageComponent implements OnInit {
         isSuccess: boolean,
         message: string
       }) => {
-      console.log(data);
       this.popularTrips = data.popularTrips;
    });
   }

@@ -34,14 +34,7 @@ export class HeaderComponent {
     this.windowWidth = (event.target as Window).innerWidth;
   }
 
-  constructor(public extraOptions: HeaderDataService, private authService: AuthService, public loginService: LoginService) {
+  constructor(public extraOptions: HeaderDataService, public loginService: LoginService) {
     this.windowWidth = window.innerWidth;
-  }
-
-  signInWithGoogle() {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  }
-  signOut() {
-    this.authService.signOut(true);
   }
 }
