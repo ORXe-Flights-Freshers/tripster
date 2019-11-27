@@ -7,6 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {ShareTripComponent} from '../share-trip/share-trip.component';
 import { TimePickerThemeService } from '@services/TimePickerTheme.service';
 import { LoginService } from '@services/login.service';
+import {AnalyticsService} from '@services/analytics.service';
 
 @Component({
   selector: 'app-timeline',
@@ -21,6 +22,7 @@ export class TimelineComponent implements OnInit {
     public tripService: TripService,
     public dialog: MatDialog,
     private router: Router,
+    public analytics: AnalyticsService,
     private snackBar: MatSnackBar,
     public loginService: LoginService) {
       this.durationsMarginTop = [130, ];

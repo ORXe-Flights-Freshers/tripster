@@ -13,6 +13,9 @@ import {Subscription} from 'rxjs';
 })
 export class PlannerComponent implements OnInit, OnDestroy {
   paramsSubscription: Subscription;
+  activeTabSubscription: Subscription;
+
+  activeTab: string;
 
   constructor(
     public route: ActivatedRoute,
@@ -22,16 +25,22 @@ export class PlannerComponent implements OnInit, OnDestroy {
     public navigatorService: NavigatorService
   ) {
     this.headerLinks.customizeHeaderForPlannerPage();
-  }
-
-  ngOnInit() {
     this.paramsSubscription = this.route.params
       .subscribe((params: Params) => {
         this.tripService.getTrip(params.id);
       });
+
+    this.activeTabSubscription = this.navigatorService.activeTabSubject
+        .subscribe((data: string) => {
+          this.activeTab = data;
+        });
+  }
+
+  ngOnInit() {
   }
 
   ngOnDestroy() {
     this.paramsSubscription.unsubscribe();
+    this.activeTabSubscription.unsubscribe();
   }
 }

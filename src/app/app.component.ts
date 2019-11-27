@@ -8,6 +8,8 @@ import { LoginService } from '@services/login.service';
 import { User } from '@models/User';
 import {Router, NavigationEnd} from '@angular/router';
 import { TripService } from '@services/trip.service';
+import {AnalyticsService} from '@services/analytics.service';
+
 declare let ga: Function;
 
 @Component({
@@ -20,7 +22,8 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService,
               public router: Router,
               private loginService: LoginService,
-              private tripService: TripService) {
+              private tripService: TripService,
+              public analytics: AnalyticsService) {
   }
   ngOnInit() {
 

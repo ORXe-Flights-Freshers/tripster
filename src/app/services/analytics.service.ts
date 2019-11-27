@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import {NavigatorService} from '@services/navigator.service';
 declare let ga:Function; // Declare ga as a function
 
 @Injectable({
@@ -7,17 +7,24 @@ declare let ga:Function; // Declare ga as a function
 })
 export class AnalyticsService {
 
-  constructor() { }
+  constructor(public navigator: NavigatorService) {
+    this.navigator.activeTabSubject.subscribe(arg => {
+      this.eventEmitter('Planner', arg);
+    });
+   }
   public eventEmitter(eventCategory: string,
                       eventAction: string,
                       eventLabel: string = null,
                       eventValue: number = null) {
       ga('send', 'event', {
-      eventCategory: eventCategory,
-      eventLabel: eventLabel,
-      eventAction: eventAction,
-      eventValue: eventValue
-        });
+        eventCategory,
+        eventLabel,
+        eventAction,
+        eventValue
+      });
 
     }
+
+
+
 }

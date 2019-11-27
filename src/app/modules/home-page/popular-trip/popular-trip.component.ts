@@ -27,7 +27,7 @@ export class PopularTripComponent implements OnInit {
 
   onClick() {
     this.popularTripService.setPopularTrip(this.popularTrip);
-    this.analytics.eventEmitter("HomePage",  this.popularTrip.source.name + ' -> ' + this.popularTrip.destination.name, "Popular Trips", 1);
+    this.analytics.eventEmitter('HomePage',  this.popularTrip.source.name + ' -> ' + this.popularTrip.destination.name, "Popular Trips", 1);
   }
 
 }
