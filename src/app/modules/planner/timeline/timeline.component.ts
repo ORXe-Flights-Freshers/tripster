@@ -137,8 +137,8 @@ export class TimelineComponent implements OnInit {
         this.router.navigate(['/', 'planner', (data as Trip).id]).then();
       });
    } else {
-    console.log("User has not logged in ,Make him to log in");
-
+      console.log("User has not logged in ,Make him to log in");
+      this.loginService.openLoginDialog();
    }
   }
 }
