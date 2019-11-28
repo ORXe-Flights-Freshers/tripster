@@ -4,20 +4,25 @@ import { User } from '@models/User';
 import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { environment } from '@environments/environment';
-import { TripService } from './trip.service';
 import { AuthService, GoogleLoginProvider } from 'angularx-social-login';
+import { Subject } from 'rxjs';
+import { LoginComponent } from 'app/shared/components/login/login.component';
+import { MatDialogConfig, MatDialog } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   loggedIn: boolean;
+  isLoggedInSubject = new Subject<boolean>();
   user: User;
   firstName = ' ';
   tripsArray: Trip[];
   pastTripsAvailable = true;
   canModifyTrip: boolean;
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient,
+              private authService: AuthService,
+              private dialog: MatDialog) {}
 
   saveUser(user: User) {
     this.http
@@ -45,6 +50,20 @@ export class LoginService {
         this.tripsArray = trips;
         this.pastTripsAvailable = true;
       });
+  }
+
+  openLoginDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '400px';
+    dialogConfig.height = '510px';
+
+    const dialogRef = this.dialog.open(
+      LoginComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe(_ => {});
   }
 
   signInWithGoogle() {
