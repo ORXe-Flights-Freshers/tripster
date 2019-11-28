@@ -6,7 +6,7 @@ import { take } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { TripService } from './trip.service';
 import { AuthService, GoogleLoginProvider } from 'angularx-social-login';
-
+import {AnalyticsService} from '@services/analytics.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +17,9 @@ export class LoginService {
   tripsArray: Trip[];
   pastTripsAvailable = true;
   canModifyTrip: boolean;
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient,
+              private authService: AuthService,
+              public analytics: AnalyticsService) {}
 
   saveUser(user: User) {
     this.http
@@ -49,8 +51,11 @@ export class LoginService {
 
   signInWithGoogle() {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.analytics.eventEmitter('User', 'Signin');
   }
   signOut() {
     this.authService.signOut(true);
+    this.analytics.eventEmitter('User', 'SignOut');
+
   }
 }

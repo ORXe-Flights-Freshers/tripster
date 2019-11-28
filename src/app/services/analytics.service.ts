@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {NavigatorService} from '@services/navigator.service';
-declare let ga:Function; // Declare ga as a function
+declare let ga;
 
 @Injectable({
   providedIn: 'root'

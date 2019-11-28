@@ -1,6 +1,7 @@
 import { UtilityService } from '@services/utility.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Trip } from '@models/Trip';
+import {AnalyticsService} from '@services/analytics.service';
 
 @Component({
   selector: 'app-past-trip-item',
@@ -18,14 +19,15 @@ export class PastTripItemComponent implements OnInit {
   departureDate = new Date();
   arrivalDate = new Date();
 
-  constructor(public utilityService: UtilityService) { }
+  constructor(public utilityService: UtilityService,
+              public analytics: AnalyticsService) { }
 
   ngOnInit() {
     this.source = this.trip.source.name;
     this.destination = this.trip.destination.name;
 
     this.numberOfStops = this.trip.stops.length;
-
+    this.analytics.eventEmitter('Profile', 'Past Trips');
     this.departureDate = new Date(this.trip.source.departure);
     this.arrivalDate = new Date(this.trip.destination.arrival);
   }

@@ -106,6 +106,7 @@ export class TimelineComponent implements OnInit {
 
   navigateToMaps() {
     let url = '';
+    this.analytics.eventEmitter('Timeline', 'Map Navigation');
     if (this.tripService.trip) {
       url =
         'https://www.google.com/maps/dir/?api=1&origin=' +

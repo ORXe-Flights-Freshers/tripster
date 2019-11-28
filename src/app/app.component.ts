@@ -10,7 +10,7 @@ import {Router, NavigationEnd} from '@angular/router';
 import { TripService } from '@services/trip.service';
 import {AnalyticsService} from '@services/analytics.service';
 
-declare let ga: Function;
+declare let ga;
 
 @Component({
   selector: 'app-root',
