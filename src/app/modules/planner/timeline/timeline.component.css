@@ -51,7 +51,7 @@ mat-card {
     margin: auto;
     margin-top: 15px;
     width: 90%;
-    border-radius: 20px;
+    border-radius: 7px;
   }
 }
 
@@ -137,6 +137,35 @@ mat-card {
   .timeline-body {
     height: 330px;
   }
+}
+
+.save-trip-button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+
+  height: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+
+  border: none;
+  border-radius: 5px;
+
+  background-color: var(--main-theme-color);
+  color: white;
+  outline: none;
+}
+
+.save-trip-button:hover {
+  width: 78px;
+  height: 28px;
+
+  right: 19px;
+  top: 9px;
+
+  cursor: pointer;
 }
 
 span {

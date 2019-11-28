@@ -131,9 +131,11 @@ export class TimelineComponent implements OnInit {
   saveAnonymousTrip() {
    if (this.loginService.loggedIn) {
       console.log("User is logged in");
-      this.tripService.trip.userId = this.loginService.user.userId ;
-      delete this.tripService.trip['id'];
-      this.tripService.createTrip(this.tripService.trip).subscribe(data => {
+      var newTrip = JSON.parse(JSON.stringify(this.tripService.trip));
+      newTrip.userId = this.loginService.user.userId ;
+      delete newTrip['id'];
+      console.log(newTrip);
+      this.tripService.createTrip(newTrip).subscribe(data => {
         this.router.navigate(['/', 'planner', (data as Trip).id]).then();
       });
    } else {
