@@ -8,9 +8,10 @@ import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {NotFoundComponent} from './components/not-found/not-found.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
-  declarations: [HeaderComponent, PlaceAutocompleteComponent, NotFoundComponent],
+  declarations: [HeaderComponent, PlaceAutocompleteComponent, NotFoundComponent, LoginComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -20,6 +21,7 @@ import {NotFoundComponent} from './components/not-found/not-found.component';
     HttpClientModule,
     RouterModule
   ],
+  entryComponents: [LoginComponent],
   exports: [HeaderComponent, PlaceAutocompleteComponent]
 })
 export class SharedModule {

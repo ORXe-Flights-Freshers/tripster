@@ -24,7 +24,19 @@
 }
 
 .header {
-  height: 40px;
+  position: relative;
+}
+
+@media only screen and (min-width: 500px) {
+  .header {
+    height: 40px;
+  }
+}
+
+@media only screen and (max-width: 501px) {
+  .header {
+    height: 80px;
+  }
 }
 
 .number-of-attractions-info {
@@ -34,15 +46,38 @@
   font-size: 14px;
 }
 
+@media only screen and (max-width: 501px) {
+  .number-of-attractions-info {
+    width: 100%;
+    display: block;
+  }
+}
+
 .search {
   float: right;
   margin-top: 10px;
   top:-5px;
 }
+
 .filter {
   float: right;
   margin-top: 4px;
+}
+
+@media only screen and (max-width: 501px) {
+  .search,
+  .filter {
+    margin-top: 40px;
+  }
+
+  .search {
+    margin-top: 46px
+  }
+}
+
+.filter-button {
   text-transform: uppercase;
+  font-size: 14px;
 }
 
 .list-of-stops {
@@ -92,6 +127,7 @@
 .attractions-list {
   height: 305px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .normal {

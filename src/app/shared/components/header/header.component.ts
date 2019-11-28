@@ -1,6 +1,5 @@
 import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
-import {HeaderDataService} from '../../../services/HeaderData/header-data.service';
-import { AuthService, GoogleLoginProvider } from 'angularx-social-login';
+import {HeaderDataService} from '@services/HeaderData/header-data.service';
 import { LoginService } from '@services/login.service';
 
 @Component({
@@ -12,8 +11,6 @@ import { LoginService } from '@services/login.service';
   ]
 })
 export class HeaderComponent {
-  private windowWidth;
-
   @ViewChild('extras', {static: false}) extras: ElementRef;
   @ViewChild('burger', {static: false}) burger: ElementRef;
 
@@ -29,12 +26,7 @@ export class HeaderComponent {
     }
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: UIEvent) {
-    this.windowWidth = (event.target as Window).innerWidth;
-  }
-
-  constructor(public extraOptions: HeaderDataService, public loginService: LoginService) {
-    this.windowWidth = window.innerWidth;
+  constructor(public extraOptions: HeaderDataService,
+              public loginService: LoginService) {
   }
 }

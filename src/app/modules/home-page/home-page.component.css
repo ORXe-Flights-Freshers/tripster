@@ -40,10 +40,6 @@ img {
   .img-background {
     height: 340px;
   }
-
-  .tagline {
-    font-size: 25px;
-  }
 }
 
 .info {
@@ -58,6 +54,21 @@ img {
   letter-spacing: 1px;
 
   margin: 100px auto auto;
+}
+
+@media screen and (max-width: 600px) {
+  .tagline {
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .info {
+    position: relative;
+    width: 80%;
+
+    margin: auto;
+  }
 }
 
 .popular-trips {

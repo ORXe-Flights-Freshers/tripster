@@ -6,7 +6,11 @@ import {
 } from 'angularx-social-login';
 import { LoginService } from '@services/login.service';
 import { User } from '@models/User';
+import {Router, NavigationEnd} from '@angular/router';
 import { TripService } from '@services/trip.service';
+import {AnalyticsService} from '@services/analytics.service';
+
+declare let ga: Function;
 
 @Component({
   selector: 'app-root',
@@ -16,10 +20,22 @@ import { TripService } from '@services/trip.service';
 export class AppComponent implements OnInit {
   title = 'tripster';
   constructor(private authService: AuthService,
+              public router: Router,
               private loginService: LoginService,
-              private tripService: TripService) {
+              private tripService: TripService,
+              public analytics: AnalyticsService) {
   }
   ngOnInit() {
+
+    this.router.events.subscribe(event => {
+
+      if (event instanceof NavigationEnd) {
+        ga('set', 'page', event.urlAfterRedirects);
+        ga('send', 'pageview');
+
+      }
+
+    });
     this.authService.authState.subscribe((socialUser: SocialUser) => {
       if (socialUser) {
         const user: User = {
@@ -33,6 +49,7 @@ export class AppComponent implements OnInit {
         this.loginService.firstName = socialUser.firstName;
         this.loginService.loggedIn = true;
         this.loginService.idToken = socialUser.idToken;
+        this.loginService.isLoggedInSubject.next(true);
         this.loginService.saveUser(user);
         this.tripService.setCanModifyTrip();
         // console.log(socialUser);
@@ -41,6 +58,7 @@ export class AppComponent implements OnInit {
         this.loginService.firstName = '';
         this.loginService.loggedIn = false;
         this.loginService.idToken = '';
+        this.loginService.isLoggedInSubject.next(false);
         this.tripService.setCanModifyTrip();
       }
       this.loginService.setPastTrips();

@@ -7,6 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {ShareTripComponent} from '../share-trip/share-trip.component';
 import { TimePickerThemeService } from '@services/TimePickerTheme.service';
 import { LoginService } from '@services/login.service';
+import {AnalyticsService} from '@services/analytics.service';
 
 @Component({
   selector: 'app-timeline',
@@ -16,11 +17,12 @@ import { LoginService } from '@services/login.service';
 export class TimelineComponent implements OnInit {
   durationBetweenStops: string[];
   durationsMarginTop: number[];
-
+  navigationUrl: string;
   constructor(
     public tripService: TripService,
     public dialog: MatDialog,
     private router: Router,
+    public analytics: AnalyticsService,
     private snackBar: MatSnackBar,
     public loginService: LoginService) {
       this.durationsMarginTop = [130, ];
@@ -102,7 +104,7 @@ export class TimelineComponent implements OnInit {
     return responseMessage === 'success';
   }
 
-  getNavigationUrl() {
+  navigateToMaps() {
     let url = '';
     if (this.tripService.trip) {
       url =
@@ -120,6 +122,6 @@ export class TimelineComponent implements OnInit {
       });
 
     }
-    return url;
+    window.open(url, '_blank');
   }
 }

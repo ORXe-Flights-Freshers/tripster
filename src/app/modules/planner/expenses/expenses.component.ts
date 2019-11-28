@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { TripService } from '@services/trip.service';
 import { UtilityService } from '@services/utility.service';
+import {AnalyticsService} from '@services/analytics.service';
 
 @Component({
   selector: 'app-expenses',
@@ -17,7 +18,8 @@ export class ExpensesComponent implements OnInit {
 
   constructor(
     public tripService: TripService,
-    public utilityService: UtilityService
+    public utilityService: UtilityService,
+    public analytics: AnalyticsService
   ) {
     this.displayLoader = true;
   }
@@ -29,6 +31,7 @@ export class ExpensesComponent implements OnInit {
       if (fuelPrice !== -1 && fuelPrice >= 60 && fuelPrice <= 85) {
         this.fuelCostPerLiter = fuelPrice;
         this.fuelPriceFromSource = true;
+
       } else {
         this.fuelPriceFromSource = false;
       }

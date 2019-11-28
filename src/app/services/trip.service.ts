@@ -79,6 +79,7 @@ export class TripService {
         }
       );
   }
+
   setCanModifyTrip() {
     if (this.trip && this.trip.userId) {
       if (this.loginService.loggedIn && this.loginService.user.userId === this.trip.userId) {
@@ -372,6 +373,7 @@ export class TripService {
     }
     return timeBetweenStops;
   }
+
   addTimeToDestinationItineraries(timeToAdd: number) {
     for (const place of [
       ...this.trip.destination.attractions,

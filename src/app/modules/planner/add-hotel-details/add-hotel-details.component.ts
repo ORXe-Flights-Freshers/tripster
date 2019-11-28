@@ -132,7 +132,7 @@ export class AddHotelDetailsComponent implements OnInit {
   }
 
   addHotel() {
-    this.navigatorService.activeTab = 'timeline';
+    this.navigatorService.activeTabSubject.next('timeline');
     this.hotelData.arrival = this.arrivalDate.toString();
     this.hotelData.departure = this.departureDate.toString();
     this.dialogRef.close(this.hotelData);
