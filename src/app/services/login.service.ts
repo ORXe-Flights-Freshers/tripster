@@ -6,7 +6,6 @@ import { take } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { AuthService, GoogleLoginProvider } from 'angularx-social-login';
 import { Subject } from 'rxjs';
-import { LoginComponent } from 'app/shared/components/login/login.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 
 @Injectable({
@@ -58,12 +57,15 @@ export class LoginService {
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
 
-    const dialogRef = this.dialog.open(
-      LoginComponent,
-      dialogConfig
-    );
+    import('app/shared/components/login/login.component')
+      .then((module) => {
+        const dialogRef = this.dialog.open(
+          module.LoginComponent,
+          dialogConfig
+        );
 
-    dialogRef.afterClosed().subscribe(_ => {});
+        dialogRef.afterClosed().subscribe(_ => {});
+      });
   }
 
   signInWithGoogle() {
