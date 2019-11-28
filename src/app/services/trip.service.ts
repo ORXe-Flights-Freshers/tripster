@@ -22,6 +22,8 @@ export class TripService {
   waypointsInfo = [];
   placeMarker;
   mapZoom = 9;
+  isAnonymousTrip: boolean;
+
 
   // durationSubject = new Subject<string[]>();
   stopSubject = new Subject<Stop>();
@@ -68,6 +70,7 @@ export class TripService {
       .get(environment.baseUrl + ':' + environment.port + '/api/trip/' + tripId)
       .subscribe(
         (trip: Trip) => {
+          this.isAnonymousTrip = (trip.userId === "" );
           this.trip = trip;
           this.setCanModifyTrip();
           this.updateWaypoints();
