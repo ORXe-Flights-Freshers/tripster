@@ -110,8 +110,9 @@ export class TripService {
     this.trip = trip;
     return this.http.put(
       environment.baseUrl + ':' + environment.port + '/api/trip/' + trip.id,
-      this.trip
-    );
+      this.trip, {
+        headers: { Authorization: 'Bearer-' + this.loginService.idToken }
+    });
   }
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {
