@@ -5,6 +5,12 @@
   position: relative;
 }
 
+@media only screen and (max-width: 600px) {
+  .card {
+    height: 120px;
+  }
+}
+
 .image {
   width: 30%;
   height: 110px;
@@ -12,6 +18,13 @@
   margin-top: 2%;
   margin-left: 2%;
   position: absolute;
+}
+
+@media only screen and (max-width: 600px) {
+  .image {
+    height: 100px;
+    margin-top: 3%;
+  }
 }
 
 .image img {
@@ -80,6 +93,18 @@
   transition: 100ms ease-in-out;
 }
 
+@media only screen and (max-width: 600px) {
+  .locate-on-map {
+    right: 8%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .locate-on-map {
+    right: 6%;
+  }
+}
+
 .locate-on-map:hover {
   background-color: #eeeeee;
   cursor: pointer;
@@ -98,6 +123,13 @@
   text-transform: uppercase;
   margin-left: 84%;
   margin-top: 80px;
+}
+
+@media only screen and (max-width: 600px) {
+  .add-btn-hotel {
+    font-size: 12px;
+    margin-left: 82%;
+  }
 }
 
 .add-btn-hotel:hover {
