@@ -48,6 +48,7 @@ export class AppComponent implements OnInit {
         this.loginService.user = user;
         this.loginService.firstName = socialUser.firstName;
         this.loginService.loggedIn = true;
+        this.loginService.idToken = socialUser.idToken;
         this.loginService.isLoggedInSubject.next(true);
         this.loginService.saveUser(user);
         this.tripService.setCanModifyTrip();
@@ -56,6 +57,7 @@ export class AppComponent implements OnInit {
         this.loginService.user = null;
         this.loginService.firstName = '';
         this.loginService.loggedIn = false;
+        this.loginService.idToken = '';
         this.loginService.isLoggedInSubject.next(false);
         this.tripService.setCanModifyTrip();
       }
