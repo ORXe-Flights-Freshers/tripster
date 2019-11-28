@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
         this.loginService.user = user;
         this.loginService.firstName = socialUser.firstName;
         this.loginService.loggedIn = true;
+        this.loginService.isLoggedInSubject.next(true);
         this.loginService.saveUser(user);
         this.tripService.setCanModifyTrip();
         // console.log(socialUser);
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
         this.loginService.user = null;
         this.loginService.firstName = '';
         this.loginService.loggedIn = false;
+        this.loginService.isLoggedInSubject.next(false);
         this.tripService.setCanModifyTrip();
       }
       this.loginService.setPastTrips();
