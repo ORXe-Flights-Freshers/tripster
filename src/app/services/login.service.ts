@@ -17,11 +17,12 @@ export class LoginService {
   tripsArray: Trip[];
   pastTripsAvailable = true;
   canModifyTrip: boolean;
+  idToken = '';
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   saveUser(user: User) {
     this.http
-      .post(environment.baseUrl + ':' + environment.port + '/api/user', user)
+      .post(environment.baseUrl + ':' + environment.port + '/api/user', user, { headers: { Authorization : 'Bearer-' + this.idToken}})
       .subscribe();
   }
 
