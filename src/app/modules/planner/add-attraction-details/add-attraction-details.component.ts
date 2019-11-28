@@ -171,7 +171,7 @@ export class AddAttractionDetailsComponent implements OnInit {
   }
 
   addAttraction() {
-    this.navigatorService.activeTab = 'timeline';
+    this.navigatorService.activeTabSubject.next('timeline');
     this.attractionData.arrival = this.arrivalDate.toString();
     this.attractionData.departure = this.departureDate.toString();
 

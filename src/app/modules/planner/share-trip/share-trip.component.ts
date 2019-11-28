@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import { environment } from '@environments/environment';
+import {AnalyticsService} from '@services/analytics.service';
 
 @Component({
   selector: 'app-share-trip',
@@ -13,7 +14,7 @@ import { environment } from '@environments/environment';
 export class ShareTripComponent implements OnInit {
 
   constructor(private snackBar: MatSnackBar, public dialogRef: MatDialogRef<ShareTripComponent>,
-              private http: HttpClient, private router: Router) {
+              private http: HttpClient, private router: Router, public analytics: AnalyticsService) {
   }
 
   email: string;
@@ -33,6 +34,8 @@ export class ShareTripComponent implements OnInit {
 
   share(shareBtn: MatButton) {
     shareBtn.disabled = true;
+    this.analytics.eventEmitter('Planner', 'Email');
+
     shareBtn._elementRef.nativeElement.textContent = 'Sending...';
     const email = this.shareTripForm.controls.email.value;
     this.http.post(this.mailServerLink, {

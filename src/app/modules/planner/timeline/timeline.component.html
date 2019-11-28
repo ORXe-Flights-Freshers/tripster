@@ -5,6 +5,7 @@
     type="text/css"
   />
   <div class="timeline-body">
+    <button style="z-index: 100;">Save Trip</button>
     <div
       class="duration-between-stops-container"
 
@@ -52,12 +53,10 @@
         </button>
       </li>
       <li>
-        <a href="{{ getNavigationUrl() }}" target="_blank">
-          <button class="btn-footer">
+          <button class="btn-footer" (click)="navigateToMaps()">
             <i class="fa fa-map"></i>
             Navigate
           </button>
-        </a>
       </li>
     </ul>
   </div>
