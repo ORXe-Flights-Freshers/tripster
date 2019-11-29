@@ -5,7 +5,7 @@
     type="text/css"
   />
 
-  <button
+  <button *ngIf="tripService?.isAnonymousTrip" (click)="saveAnonymousTrip()"
     style="z-index: 100;"
     class="save-trip-button"
   >
@@ -13,7 +13,7 @@
   </button>
 
   <div class="timeline-body">
-    <div
+   <div
       class="duration-between-stops-container"
 
     >

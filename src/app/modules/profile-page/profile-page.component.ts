@@ -1,7 +1,7 @@
 import { NavigatorService } from '@services/navigator.service';
 import { HeaderDataService } from '@services/HeaderData/header-data.service';
 import { Component, OnInit } from '@angular/core';
-
+import { LoginService } from '@services/login.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -12,11 +12,13 @@ export class ProfilePageComponent implements OnInit {
 
   constructor(
     private headerDataService: HeaderDataService,
-    public navigatorService: NavigatorService) {
+    public navigatorService: NavigatorService,
+    public loginService: LoginService) {
     this.headerDataService.customizeHeaderForProfilePage();
    }
 
   ngOnInit() {
+    this.loginService.setPastTrips();
   }
 
 }
