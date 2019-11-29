@@ -78,6 +78,9 @@ img {
   margin: auto;
   margin-top: 100px;
   margin-bottom: 50px;
+
+  overflow: hidden;
+  overflow-x: auto;
 }
 
 .popular-trips .text {
@@ -85,15 +88,19 @@ img {
 }
 
 .popular-trips .trip-list {
-  display: inline-flex;
+  position: relative;
+  flex-direction: row;
+
   width: 100%;
+  min-width: 850px;
 
   margin-top: 20px;
-  justify-content: space-between;
 }
 
 .popular-trips .trip-list .trip {
-  width: 230px;
+  display: inline-block;
+  width: 25%;
+  min-width: 200px;
   height: 250px;
 
   background-color: white;

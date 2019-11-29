@@ -21,6 +21,7 @@ interface HotelResult {
   rating: number;
 }
 
+
 @Component({
   selector: 'app-hotel-card-list',
   templateUrl: './hotel-card-list.component.html',
