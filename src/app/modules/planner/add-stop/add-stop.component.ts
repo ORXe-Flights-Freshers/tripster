@@ -19,9 +19,9 @@ export class AddStopComponent implements OnInit {
   departureDate: Date;
   arrivalTime = '00:00 am';
   departureTime = '00:00 am';
-  duplicatePlace: boolean;
-  invalidPlace: boolean;
   invalidTime: boolean;
+  duplicatePlace: boolean;
+  isCityValid: boolean;
   minTime: Date;
 
   constructor(
@@ -43,10 +43,12 @@ export class AddStopComponent implements OnInit {
     this.departureDate.getMinutes().toString() +
     ' am';
     this.minTime = this.getMinTime();
+    this.isCityValid = false;
   }
 
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
     this.stopCity = place;
+    this.isCityValid = true;
     const previousLocation = this.tripService.getPreviousLocationOfDestination();
     if (this.stopCity.place_id === previousLocation.stopId ||
       this.stopCity.place_id === this.tripService.trip.destination.stopId) {
@@ -150,19 +152,24 @@ export class AddStopComponent implements OnInit {
   }
 
   addStop() {
-    const stop: Stop = {
-      stopId: this.stopCity.place_id,
-      location: {
-        latitude: this.stopCity.geometry.location.lat(),
-        longitude: this.stopCity.geometry.location.lng()
-      },
-      name: this.stopCity.name,
-      arrival: this.arrivalDate.toString(),
-      departure: this.departureDate.toString(),
-      hotels: [],
-      attractions: []
-    };
-
-    this.dialogRef.close(stop);
+    this.tripService.addStopToTrip(this.generateStop())
+    this.dialogRef.close('success');
   }
+
+  generateStop(): Stop {
+   const stop: Stop = {
+     stopId: this.stopCity.place_id,
+     location: {
+       latitude: this.stopCity.geometry.location.lat(),
+       longitude: this.stopCity.geometry.location.lng()
+     },
+     name: this.stopCity.name,
+     arrival: this.arrivalDate.toString(),
+     departure: this.departureDate.toString(),
+     hotels: [],
+     attractions: []
+  };
+   return stop;
+ }
+
 }

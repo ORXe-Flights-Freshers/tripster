@@ -184,12 +184,11 @@ export class TripService {
     }
   }
 
-  addStopToTrip(stop): string {
+  addStopToTrip(stop) {
     this.trip.stops.push(stop);
     this.updateWaypoints();
     this.updateTimelineTime();
     this.updateTrip(this.trip).subscribe();
-    return 'success';
   }
 
   addHotelToTrip(hotelData: Hotel, stopIdOfHotel) {
@@ -459,10 +458,6 @@ export class TripService {
     this.updateTimelineTime();
     this.updateTrip(this.trip).subscribe();
     return 'success';
-  }
-
-  editSourceOrDestination(stop: Stop, sourceOrDestination: string) {
-    console.log(`Edited ${sourceOrDestination}...`);
   }
 
   deletePlaceFromStop(stop: Stop, place, placeType: string) {

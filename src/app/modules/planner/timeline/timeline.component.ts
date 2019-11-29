@@ -74,12 +74,9 @@ export class TimelineComponent implements OnInit {
 
       const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
 
-      dialogRef.afterClosed().subscribe(stopFromDialog => {
-        if (stopFromDialog) {
-          const responseStatus = this.addStop(stopFromDialog);
-          if (responseStatus) {
+      dialogRef.afterClosed().subscribe(responseFromaddStop => {
+        if (responseFromaddStop === 'success') {
             this.openSnackBar('Stop Added Succesfully', 'OK');
-          }
         }
       });
     } else {
@@ -100,11 +97,6 @@ export class TimelineComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
-  }
-
-  addStop(stop): boolean {
-    const responseMessage = this.tripService.addStopToTrip(stop);
-    return responseMessage === 'success';
   }
 
   navigateToMaps() {
@@ -130,7 +122,6 @@ export class TimelineComponent implements OnInit {
 
   saveAnonymousTrip() {
    if (this.loginService.loggedIn) {
-      console.log("User is logged in");
       var newTrip = JSON.parse(JSON.stringify(this.tripService.trip));
       newTrip.userId = this.loginService.user.userId ;
       delete newTrip['id'];
@@ -139,7 +130,6 @@ export class TimelineComponent implements OnInit {
         this.router.navigate(['/', 'planner', (data as Trip).id]).then();
       });
    } else {
-      console.log("User has not logged in ,Make him to log in");
       this.loginService.openLoginDialog();
    }
   }
