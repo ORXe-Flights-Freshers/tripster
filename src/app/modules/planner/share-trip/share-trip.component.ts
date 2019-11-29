@@ -34,7 +34,6 @@ export class ShareTripComponent implements OnInit {
 
   share(shareBtn: MatButton) {
     shareBtn.disabled = true;
-    this.analytics.eventEmitter('Planner', 'Email');
 
     shareBtn._elementRef.nativeElement.textContent = 'Sending...';
     const email = this.shareTripForm.controls.email.value;
@@ -46,6 +45,7 @@ export class ShareTripComponent implements OnInit {
       this.closeDialog();
       // @ts-ignore
       this.openSnackBar(value.message);
+      this.analytics.eventEmitter('Planner', 'Trip has been shared');
     }, (error: HttpErrorResponse) => {
       this.closeDialog();
       this.openSnackBar('An error occurred at our side');
