@@ -70,12 +70,26 @@
   color: rgb(129, 125, 125);
 }
 
+@media only screen and (max-width: 1250px) {
+  .body div .to {
+    margin-left: 30px;
+    margin-top: 140px;
+  }
+}
+
 .body div .to-place {
   margin-left: 500px;
   margin-top: 60px;
 
   font-size: 25px;
   color: rgb(70, 64, 64);
+}
+
+@media only screen and (max-width: 1250px) {
+  .body div .to-place {
+    margin-left: 30px;
+    margin-top: 170px;
+  }
 }
 
 .body div .arrival-date {
@@ -86,6 +100,13 @@
 
   font-size: 14px;
   color: rgb(134, 128, 128);
+}
+
+@media only screen and (max-width: 1250px) {
+  .body div .arrival-date {
+    margin-left: 30px;
+    margin-top: 210px;
+  }
 }
 
 .body div.stops {

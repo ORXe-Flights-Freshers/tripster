@@ -1,5 +1,5 @@
 import { LoginService } from '@services/login.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  windowWidth: number;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: UIEvent) {
+    this.windowWidth = window.innerWidth;
+  }
 
   constructor(public loginService: LoginService) { }
 
