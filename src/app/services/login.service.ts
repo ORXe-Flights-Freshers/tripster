@@ -7,7 +7,6 @@ import { environment } from '@environments/environment';
 import { AuthService, GoogleLoginProvider } from 'angularx-social-login';
 import {AnalyticsService} from '@services/analytics.service';
 import { Subject } from 'rxjs';
-import { LoginComponent } from 'app/shared/components/login/login.component';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 
 @Injectable({
@@ -21,6 +20,7 @@ export class LoginService {
   tripsArray: Trip[];
   pastTripsAvailable = true;
   canModifyTrip: boolean;
+  idToken = '';
   constructor(private http: HttpClient,
               private authService: AuthService,
               public analytics: AnalyticsService,
@@ -28,7 +28,7 @@ export class LoginService {
 
   saveUser(user: User) {
     this.http
-      .post(environment.baseUrl + ':' + environment.port + '/api/user', user)
+      .post(environment.baseUrl + ':' + environment.port + '/api/user', user, { headers: { Authorization : 'Bearer-' + this.idToken}})
       .subscribe();
   }
 
@@ -60,12 +60,15 @@ export class LoginService {
     dialogConfig.width = '400px';
     dialogConfig.height = '510px';
 
-    const dialogRef = this.dialog.open(
-      LoginComponent,
-      dialogConfig
-    );
+    import('app/shared/components/login/login.component')
+      .then((module) => {
+        const dialogRef = this.dialog.open(
+          module.LoginComponent,
+          dialogConfig
+        );
 
-    dialogRef.afterClosed().subscribe(_ => {});
+        dialogRef.afterClosed().subscribe(_ => {});
+      });
   }
 
   signInWithGoogle() {

@@ -10,7 +10,12 @@ import {Router, NavigationEnd} from '@angular/router';
 import { TripService } from '@services/trip.service';
 import {AnalyticsService} from '@services/analytics.service';
 
+<<<<<<< HEAD
 declare let ga;
+=======
+declare let ga: (arg1: string, arg2: string, arg3?: any) => void;
+
+>>>>>>> 1b0a56b051e214eee49fb3a605c2b46d7b3d683e
 
 @Component({
   selector: 'app-root',
@@ -48,6 +53,7 @@ export class AppComponent implements OnInit {
         this.loginService.user = user;
         this.loginService.firstName = socialUser.firstName;
         this.loginService.loggedIn = true;
+        this.loginService.idToken = socialUser.idToken;
         this.loginService.isLoggedInSubject.next(true);
         this.loginService.saveUser(user);
         this.tripService.setCanModifyTrip();
@@ -56,6 +62,7 @@ export class AppComponent implements OnInit {
         this.loginService.user = null;
         this.loginService.firstName = '';
         this.loginService.loggedIn = false;
+        this.loginService.idToken = '';
         this.loginService.isLoggedInSubject.next(false);
         this.tripService.setCanModifyTrip();
       }

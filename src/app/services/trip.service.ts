@@ -22,6 +22,8 @@ export class TripService {
   waypointsInfo = [];
   placeMarker;
   mapZoom = 9;
+  isAnonymousTrip: boolean;
+
 
   // durationSubject = new Subject<string[]>();
   stopSubject = new Subject<Stop>();
@@ -68,6 +70,7 @@ export class TripService {
       .get(environment.baseUrl + ':' + environment.port + '/api/trip/' + tripId)
       .subscribe(
         (trip: Trip) => {
+          this.isAnonymousTrip = (trip.userId === "" );
           this.trip = trip;
           this.setCanModifyTrip();
           this.updateWaypoints();
@@ -107,8 +110,9 @@ export class TripService {
     this.trip = trip;
     return this.http.put(
       environment.baseUrl + ':' + environment.port + '/api/trip/' + trip.id,
-      this.trip
-    );
+      this.trip, {
+        headers: { Authorization: 'Bearer-' + this.loginService.idToken }
+    });
   }
 
   handleDirectionResponse(directionResult: google.maps.DirectionsResult) {

@@ -1,4 +1,9 @@
-<div class="container">
+<div
+  class="container"
+  [ngStyle]="{
+    height: popularTrips?.length > 0 ? 'none' : '100vh'
+  }"
+>
   <div class="img-background"></div>
   <img
     src="assets/img/homepage-background.jpg"
@@ -9,7 +14,7 @@
   </div>
   <app-search></app-search>
 
-  <div *ngIf="popularTrips" class="popular-trips">
+  <div *ngIf="popularTrips?.length !== 0" class="popular-trips">
     <h3 class='text'>Popular Roadtrips</h3>
     <div class="trip-list">
         <div class="trip" *ngFor="let trip of popularTrips">

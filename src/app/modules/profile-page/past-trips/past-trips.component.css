@@ -44,3 +44,9 @@
 
   margin-bottom: 10px;
 }
+
+@media only screen and (max-width: 1250px) {
+  .body .container .trips .trip {
+    height: 250px;
+  }
+}

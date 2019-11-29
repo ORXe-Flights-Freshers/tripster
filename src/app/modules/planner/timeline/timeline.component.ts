@@ -8,6 +8,7 @@ import {ShareTripComponent} from '../share-trip/share-trip.component';
 import { TimePickerThemeService } from '@services/TimePickerTheme.service';
 import { LoginService } from '@services/login.service';
 import {AnalyticsService} from '@services/analytics.service';
+import { Trip } from '@models/Trip';
 
 @Component({
   selector: 'app-timeline',
@@ -29,6 +30,7 @@ export class TimelineComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.tripService.stopSubject.subscribe(_ => {
       this.durationsMarginTop = [130, ];
       this.durationBetweenStops = [];
@@ -43,6 +45,7 @@ export class TimelineComponent implements OnInit {
     if (this.tripService.trip) {
       this.tripService.stopSubject.next(this.tripService.trip.source);
     }
+
   }
 
   getNumberOfPlacesAtStop(index: number) {
@@ -124,5 +127,21 @@ export class TimelineComponent implements OnInit {
 
     }
     window.open(url, '_blank');
+  }
+
+  saveAnonymousTrip() {
+   if (this.loginService.loggedIn) {
+      console.log("User is logged in");
+      var newTrip = JSON.parse(JSON.stringify(this.tripService.trip));
+      newTrip.userId = this.loginService.user.userId ;
+      delete newTrip['id'];
+      console.log(newTrip);
+      this.tripService.createTrip(newTrip).subscribe(data => {
+        this.router.navigate(['/', 'planner', (data as Trip).id]).then();
+      });
+   } else {
+      console.log("User has not logged in ,Make him to log in");
+      this.loginService.openLoginDialog();
+   }
   }
 }
