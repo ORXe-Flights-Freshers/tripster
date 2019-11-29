@@ -7,6 +7,8 @@
         (placeChange)="handleSourceChange($event)"
         (IsValid)="handleInvalidSource($event)"
         [value]="sourceName"
+        [validPlace]="sourceValid"
+        #sourcePlaceAutocomplete
       ></app-place-autocomplete>
     </div>
     <div class="destination">
@@ -16,6 +18,8 @@
         (placeChange)="handleDestinationChange($event)"
         (IsValid)="handleInvalidDestination($event)"
         [value]="destinationName"
+        [validPlace]="destinationValid"
+        #destinationPlaceAutocomplete
       ></app-place-autocomplete>
     </div>
     <span class="date-time">

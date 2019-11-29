@@ -20,7 +20,7 @@ export class PlaceAutocompleteComponent implements OnInit {
   autocompleteService: google.maps.places.AutocompleteService;
   placeService: google.maps.places.PlacesService;
 
-  public validPlace = true;
+  @Input() public validPlace = true;
   public inputPlaceFromUser = '';
   public errorMessage = '';
   public autoCompleteFormGroup = new FormGroup({

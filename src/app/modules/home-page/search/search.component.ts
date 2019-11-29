@@ -1,5 +1,5 @@
 import { LoginService } from '@services/login.service';
-import {ChangeDetectorRef, Component, OnInit, Input, OnDestroy} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, Input, OnDestroy, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Time} from '@models/Time';
 import {TripService} from '@services/trip.service';
@@ -9,11 +9,13 @@ import {TimePickerThemeService} from '@services/TimePickerTheme.service';
 import { PopularTrip } from '@models/PopularTrip';
 import { Subscription } from 'rxjs';
 import { PopularTripService } from '@services/popular-trip.service';
+import { PlaceAutocompleteComponent } from 'app/shared/components/place-autocomplete/place-autocomplete.component';
+import { InputErrorStateMatcher } from 'app/shared/components/place-autocomplete/ErrorMatcher';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css'],
+  styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit, OnDestroy {
   origin: google.maps.places.PlaceResult;
@@ -32,6 +34,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   invalidDepartureDateTimeError: boolean;
   minTime: Date;
 
+  @ViewChild('destinationPlaceAutocomplete', { static: false })
+  destinationPlaceAutocomplete: PlaceAutocompleteComponent;
+  @ViewChild('sourcePlaceAutocomplete', { static: false })
+  sourcePlaceAutocomplete: PlaceAutocompleteComponent;
+
   popularTripSubscription: Subscription;
   sourceName = '';
   destinationName = '';
@@ -39,30 +46,38 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   searchForm = new FormGroup({
     mileage: new FormControl(this.vehicleMileage, [
-      Validators.pattern('^[1-9]+[0-9]*$'),
-    ]),
+      Validators.pattern('^[1-9]+[0-9]*$')
+    ])
   });
 
-  constructor(private tripService: TripService,
-              private router: Router,
-              public timePickerThemeService: TimePickerThemeService,
-              private changeDetectRef: ChangeDetectorRef,
-              private loginService: LoginService,
-              public popularTripService: PopularTripService) {
-  }
+  constructor(
+    private tripService: TripService,
+    private router: Router,
+    public timePickerThemeService: TimePickerThemeService,
+    private changeDetectRef: ChangeDetectorRef,
+    private loginService: LoginService,
+    public popularTripService: PopularTripService
+  ) {}
 
-@Input() popularTrip: PopularTrip;
+  @Input() popularTrip: PopularTrip;
 
   ngOnInit() {
     this.minTime = this.getMinTime();
 
-    this.popularTripSubscription =
-        this.popularTripService.popularTripSubject
-                  .subscribe((trip: PopularTrip) => {
-                    this.setGooglePlacesObjectByPopularTrip(trip);
-                    this.sourceValid = true; this.destinationValid = true; this. isDuplicatePlace = false;
-                  });
-
+    this.popularTripSubscription = this.popularTripService.popularTripSubject.subscribe(
+      (trip: PopularTrip) => {
+        this.setGooglePlacesObjectByPopularTrip(trip);
+        this.sourceValid = true;
+        this.destinationValid = true;
+        this.isDuplicatePlace = false;
+        this.destinationPlaceAutocomplete.ErrorMatcher = new InputErrorStateMatcher(
+          false
+        );
+        this.sourcePlaceAutocomplete.ErrorMatcher = new InputErrorStateMatcher(
+          false
+        );
+      }
+    );
   }
 
   ngOnDestroy() {
@@ -102,7 +117,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   validateDateTime() {
-    this.invalidDepartureDateTimeError = this.tripDate.getTime() < new Date(Date.now()).setSeconds(0);
+    this.invalidDepartureDateTimeError =
+      this.tripDate.getTime() < new Date(Date.now()).setSeconds(0);
   }
 
   setTripDateTime() {
@@ -142,7 +158,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   setGooglePlacesObjectByPopularTrip(trip: PopularTrip) {
-
     const request = {
       placeId: trip.source.stopId,
       sessionToken: new google.maps.places.AutocompleteSessionToken(),
@@ -166,7 +181,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       document.createElement('div')
     );
     this.placeService.getDetails(request, place => {
-    this.origin = place;
+      this.origin = place;
     });
     request.placeId = trip.destination.stopId;
     this.placeService.getDetails(request, place => {
@@ -175,7 +190,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     });
     this.sourceName = trip.source.name;
     this.destinationName = trip.destination.name;
-
   }
 
   onSubmit() {
@@ -196,29 +210,29 @@ export class SearchComponent implements OnInit, OnDestroy {
       source: {
         location: {
           latitude: this.origin.geometry.location.lat(),
-          longitude: this.origin.geometry.location.lng(),
+          longitude: this.origin.geometry.location.lng()
         },
         stopId: this.origin.place_id,
         name: this.origin.name,
         arrival: this.tripDate.toString(),
         departure: this.tripDate.toString(),
         hotels: [],
-        attractions: [],
+        attractions: []
       },
       destination: {
         location: {
           latitude: this.destination.geometry.location.lat(),
-          longitude: this.destination.geometry.location.lng(),
+          longitude: this.destination.geometry.location.lng()
         },
         stopId: this.destination.place_id,
         name: this.destination.name,
         arrival: this.tripDate.toString(),
         departure: 'Mon Nov 13 2090 11:37:09 GMT+0530 (India Standard Time)',
         hotels: [],
-        attractions: [],
+        attractions: []
       },
       stops: [],
-      mileage: this.vehicleMileage,
+      mileage: this.vehicleMileage
     };
     return trip;
   }
