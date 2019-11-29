@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { AuthService, GoogleLoginProvider } from 'angularx-social-login';
+import {AnalyticsService} from '@services/analytics.service';
 import { Subject } from 'rxjs';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 
@@ -22,6 +23,7 @@ export class LoginService {
   idToken = '';
   constructor(private http: HttpClient,
               private authService: AuthService,
+              public analytics: AnalyticsService,
               private dialog: MatDialog) {}
 
   saveUser(user: User) {
@@ -71,8 +73,11 @@ export class LoginService {
 
   signInWithGoogle() {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.analytics.eventEmitter('User', 'Signin');
   }
   signOut() {
     this.authService.signOut(true);
+    this.analytics.eventEmitter('User', 'SignOut');
+
   }
 }
