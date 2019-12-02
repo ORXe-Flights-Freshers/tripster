@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+.full-height {
+  height: 100vh;
+}
+
 .container {
   position: absolute;
   width: 100%;
@@ -80,11 +84,15 @@ img {
   margin-bottom: 50px;
 
   overflow: hidden;
-  overflow-x: auto;
 }
 
 .popular-trips .text {
   font-size: 18px;
+}
+
+.popular-trips .trips {
+  overflow: hidden;
+  overflow-x: auto;
 }
 
 .popular-trips .trip-list {

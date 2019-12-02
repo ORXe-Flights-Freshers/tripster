@@ -55,7 +55,6 @@
 
 ul.extras {
   display: flex;
-  justify-content: space-between;
 }
 
 ul.extras li {
@@ -66,15 +65,42 @@ ul.extras li {
 
 ul.extras li:hover {
   cursor: pointer;
-  color: #7f7f7f;
   font-size: 16px;
-  text-decoration: underline;
   transition: 0.2s ease-in-out;
 }
 
 .user-img {
   position: relative;
   height: 18px;
+}
+
+@media screen and (min-width: 615px) {
+  .emphasis {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    border: 1px solid black;
+    border-radius: 20px;
+
+    font-size: 16px !important;
+    font-weight: 600;
+
+    background-color: white;
+    color: var(--main-theme-color);
+  }
+
+  .emphasis:hover {
+    color: var(--main-theme-color) !important;
+    background-color: rgb(224, 224, 224);
+
+    box-shadow: 3px ;
+  }
+
+  .extras li:hover {
+    color: white;
+  }
 }
 
 @media screen and (max-width: 615px) {
@@ -114,21 +140,18 @@ ul.extras li:hover {
 
     text-align: center;
     height: 40px;
-    font-size: 20px;
     margin: 0;
   }
 
-  ul.extras li .text {
-    margin: auto;
+  ul.extras li .text:hover {
+    color: var(--main-theme-color);
   }
 
   .extras li:hover {
-    color: var(--main-theme-color);
-
-    text-decoration: underline;
+    color: black;
     background-color: white;
 
-    cursor: pointer;
+    border: 1px solid black;
   }
 
   .project-title {

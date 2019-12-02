@@ -86,7 +86,7 @@ export class AddStopComponent implements OnInit {
 
       self.arrivalDate = new Date(self.arrivalDate);
       self.handleArrivalTimeSet(self.arrivalDate);
-      self.departureDate = new Date(self.arrivalDate.getTime() + 60000);
+      self.departureDate = new Date(self.arrivalDate.getTime() + 2 * 60 * 60000);
       self.departureTime =
         self.departureDate.getHours().toString() +
         ':' +

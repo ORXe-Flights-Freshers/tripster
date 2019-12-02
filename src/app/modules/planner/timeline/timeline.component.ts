@@ -16,6 +16,7 @@ import { Trip } from '@models/Trip';
   styleUrls: ['./timeline.component.css']
 })
 export class TimelineComponent implements OnInit {
+  displayOwnTripNotification = true;
   durationBetweenStops: string[];
   durationsMarginTop: number[];
   navigationUrl: string;
@@ -101,6 +102,7 @@ export class TimelineComponent implements OnInit {
 
   navigateToMaps() {
     let url = '';
+    this.analytics.eventEmitter('Timeline', 'Map Navigation');
     if (this.tripService.trip) {
       url =
         'https://www.google.com/maps/dir/?api=1&origin=' +
@@ -121,15 +123,15 @@ export class TimelineComponent implements OnInit {
   }
 
   saveAnonymousTrip() {
-   if (this.loginService.loggedIn) {
-      var newTrip = JSON.parse(JSON.stringify(this.tripService.trip));
-      newTrip.userId = this.loginService.user.userId ;
-      delete newTrip['id'];
-      console.log(newTrip);
-      this.tripService.createTrip(newTrip).subscribe(data => {
-        this.router.navigate(['/', 'planner', (data as Trip).id]).then();
-      });
+    this.displayOwnTripNotification = false;
+    if (this.loginService.loggedIn) {
+      console.log('User is logged in');
+      this.tripService.trip.userId = this.loginService.user.userId ;
+      this.tripService.isAnonymousTrip = false;
+      this.tripService.updateTrip(this.tripService.trip).subscribe();
+
    } else {
+      console.log('User has not logged in ,Make him to log in');
       this.loginService.openLoginDialog();
    }
   }
