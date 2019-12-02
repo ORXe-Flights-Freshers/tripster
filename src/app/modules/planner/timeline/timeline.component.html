@@ -5,12 +5,29 @@
     type="text/css"
   />
 
-  <button *ngIf="tripService?.isAnonymousTrip" (click)="saveAnonymousTrip()"
-    style="z-index: 100;"
-    class="save-trip-button"
+  <div
+    class="alert alert-primary"
+    *ngIf="loginService.loggedIn && tripService.isAnonymousTrip"
   >
-    Save Trip
-  </button>
+    Do you want to own this trip?
+
+    <div class="buttons">
+      <button
+        type="button"
+        class="btn btn-no"
+        (click)="displayOwnTripNotification = false"
+      >
+        No
+      </button>
+      <button
+        type="button"
+        class="btn btn-yes"
+        (click)="saveAnonymousTrip()"
+      >
+        Yes
+      </button>
+    </div>
+  </div>
 
   <div class="timeline-body">
    <div
