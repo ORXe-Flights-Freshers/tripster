@@ -1,6 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
-
 import {TimePickerThemeService} from '@services/TimePickerTheme.service';
 import {TripService} from '@services/trip.service';
 import {HttpClient} from '@angular/common/http';
@@ -19,9 +18,9 @@ export class AddStopComponent implements OnInit {
   departureDate: Date;
   arrivalTime = '00:00 am';
   departureTime = '00:00 am';
-  duplicatePlace: boolean;
-  invalidPlace: boolean;
   invalidTime: boolean;
+  duplicatePlace: boolean;
+  isCityValid: boolean;
   minTime: Date;
 
   constructor(
@@ -37,16 +36,18 @@ export class AddStopComponent implements OnInit {
     this.arrivalDate = new Date(
       this.tripService.getPreviousLocationOfDestination().departure
     );
-    this.departureDate = new Date(this.arrivalDate.getTime() + 60000);
+    this.departureDate = new Date(this.arrivalDate.getTime() + 2 * 60 * 60000);
     this.departureTime =  this.departureDate.getHours().toString() +
     ':' +
     this.departureDate.getMinutes().toString() +
     ' am';
     this.minTime = this.getMinTime();
+    this.isCityValid = true;
   }
 
   handleStopPlaceChange(place: google.maps.places.PlaceResult) {
     this.stopCity = place;
+    this.isCityValid = true;
     const previousLocation = this.tripService.getPreviousLocationOfDestination();
     if (this.stopCity.place_id === previousLocation.stopId ||
       this.stopCity.place_id === this.tripService.trip.destination.stopId) {
@@ -85,7 +86,7 @@ export class AddStopComponent implements OnInit {
 
       self.arrivalDate = new Date(self.arrivalDate);
       self.handleArrivalTimeSet(self.arrivalDate);
-      self.departureDate = new Date(self.arrivalDate.getTime() + 60000);
+      self.departureDate = new Date(self.arrivalDate.getTime() + 2 * 60 * 60000);
       self.departureTime =
         self.departureDate.getHours().toString() +
         ':' +
@@ -150,19 +151,24 @@ export class AddStopComponent implements OnInit {
   }
 
   addStop() {
-    const stop: Stop = {
-      stopId: this.stopCity.place_id,
-      location: {
-        latitude: this.stopCity.geometry.location.lat(),
-        longitude: this.stopCity.geometry.location.lng()
-      },
-      name: this.stopCity.name,
-      arrival: this.arrivalDate.toString(),
-      departure: this.departureDate.toString(),
-      hotels: [],
-      attractions: []
-    };
-
-    this.dialogRef.close(stop);
+    this.tripService.addStopToTrip(this.generateStop())
+    this.dialogRef.close('success');
   }
+
+  generateStop(): Stop {
+   const stop: Stop = {
+     stopId: this.stopCity.place_id,
+     location: {
+       latitude: this.stopCity.geometry.location.lat(),
+       longitude: this.stopCity.geometry.location.lng()
+     },
+     name: this.stopCity.name,
+     arrival: this.arrivalDate.toString(),
+     departure: this.departureDate.toString(),
+     hotels: [],
+     attractions: []
+  };
+   return stop;
+ }
+
 }

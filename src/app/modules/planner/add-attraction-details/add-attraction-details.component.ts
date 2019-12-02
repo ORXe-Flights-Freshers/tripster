@@ -174,8 +174,11 @@ export class AddAttractionDetailsComponent implements OnInit {
     this.navigatorService.activeTabSubject.next('timeline');
     this.attractionData.arrival = this.arrivalDate.toString();
     this.attractionData.departure = this.departureDate.toString();
-
-    this.dialogRef.close(this.attractionData);
+    this.tripService.addAttractionToTrip(
+      this.attractionData,
+      this.stopIdOfAttraction
+    );
+    this.dialogRef.close('success');
   }
 
   toggleDatepicker(datepicker) {

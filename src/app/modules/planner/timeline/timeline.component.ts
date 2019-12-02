@@ -75,12 +75,9 @@ export class TimelineComponent implements OnInit {
 
       const dialogRef = this.dialog.open(AddStopComponent, dialogConfig);
 
-      dialogRef.afterClosed().subscribe(stopFromDialog => {
-        if (stopFromDialog) {
-          const responseStatus = this.addStop(stopFromDialog);
-          if (responseStatus) {
+      dialogRef.afterClosed().subscribe(responseFromaddStop => {
+        if (responseFromaddStop === 'success') {
             this.openSnackBar('Stop Added Succesfully', 'OK');
-          }
         }
       });
     } else {
@@ -101,11 +98,6 @@ export class TimelineComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
-  }
-
-  addStop(stop): boolean {
-    const responseMessage = this.tripService.addStopToTrip(stop);
-    return responseMessage === 'success';
   }
 
   navigateToMaps() {
@@ -134,13 +126,10 @@ export class TimelineComponent implements OnInit {
     this.displayOwnTripNotification = false;
     if (this.loginService.loggedIn) {
       console.log('User is logged in');
-      const newTrip = JSON.parse(JSON.stringify(this.tripService.trip));
-      newTrip.userId = this.loginService.user.userId ;
-      delete newTrip.id;
-      console.log(newTrip);
-      this.tripService.createTrip(newTrip).subscribe(data => {
-        this.router.navigate(['/', 'planner', (data as Trip).id]).then();
-      });
+      this.tripService.trip.userId = this.loginService.user.userId ;
+      this.tripService.isAnonymousTrip = false;
+      this.tripService.updateTrip(this.tripService.trip).subscribe();
+
    } else {
       console.log('User has not logged in ,Make him to log in');
       this.loginService.openLoginDialog();

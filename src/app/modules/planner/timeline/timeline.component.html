@@ -7,7 +7,7 @@
 
   <div
     class="alert alert-primary"
-    *ngIf="loginService.loggedIn && tripService.isAnonymousTrip"
+    *ngIf="loginService.loggedIn && tripService.isAnonymousTrip && displayOwnTripNotification"
   >
     Do you want to own this trip?
 
