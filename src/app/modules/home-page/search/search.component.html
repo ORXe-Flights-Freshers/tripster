@@ -24,7 +24,7 @@
           <mat-label>Date</mat-label>
           <input
             matInput
-            style="width: 100%"
+            style="width: 100%; cursor: pointer;"
             [matDatepicker]="myDatepicker"
             (dateChange)="handleDateSet($event)"
             [value]="tripDate"
@@ -44,7 +44,7 @@
           <mat-label>Time</mat-label>
           <input
             matInput
-            style="width: 100%"
+            style="width: 100%; cursor: pointer;"
             [ngxTimepicker]="endTime"
             [format]="12"
             [min]="getMinTime() | date: 'h:mm a'"
@@ -94,6 +94,5 @@
     <p style="color: red;" *ngIf="invalidDepartureDateTimeError">
       Time can't be less than current time.
     </p>
-    <!-- <button>Set Trip</button> -->
   </mat-card>
 </form>

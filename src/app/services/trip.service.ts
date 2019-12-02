@@ -12,6 +12,7 @@ import { environment } from '@environments/environment';
 import { LoginService } from './login.service';
 import { Time } from '@models/Time';
 import { MapsAPILoader } from '@agm/core';
+import {AnalyticsService} from '@services/analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,8 @@ export class TripService {
     private route: Router,
     private loggerService: LoggerService,
     private loginService: LoginService,
-    private mapsAPILoader: MapsAPILoader
+    private mapsAPILoader: MapsAPILoader,
+    private analytics: AnalyticsService
   ) {
     this.mapsAPILoader.load().then(() => {
       this.directionService = new google.maps.DirectionsService();
@@ -53,6 +55,11 @@ export class TripService {
 
   createTrip(trip: Trip) {
     this.trip = trip;
+    if (trip.userId === '') {
+      this.analytics.eventEmitter('Homepage', 'Trip created by Anonymous User');
+    } else {
+      this.analytics.eventEmitter('Homepage', 'Trip created by Logged-in User');
+     }
     return this.http.post(
       environment.baseUrl + ':' + environment.port + '/api/trip',
       trip
@@ -81,6 +88,28 @@ export class TripService {
           this.route.navigate(['/', 'not-found']).then();
         }
       );
+
+  }
+
+  getTripAnalytics() {
+   if (this.trip !== undefined) {
+    if ( this.loginService.loggedIn === true) {
+      if (this.trip.userId === '') {
+        console.log('Non-Anonymous Trip opened by registered user');
+        this.analytics.eventEmitter('Planner', 'Anonymous Trip opened by registered user');
+      } else {
+        console.log('Anonymous Trip opened by registered user');
+        this.analytics.eventEmitter('Planner', 'Non-Anonymous Trip opened by registered user');
+      }
+    } else {
+      if (this.trip.userId === '') {
+        console.log('Non-anonymous Trip opened by anonymous user');
+        this.analytics.eventEmitter('Planner', 'Anonymous Trip opened by anonymous user');
+      } else {
+        this.analytics.eventEmitter('Planner', 'Non-anonymous Trip opened by anonymous user');
+      }
+    }
+    }
   }
 
   setCanModifyTrip() {
@@ -188,6 +217,7 @@ export class TripService {
     this.trip.stops.push(stop);
     this.updateWaypoints();
     this.updateTimelineTime();
+    this.analytics.eventEmitter('Planner', 'Stop added to trip');
     this.updateTrip(this.trip).subscribe();
   }
 
@@ -206,6 +236,7 @@ export class TripService {
       }
     }
     this.updateWaypoints();
+    this.analytics.eventEmitter('Planner', 'Hotel added to trip');
     this.updateTrip(this.trip).subscribe();
   }
 
@@ -240,6 +271,7 @@ export class TripService {
     }
 
     this.updateWaypoints();
+    this.analytics.eventEmitter('Planner', 'Attraction added to trip');
     this.updateTrip(this.trip).subscribe();
   }
 

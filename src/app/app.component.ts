@@ -52,7 +52,6 @@ export class AppComponent implements OnInit {
         this.loginService.idToken = socialUser.idToken;
         this.loginService.isLoggedInSubject.next(true);
         this.loginService.saveUser(user);
-        this.tripService.setCanModifyTrip();
         // console.log(socialUser);
       } else {
         this.loginService.user = null;
@@ -60,8 +59,9 @@ export class AppComponent implements OnInit {
         this.loginService.loggedIn = false;
         this.loginService.idToken = '';
         this.loginService.isLoggedInSubject.next(false);
-        this.tripService.setCanModifyTrip();
       }
+      this.tripService.setCanModifyTrip();
+      this.tripService.getTripAnalytics();
       this.loginService.setPastTrips();
     });
   }
