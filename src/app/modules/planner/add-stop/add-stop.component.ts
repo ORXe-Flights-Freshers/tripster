@@ -151,7 +151,7 @@ export class AddStopComponent implements OnInit {
   }
 
   addStop() {
-    this.tripService.addStopToTrip(this.generateStop())
+    this.tripService.addStopToTrip(this.generateStop());
     this.dialogRef.close('success');
   }
 
