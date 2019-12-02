@@ -1,11 +1,7 @@
 import { LoginService } from '@services/login.service';
-<<<<<<< HEAD
-import { Component, OnInit } from '@angular/core';
-import {AnalyticsService} from '@services/analytics.service';
-=======
 import { Component, OnInit, HostListener } from '@angular/core';
+import {AnalyticsService} from '@services/analytics.service';
 
->>>>>>> 1b0a56b051e214eee49fb3a605c2b46d7b3d683e
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
