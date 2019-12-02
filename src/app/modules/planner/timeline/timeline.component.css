@@ -139,6 +139,98 @@ mat-card {
   }
 }
 
+.alert {
+  position: absolute;
+  width: 80%;
+  height: 30px;
+
+  margin-left: 6%;
+  margin-bottom: 1rem;
+  padding: .75rem 1.25rem;
+
+  border: 1px solid transparent;
+  border-radius: .25rem;
+
+  font-size: 13px;
+
+  z-index: 100;
+}
+
+@media only screen and (max-width: 1200px) {
+  .alert {
+    margin-left: 8%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .alert {
+    width: 75%;
+    margin-left: 8%;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  .alert {
+    width: 100%;
+    height: 40px;
+
+    margin-left: 0;
+  }
+}
+
+.alert-primary {
+  color: #1f1f1f;
+  background-color: #e0e0e0;
+  border-color: #d1d1d1;
+}
+
+.alert .buttons {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+
+@media only screen and (max-width: 430px) {
+  .alert .buttons {
+    right: 50px;
+  }
+}
+
+.alert .buttons .btn {
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+
+  margin-left: 7px;
+
+  border: none;
+  border-radius: 5px;
+
+  outline: none;
+  cursor: pointer;
+}
+
+.alert .buttons .btn-no {
+  color: #212529;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+}
+
+.alert .buttons .btn-no:hover {
+  color: #303030;
+  background-color: #f1f1f1;
+}
+
+.alert .buttons .btn-yes {
+  color: white;
+  background-color: rgb(85, 85, 85);
+}
+
+.alert .buttons .btn-yes:hover {
+  color: #ececec;
+  background-color: #777777;
+}
+
 .save-trip-button {
   position: absolute;
   top: 10px;

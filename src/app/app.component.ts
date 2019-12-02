@@ -10,12 +10,8 @@ import {Router, NavigationEnd} from '@angular/router';
 import { TripService } from '@services/trip.service';
 import {AnalyticsService} from '@services/analytics.service';
 
-<<<<<<< HEAD
-declare let ga;
-=======
 declare let ga: (arg1: string, arg2: string, arg3?: any) => void;
 
->>>>>>> 1b0a56b051e214eee49fb3a605c2b46d7b3d683e
 
 @Component({
   selector: 'app-root',
