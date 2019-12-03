@@ -79,7 +79,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   handleSourceChange(place: google.maps.places.PlaceResult) {
     this.origin = place;
-    console.log(place);
     this.checkForDuplicatePlace();
   }
 

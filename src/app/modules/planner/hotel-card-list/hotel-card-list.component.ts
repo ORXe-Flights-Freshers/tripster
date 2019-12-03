@@ -72,7 +72,7 @@ export class HotelCardListComponent implements OnInit {
             }
           }
 
-          console.log(hotelsApiEndpoint.ipObj.ip);
+          // console.log(hotelsApiEndpoint.ipObj.ip);
 
           // Production Data Link
           const hotelsApiUrl = 'http://' + hotelsApiEndpoint.ipObj.ip + '/api/hotels/' +
