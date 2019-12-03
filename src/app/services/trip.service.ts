@@ -95,18 +95,14 @@ export class TripService {
    if (this.trip !== undefined) {
     if ( this.loginService.loggedIn === true) {
       if (this.trip.userId === '') {
-        console.log('Anonymous Trip opened by registered user');
         this.analytics.eventEmitter('Planner', 'Anonymous Trip opened by registered user');
       } else {
-        console.log('Registered Trip opened by registered user');
         this.analytics.eventEmitter('Planner', 'Registered Trip opened by registered user');
       }
     } else {
       if (this.trip.userId === '') {
-        console.log('Anonymous Trip opened by anonymous user');
         this.analytics.eventEmitter('Planner', 'Anonymous Trip opened by anonymous user');
       } else {
-        console.log('Registered  Trip opened by anonymous user');
         this.analytics.eventEmitter('Planner', 'Registered Trip opened by anonymous user');
       }
     }

@@ -43,11 +43,7 @@ export class AddAttractionDetailsComponent implements OnInit {
   ngOnInit() {
     this.arrivalDate = new Date(this.getMinDate());
     const stop = this.tripService.getStopByStopId(this.stopIdOfAttraction);
-    if (stop.stopId === this.tripService.trip.destination.stopId) {
-      this.departureDate = new Date(this.arrivalDate.getTime() + 30 * 60000);
-    } else {
-      this.departureDate = new Date(this.getMaxDate());
-    }
+    this.departureDate = new Date(this.arrivalDate.getTime() + 30 * 60000);
     this.departureTime = this.departureDate.getHours().toString() +
       ':' + this.departureDate.getMinutes().toString() + ' am';
     this.arrivalTime = this.arrivalDate.getHours().toString() +
