@@ -36,7 +36,7 @@ export class AddStopComponent implements OnInit {
     this.arrivalDate = new Date(
       this.tripService.getPreviousLocationOfDestination().departure
     );
-    this.departureDate = new Date(this.arrivalDate.getTime() + 2 * 60 * 60000);
+    this.departureDate = new Date(this.arrivalDate.getTime() +  60000);
     this.departureTime =  this.departureDate.getHours().toString() +
     ':' +
     this.departureDate.getMinutes().toString() +

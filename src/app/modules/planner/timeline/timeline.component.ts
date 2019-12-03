@@ -129,6 +129,7 @@ export class TimelineComponent implements OnInit {
       this.tripService.trip.userId = this.loginService.user.userId ;
       this.tripService.isAnonymousTrip = false;
       this.tripService.updateTrip(this.tripService.trip).subscribe();
+      this.openSnackBar('This trip has been added to your account !', '');
 
    } else {
       console.log('User has not logged in ,Make him to log in');
