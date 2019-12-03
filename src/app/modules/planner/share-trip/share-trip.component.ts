@@ -54,7 +54,7 @@ export class ShareTripComponent implements OnInit {
 
   copyShareableLink() {
     const ele = document.createElement('input');
-    ele.value = 'http://3.14.69.62' + this.router.url;
+    ele.value = 'http://tripster.tk' + this.router.url;
     document.body.appendChild(ele);
     ele.select();
     document.execCommand('copy');

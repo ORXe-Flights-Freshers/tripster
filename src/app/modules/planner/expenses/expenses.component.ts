@@ -36,6 +36,12 @@ export class ExpensesComponent implements OnInit {
         this.fuelPriceFromSource = false;
       }
       this.displayLoader = false;
+    }, error => {
+      this.fuelCostPerLiter = 80;
+      this.fuelPriceFromSource = false;
+      this.displayLoader = false;
+
+      console.log(error.message);
     });
   }
 
