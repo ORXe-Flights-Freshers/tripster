@@ -1,0 +1,16 @@
+<div id="filter-header" class="flex-container-header">
+        <h4 id="header-text">Filter</h4>
+        <button id="header-button" (click)="closeDialog()" mat-button>Close</button>
+</div>
+<hr/>
+<mat-form-field class="attraction-type">
+  <mat-label>Type of Attraction</mat-label>
+  <mat-select [value]="attractionType" (selectionChange)="setAttractionType($event)">
+    <mat-option *ngFor="let attractionType of attractionTypes" [value]="attractionType">
+      {{attractionType.replace('_', ' ') | titlecase}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div>
+  <button class="filter-btn" (click)="addFilter()"  mat-raised-button color="primary" mat-button>Filter</button>
+</div>

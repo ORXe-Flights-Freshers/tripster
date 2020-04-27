@@ -1,0 +1,87 @@
+<mat-card>
+  <link
+    href="//fonts.googleapis.com/css?family=Roboto:200,400,600"
+    rel="stylesheet"
+    type="text/css"
+  />
+
+  <div
+    class="alert alert-primary"
+    *ngIf="loginService.loggedIn && tripService.isAnonymousTrip && displayOwnTripNotification"
+  >
+    Do you want to own this trip?
+
+    <div class="buttons">
+      <button
+        type="button"
+        class="btn btn-no"
+        (click)="displayOwnTripNotification = false"
+      >
+        No
+      </button>
+      <button
+        type="button"
+        class="btn btn-yes"
+        (click)="saveAnonymousTrip()"
+      >
+        Yes
+      </button>
+    </div>
+  </div>
+
+  <div class="timeline-body">
+   <div
+      class="duration-between-stops-container"
+
+    >
+      <div
+        class="duration"
+        *ngFor="let duration of durationBetweenStops; let i = index"
+        [ngStyle]="{
+          marginTop: durationsMarginTop[i]?.toString() + 'px'
+        }"
+      >
+      {{ duration }}
+      </div>
+    </div>
+    <span
+      *ngIf="tripService?.trip"
+    >
+      <app-timeline-stop
+        [stop]="tripService?.trip?.source"
+        [stopType]="'source'"
+      ></app-timeline-stop>
+      <span
+        *ngFor="let stop of tripService?.trip?.stops"
+      >
+        <app-timeline-stop [stop]="stop"></app-timeline-stop>
+      </span>
+      <app-timeline-stop
+        [stop]="tripService?.trip?.destination"
+        [stopType]="'destination'"
+      ></app-timeline-stop>
+    </span>
+  </div>
+
+  <div class="footer-nav">
+    <button *ngIf="loginService?.canModifyTrip" class="add-stop" (click)="openStopDialog()">
+      <i class="fa fa-plus"></i>
+      Add Stop
+    </button>
+
+    <ul>
+      <li>
+        <button class="btn-footer" (click)="openShareTripDialog()">
+          <span class="fa fa-share-alt"></span>
+          Share trip
+        </button>
+      </li>
+      <li>
+          <button class="btn-footer" (click)="navigateToMaps()">
+            <i class="fa fa-map"></i>
+            Navigate
+          </button>
+      </li>
+    </ul>
+  </div>
+</mat-card>

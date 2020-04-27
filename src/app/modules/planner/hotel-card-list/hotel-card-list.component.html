@@ -1,0 +1,76 @@
+<div class="container">
+
+  <div class="loader" *ngIf="displayLoader">
+    <mat-spinner class="spinner"></mat-spinner>
+  </div>
+
+  <div class="header">
+      <span class="number-of-hotels-info bold">
+          <span
+            *ngIf="chosenCity; else noLocationSelected"
+          >
+              <span class="bolder">
+                {{(arrHotels|search:'name':searchQuery).length}}
+              </span>
+              hotels found near {{ chosenCity }}
+          </span>
+          <ng-template #noLocationSelected>
+              Choose a location to view hotels there
+          </ng-template>
+
+      </span>
+    <div class="search">
+      <mat-search-bar
+      (onOpen)="handleSearchBarOpen()"
+      [formControl]="search"
+    ></mat-search-bar>
+    </div>
+  </div>
+
+  <div class="list-of-stops">
+
+    <button
+      *ngFor="let stop of tripService?.trip?.stops"
+      (click)="hotelByStop(stop)"
+      [ngClass]="{
+          active: stop.name === chosenCity
+        }"
+    >
+      {{ stop.name }}
+    </button>
+    <button
+      *ngIf="tripService?.trip?.destination"
+      (click)="hotelByStop(tripService?.trip?.destination)"
+      [ngClass]="{
+          active: tripService.trip.destination.name === chosenCity
+        }"
+    >
+      {{ tripService.trip.destination.name }}
+    </button>
+  </div>
+
+  <div class="hotels-list">
+    <div class="no-hotels-found" #noHotelsFound></div>
+    <div class="no-hotels-found-with-search" *ngIf="arrHotels.length > 0 && (arrHotels|search:'name':searchQuery).length === 0">No attractions with given search query found</div>
+    <app-hotel-card
+      [stopIdOfHotel]="stopIdOfHotel"
+      *ngFor="let hotelData of arrHotels|search:'name':searchQuery"
+      [hotelData]="hotelData"
+    ></app-hotel-card>
+  </div>
+
+  <div class="footer">
+    <input
+      id="radius"
+      type="range"
+      [value]="radius"
+      (change)="handleRadiusChange($event)"
+      class="slider"
+      min="1"
+      [max]="maxRadius"
+      step="1"/>
+    <label for="radius">
+      {{ radius }} kilometers from center of city
+    </label>
+  </div>
+</div>

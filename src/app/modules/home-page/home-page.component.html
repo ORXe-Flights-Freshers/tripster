@@ -1,0 +1,27 @@
+<div
+  class="container"
+  [ngStyle]="{
+    height: popularTrips?.length > 0 ? '165vh' : '100vh'
+  }"
+>
+  <div class="img-background"></div>
+  <img
+    src="assets/img/homepage-background.jpg"
+    alt="homepage-background"
+  >
+  <div class="info">
+    <h1 class="tagline">Plan your trip like never before</h1>
+  </div>
+  <app-search></app-search>
+
+  <div *ngIf="popularTrips?.length !== 0" class="popular-trips">
+    <h3 class='text'>Popular Roadtrips</h3>
+    <div class="trips">
+      <div class="trip-list">
+        <div class="trip" *ngFor="let trip of popularTrips">
+          <app-popular-trip [popularTrip]="trip"></app-popular-trip>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>

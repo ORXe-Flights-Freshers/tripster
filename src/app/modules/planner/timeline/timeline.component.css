@@ -1,0 +1,276 @@
+mat-card {
+  height: 430px;
+  border-radius: 20px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 70px;
+
+  width: 100%;
+  position: absolute;
+  border-top: 1px solid rgba(200, 200, 200, 0.8);
+
+  bottom: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+.footer-nav .add-stop {
+  text-transform: uppercase;
+
+  margin-left: 20px;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+
+  font-size: 12px;
+  letter-spacing: 1px;
+
+  color: white;
+  background-color: var(--main-theme-color);
+
+  outline: none;
+}
+
+@media only screen and (max-width: 400px) {
+  .footer-nav {
+    display: block;
+
+    height: 100px;
+  }
+
+  .footer-nav .add-stop {
+    display: block;
+
+    margin: auto;
+    margin-top: 15px;
+    width: 90%;
+    border-radius: 7px;
+  }
+}
+
+.footer-nav .add-stop:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.footer-nav .add-stop mat-icon {
+  font-size: 12px;
+  height: 12px;
+  width: 12px;
+}
+
+.footer-nav ul mat-icon {
+  font-size: 12px;
+  height: 12px;
+  width: 12px;
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-direction: row;
+
+  margin-right: 10px;
+
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 400px) {
+  .footer-nav ul {
+    justify-content: space-between;
+    position: absolute;
+
+    margin-right: 0;
+
+    width: 90%;
+    right: 5%;
+    top: 40px;
+  }
+}
+
+.footer-nav ul li {
+  list-style: none;
+  font-size: 16px;
+  width: fit-content;
+}
+
+.btn-footer {
+  text-transform: uppercase;
+
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+  background-color: white;
+
+  outline: none;
+}
+
+.btn-footer:hover {
+  color: white;
+  background-color: rgba(100, 100, 100, 0.7);
+
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.timeline-body {
+  position: relative;
+
+  width: 100%;
+  height: 360px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media only screen and (max-width: 400px) {
+  .timeline-body {
+    height: 330px;
+  }
+}
+
+.alert {
+  position: absolute;
+  width: 80%;
+  height: 30px;
+
+  margin-left: 6%;
+  margin-bottom: 1rem;
+  padding: .75rem 1.25rem;
+
+  border: 1px solid transparent;
+  border-radius: .25rem;
+
+  font-size: 13px;
+
+  z-index: 100;
+}
+
+@media only screen and (max-width: 1200px) {
+  .alert {
+    margin-left: 8%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .alert {
+    width: 75%;
+    margin-left: 8%;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  .alert {
+    width: 100%;
+    height: 40px;
+
+    margin-left: 0;
+  }
+}
+
+.alert-primary {
+  color: #1f1f1f;
+  background-color: #e0e0e0;
+  border-color: #d1d1d1;
+}
+
+.alert .buttons {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+
+@media only screen and (max-width: 430px) {
+  .alert .buttons {
+    right: 50px;
+  }
+}
+
+.alert .buttons .btn {
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+
+  margin-left: 7px;
+
+  border: none;
+  border-radius: 5px;
+
+  outline: none;
+  cursor: pointer;
+}
+
+.alert .buttons .btn-no {
+  color: #212529;
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+}
+
+.alert .buttons .btn-no:hover {
+  color: #303030;
+  background-color: #f1f1f1;
+}
+
+.alert .buttons .btn-yes {
+  color: white;
+  background-color: rgb(85, 85, 85);
+}
+
+.alert .buttons .btn-yes:hover {
+  color: #ececec;
+  background-color: #777777;
+}
+
+.save-trip-button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+
+  height: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+
+  border: none;
+  border-radius: 5px;
+
+  background-color: var(--main-theme-color);
+  color: white;
+  outline: none;
+}
+
+.save-trip-button:hover {
+  width: 78px;
+  height: 28px;
+
+  right: 19px;
+  top: 9px;
+
+  cursor: pointer;
+}
+
+span {
+  position: relative;
+}
+
+.duration-between-stops-container {
+  position: absolute;
+  z-index: 5;
+  margin-left: 45px;
+}
+
+.duration-between-stops-container .duration {
+  font-size: 11px;
+  color: grey;
+}

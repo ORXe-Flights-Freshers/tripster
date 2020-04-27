@@ -1,0 +1,122 @@
+<div id="add-hotel-details-header" class="flex-container-header">
+  <h4 id="header-text">Add Hotel</h4>
+  <button id="header-button" (click)="closeHotelDialog()" mat-button>
+    Close
+  </button>
+</div>
+
+<hr/>
+
+<div id="hotel-name">
+  <h3>{{ hotelData.name }}</h3>
+  <h5>{{ hotelData.description }}</h5>
+</div>
+
+<p>Check In</p>
+<div id="arrival-block" class="flex-container">
+  <div class="date-field">
+    <mat-form-field class="date-input-field" appearance="outline">
+      <mat-label>Date</mat-label>
+
+      <input
+        placeholder="Trip Date"
+        matInput
+        [matDatepicker]="arrivalDatepicker"
+        [value]="arrivalDate"
+        disabled
+        readonly
+      />
+
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="arrivalDatepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #arrivalDatepicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="time-field">
+    <mat-form-field class="time-input-field" appearance="outline">
+      <mat-label>Time</mat-label>
+      <input
+        matInput
+        [ngxTimepicker]="arrivalTimePicker"
+        [format]="12"
+        [value]="arrivalDate | date: 'h:mm a'"
+        disabled="true"
+        readonly
+      />
+    </mat-form-field>
+    <ngx-material-timepicker
+      #arrivalTimePicker
+      [theme]="timePickerThemeService.darkTheme"
+    ></ngx-material-timepicker>
+  </div>
+</div>
+
+<p>Check Out</p>
+
+<div id="departure-block" class="flex-container">
+  <div class="date-field">
+    <mat-form-field class="date-input-field" appearance="outline">
+      <mat-label>Date</mat-label>
+      <input
+        placeholder="Trip Date"
+        matInput
+        [matDatepicker]="departureDatepicker"
+        (dateChange)="handleDepartureDateSet($event)"
+        [value]="departureDate"
+        (focus)="departureDatepicker.open()"
+        [min]="getMinDate()"
+        readonly
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="departureDatepicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #departureDatepicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="time-field">
+    <mat-form-field class="time-input-field" appearance="outline">
+      <mat-label>Time</mat-label>
+      <input
+        matInput
+        [ngxTimepicker]="departureTimePicker"
+        [format]="12"
+        [min]="minTime | date: 'h:mm a'"
+        [max]="maxTime | date: 'h:mm a'"
+        [value]="departureDate | date: 'h:mm a'"
+        readonly
+      />
+    </mat-form-field>
+    <ngx-material-timepicker
+      (timeSet)="handleDepartureTimeSet($event)"
+      #departureTimePicker
+      [theme]="timePickerThemeService.darkTheme"
+    ></ngx-material-timepicker>
+  </div>
+</div>
+<br/>
+
+<div id="buttons-block">
+  <div id="bottom-error-block">
+    <p id="hotel-error" *ngIf="invalidArrivalTimeError">* Departure time must be more than arrival</p>
+    <p id="hotel-error" *ngIf="invalidDepartureTimeError">* Departure time is more than stop departure.Adding will
+      affect the whole trip.</p>
+    <p id="hotel-error" *ngIf="invalidSameTimeError">* Arrival and departure can't be same.</p>
+  </div>
+  <div id="bottom-button-block">
+    <button mat-button (click)="closeHotelDialog()">CANCEL</button>
+    <button
+      class="add-btn"
+      (click)="addHotel()"
+      [disabled]="invalidArrivalTimeError || invalidSameTimeError"
+    >
+      ADD
+    </button>
+  </div>
+
+
+</div>

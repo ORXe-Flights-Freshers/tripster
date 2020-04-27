@@ -1,0 +1,93 @@
+<div class="container">
+
+  <!-- <div class="stop-details">
+    <div
+      *ngIf="stopNameBoxWidth"
+      class="stop-hover"
+      [ngStyle]="{
+        width: stopNameBoxWidth * helperCanvas.resolution + 'px',
+        borderRadius: helperCanvas.resolution * 10 + 'px'
+      }"
+      (mouseover)="displayStopNamePopUp=true"
+      (mouseleave)="displayStopNamePopUp=false"
+    >
+    </div>
+    <div
+      *ngIf="displayStopNamePopUp"
+      class="show-stop-name"
+    >
+      {{ stop.name }}
+    </div>
+  </div> -->
+
+  <div class="stop-buttons">
+    <div
+      class="edit-delete"
+      [ngStyle]="{
+        color: buttons.deleteHover ? 'rgb(157, 0, 0)' : currentTheme.color
+      }"
+      (mouseover)="buttons.deleteHover=true"
+      (mouseleave)="buttons.deleteHover=false"
+      (click)="editOrRemoveStop()"
+      *ngIf="loginService?.canModifyTrip"
+    >
+      <i
+        class="fa fa-lg"
+        [ngClass]="{
+          'fa-trash': stopType === 'stop'
+        }"
+      ></i>
+      <!-- [ngClass]="{
+        'fa-pencil': stopType !== 'stop',
+        'fa-trash': stopType === 'stop'
+      }" -->
+    </div>
+  </div>
+
+  <div class="places-holder"
+       [ngStyle]="{
+      height: '' + places.length * 78 + 'px'
+    }"
+  >
+    <div class="each-place"
+      [ngStyle]="{
+        height: '72px'
+      }"
+      *ngFor="let place of places; let i = index"
+    >
+      <div class="place-image" *ngIf="windowWidth > 420">
+        <img
+          [src]="place.imageUrl"
+          alt="&nbsp;img"
+          style="height: 49px; width: 49px; font-size: 14px;"
+        >
+      </div>
+      <div class="place-delete"
+        [ngStyle]="{
+          color: ( (buttons.deleteHover && stopType === 'stop')
+                  || buttons.deletePlaces[i]) ?
+                  'rgb(157, 0, 0)' : currentTheme.color
+        }"
+        (mouseover)="buttons.deletePlaces[i]=true"
+        (mouseleave)="buttons.deletePlaces[i]=false"
+        *ngIf="loginService?.canModifyTrip"
+      >
+        <i
+          class="fa fa-trash fa-lg"
+          (click)="deletePlace(place, place.type)"
+        ></i>
+      </div>
+      <div
+        class="place-details"
+        [ngStyle]="{
+          width: (windowWidth > 420 ? 289 : 193) + 'px'
+        }"
+        (click)="tripService.showPlaceMarker(place)"
+      >
+      </div>
+    </div>
+  </div>
+
+  <div #canvasContainer class="canvas-container"></div>
+
+</div>

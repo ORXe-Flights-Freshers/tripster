@@ -1,0 +1,54 @@
+<div class="nav-bar"
+     [ngStyle]="{
+    backgroundColor: extraOptions.backgroundColor
+  }"
+>
+  <div class="hamburger" #burger>
+    <div class="icon-line"></div>
+    <div class="icon-line"></div>
+    <div class="icon-line"></div>
+  </div>
+
+  <div class="nav-bar-content margin-auto align-items-center white">
+
+    <div class="project-title"
+         routerLink="/"
+    >
+      <ul>
+        <li><h2>Tripster</h2></li>
+        <li class="project-sub-title">Roadtrip Planner</li>
+      </ul>
+    </div>
+
+    <ul class="extras"
+        #extras
+    >
+      <li
+        *ngIf="loginService?.loggedIn"
+        [routerLink]="['/profile']"
+      >
+        <span
+          class="user-name text"
+        >Hi, {{loginService?.firstName}}</span>
+      </li>
+      <!-- <li
+        (click)="loginService?.openLoginDialog()"
+        *ngIf="!loginService?.loggedIn"
+        class="emphasis"
+      >
+          <span class="text">Login</span>
+      </li> -->
+      <li
+        (click)="loginService?.signInWithGoogle()"
+        *ngIf="!loginService?.loggedIn"
+        class="login-btn login-btn-google"
+      >
+        Login
+    </li>
+      <li (click)="loginService?.signOut()" *ngIf="loginService?.loggedIn">
+          <span class="text">Log out</span>
+      </li>
+    </ul>
+
+  </div>
+</div>

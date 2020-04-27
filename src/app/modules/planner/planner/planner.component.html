@@ -1,0 +1,61 @@
+<div class="body">
+  <div class="background"></div>
+
+  <div class="container flex-container">
+    <div class="navigator">
+      <div class="amenities-navbar">
+        <div
+          class="btn timeline"
+          (click)="navigatorService.activeTabSubject.next('timeline')"
+          [ngClass]="{
+            'btn-active': activeTab === 'timeline'
+          }"
+        >
+          <mat-icon class="btn-icon">timeline</mat-icon>
+          <span class="btn-text">Timeline</span>
+        </div>
+        <span class="btn-separator"></span>
+        <div
+          class="btn hotel"
+          (click)="navigatorService.activeTabSubject.next('hotel')"
+          [ngClass]="{
+            'btn-active': activeTab === 'hotel'
+          }"
+        >
+          <mat-icon class="btn-icon">hotel</mat-icon>
+          <span class="btn-text">Hotels</span>
+        </div>
+        <span class="btn-separator"></span>
+        <div
+          class="btn restaurant"
+          (click)="navigatorService.activeTabSubject.next('attractions')"
+          [ngClass]="{
+            'btn-active': activeTab === 'attractions'
+          }"
+        >
+          <mat-icon class="btn-icon">attractions</mat-icon>
+          <span class="btn-text">Attractions</span>
+        </div>
+        <span class="btn-separator"></span>
+        <div
+          class="btn expenses"
+          (click)="navigatorService.activeTabSubject.next('expenses')"
+          [ngClass]="{
+            'btn-active': activeTab === 'expenses'
+          }"
+        >
+          <mat-icon class="btn-icon">local_gas_station</mat-icon>
+          <span class="btn-text">Expenses</span>
+        </div>
+        <span class="btn-separator"></span>
+      </div>
+
+      <app-timeline *ngIf="activeTab === 'timeline'"></app-timeline>
+      <app-hotel-card-list *ngIf="activeTab === 'hotel'"></app-hotel-card-list>
+      <app-attraction-card-list *ngIf="activeTab === 'attractions'"></app-attraction-card-list>
+      <app-expenses *ngIf="activeTab === 'expenses'"></app-expenses>
+    </div>
+
+    <app-map id="google-map-fragment" class="map"></app-map>
+  </div>
+</div>

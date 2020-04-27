@@ -1,0 +1,59 @@
+<div class="body">
+
+  <div class="container">
+
+    <div class="fuel-cost-container container-content">
+      <p class="text-question">Cost of fuel (per litre)</p>
+      <label for="fuel-cost">
+        <input
+          type="number"
+          min="0"
+          id="fuel-cost"
+          [(ngModel)]="fuelCostPerLiter"
+          (input)="onPriceInput($event)"
+          #price
+        >
+      </label>
+
+      <div class="fuel-price-info" *ngIf="fuelPriceFromSource">
+        *Current Fuel Price in {{tripService?.trip.source.name}}
+      </div>
+      <div class="fuel-price-info container-content" *ngIf="!fuelPriceFromSource && !displayLoader">
+        *Fuel Price can't be fetched for {{tripService?.trip.source.name}}
+      </div>
+    </div>
+
+    <div class="mileage-container container-content">
+      <p class="text-question">Mileage (in kilometers)</p>
+      <label for="mileage">
+        <input
+          type="number"
+          min="0"
+          id="mileage"
+          [(ngModel)]="mileageOfCar"
+          (input)="onMileageInput($event)"
+          #mileage
+        >
+      </label>
+    </div>
+
+    <div class="total-distance container-content">
+      <p class="text-question">Total distance </p>
+      <p>{{ getDistance() + ' Kilometers' ? getDistance() + ' Kilometers' : 'Not Available'}}</p>
+    </div>
+
+    <div class="total-fuel-consumption container-content">
+      <p class="text-question">Total fuel consumption </p>
+      <p>{{ getFuelConsumption() + ' Litre' ? getFuelConsumption() + ' Litre' : 'Not Available' }}</p>
+    </div>
+
+    <div class="approximate-fuel-cost container-content">
+        <p class="text-question">Approximate fuel cost </p>
+        <p>{{ getFuelCost() + ' Rupees' ? getFuelCost() + ' Rupees' : 'Not Available' }}</p>
+    </div>
+  </div>
+
+  <div class="loader" *ngIf="displayLoader">
+    <mat-spinner class="spinner-loader"></mat-spinner>
+  </div>
+</div>

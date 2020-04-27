@@ -1,0 +1,52 @@
+<div class="card">
+  <div class="image">
+    <img [src]="attractionData.imageUrl" alt=" Image not available"/>
+  </div>
+
+  <div class="details">
+    <div
+        #headingDetails
+    >
+    </div>
+  </div>
+
+  <div class="text-body">
+    <a class="place-link" href="https://www.google.com/maps/search/?api=1&query={{attractionData.name}}&query_place_id={{attractionData.placeId}}" target="_blank">
+      <div
+      class="heading"
+      (mouseover)="onHeadingOver()"
+      (mouseout)="onHeadingOut()"
+    >
+      {{ attractionData.name.length > 14 ?
+        attractionData.name.substring(0, 14) + '...' : attractionData.name}}
+    </div>
+  </a>
+    <div class="facilities">
+      {{ attractionData.description }}
+    </div>
+    <div class="attraction-rating">
+      <strong>Rating: </strong>
+      <span *ngIf="attractionData.rating; else ratingNotAvailableTemplate">
+        {{ attractionData.rating ? attractionData.rating : 0 }}
+        <span class="fa fa-star"></span>
+      </span>
+      <ng-template #ratingNotAvailableTemplate>
+        Not available
+      </ng-template>
+    </div>
+  </div>
+  <div
+    class="locate-on-map"
+    (click)="tripService.showPlaceMarker(attractionData)"
+  >
+    <img src="assets/icons/location_searching.svg" alt="Locate on map">
+  </div>
+
+  <div
+    *ngIf="loginService?.canModifyTrip"
+    class="add-btn-attraction"
+    (click)='openAttractionDialog(attractionData)'
+  >
+    Add
+  </div>
+</div>

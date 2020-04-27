@@ -1,0 +1,132 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  position: relative;
+}
+
+.body {
+  position: relative;
+
+  width: 100%;
+  margin-bottom: -4px;
+}
+
+.stop-buttons,
+.places-holder {
+  position: absolute;
+  z-index: 1;
+
+  width: 100%;
+}
+
+.edit-delete {
+  position: absolute;
+  display: inline-block;
+
+  margin-top: 53px;
+}
+
+@media only screen and (min-width: 600px) {
+  .edit-delete {
+    right: 40px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .edit-delete {
+    right: 25px;
+  }
+}
+
+.edit-delete:hover {
+  cursor: pointer;
+}
+
+.stop-details {
+  position: absolute;
+  margin-left: 50px;
+}
+
+.stop-hover {
+  margin-top: 55px;
+
+  padding: 0;
+
+  overflow: hidden;
+  border: 1px solid blue;
+  background-color: greenyellow;
+
+  height: 34px;
+  cursor: pointer;
+}
+
+.stop-hover:hover {
+  background-color: red;
+}
+
+.show-stop-name {
+
+}
+
+.places-holder {
+  margin-top: 127px;
+}
+
+.each-place {
+  /* Just for reference */
+  /*border: 1px solid black;*/
+}
+
+.place-delete {
+  position: absolute;
+  width: fit-content;
+
+  margin-top: 20px;
+
+  z-index: 10;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 600px) {
+  .place-delete {
+    right: 40px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .place-delete {
+    right: 25px;
+  }
+}
+
+.place-image {
+  position: absolute;
+  width: fit-content;
+
+  left: 72px;
+  margin-top: 8px;
+}
+
+.place-details {
+  position: absolute;
+  height: 65px;
+
+  left: 63px;
+
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.place-details:hover {
+  border-color: var(--main-theme-color);
+  background-color: rgba(167, 167, 167, 0.2);
+}
+
+.canvas-container {
+  min-width: 320px;
+  overflow-x: hidden;
+}

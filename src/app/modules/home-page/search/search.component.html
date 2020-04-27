@@ -1,0 +1,98 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search-card">
+  <mat-card>
+    <div class="source">
+      <app-place-autocomplete
+        class="input-field"
+        placeholder="Source"
+        (placeChange)="handleSourceChange($event)"
+        (IsValid)="handleInvalidSource($event)"
+        [value]="sourceName"
+      ></app-place-autocomplete>
+    </div>
+    <div class="destination">
+      <app-place-autocomplete
+        class="input-field"
+        placeholder="Destination"
+        (placeChange)="handleDestinationChange($event)"
+        (IsValid)="handleInvalidDestination($event)"
+        [value]="destinationName"
+      ></app-place-autocomplete>
+    </div>
+    <span class="date-time">
+      <span>
+        <mat-form-field class="date input-field" appearance="outline">
+          <mat-label>Date</mat-label>
+          <input
+            matInput
+            style="width: 100%; cursor: pointer;"
+            [matDatepicker]="myDatepicker"
+            (dateChange)="handleDateSet($event)"
+            [value]="tripDate"
+            [min]="getMinDate()"
+            (focus)="myDatepicker.open()"
+            readonly
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="myDatepicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker></mat-datepicker>
+        </mat-form-field>
+      </span>
+      <span>
+        <mat-form-field class="time input-field" appearance="outline">
+          <mat-label>Time</mat-label>
+          <input
+            matInput
+            style="width: 100%; cursor: pointer;"
+            [ngxTimepicker]="endTime"
+            [format]="12"
+            [min]="getMinTime() | date: 'h:mm a'"
+            [value]="getMinDate() | date: 'h:mm a'"
+            readonly
+          />
+          <mat-icon matSuffix style="color: gray">access_time</mat-icon>
+        </mat-form-field>
+
+        <ngx-material-timepicker
+          (timeSet)="handleTimeSet($event)"
+          #endTime
+          [theme]="timePickerThemeService.darkTheme"
+        ></ngx-material-timepicker>
+      </span>
+      <button
+        class="button"
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="!sourceValid || !destinationValid || isDuplicatePlace || invalidDepartureDateTimeError"
+      >
+        Go
+      </button>
+    </span>
+    <hr/>
+    <mat-form-field class="mileage input-field" appearance="outline">
+      <mat-label>Mileage of your vehicle (in kmpl)</mat-label>
+      <input
+        matInput
+        placeholder="Enter Mileage(Km/l)"
+        formControlName="mileage"
+        (change)="onMileageChange($event)"
+      />
+      <mat-error *ngIf="searchForm.controls['mileage'].errors?.required"
+      >Mileage is required
+      </mat-error
+      >
+      <mat-error *ngIf="searchForm.controls['mileage'].errors?.pattern"
+      >Mileage should be in the range 10-999
+      </mat-error
+      >
+    </mat-form-field>
+    <p style="color: red;" *ngIf="isDuplicatePlace">
+      Source and Destination cannot be same
+    </p>
+    <p style="color: red;" *ngIf="invalidDepartureDateTimeError">
+      Time can't be less than current time.
+    </p>
+  </mat-card>
+</form>

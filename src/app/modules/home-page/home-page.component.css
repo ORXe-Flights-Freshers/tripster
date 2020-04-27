@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+.full-height {
+  height: 100vh;
+}
+
+.container {
+  position: absolute;
+  width: 100%;
+
+  background-color: rgb(238, 238, 238);
+}
+
+img,
+.img-background {
+  position: absolute;
+  padding: 0;
+  height: 266px;
+  width: 100%;
+}
+
+img {
+  opacity: 0.9;
+}
+
+.img-background {
+  background-color: var(--main-theme-color);
+}
+
+@media screen and (max-width: 1300px) and (min-width: 600px) {
+  img,
+  .img-background {
+    height: 356px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  img,
+  .img-background {
+    height: 340px;
+  }
+}
+
+.info {
+  position: relative;
+  width: 100%;
+}
+
+.tagline {
+  color: white;
+  width: fit-content;
+
+  letter-spacing: 1px;
+
+  margin: 100px auto auto;
+}
+
+@media screen and (max-width: 600px) {
+  .tagline {
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .info {
+    position: relative;
+    width: 80%;
+
+    margin: auto;
+  }
+}
+
+.popular-trips {
+  width: 80%;
+  height: 300px;
+
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 50px;
+
+  overflow: hidden;
+}
+
+.popular-trips .text {
+  font-size: 18px;
+}
+
+.popular-trips .trips {
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.popular-trips .trip-list {
+  position: relative;
+  flex-direction: row;
+
+  width: 100%;
+  min-width: 850px;
+
+  margin-top: 20px;
+}
+
+.popular-trips .trip-list .trip {
+  display: inline-block;
+  width: 25%;
+  min-width: 200px;
+  height: 250px;
+
+  background-color: white;
+
+  border: 1px solid rgb(199, 199, 199);
+  border-radius: 10px;
+
+  overflow: hidden;
+}

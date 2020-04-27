@@ -1,0 +1,43 @@
+<form [formGroup]="autoCompleteFormGroup">
+  <mat-form-field appearance="outline">
+    <mat-label>{{ placeholder }}</mat-label>
+    <input
+      matInput
+      type="text"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      formControlName="inputPlace"
+      (keyup)="KeyPress($event)"
+      [errorStateMatcher]="ErrorMatcher"
+      [placeholder]="placeholder"
+      [formControl]="searchControl"
+      [matAutocomplete]="auto"
+      #place
+      [value]="value"
+    />
+    <!-- <input
+      matInput
+      [placeholder]="placeholder"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      type="text"
+      #search
+      formControlName="inputPlace"
+      (keyup)="KeyPress($event)"
+      [errorStateMatcher]="ErrorMatcher"
+    /> -->
+    <mat-icon matSuffix>location_on</mat-icon>
+    <mat-error *ngIf="!validPlace"> {{errorMessage}} </mat-error>
+  </mat-form-field>
+  <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="onPlaceSelected($event.option.value)"
+      [displayWith]="predictionDescriptionMapper"
+  >
+    <mat-option *ngFor="let prediction of predictions" [value]="prediction">
+      {{ prediction.description }}
+    </mat-option>
+  </mat-autocomplete>
+</form>
